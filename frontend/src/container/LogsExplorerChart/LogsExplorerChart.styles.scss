@@ -1,0 +1,12 @@
+.logs-frequency-chart-container {
+	height: 200px;
+	min-height: 200px;
+	border-bottom: 1px solid var(--l1-border);
+
+	.logs-frequency-chart-loading {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}

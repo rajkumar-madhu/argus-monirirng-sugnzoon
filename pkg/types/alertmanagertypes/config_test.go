@@ -1,0 +1,530 @@
+package alertmanagertypes
+
+import (
+	"encoding/json"
+	"net/url"
+	"testing"
+	"time"
+
+	"github.com/prometheus/alertmanager/config"
+	"github.com/prometheus/common/model"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+)
+
+func TestCreateRuleIDMatcher(t *testing.T) {
+	testCases := []struct {
+		name              string
+		orgID             string
+		receivers         []config.Receiver
+		ruleIDToReceivers []map[string][]string
+		expectedRoutes    []map[string]any
+	}{
+		{
+			name:  "OneSlackReceiver",
+			orgID: "1",
+			receivers: []config.Receiver{
+				{
+					Name: "slack-receiver",
+					SlackConfigs: []*config.SlackConfig{
+						{
+							Channel: "#alerts",
+							APIURL:  &config.SecretURL{URL: &url.URL{Scheme: "https", Host: "slack.com", Path: "/api/test"}},
+						},
+					},
+				},
+			},
+			ruleIDToReceivers: []map[string][]string{{"test-rule": {"slack-receiver"}}},
+			expectedRoutes:    []map[string]any{{"receiver": "slack-receiver", "continue": true, "matchers": []any{"ruleId=~\"-1|test-rule\""}}},
+		},
+		{
+			name:  "SlackAndEmailReceivers",
+			orgID: "1",
+			receivers: []config.Receiver{
+				{
+					Name: "slack-receiver",
+					SlackConfigs: []*config.SlackConfig{
+						{
+							Channel: "#alerts",
+							APIURL:  &config.SecretURL{URL: &url.URL{Scheme: "https", Host: "slack.com", Path: "/api/test"}},
+						},
+					},
+				},
+				{
+					Name: "email-receiver",
+					EmailConfigs: []*config.EmailConfig{
+						{
+							To: "test@example.com",
+						},
+					},
+				},
+			},
+			ruleIDToReceivers: []map[string][]string{{"test-rule": {"slack-receiver", "email-receiver"}}},
+			expectedRoutes:    []map[string]any{{"receiver": "slack-receiver", "continue": true, "matchers": []any{"ruleId=~\"-1|test-rule\""}}, {"receiver": "email-receiver", "continue": true, "matchers": []any{"ruleId=~\"-1|test-rule\""}}},
+		},
+		{
+			name:  "ReceiverDoesNotExist",
+			orgID: "1",
+			receivers: []config.Receiver{
+				{
+					Name: "slack-receiver",
+					SlackConfigs: []*config.SlackConfig{
+						{
+							Channel: "#alerts",
+							APIURL:  &config.SecretURL{URL: &url.URL{Scheme: "https", Host: "slack.com", Path: "/api/test"}},
+						},
+					},
+				},
+			},
+			ruleIDToReceivers: []map[string][]string{{"test-rule": {"does-not-exist"}}},
+			expectedRoutes:    []map[string]any{{"receiver": "slack-receiver", "continue": true, "matchers": []any{"ruleId=~\"-1\""}}},
+		},
+		{
+			name:  "MultipleAlertsOnOneSlackReceiver",
+			orgID: "1",
+			receivers: []config.Receiver{
+				{
+					Name: "slack-receiver",
+					SlackConfigs: []*config.SlackConfig{
+						{
+							Channel: "#alerts",
+							APIURL:  &config.SecretURL{URL: &url.URL{Scheme: "https", Host: "slack.com", Path: "/api/test"}},
+						},
+					},
+				},
+			},
+			ruleIDToReceivers: []map[string][]string{{"test-rule-1": {"slack-receiver", "does-not-exist"}}, {"test-rule-2": {"slack-receiver"}}},
+			expectedRoutes:    []map[string]any{{"receiver": "slack-receiver", "continue": true, "matchers": []any{"ruleId=~\"-1|test-rule-1|test-rule-2\""}}},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			cfg, err := NewDefaultConfig(
+				GlobalConfig{SMTPSmarthost: config.HostPort{Host: "localhost", Port: "25"}, SMTPFrom: "test@example.com"},
+				RouteConfig{GroupInterval: 1 * time.Minute, GroupWait: 1 * time.Minute, RepeatInterval: 1 * time.Minute},
+				tc.orgID,
+			)
+			require.NoError(t, err)
+
+			for _, receiver := range tc.receivers {
+				err := cfg.CreateReceiver(&Receiver{Receiver: &receiver})
+				require.NoError(t, err)
+			}
+
+			for _, ruleIDToReceiversMap := range tc.ruleIDToReceivers {
+				for ruleId, receiverNames := range ruleIDToReceiversMap {
+					err = cfg.CreateRuleIDMatcher(ruleId, receiverNames)
+					assert.NoError(t, err)
+				}
+
+			}
+
+			routes, err := json.Marshal(cfg.alertmanagerConfig.Route.Routes)
+			require.NoError(t, err)
+			var actualRoutes []map[string]any
+			err = json.Unmarshal(routes, &actualRoutes)
+			require.NoError(t, err)
+			assert.ElementsMatch(t, tc.expectedRoutes, actualRoutes)
+		})
+	}
+}
+
+func TestDeleteRuleIDMatcher(t *testing.T) {
+	testCases := []struct {
+		name              string
+		orgID             string
+		receivers         []config.Receiver
+		ruleIDToReceivers map[string][]string
+		ruleIDsToDelete   []string
+		expectedRoutes    []map[string]any
+	}{
+		{
+			name:  "DeleteEmailAndSlackMatchers",
+			orgID: "1",
+			receivers: []config.Receiver{
+				{
+					Name: "slack-receiver",
+					SlackConfigs: []*config.SlackConfig{
+						{
+							Channel: "#alerts",
+							APIURL:  &config.SecretURL{URL: &url.URL{Scheme: "https", Host: "slack.com", Path: "/api/test"}},
+						},
+					},
+				},
+				{
+					Name: "email-receiver",
+					EmailConfigs: []*config.EmailConfig{
+						{
+							To: "test@example.com",
+						},
+					},
+				},
+			},
+			ruleIDToReceivers: map[string][]string{"test-rule": {"email-receiver", "slack-receiver"}},
+			ruleIDsToDelete:   []string{"test-rule"},
+			expectedRoutes:    []map[string]any{{"receiver": "slack-receiver", "continue": true, "matchers": []any{"ruleId=~\"-1\""}}, {"receiver": "email-receiver", "continue": true, "matchers": []any{"ruleId=~\"-1\""}}},
+		},
+		{
+			name:  "RuleIDDoesNotExist",
+			orgID: "1",
+			receivers: []config.Receiver{
+				{
+					Name: "slack-receiver",
+					SlackConfigs: []*config.SlackConfig{
+						{
+							Channel: "#alerts",
+							APIURL:  &config.SecretURL{URL: &url.URL{Scheme: "https", Host: "slack.com", Path: "/api/test"}},
+						},
+					},
+				},
+				{
+					Name: "email-receiver",
+					EmailConfigs: []*config.EmailConfig{
+						{
+							To: "test@example.com",
+						},
+					},
+				},
+			},
+			ruleIDToReceivers: map[string][]string{"test-rule": {"email-receiver", "slack-receiver"}},
+			ruleIDsToDelete:   []string{"does-not-exist"},
+			expectedRoutes:    []map[string]any{{"receiver": "slack-receiver", "continue": true, "matchers": []any{"ruleId=~\"-1|test-rule\""}}, {"receiver": "email-receiver", "continue": true, "matchers": []any{"ruleId=~\"-1|test-rule\""}}},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			cfg, err := NewDefaultConfig(
+				GlobalConfig{SMTPSmarthost: config.HostPort{Host: "localhost", Port: "25"}, SMTPFrom: "test@example.com"},
+				RouteConfig{GroupInterval: 1 * time.Minute, GroupWait: 1 * time.Minute, RepeatInterval: 1 * time.Minute},
+				tc.orgID,
+			)
+			require.NoError(t, err)
+
+			for _, receiver := range tc.receivers {
+				err := cfg.CreateReceiver(&Receiver{Receiver: &receiver})
+				require.NoError(t, err)
+			}
+
+			for ruleID, receiverNames := range tc.ruleIDToReceivers {
+				err = cfg.CreateRuleIDMatcher(ruleID, receiverNames)
+				require.NoError(t, err)
+			}
+
+			for _, ruleID := range tc.ruleIDsToDelete {
+				err = cfg.DeleteRuleIDMatcher(ruleID)
+				assert.NoError(t, err)
+			}
+
+			routes, err := json.Marshal(cfg.alertmanagerConfig.Route.Routes)
+			require.NoError(t, err)
+			var actualRoutes []map[string]any
+			err = json.Unmarshal(routes, &actualRoutes)
+			require.NoError(t, err)
+			assert.ElementsMatch(t, tc.expectedRoutes, actualRoutes)
+		})
+	}
+}
+
+func TestSetRouteConfigWithNilRoute(t *testing.T) {
+	cfg := NewConfig(&config.Config{}, "1")
+	err := cfg.SetRouteConfig(RouteConfig{GroupByStr: []string{"alertname"}, GroupInterval: 1 * time.Minute, GroupWait: 1 * time.Minute, RepeatInterval: 1 * time.Minute})
+	require.NoError(t, err)
+
+	assert.NotNil(t, cfg.alertmanagerConfig.Route)
+	assert.Equal(t, DefaultReceiverName, cfg.alertmanagerConfig.Route.Receiver)
+	assert.Equal(t, []string{"alertname"}, cfg.alertmanagerConfig.Route.GroupByStr)
+	assert.Equal(t, model.Duration(1*time.Minute), *cfg.alertmanagerConfig.Route.GroupInterval)
+	assert.Equal(t, model.Duration(1*time.Minute), *cfg.alertmanagerConfig.Route.GroupWait)
+	assert.Equal(t, model.Duration(1*time.Minute), *cfg.alertmanagerConfig.Route.RepeatInterval)
+}
+
+func TestSetRouteConfigWithNonNilRoute(t *testing.T) {
+	cfg := NewConfig(&config.Config{Route: &config.Route{Receiver: "test-receiver"}}, "1")
+	err := cfg.SetRouteConfig(RouteConfig{GroupByStr: []string{"testgroupby"}, GroupInterval: 5 * time.Minute, GroupWait: 5 * time.Minute, RepeatInterval: 5 * time.Minute})
+	require.NoError(t, err)
+
+	assert.NotNil(t, cfg.alertmanagerConfig.Route)
+	assert.Equal(t, "test-receiver", cfg.alertmanagerConfig.Route.Receiver)
+	assert.Equal(t, []string{"testgroupby"}, cfg.alertmanagerConfig.Route.GroupByStr)
+	assert.Equal(t, model.Duration(5*time.Minute), *cfg.alertmanagerConfig.Route.GroupInterval)
+	assert.Equal(t, model.Duration(5*time.Minute), *cfg.alertmanagerConfig.Route.GroupWait)
+	assert.Equal(t, model.Duration(5*time.Minute), *cfg.alertmanagerConfig.Route.RepeatInterval)
+}
+
+func TestUTF8Validation(t *testing.T) {
+	testCases := []struct {
+		name  string
+		label string
+		pass  bool
+	}{
+		{
+			name:  "DotLabel",
+			label: "a.b.c",
+			pass:  true,
+		},
+		{
+			name:  "UnderscoreLabel",
+			label: "a_b_c",
+			pass:  true,
+		},
+		{
+			name:  "DashLabel",
+			label: "a-b-c",
+			pass:  true,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			assert.Equal(t, tc.pass, model.ValidationScheme.IsValidLabelName(model.UTF8Validation, tc.label))
+		})
+	}
+}
+
+func TestNewDefaultConfigPreservesSMTPRequireTLS(t *testing.T) {
+	testCases := []struct {
+		name         string
+		globalConfig GlobalConfig
+		expect       bool
+	}{
+		{"False", GlobalConfig{SMTPRequireTLS: false}, false},
+		{"True", GlobalConfig{SMTPRequireTLS: true}, true},
+	}
+
+	for _, tt := range testCases {
+		t.Run(tt.name, func(t *testing.T) {
+			global := tt.globalConfig
+			route := RouteConfig{
+				GroupInterval:  time.Minute,
+				GroupWait:      time.Minute,
+				RepeatInterval: time.Minute,
+			}
+			cfg, err := NewDefaultConfig(global, route, "1")
+
+			require.NoError(t, err)
+			assert.Equal(t, tt.expect, cfg.alertmanagerConfig.Global.SMTPRequireTLS)
+		})
+	}
+}
+
+func TestSetGlobalConfigPreservesSMTPRequireTLS(t *testing.T) {
+	testCases := []struct {
+		name         string
+		globalConfig GlobalConfig
+		expect       bool
+	}{
+		{"False", GlobalConfig{SMTPRequireTLS: false}, false},
+		{"True", GlobalConfig{SMTPRequireTLS: true}, true},
+	}
+
+	for _, tt := range testCases {
+		t.Run(tt.name, func(t *testing.T) {
+			c := NewConfig(&config.Config{}, "1")
+			global := tt.globalConfig
+			err := c.SetGlobalConfig(global)
+			require.NoError(t, err)
+			assert.Equal(t, tt.expect, c.alertmanagerConfig.Global.SMTPRequireTLS)
+		})
+	}
+}
+
+func newSMTPGlobalConfig() GlobalConfig {
+	return GlobalConfig{
+		SMTPFrom:         "alerts@example.com",
+		SMTPHello:        "example.com",
+		SMTPSmarthost:    config.HostPort{Host: "smtp.sendgrid.net", Port: "587"},
+		SMTPAuthUsername: "apikey",
+		SMTPAuthPassword: "operator-secret",
+		SMTPRequireTLS:   true,
+	}
+}
+
+func newEmailTestConfig(t *testing.T) *Config {
+	t.Helper()
+
+	cfg, err := NewDefaultConfig(
+		newSMTPGlobalConfig(),
+		RouteConfig{GroupInterval: time.Minute, GroupWait: time.Minute, RepeatInterval: time.Minute},
+		"1",
+	)
+	require.NoError(t, err)
+
+	receiver, err := NewReceiver(`{"name":"email-receiver","email_configs":[{"to":"team@example.com"}]}`)
+	require.NoError(t, err)
+	require.NoError(t, cfg.CreateReceiver(receiver))
+
+	return cfg
+}
+
+func TestStoreableConfigCarriesNoSMTPSettings(t *testing.T) {
+	cfg := newEmailTestConfig(t)
+
+	raw := cfg.StoreableConfig().Config
+	assert.NotContains(t, raw, "operator-secret")
+	assert.NotContains(t, raw, "smtp.sendgrid.net")
+	assert.NotContains(t, raw, "apikey")
+	assert.NotContains(t, raw, "alerts@example.com")
+
+	assert.Equal(t, "operator-secret", string(cfg.alertmanagerConfig.Global.SMTPAuthPassword))
+}
+
+func TestStoreableConfigCarriesNoGlobal(t *testing.T) {
+	cfg := newEmailTestConfig(t)
+
+	stored := map[string]json.RawMessage{}
+	require.NoError(t, json.Unmarshal([]byte(cfg.StoreableConfig().Config), &stored))
+	assert.NotContains(t, stored, "global")
+}
+
+func TestSetGlobalConfigDoesNotChangeStoreableHash(t *testing.T) {
+	cfg := newEmailTestConfig(t)
+	hash := cfg.StoreableConfig().Hash
+
+	require.NoError(t, cfg.SetGlobalConfig(GlobalConfig{SMTPSmarthost: config.HostPort{Host: "smtp.other.net", Port: "2525"}, SMTPAuthPassword: "rotated-secret"}))
+
+	assert.Equal(t, hash, cfg.StoreableConfig().Hash)
+	assert.NotContains(t, cfg.StoreableConfig().Config, "rotated-secret")
+}
+
+func TestNewConfigFromStoreableConfigDiscardsStoredGlobal(t *testing.T) {
+	stored := &StoreableConfig{
+		Config: `{"global":{"resolve_timeout":"5m","smtp_smarthost":"email-smtp.us-east-1.amazonaws.com:587","smtp_auth_password":"old-secret","slack_api_url":"https://hooks.slack.com/services/T/B/X"},"route":{"receiver":"default-receiver"},"receivers":[{"name":"default-receiver"}]}`,
+		OrgID:  "1",
+	}
+
+	cfg, err := NewConfigFromStoreableConfig(stored)
+	require.NoError(t, err)
+
+	assert.Equal(t, &config.GlobalConfig{}, cfg.alertmanagerConfig.Global)
+}
+
+func TestResolvedFillsEmailTransportFromGlobal(t *testing.T) {
+	cfg := newEmailTestConfig(t)
+
+	resolved, err := cfg.Resolved()
+	require.NoError(t, err)
+
+	receiver, err := resolved.GetReceiver("email-receiver")
+	require.NoError(t, err)
+	require.Len(t, receiver.EmailConfigs, 1)
+
+	got := receiver.EmailConfigs[0]
+	assert.Equal(t, "team@example.com", got.To)
+	assert.Equal(t, "smtp.sendgrid.net:587", got.Smarthost.String())
+	assert.Equal(t, "alerts@example.com", got.From)
+	assert.Equal(t, "apikey", got.AuthUsername)
+	assert.Equal(t, "operator-secret", string(got.AuthPassword))
+	require.NotNil(t, got.RequireTLS)
+	assert.True(t, *got.RequireTLS)
+
+	stored, err := cfg.GetReceiver("email-receiver")
+	require.NoError(t, err)
+	assert.Empty(t, stored.EmailConfigs[0].Smarthost.String())
+	assert.NotContains(t, cfg.StoreableConfig().Config, "operator-secret")
+}
+
+func TestStaleStoredSMTPSettingsAreReplacedOnLoad(t *testing.T) {
+	stored := &StoreableConfig{
+		Config: `{"global":{"resolve_timeout":"5m","smtp_from":"old@example.com","smtp_hello":"localhost","smtp_smarthost":"email-smtp.us-east-1.amazonaws.com:587","smtp_auth_username":"old-user","smtp_auth_password":"old-secret","smtp_require_tls":true},"route":{"receiver":"default-receiver","group_by":["ruleId"],"routes":[{"receiver":"email-receiver","continue":true,"matchers":["ruleId=~\"-1\""]}],"group_wait":"30s","group_interval":"5m","repeat_interval":"4h"},"receivers":[{"name":"default-receiver"},{"name":"email-receiver","email_configs":[{"send_resolved":false,"to":"team@example.com","from":"old@example.com","hello":"localhost","smarthost":"email-smtp.us-east-1.amazonaws.com:587","auth_username":"old-user","auth_password":"old-secret","require_tls":true}]}]}`,
+		OrgID:  "1",
+	}
+
+	cfg, err := NewConfigFromStoreableConfig(stored)
+	require.NoError(t, err)
+
+	loaded, err := cfg.GetReceiver("email-receiver")
+	require.NoError(t, err)
+	require.Len(t, loaded.EmailConfigs, 1)
+	assert.Empty(t, loaded.EmailConfigs[0].Smarthost.String())
+	assert.Empty(t, string(loaded.EmailConfigs[0].AuthPassword))
+
+	require.NoError(t, cfg.SetGlobalConfig(newSMTPGlobalConfig()))
+
+	resolved, err := cfg.Resolved()
+	require.NoError(t, err)
+
+	receiver, err := resolved.GetReceiver("email-receiver")
+	require.NoError(t, err)
+	got := receiver.EmailConfigs[0]
+	assert.Equal(t, "smtp.sendgrid.net:587", got.Smarthost.String())
+	assert.Equal(t, "operator-secret", string(got.AuthPassword))
+	assert.Equal(t, "alerts@example.com", got.From)
+
+	assert.NotContains(t, cfg.StoreableConfig().Config, "old-secret")
+	assert.NotContains(t, cfg.StoreableConfig().Config, "amazonaws.com")
+	assert.NotContains(t, cfg.StoreableConfig().Config, "operator-secret")
+}
+
+func TestCreateReceiverDoesNotMutateCaller(t *testing.T) {
+	cfg := newEmailTestConfig(t)
+
+	resolved, err := cfg.Resolved()
+	require.NoError(t, err)
+	receiver, err := resolved.GetReceiver("email-receiver")
+	require.NoError(t, err)
+	require.Equal(t, "smtp.sendgrid.net:587", receiver.EmailConfigs[0].Smarthost.String())
+
+	throwaway, err := cfg.CopyWithReset()
+	require.NoError(t, err)
+	require.NoError(t, throwaway.CreateReceiver(receiver))
+
+	assert.Equal(t, "smtp.sendgrid.net:587", receiver.EmailConfigs[0].Smarthost.String())
+	assert.Equal(t, "operator-secret", string(receiver.EmailConfigs[0].AuthPassword))
+}
+
+// Round-trip: create → serialize → reload → GetReceiver still has the configs.
+func TestConfigPreservesGoogleChatConfigs(t *testing.T) {
+	webhookURL, err := url.Parse("https://chat.googleapis.com/v1/spaces/test/messages")
+	require.NoError(t, err)
+
+	cfg, err := NewDefaultConfig(
+		GlobalConfig{SMTPSmarthost: config.HostPort{Host: "localhost", Port: "25"}, SMTPFrom: "test@example.com"},
+		RouteConfig{GroupInterval: time.Minute, GroupWait: time.Minute, RepeatInterval: time.Minute},
+		"1",
+	)
+	require.NoError(t, err)
+
+	receiver := &Receiver{
+		Receiver: &config.Receiver{Name: "googlechat-receiver"},
+		GoogleChatConfigs: []*GoogleChatReceiverConfig{
+			{
+				WebhookURL: &config.SecretURL{URL: webhookURL},
+				Title:      "Alert",
+				Text:       "Body",
+			},
+		},
+	}
+
+	require.NoError(t, cfg.CreateReceiver(receiver))
+
+	got, err := cfg.GetReceiver("googlechat-receiver")
+	require.NoError(t, err)
+	require.Len(t, got.GoogleChatConfigs, 1)
+	assert.Equal(t, "Alert", got.GoogleChatConfigs[0].Title)
+	assert.Equal(t, "Body", got.GoogleChatConfigs[0].Text)
+
+	// HTTPConfig threaded from Global by applyNativeDefaults.
+	require.NotNil(t, got.GoogleChatConfigs[0].HTTPConfig)
+	assert.Same(t, cfg.alertmanagerConfig.Global.HTTPConfig, got.GoogleChatConfigs[0].HTTPConfig)
+
+	reloaded, err := NewConfigFromStoreableConfig(cfg.StoreableConfig())
+	require.NoError(t, err)
+
+	reloadedReceiver, err := reloaded.GetReceiver("googlechat-receiver")
+	require.NoError(t, err)
+	require.Len(t, reloadedReceiver.GoogleChatConfigs, 1)
+	assert.Equal(t, "Alert", reloadedReceiver.GoogleChatConfigs[0].Title)
+	assert.Equal(t, "Body", reloadedReceiver.GoogleChatConfigs[0].Text)
+	assert.Equal(t, "https://chat.googleapis.com/v1/spaces/test/messages", reloadedReceiver.GoogleChatConfigs[0].WebhookURL.String())
+	require.NotNil(t, reloadedReceiver.GoogleChatConfigs[0].HTTPConfig)
+
+	receiver.GoogleChatConfigs[0].Title = "Updated"
+	require.NoError(t, cfg.UpdateReceiver(receiver))
+
+	updated, err := cfg.GetReceiver("googlechat-receiver")
+	require.NoError(t, err)
+	require.Len(t, updated.GoogleChatConfigs, 1)
+	assert.Equal(t, "Updated", updated.GoogleChatConfigs[0].Title)
+}

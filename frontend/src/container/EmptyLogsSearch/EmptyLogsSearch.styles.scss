@@ -1,0 +1,173 @@
+.empty-logs-search {
+	&__container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 240px;
+	}
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		color: var(--l2-foreground);
+		font-family: Inter;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 18px;
+		letter-spacing: -0.07px;
+		align-items: flex-start;
+		.empty-state-svg {
+			height: 50px;
+			width: 50px;
+		}
+	}
+	&__sub-text {
+		font-weight: 600;
+	}
+
+	&__container {
+		&--custom-message {
+			height: 445px;
+			.empty-state-svg {
+				height: 32px;
+				width: 32px;
+			}
+			.empty-logs-search {
+				&__header {
+					display: flex;
+					align-items: center;
+					gap: 4px;
+				}
+
+				&__title {
+					color: var(--l1-foreground);
+					font-size: var(--periscope-font-size-base);
+					font-weight: 500;
+					line-height: 20px;
+					letter-spacing: -0.07px;
+				}
+
+				&__subtitle {
+					color: var(--l2-foreground);
+					font-size: var(--periscope-font-size-base);
+					font-weight: 400;
+					line-height: 20px;
+					letter-spacing: -0.07px;
+				}
+
+				&__description {
+					font-size: var(--periscope-font-size-base);
+					color: var(--l2-foreground);
+					line-height: 20px;
+				}
+
+				&__description-list {
+					margin: 0;
+					margin-top: 8px;
+					color: var(--l2-foreground);
+					font-size: var(--periscope-font-size-base);
+					font-weight: 400;
+					line-height: 20px;
+					letter-spacing: -0.07px;
+					display: flex;
+					flex-direction: column;
+					gap: 6px;
+					list-style: none;
+					padding: 0;
+					font-family: Inter;
+				}
+
+				&__description-list li {
+					position: relative;
+					padding-left: 20px;
+				}
+
+				&__description-list li::before {
+					content: '⎯';
+					font-family: Inter;
+					position: absolute;
+					left: 0;
+					color: var(--bg-robin-400);
+					font-weight: bold;
+					font-size: 16px;
+					line-height: 20px;
+				}
+
+				&__clear-filters-btn {
+					display: flex;
+					width: 468px;
+					font-family: Inter;
+					padding: 12px;
+					justify-content: space-between;
+					align-items: flex-start;
+					border-radius: 3px;
+					border: 1px dashed var(--l1-border);
+					background: transparent;
+					color: var(--l2-foreground);
+					font-size: var(--periscope-font-size-base);
+					font-weight: 400;
+					line-height: 18px;
+					letter-spacing: -0.07px;
+					cursor: pointer;
+					margin-top: 12px;
+				}
+
+				&__clear-filters-btn-icon {
+					display: flex;
+					align-items: center;
+					gap: 6px;
+				}
+
+				// Stack the message and the resources card; card matches the content
+				// width above it and is capped so it doesn't sprawl in a wide panel.
+				&__row {
+					display: flex;
+					flex-direction: column;
+					align-items: stretch;
+					gap: 16px;
+					width: fit-content;
+					max-width: 600px;
+				}
+
+				&__content {
+					display: flex;
+					flex-direction: column;
+					gap: 4px;
+					min-width: 260px;
+				}
+
+				&__resources-card {
+					background: var(--l2-background);
+					border: 1px solid var(--l1-border);
+					border-radius: 4px;
+					width: 100%; // match the content width above
+				}
+
+				&__resources-title {
+					color: var(--l2-foreground);
+					font-family: Inter;
+					font-size: 11px;
+					font-weight: 600;
+					line-height: 18px;
+					letter-spacing: 0.88px;
+					text-transform: uppercase;
+					padding: 16px 16px 12px;
+					border-bottom: 1px solid var(--l1-border);
+				}
+
+				&__resources-links {
+					padding: 16px;
+					display: flex;
+					flex-direction: column;
+					gap: 16px;
+
+					.learn-more {
+						height: 18px;
+					}
+				}
+			}
+		}
+	}
+}

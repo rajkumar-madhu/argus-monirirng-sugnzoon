@@ -1,0 +1,956 @@
+{
+  "schemaVersion": "v6",
+  "image": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSI4MHB4IiBoZWlnaHQ9IjgwcHgiIHZpZXdCb3g9IjAgMCA4MCA4MCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48IS0tIEdlbmVyYXRvcjogU2tldGNoIDY0ICg5MzUzNykgLSBodHRwczovL3NrZXRjaC5jb20gLS0+PHRpdGxlPkljb24tQXJjaGl0ZWN0dXJlLzY0L0FyY2hfQW1hem9uLUVsYXN0aWMtQ29udGFpbmVyLVNlcnZpY2VfNjQ8L3RpdGxlPjxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPjxkZWZzPjxsaW5lYXJHcmFkaWVudCB4MT0iMCUiIHkxPSIxMDAlIiB4Mj0iMTAwJSIgeTI9IjAlIiBpZD0ibGluZWFyR3JhZGllbnQtMSI+PHN0b3Agc3RvcC1jb2xvcj0iI0M4NTExQiIgb2Zmc2V0PSIwJSI+PC9zdG9wPjxzdG9wIHN0b3AtY29sb3I9IiNGRjk5MDAiIG9mZnNldD0iMTAwJSI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIGlkPSJJY29uLUFyY2hpdGVjdHVyZS82NC9BcmNoX0FtYXpvbi1FbGFzdGljLUNvbnRhaW5lci1TZXJ2aWNlXzY0IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBpZD0iSWNvbi1BcmNoaXRlY3R1cmUtQkcvNjQvQ29udGFpbmVycyIgZmlsbD0idXJsKCNsaW5lYXJHcmFkaWVudC0xKSI+PHJlY3QgaWQ9IlJlY3RhbmdsZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIj48L3JlY3Q+PC9nPjxwYXRoIGQ9Ik02NCw0OC4yMzQwMDk1IEw1Niw0My40MzMwMTE3IEw1NiwzMi4wMDAwMTY5IEM1NiwzMS42NDQwMTcxIDU1LjgxMiwzMS4zMTUwMTcyIDU1LjUwNCwzMS4xMzYwMTczIEw0NCwyNC40MjYwMjA0IEw0NCwxNC43NTIwMjQ4IEw2NCwyNi41NzEwMTk0IEw2NCw0OC4yMzQwMDk1IFogTTY1LjUwOSwyNS4xMzkwMiBMNDMuNTA5LDEyLjEzOTAyNiBDNDMuMTk5LDExLjk1NjAyNjEgNDIuODE4LDExLjk1NDAyNjEgNDIuNTA0LDEyLjEzMTAyNiBDNDIuMTkzLDEyLjMwOTAyNTkgNDIsMTIuNjQxMDI1NyA0MiwxMy4wMDAwMjU2IEw0MiwyNS4wMDAwMjAxIEM0MiwyNS4zNTUwMTk5IDQyLjE4OSwyNS42ODQwMTk4IDQyLjQ5NiwyNS44NjQwMTk3IEw1NCwzMi41NzQwMTY2IEw1NCw0NC4wMDAwMTE0IEM1NCw0NC4zNTEwMTEzIDU0LjE4NSw0NC42NzcwMTExIDU0LjQ4Niw0NC44NTcwMTEgTDY0LjQ4Niw1MC44NTcwMDgzIEM2NC42NDQsNTAuOTUyMDA4MiA2NC44MjIsNTEgNjUsNTEgQzY1LjE3LDUxIDY1LjM0LDUwLjk1NzAwODIgNjUuNDkzLDUwLjg3MDAwODMgQzY1LjgwNyw1MC42OTMwMDg0IDY2LDUwLjM2MDAwODUgNjYsNTAgTDY2LDI2LjAwMDAxOTYgQzY2LDI1LjY0NjAxOTggNjUuODE0LDI1LjMxOTAyIDY1LjUwOSwyNS4xMzkwMiBMNjUuNTA5LDI1LjEzOTAyIFogTTQwLjQ0NSw2Ni44NjMwMDEgTDE3LDU0LjM5OTAwNjcgTDE3LDI2LjU3MTAxOTQgTDM3LDE0Ljc1MjAyNDggTDM3LDI0LjQ1MTAyMDQgTDI2LjQ2MywzMS4xNTYwMTczIEMyNi4xNzUsMzEuMzQwMDE3MiAyNiwzMS42NTgwMTcxIDI2LDMyLjAwMDAxNjkgTDI2LDQ5LjAwMDAwOTEgQzI2LDQ5LjM3MzAwOSAyNi4yMDgsNDkuNzE1MDA4OCAyNi41MzgsNDkuODg3MDA4NyBMMzkuOTkxLDU2Ljg4NzAwNTUgQzQwLjI4LDU3LjAzNzAwNTUgNDAuNjI0LDU3LjAzODAwNTUgNDAuOTEyLDU2Ljg4ODAwNTUgTDUzLjk2NCw1MC4xNDQwMDg2IEw2MS45OTYsNTQuOTY0MDA2NCBMNDAuNDQ1LDY2Ljg2MzAwMSBaIE02NC41MTUsNTQuMTQyMDA2OCBMNTQuNTE1LDQ4LjE0MjAwOTUgQzU0LjIxNyw0Ny45NjQwMDk2IDUzLjg0OSw0Ny45NTIwMDk2IDUzLjU0MSw0OC4xMTIwMDk1IEw0MC40NTUsNTQuODczMDA2NSBMMjgsNDguMzkzMDA5NCBMMjgsMzIuNTQ5MDE2NyBMMzguNTM3LDI1Ljg0NDAxOTcgQzM4LjgyNSwyNS42NjAwMTk4IDM5LDI1LjM0MjAxOTkgMzksMjUuMDAwMDIwMSBMMzksMTMuMDAwMDI1NiBDMzksMTIuNjQxMDI1NyAzOC44MDgsMTIuMzA5MDI1OSAzOC40OTYsMTIuMTMxMDI2IEMzOC4xODQsMTEuOTU0MDI2MSAzNy44MDIsMTEuOTU2MDI2MSAzNy40OTEsMTIuMTM5MDI2IEwxNS40OTEsMjUuMTM5MDIgQzE1LjE4NywyNS4zMTkwMiAxNSwyNS42NDYwMTk4IDE1LDI2LjAwMDAxOTYgTDE1LDU1IEMxNSw1NS4zNjkwMDYyIDE1LjIwNCw1NS43MDkwMDYxIDE1LjUzLDU1Ljg4MzAwNiBMMzkuOTg0LDY4Ljg4MzAwMDEgQzQwLjEzMSw2OC45NjEgNDAuMjkyLDY5IDQwLjQ1Myw2OSBDNDAuNjIsNjkgNDAuNzg2LDY4Ljk1OCA0MC45MzcsNjguODc1MDAwMSBMNjQuNDg0LDU1Ljg3NTAwNiBDNjQuNzk3LDU1LjcwMjAwNjEgNjQuOTkzLDU1LjM3NTAwNjIgNjUuMDAwMTQxNiw1NS4wMTgwMDY0IEM2NS4wMDYsNTQuNjYwMDA2NiA2NC44MjEsNTQuMzI2MDA2NyA2NC41MTUsNTQuMTQyMDA2OCBMNjQuNTE1LDU0LjE0MjAwNjggWiIgaWQ9IkFtYXpvbi1FbGFzdGljLUNvbnRhaW5lci1TZXJ2aWNlX0ljb25fNjRfU3F1aWQiIGZpbGw9IiNGRkZGRkYiPjwvcGF0aD48L2c+PC9zdmc+",
+  "name": "",
+  "generateName": true,
+  "tags": [],
+  "spec": {
+    "display": {
+      "name": "ECS ContainerInsights",
+      "description": "View key ECS ContainerInsights metrics with an out of the box dashboard."
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Account",
+            "description": "AWS Account ID"
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "customAllValue": "",
+          "capturingRegexp": "",
+          "sort": "none",
+          "plugin": {
+            "kind": "signoz/QueryVariable",
+            "spec": {
+              "queryValue": "SELECT DISTINCT JSONExtractString(labels, 'cloud.account.id') AS `cloud.account.id`\nFROM signoz_metrics.distributed_time_series_v4_1day\nWHERE metric_name = 'aws_ECS_MemoryUtilization_max' GROUP BY `cloud.account.id`"
+            }
+          },
+          "name": "Account"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Region",
+            "description": "Account Region"
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "customAllValue": "",
+          "capturingRegexp": "",
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "signoz/QueryVariable",
+            "spec": {
+              "queryValue": "SELECT DISTINCT JSONExtractString(labels, 'cloud.region') AS region\nFROM signoz_metrics.distributed_time_series_v4_1day\nWHERE metric_name = 'aws_ECS_MemoryUtilization_max' AND JSONExtractString(labels, 'cloud.account.id') IN {{.Account}} GROUP BY region"
+            }
+          },
+          "name": "Region"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Cluster",
+            "description": "ECS Cluster Name"
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "customAllValue": "",
+          "capturingRegexp": "",
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "signoz/QueryVariable",
+            "spec": {
+              "queryValue": "SELECT DISTINCT JSONExtractString(labels, 'ClusterName') AS cluster\nFROM signoz_metrics.distributed_time_series_v4_1day\nWHERE metric_name like '%aws_ECS%' AND JSONExtractString(labels, 'cloud.account.id') IN {{.Account}} AND JSONExtractString(labels, 'cloud.region') IN {{.Region}}\nGROUP BY cluster"
+            }
+          },
+          "name": "Cluster"
+        }
+      }
+    ],
+    "panels": {
+      "02e56dd4-5c3d-4a17-9efb-9d250fdda4c3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Usage",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "percent",
+                "decimalPrecision": "2"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_ContainerInsights_CpuUtilized_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName IN $Cluster)"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": ""
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "268f968a-0a0f-47d5-9bf0-1095c5bd9057": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Reserved",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "percent",
+                "decimalPrecision": "2"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_ContainerInsights_MemoryReserved_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName = $Cluster)"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": ""
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "324f5c5b-d565-48fa-af80-5c722ddd4bc7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Network IO (Transmit)",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/TimeSeriesPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time",
+                "fillSpans": false
+              },
+              "formatting": {
+                "unit": "Bps",
+                "decimalPrecision": "2"
+              },
+              "chartAppearance": {
+                "lineInterpolation": "spline",
+                "showPoints": false,
+                "lineStyle": "solid",
+                "fillMode": "none",
+                "spanGaps": {
+                  "fillOnlyBelow": false,
+                  "fillLessThan": ""
+                }
+              },
+              "axes": {
+                "softMin": 0,
+                "softMax": 0,
+                "isLogScale": false
+              },
+              "legend": {
+                "position": "bottom",
+                "mode": "list",
+                "customColors": null
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "time_series",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_ContainerInsights_NetworkTxBytes_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName = $Cluster AND ServiceName EXISTS)"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "ServiceName",
+                        "signal": "",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "{{ServiceName}}"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "5bea2bc0-13a2-4937-bccb-60ffe8a43ad5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Utilization",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/TimeSeriesPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time",
+                "fillSpans": false
+              },
+              "formatting": {
+                "unit": "none",
+                "decimalPrecision": "2"
+              },
+              "chartAppearance": {
+                "lineInterpolation": "spline",
+                "showPoints": false,
+                "lineStyle": "solid",
+                "fillMode": "none",
+                "spanGaps": {
+                  "fillOnlyBelow": false,
+                  "fillLessThan": ""
+                }
+              },
+              "axes": {
+                "softMin": 0,
+                "softMax": 0,
+                "isLogScale": false
+              },
+              "legend": {
+                "position": "bottom",
+                "mode": "list",
+                "customColors": null
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "time_series",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_CPUUtilization_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName = $Cluster)"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "ServiceName",
+                        "signal": "",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "{{ServiceName}} "
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "7e83cf03-4886-46e1-ab77-3ceb61618f6c": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Network IO (Receive)",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/TimeSeriesPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time",
+                "fillSpans": false
+              },
+              "formatting": {
+                "unit": "Bps",
+                "decimalPrecision": "2"
+              },
+              "chartAppearance": {
+                "lineInterpolation": "spline",
+                "showPoints": false,
+                "lineStyle": "solid",
+                "fillMode": "none",
+                "spanGaps": {
+                  "fillOnlyBelow": false,
+                  "fillLessThan": ""
+                }
+              },
+              "axes": {
+                "softMin": 0,
+                "softMax": 0,
+                "isLogScale": false
+              },
+              "legend": {
+                "position": "bottom",
+                "mode": "list",
+                "customColors": null
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "time_series",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_ContainerInsights_NetworkRxBytes_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName = $Cluster AND ServiceName EXISTS)"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "ServiceName",
+                        "signal": "",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "{{ServiceName}}"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "854acc58-84b1-49de-b4e9-13f5a01b1e2e": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Usage",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "percent",
+                "decimalPrecision": "2"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_ContainerInsights_MemoryUtilized_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName = $Cluster)"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": ""
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "8f0c9479-61ec-49de-b4b5-94dd69f7bb53": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Storage Read",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/TimeSeriesPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time",
+                "fillSpans": false
+              },
+              "formatting": {
+                "unit": "Bps",
+                "decimalPrecision": "2"
+              },
+              "chartAppearance": {
+                "lineInterpolation": "spline",
+                "showPoints": false,
+                "lineStyle": "solid",
+                "fillMode": "none",
+                "spanGaps": {
+                  "fillOnlyBelow": false,
+                  "fillLessThan": ""
+                }
+              },
+              "axes": {
+                "softMin": 0,
+                "softMax": 0,
+                "isLogScale": false
+              },
+              "legend": {
+                "position": "bottom",
+                "mode": "list",
+                "customColors": null
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "time_series",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_ContainerInsights_StorageReadBytes_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName = $Cluster AND ServiceName EXISTS)"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "ClusterName",
+                        "signal": "",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      },
+                      {
+                        "name": "ServiceName",
+                        "signal": "",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "{{ServiceName}}"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "915aa67d-6ac1-4e52-9b5b-e41156273f31": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Reserved",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "percent",
+                "decimalPrecision": "2"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_ContainerInsights_CpuReserved_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName = $Cluster)"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": ""
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "c0be2002-efee-4757-9f1e-c16ad6e9a612": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Storage Write",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/TimeSeriesPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time",
+                "fillSpans": false
+              },
+              "formatting": {
+                "unit": "Bps",
+                "decimalPrecision": "2"
+              },
+              "chartAppearance": {
+                "lineInterpolation": "spline",
+                "showPoints": false,
+                "lineStyle": "solid",
+                "fillMode": "none",
+                "spanGaps": {
+                  "fillOnlyBelow": false,
+                  "fillLessThan": ""
+                }
+              },
+              "axes": {
+                "softMin": 0,
+                "softMax": 0,
+                "isLogScale": false
+              },
+              "legend": {
+                "position": "bottom",
+                "mode": "list",
+                "customColors": null
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "time_series",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_ContainerInsights_StorageWriteBytes_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName = $Cluster AND ServiceName EXISTS)"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "ServiceName",
+                        "signal": "",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "{{ServiceName}}"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "f78becf8-0328-48b4-84b6-ff4dac325940": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Utilization",
+            "description": ""
+          },
+          "plugin": {
+            "kind": "signoz/TimeSeriesPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time",
+                "fillSpans": false
+              },
+              "formatting": {
+                "unit": "none",
+                "decimalPrecision": "2"
+              },
+              "chartAppearance": {
+                "lineInterpolation": "spline",
+                "showPoints": false,
+                "lineStyle": "solid",
+                "fillMode": "none",
+                "spanGaps": {
+                  "fillOnlyBelow": false,
+                  "fillLessThan": ""
+                }
+              },
+              "axes": {
+                "softMin": 0,
+                "softMax": 0,
+                "isLogScale": false
+              },
+              "legend": {
+                "position": "bottom",
+                "mode": "list",
+                "customColors": null
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "time_series",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "metrics",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "metricName": "aws_ECS_MemoryUtilization_max",
+                        "temporality": "",
+                        "timeAggregation": "max",
+                        "spaceAggregation": "max",
+                        "reduceTo": "avg"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "(cloud.region = $Region AND cloud.account.id = $Account AND ClusterName = $Cluster)"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "ServiceName",
+                        "signal": "",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "{{ServiceName}} "
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "items": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/02e56dd4-5c3d-4a17-9efb-9d250fdda4c3"
+              }
+            },
+            {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/915aa67d-6ac1-4e52-9b5b-e41156273f31"
+              }
+            },
+            {
+              "x": 6,
+              "y": 0,
+              "width": 3,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/854acc58-84b1-49de-b4e9-13f5a01b1e2e"
+              }
+            },
+            {
+              "x": 9,
+              "y": 0,
+              "width": 3,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/268f968a-0a0f-47d5-9bf0-1095c5bd9057"
+              }
+            },
+            {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/5bea2bc0-13a2-4937-bccb-60ffe8a43ad5"
+              }
+            },
+            {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/f78becf8-0328-48b4-84b6-ff4dac325940"
+              }
+            },
+            {
+              "x": 0,
+              "y": 9,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/7e83cf03-4886-46e1-ab77-3ceb61618f6c"
+              }
+            },
+            {
+              "x": 6,
+              "y": 9,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/324f5c5b-d565-48fa-af80-5c722ddd4bc7"
+              }
+            },
+            {
+              "x": 0,
+              "y": 15,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/8f0c9479-61ec-49de-b4b5-94dd69f7bb53"
+              }
+            },
+            {
+              "x": 6,
+              "y": 15,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/c0be2002-efee-4757-9f1e-c16ad6e9a612"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "",
+    "refreshInterval": "",
+    "links": []
+  }
+}

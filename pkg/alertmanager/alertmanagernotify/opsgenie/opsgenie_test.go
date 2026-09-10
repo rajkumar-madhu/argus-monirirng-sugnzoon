@@ -1,0 +1,660 @@
+// Copyright (c) 2026 SigNoz, Inc.
+// Copyright 2019 Prometheus Team
+// SPDX-License-Identifier: Apache-2.0
+
+package opsgenie
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"io"
+	"log/slog"
+	"net/http"
+	"net/http/httptest"
+	"net/url"
+	"os"
+	"strings"
+	"testing"
+	"time"
+	"unicode/utf8"
+
+	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
+	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
+	"github.com/SigNoz/signoz/pkg/types/ruletypes"
+	commoncfg "github.com/prometheus/common/config"
+	"github.com/prometheus/common/model"
+	"github.com/prometheus/common/promslog"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
+	"github.com/prometheus/alertmanager/config"
+	"github.com/prometheus/alertmanager/notify"
+	"github.com/prometheus/alertmanager/notify/test"
+	"github.com/prometheus/alertmanager/template"
+	"github.com/prometheus/alertmanager/types"
+)
+
+func newTestTemplater(tmpl *template.Template) alertmanagertypes.Templater {
+	return alertmanagertemplate.New(tmpl, slog.New(slog.DiscardHandler))
+}
+
+func TestOpsGenieRetry(t *testing.T) {
+	tmpl := test.CreateTmpl(t)
+	notifier, err := New(
+		&config.OpsGenieConfig{
+			HTTPConfig: &commoncfg.HTTPClientConfig{},
+		},
+		tmpl,
+		promslog.NewNopLogger(),
+		newTestTemplater(tmpl),
+		false,
+	)
+	require.NoError(t, err)
+
+	retryCodes := append(test.DefaultRetryCodes(), http.StatusTooManyRequests)
+	for statusCode, expected := range test.RetryTests(retryCodes) {
+		actual, _ := notifier.retrier.Check(statusCode, nil)
+		assert.Equal(t, expected, actual, "error on status %d", statusCode)
+	}
+}
+
+func TestOpsGenieRedactedURL(t *testing.T) {
+	ctx, u, fn := test.GetContextWithCancelingURL()
+	defer fn()
+
+	key := "key"
+	tmpl := test.CreateTmpl(t)
+	notifier, err := New(
+		&config.OpsGenieConfig{
+			APIURL:     &config.URL{URL: u},
+			APIKey:     config.Secret(key),
+			HTTPConfig: &commoncfg.HTTPClientConfig{},
+		},
+		tmpl,
+		promslog.NewNopLogger(),
+		newTestTemplater(tmpl),
+		false,
+	)
+	require.NoError(t, err)
+
+	test.AssertNotifyLeaksNoSecret(ctx, t, notifier, key)
+}
+
+func TestGettingOpsGegineApikeyFromFile(t *testing.T) {
+	ctx, u, fn := test.GetContextWithCancelingURL()
+	defer fn()
+
+	key := "key"
+
+	f, err := os.CreateTemp(t.TempDir(), "opsgenie_test")
+	require.NoError(t, err, "creating temp file failed")
+	_, err = f.WriteString(key)
+	require.NoError(t, err, "writing to temp file failed")
+
+	tmpl := test.CreateTmpl(t)
+	notifier, err := New(
+		&config.OpsGenieConfig{
+			APIURL:     &config.URL{URL: u},
+			APIKeyFile: f.Name(),
+			HTTPConfig: &commoncfg.HTTPClientConfig{},
+		},
+		tmpl,
+		promslog.NewNopLogger(),
+		newTestTemplater(tmpl),
+		false,
+	)
+	require.NoError(t, err)
+
+	test.AssertNotifyLeaksNoSecret(ctx, t, notifier, key)
+}
+
+func TestOpsGenie(t *testing.T) {
+	u, err := url.Parse("https://opsgenie/api")
+	require.NoError(t, err)
+	logger := promslog.NewNopLogger()
+	tmpl := test.CreateTmpl(t)
+
+	for _, tc := range []struct {
+		title string
+		cfg   *config.OpsGenieConfig
+
+		expectedEmptyAlertBody string
+		expectedBody           string
+	}{
+		{
+			title: "config without details",
+			cfg: &config.OpsGenieConfig{
+				NotifierConfig: config.NotifierConfig{
+					VSendResolved: true,
+				},
+				Message:     `{{ .CommonLabels.Message }}`,
+				Description: `{{ .CommonLabels.Description }}`,
+				Source:      `{{ .CommonLabels.Source }}`,
+				Responders: []config.OpsGenieConfigResponder{
+					{
+						Name: `{{ .CommonLabels.ResponderName1 }}`,
+						Type: `{{ .CommonLabels.ResponderType1 }}`,
+					},
+					{
+						Name: `{{ .CommonLabels.ResponderName2 }}`,
+						Type: `{{ .CommonLabels.ResponderType2 }}`,
+					},
+				},
+				Tags:       `{{ .CommonLabels.Tags }}`,
+				Note:       `{{ .CommonLabels.Note }}`,
+				Priority:   `{{ .CommonLabels.Priority }}`,
+				Entity:     `{{ .CommonLabels.Entity }}`,
+				Actions:    `{{ .CommonLabels.Actions }}`,
+				APIKey:     `{{ .ExternalURL }}`,
+				APIURL:     &config.URL{URL: u},
+				HTTPConfig: &commoncfg.HTTPClientConfig{},
+			},
+			expectedEmptyAlertBody: `{"alias":"6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b","message":"","details":{},"source":""}
+`,
+			expectedBody: `{"alias":"6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b","message":"message","description":"description","details":{"Actions":"doThis,doThat","Description":"description","Entity":"test-domain","Message":"message","Note":"this is a note","Priority":"P1","ResponderName1":"TeamA","ResponderName2":"EscalationA","ResponderName3":"TeamA,TeamB","ResponderType1":"team","ResponderType2":"escalation","ResponderType3":"teams","Source":"http://prometheus","Tags":"tag1,tag2"},"source":"http://prometheus","responders":[{"name":"TeamA","type":"team"},{"name":"EscalationA","type":"escalation"}],"tags":["tag1","tag2"],"note":"this is a note","priority":"P1","entity":"test-domain","actions":["doThis","doThat"]}
+`,
+		},
+		{
+			title: "config with details",
+			cfg: &config.OpsGenieConfig{
+				NotifierConfig: config.NotifierConfig{
+					VSendResolved: true,
+				},
+				Message:     `{{ .CommonLabels.Message }}`,
+				Description: `{{ .CommonLabels.Description }}`,
+				Source:      `{{ .CommonLabels.Source }}`,
+				Details: map[string]string{
+					"Description": `adjusted {{ .CommonLabels.Description }}`,
+				},
+				Responders: []config.OpsGenieConfigResponder{
+					{
+						Name: `{{ .CommonLabels.ResponderName1 }}`,
+						Type: `{{ .CommonLabels.ResponderType1 }}`,
+					},
+					{
+						Name: `{{ .CommonLabels.ResponderName2 }}`,
+						Type: `{{ .CommonLabels.ResponderType2 }}`,
+					},
+				},
+				Tags:       `{{ .CommonLabels.Tags }}`,
+				Note:       `{{ .CommonLabels.Note }}`,
+				Priority:   `{{ .CommonLabels.Priority }}`,
+				Entity:     `{{ .CommonLabels.Entity }}`,
+				Actions:    `{{ .CommonLabels.Actions }}`,
+				APIKey:     `{{ .ExternalURL }}`,
+				APIURL:     &config.URL{URL: u},
+				HTTPConfig: &commoncfg.HTTPClientConfig{},
+			},
+			expectedEmptyAlertBody: `{"alias":"6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b","message":"","details":{"Description":"adjusted "},"source":""}
+`,
+			expectedBody: `{"alias":"6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b","message":"message","description":"description","details":{"Actions":"doThis,doThat","Description":"adjusted description","Entity":"test-domain","Message":"message","Note":"this is a note","Priority":"P1","ResponderName1":"TeamA","ResponderName2":"EscalationA","ResponderName3":"TeamA,TeamB","ResponderType1":"team","ResponderType2":"escalation","ResponderType3":"teams","Source":"http://prometheus","Tags":"tag1,tag2"},"source":"http://prometheus","responders":[{"name":"TeamA","type":"team"},{"name":"EscalationA","type":"escalation"}],"tags":["tag1","tag2"],"note":"this is a note","priority":"P1","entity":"test-domain","actions":["doThis","doThat"]}
+`,
+		},
+		{
+			title: "config with multiple teams",
+			cfg: &config.OpsGenieConfig{
+				NotifierConfig: config.NotifierConfig{
+					VSendResolved: true,
+				},
+				Message:     `{{ .CommonLabels.Message }}`,
+				Description: `{{ .CommonLabels.Description }}`,
+				Source:      `{{ .CommonLabels.Source }}`,
+				Details: map[string]string{
+					"Description": `adjusted {{ .CommonLabels.Description }}`,
+				},
+				Responders: []config.OpsGenieConfigResponder{
+					{
+						Name: `{{ .CommonLabels.ResponderName3 }}`,
+						Type: `{{ .CommonLabels.ResponderType3 }}`,
+					},
+				},
+				Tags:       `{{ .CommonLabels.Tags }}`,
+				Note:       `{{ .CommonLabels.Note }}`,
+				Priority:   `{{ .CommonLabels.Priority }}`,
+				APIKey:     `{{ .ExternalURL }}`,
+				APIURL:     &config.URL{URL: u},
+				HTTPConfig: &commoncfg.HTTPClientConfig{},
+			},
+			expectedEmptyAlertBody: `{"alias":"6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b","message":"","details":{"Description":"adjusted "},"source":""}
+`,
+			expectedBody: `{"alias":"6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b","message":"message","description":"description","details":{"Actions":"doThis,doThat","Description":"adjusted description","Entity":"test-domain","Message":"message","Note":"this is a note","Priority":"P1","ResponderName1":"TeamA","ResponderName2":"EscalationA","ResponderName3":"TeamA,TeamB","ResponderType1":"team","ResponderType2":"escalation","ResponderType3":"teams","Source":"http://prometheus","Tags":"tag1,tag2"},"source":"http://prometheus","responders":[{"name":"TeamA","type":"team"},{"name":"TeamB","type":"team"}],"tags":["tag1","tag2"],"note":"this is a note","priority":"P1"}
+`,
+		},
+	} {
+		t.Run(tc.title, func(t *testing.T) {
+			notifier, err := New(tc.cfg, tmpl, logger, newTestTemplater(tmpl), false)
+			require.NoError(t, err)
+
+			ctx := context.Background()
+			ctx = notify.WithGroupKey(ctx, "1")
+
+			expectedURL, _ := url.Parse("https://opsgenie/apiv2/alerts")
+
+			// Empty alert.
+			alert1 := &types.Alert{
+				Alert: model.Alert{
+					StartsAt: time.Now(),
+					EndsAt:   time.Now().Add(time.Hour),
+				},
+			}
+
+			req, retry, err := notifier.createRequests(ctx, alert1)
+			require.NoError(t, err)
+			require.Len(t, req, 1)
+			assert.True(t, retry)
+			assert.Equal(t, expectedURL, req[0].URL)
+			assert.Equal(t, "GenieKey http://am", req[0].Header.Get("Authorization"))
+			assert.Equal(t, tc.expectedEmptyAlertBody, readBody(t, req[0]))
+
+			// Fully defined alert.
+			alert2 := &types.Alert{
+				Alert: model.Alert{
+					Labels: model.LabelSet{
+						"Message":        "message",
+						"Description":    "description",
+						"Source":         "http://prometheus",
+						"ResponderName1": "TeamA",
+						"ResponderType1": "team",
+						"ResponderName2": "EscalationA",
+						"ResponderType2": "escalation",
+						"ResponderName3": "TeamA,TeamB",
+						"ResponderType3": "teams",
+						"Tags":           "tag1,tag2",
+						"Note":           "this is a note",
+						"Priority":       "P1",
+						"Entity":         "test-domain",
+						"Actions":        "doThis,doThat",
+					},
+					StartsAt: time.Now(),
+					EndsAt:   time.Now().Add(time.Hour),
+				},
+			}
+			req, retry, err = notifier.createRequests(ctx, alert2)
+			require.NoError(t, err)
+			assert.True(t, retry)
+			require.Len(t, req, 1)
+			assert.Equal(t, tc.expectedBody, readBody(t, req[0]))
+
+			// Broken API Key Template.
+			tc.cfg.APIKey = "{{ kaput "
+			_, _, err = notifier.createRequests(ctx, alert2)
+			require.Error(t, err)
+			assert.Equal(t, "template: :1: function \"kaput\" not defined", err.Error())
+		})
+	}
+}
+
+func TestOpsGenieWithUpdate(t *testing.T) {
+	u, err := url.Parse("https://test-opsgenie-url")
+	require.NoError(t, err)
+	tmpl := test.CreateTmpl(t)
+	ctx := context.Background()
+	ctx = notify.WithGroupKey(ctx, "1")
+	opsGenieConfigWithUpdate := config.OpsGenieConfig{
+		Message:      `{{ .CommonLabels.Message }}`,
+		Description:  `{{ .CommonLabels.Description }}`,
+		UpdateAlerts: true,
+		APIKey:       "test-api-key",
+		APIURL:       &config.URL{URL: u},
+		HTTPConfig:   &commoncfg.HTTPClientConfig{},
+	}
+	notifierWithUpdate, err := New(&opsGenieConfigWithUpdate, tmpl, promslog.NewNopLogger(), newTestTemplater(tmpl), false)
+	alert := &types.Alert{
+		Alert: model.Alert{
+			StartsAt: time.Now(),
+			EndsAt:   time.Now().Add(time.Hour),
+			Labels: model.LabelSet{
+				"Message":     "new message",
+				"Description": "new description",
+			},
+		},
+	}
+	require.NoError(t, err)
+	requests, retry, err := notifierWithUpdate.createRequests(ctx, alert)
+	require.NoError(t, err)
+	assert.True(t, retry)
+	require.Len(t, requests, 3)
+
+	body0 := readBody(t, requests[0])
+	body1 := readBody(t, requests[1])
+	body2 := readBody(t, requests[2])
+	key, _ := notify.ExtractGroupKey(ctx)
+	alias := key.Hash()
+
+	assert.Equal(t, "https://test-opsgenie-url/v2/alerts", requests[0].URL.String())
+	assert.NotEmpty(t, body0)
+
+	assert.Equal(t, requests[1].URL.String(), fmt.Sprintf("https://test-opsgenie-url/v2/alerts/%s/message?identifierType=alias", alias))
+	assert.JSONEq(t, `{"message":"new message"}`, body1)
+	assert.Equal(t, requests[2].URL.String(), fmt.Sprintf("https://test-opsgenie-url/v2/alerts/%s/description?identifierType=alias", alias))
+	assert.JSONEq(t, `{"description":"new description"}`, body2)
+}
+
+func TestOpsGenieAdvancedFeatures(t *testing.T) {
+	u, err := url.Parse("https://test-opsgenie-url")
+	require.NoError(t, err)
+	tmpl := test.CreateTmpl(t)
+	ctx := notify.WithGroupKey(context.Background(), "1")
+	key, _ := notify.ExtractGroupKey(ctx)
+	alias := key.Hash()
+
+	cfg := &config.OpsGenieConfig{
+		NotifierConfig: config.NotifierConfig{VSendResolved: true},
+		Message:        `{{ .CommonLabels.Message }}`,
+		Description:    `{{ .CommonLabels.Description }}`,
+		UpdateAlerts:   true,
+		APIKey:         "k",
+		APIURL:         &config.URL{URL: u},
+		HTTPConfig:     &commoncfg.HTTPClientConfig{},
+	}
+	notifier, err := New(cfg, tmpl, promslog.NewNopLogger(), newTestTemplater(tmpl), true)
+	require.NoError(t, err)
+
+	firing := &types.Alert{Alert: model.Alert{
+		StartsAt: time.Now(),
+		EndsAt:   time.Now().Add(time.Hour),
+		Labels:   model.LabelSet{"Message": "m", "Description": "**Alert:** d [View](https://s.io/a)"},
+	}}
+
+	// Fire: create + update message + update description + a timeline note.
+	reqs, _, err := notifier.createRequests(ctx, firing)
+	require.NoError(t, err)
+	require.Len(t, reqs, 4)
+	assert.Equal(t, "https://test-opsgenie-url/v2/alerts", reqs[0].URL.String())
+	assert.Equal(t, fmt.Sprintf("https://test-opsgenie-url/v2/alerts/%s/notes?identifierType=alias", alias), reqs[3].URL.String())
+	assert.Equal(t, http.MethodPost, reqs[3].Method)
+
+	// the note body is the plain-text render: markers stripped, link flattened
+	var noteMsg opsGenieAddNoteMessage
+	require.NoError(t, json.Unmarshal([]byte(readBody(t, reqs[3])), &noteMsg))
+	assert.Equal(t, "Alert: d View (https://s.io/a)", noteMsg.Note)
+
+	// Resolve: note posted before the close.
+	resolved := &types.Alert{Alert: model.Alert{
+		StartsAt: time.Now().Add(-time.Hour),
+		EndsAt:   time.Now().Add(-time.Minute),
+		Labels:   model.LabelSet{"Message": "m", "Description": "d"},
+	}}
+	reqs, _, err = notifier.createRequests(ctx, resolved)
+	require.NoError(t, err)
+	require.Len(t, reqs, 2)
+	assert.Equal(t, fmt.Sprintf("https://test-opsgenie-url/v2/alerts/%s/notes?identifierType=alias", alias), reqs[0].URL.String())
+	assert.Equal(t, fmt.Sprintf("https://test-opsgenie-url/v2/alerts/%s/close?identifierType=alias", alias), reqs[1].URL.String())
+}
+
+func TestOpsGenieNotifyBestEffortNote(t *testing.T) {
+	tmpl := test.CreateTmpl(t)
+	ctx := notify.WithGroupKey(context.Background(), "1")
+
+	firing := &types.Alert{Alert: model.Alert{
+		StartsAt: time.Now(),
+		EndsAt:   time.Now().Add(time.Hour),
+		Labels:   model.LabelSet{"Message": "m", "Description": "d"},
+	}}
+
+	for _, tc := range []struct {
+		name         string
+		createStatus int
+		noteStatus   int
+		wantErr      bool
+		wantRetry    bool
+	}{
+		{name: "note_404_is_dropped", createStatus: http.StatusAccepted, noteStatus: http.StatusNotFound, wantErr: false, wantRetry: true},
+		{name: "note_429_still_retries", createStatus: http.StatusAccepted, noteStatus: http.StatusTooManyRequests, wantErr: true, wantRetry: true},
+		{name: "create_404_still_fails", createStatus: http.StatusNotFound, noteStatus: http.StatusAccepted, wantErr: true, wantRetry: false},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if strings.HasSuffix(r.URL.Path, "/notes") {
+					w.WriteHeader(tc.noteStatus)
+					return
+				}
+				w.WriteHeader(tc.createStatus)
+			}))
+			defer srv.Close()
+
+			u, err := url.Parse(srv.URL)
+			require.NoError(t, err)
+			notifier, err := New(&config.OpsGenieConfig{
+				Message:     `{{ .CommonLabels.Message }}`,
+				Description: `{{ .CommonLabels.Description }}`,
+				APIKey:      "k",
+				APIURL:      &config.URL{URL: u},
+				HTTPConfig:  &commoncfg.HTTPClientConfig{},
+			}, tmpl, promslog.NewNopLogger(), newTestTemplater(tmpl), true)
+			require.NoError(t, err)
+
+			retry, err := notifier.Notify(ctx, firing)
+			if tc.wantErr {
+				require.Error(t, err)
+			} else {
+				require.NoError(t, err)
+			}
+			assert.Equal(t, tc.wantRetry, retry)
+		})
+	}
+}
+
+func TestOpsGenieApiKeyFile(t *testing.T) {
+	u, err := url.Parse("https://test-opsgenie-url")
+	require.NoError(t, err)
+	tmpl := test.CreateTmpl(t)
+	ctx := context.Background()
+	ctx = notify.WithGroupKey(ctx, "1")
+	opsGenieConfigWithUpdate := config.OpsGenieConfig{
+		APIKeyFile: `./api_key_file`,
+		APIURL:     &config.URL{URL: u},
+		HTTPConfig: &commoncfg.HTTPClientConfig{},
+	}
+	notifierWithUpdate, err := New(&opsGenieConfigWithUpdate, tmpl, promslog.NewNopLogger(), newTestTemplater(tmpl), false)
+
+	require.NoError(t, err)
+	requests, _, err := notifierWithUpdate.createRequests(ctx)
+	require.NoError(t, err)
+	require.Len(t, requests, 1)
+	assert.Equal(t, "GenieKey my_secret_api_key", requests[0].Header.Get("Authorization"))
+}
+
+func TestPrepareContent(t *testing.T) {
+	t.Run("default template", func(t *testing.T) {
+		tmpl := test.CreateTmpl(t)
+		logger := promslog.NewNopLogger()
+
+		notifier := &Notifier{
+			conf: &config.OpsGenieConfig{
+				Message:     `{{ .CommonLabels.Message }}`,
+				Description: `{{ .CommonLabels.Description }}`,
+			},
+			tmpl:      tmpl,
+			logger:    logger,
+			templater: newTestTemplater(tmpl),
+		}
+
+		ctx := context.Background()
+		ctx = notify.WithGroupKey(ctx, "1")
+
+		alert := &types.Alert{
+			Alert: model.Alert{
+				Labels: model.LabelSet{
+					"Message":     "Firing alert: test",
+					"Description": "Check runbook for more details",
+				},
+				StartsAt: time.Now(),
+				EndsAt:   time.Now().Add(time.Hour),
+			},
+		}
+
+		alerts := []*types.Alert{alert}
+
+		title, desc, prepErr := notifier.prepareContent(ctx, alerts)
+		require.NoError(t, prepErr)
+		assert.Equal(t, "Firing alert: test", title)
+		assert.Equal(t, "Check runbook for more details", desc)
+	})
+
+	t.Run("custom template", func(t *testing.T) {
+		tmpl := test.CreateTmpl(t)
+		logger := promslog.NewNopLogger()
+
+		notifier := &Notifier{
+			conf: &config.OpsGenieConfig{
+				Message:     `{{ .CommonLabels.Message }}`,
+				Description: `{{ .CommonLabels.Description }}`,
+			},
+			tmpl:      tmpl,
+			logger:    logger,
+			templater: newTestTemplater(tmpl),
+		}
+
+		ctx := context.Background()
+		ctx = notify.WithGroupKey(ctx, "1")
+
+		alert1 := &types.Alert{
+			Alert: model.Alert{
+				Labels: model.LabelSet{
+					"service":   "payment",
+					"namespace": "potter-the-harry",
+				},
+				Annotations: model.LabelSet{
+					ruletypes.AnnotationTitleTemplate: "High request throughput for $service",
+					ruletypes.AnnotationBodyTemplate:  "Alert firing in NS: $labels.namespace",
+				},
+				StartsAt: time.Now(),
+				EndsAt:   time.Now().Add(time.Hour),
+			},
+		}
+		alert2 := &types.Alert{
+			Alert: model.Alert{
+				Labels: model.LabelSet{
+					"service":   "payment",
+					"namespace": "smart-the-rat",
+				},
+				Annotations: model.LabelSet{
+					ruletypes.AnnotationTitleTemplate: "High request throughput for $service",
+					ruletypes.AnnotationBodyTemplate:  "Alert firing in NS: $labels.namespace",
+				},
+				StartsAt: time.Now(),
+				EndsAt:   time.Now().Add(time.Hour),
+			},
+		}
+
+		alerts := []*types.Alert{alert1, alert2}
+
+		title, desc, err := notifier.prepareContent(ctx, alerts)
+		require.NoError(t, err)
+		assert.Equal(t, "High request throughput for payment", title)
+		// Each alert body wrapped in <div>, separated by <hr>
+		assert.Equal(t, "<div><p>Alert firing in NS: potter-the-harry</p>\n</div><hr><div><p>Alert firing in NS: smart-the-rat</p>\n</div>", desc)
+	})
+}
+
+func TestShrinkMarkdownToFit(t *testing.T) {
+	cases := []struct {
+		name      string
+		md        string
+		budget    int
+		wantEmpty bool
+	}{
+		{"fits untouched", "**bold** text", 1000, false},
+		{"shrinks to fit", strings.Repeat("lorem ipsum ", 500), 1000, false},
+		{"budget too small", strings.Repeat("lorem ipsum ", 500), 10, true},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got, err := shrinkMarkdownToFit(c.md, c.budget)
+			require.NoError(t, err)
+			if c.wantEmpty {
+				assert.Empty(t, got)
+				return
+			}
+			assert.NotEmpty(t, got)
+			assert.LessOrEqual(t, utf8.RuneCountInString(got), c.budget)
+			assert.Equal(t, strings.Count(got, "<p>"), strings.Count(got, "</p>"))
+		})
+	}
+}
+
+func TestBuildHTMLDescriptionOverflow(t *testing.T) {
+	bigPart := strings.Repeat("alpha beta gamma ", 100)
+	cases := []struct {
+		name        string
+		parts       []string
+		budget      int
+		wantTrailer bool
+	}{
+		{"all parts fit", []string{"**a**", "**b**"}, maxDescriptionLenRunes, false},
+		{"empty parts skipped", []string{"", "hello", ""}, maxDescriptionLenRunes, false},
+		{"overflow drops parts with trailer", repeatParts(bigPart, 12), maxDescriptionLenRunes, true},
+		{"single huge part shrunk without trailer", []string{strings.Repeat(bigPart, 20)}, maxDescriptionLenRunes, false},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got, err := buildHTMLDescription(c.parts, c.budget)
+			require.NoError(t, err)
+			assert.LessOrEqual(t, utf8.RuneCountInString(got), c.budget)
+			assert.Equal(t, strings.Count(got, "<div>"), strings.Count(got, "</div>"))
+			assert.True(t, strings.HasSuffix(got, "</div>"))
+			if c.wantTrailer {
+				assert.Regexp(t, `…and \d+ more alerts\. Open in SigNoz for the full list\.`, got)
+			} else {
+				assert.NotContains(t, got, "more alerts")
+			}
+		})
+	}
+}
+
+// prepareContent end-to-end: 40 custom-template alerts overflow the description
+// budget yet the posted HTML stays within limits and well-formed.
+func TestPrepareContentDescriptionOverflow(t *testing.T) {
+	tmpl := test.CreateTmpl(t)
+	notifier := &Notifier{
+		conf: &config.OpsGenieConfig{
+			Message:     `{{ .CommonLabels.alertname }}`,
+			Description: `{{ .CommonLabels.alertname }}`,
+		},
+		tmpl:             tmpl,
+		logger:           promslog.NewNopLogger(),
+		templater:        newTestTemplater(tmpl),
+		advancedFeatures: true,
+	}
+
+	bodyTemplate := "**Alert in** $labels.namespace\n\n" + strings.Repeat("detail line for the runbook ", 30)
+	alerts := make([]*types.Alert, 0, 40)
+	for i := range 40 {
+		alerts = append(alerts, &types.Alert{
+			Alert: model.Alert{
+				Labels: model.LabelSet{
+					"alertname": "overflow",
+					"namespace": model.LabelValue(fmt.Sprintf("ns-%d", i)),
+				},
+				Annotations: model.LabelSet{
+					ruletypes.AnnotationBodyTemplate: model.LabelValue(bodyTemplate),
+				},
+				StartsAt: time.Now(),
+				EndsAt:   time.Now().Add(time.Hour),
+			},
+		})
+	}
+
+	_, desc, err := notifier.prepareContent(notify.WithGroupKey(context.Background(), "1"), alerts)
+	require.NoError(t, err)
+	assert.LessOrEqual(t, utf8.RuneCountInString(desc), maxDescriptionLenRunes)
+	assert.Equal(t, strings.Count(desc, "<div>"), strings.Count(desc, "</div>"))
+	assert.Regexp(t, `…and \d+ more alerts\. Open in SigNoz for the full list\.`, desc)
+}
+
+func repeatParts(part string, n int) []string {
+	parts := make([]string, n)
+	for i := range parts {
+		parts[i] = part
+	}
+	return parts
+}
+
+func readBody(t *testing.T, r *http.Request) string {
+	t.Helper()
+	body, err := io.ReadAll(r.Body)
+	require.NoError(t, err)
+	return string(body)
+}

@@ -1,0 +1,2873 @@
+import { PANEL_TYPES } from 'constants/queryBuilder';
+import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
+import type { Having } from 'types/api/queryBuilder/queryBuilderData';
+import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
+import type { Having as HavingV5 } from 'types/api/v5/queryRange';
+import { EQueryType } from 'types/common/dashboard';
+import { DataSource, ReduceOperators } from 'types/common/queryBuilder';
+
+const buildSumGreaterThanZeroHaving = (
+	metricKey: string,
+	useV5HavingFormat: boolean,
+): Having[] | HavingV5 =>
+	useV5HavingFormat
+		? { expression: `sum(${metricKey}) > 0` }
+		: [{ columnName: `SUM(${metricKey})`, op: '>', value: 0 }];
+
+export const getPodQueryPayload = (
+	clusterName: string,
+	podName: string,
+	start: number,
+	end: number,
+): GetQueryResultsProps[] => {
+	const k8sClusterNameKey = 'k8s.cluster.name';
+	const k8sPodNameKey = 'k8s.pod.name';
+	const containerCpuUtilKey = 'container.cpu.usage';
+	const containerMemUsageKey = 'container.memory.usage';
+	const k8sContainerCpuReqKey = 'k8s.container.cpu_request';
+	const k8sContainerCpuLimitKey = 'k8s.container.cpu_limit';
+	const k8sContainerMemReqKey = 'k8s.container.memory_request';
+	const k8sContainerMemLimitKey = 'k8s.container.memory_limit';
+	const k8sPodFsAvailKey = 'k8s.pod.filesystem.available';
+	const k8sPodFsCapKey = 'k8s.pod.filesystem.capacity';
+	const k8sPodNetIoKey = 'k8s.pod.network.io';
+	const podLegendTemplate = '{{k8s.pod.name}}';
+	const podLegendUsage = 'usage - {{k8s.pod.name}}';
+	const podLegendLimit = 'limit - {{k8s.pod.name}}';
+
+	return [
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'container_cpu_usage--float64--Gauge--true',
+								key: containerCpuUtilKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: '6e050953',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: '60fe5e62',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: podLegendTemplate,
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '9b92756a-b445-45f8-90f4-d26f3ef28f8f',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'container_memory_usage--float64--Gauge--true',
+								key: containerMemUsageKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'a4250695',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: '3b2bc32b',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: podLegendTemplate,
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: 'a22c1e03-4876-4b3e-9a96-a3c3a28f9c0f',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'container_cpu_usage--float64--Gauge--true',
+								key: containerCpuUtilKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: '8426b52f',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: '2f67240c',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_container_cpu_request--float64--Gauge--true',
+								key: k8sContainerCpuReqKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'latest',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: '8c4667e1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: 'b16e7306',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'latest',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: 'A*100/B',
+							legend: podLegendTemplate,
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '7bb3a6f5-d1c6-4f2e-9cc9-7dcc46db398f',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'container_cpu_usage--float64--Gauge--true',
+								key: containerCpuUtilKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: '0a862947',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: 'cd13fbf0',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: podLegendUsage,
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_container_cpu_limit--float64--Gauge--true',
+								key: k8sContainerCpuLimitKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'latest',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: 'bfb8acf7',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: 'e09ba819',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: podLegendLimit,
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'latest',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: 'A*100/B',
+							legend: podLegendTemplate,
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '6d5ccd81-0ea1-4fb9-a66b-7f0fe2f15165',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'container_memory_usage--float64--Gauge--true',
+								key: containerMemUsageKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'ea3df3e7',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: '39b21fe0',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_container_memory_request--float64--Gauge--true',
+
+								key: k8sContainerMemReqKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'latest',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: '7401a4b9',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: '7cdad1cb',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'latest',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: 'A*100/B',
+							legend: podLegendTemplate,
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '4d03a0ff-4fa5-4b19-b397-97f80ba9e0ac',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'container_memory_usage--float64--Gauge--true',
+
+								key: containerMemUsageKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'f2a3175c',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: 'fc17ff21',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_container_memory_limit--float64--Gauge--true',
+
+								key: k8sContainerMemLimitKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'latest',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: '175e96b7',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: '1d9fbe48',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'latest',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: 'A*100/B',
+							legend: podLegendTemplate,
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: 'ad491f19-0f83-4dd4-bb8f-bec295c18d1b',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_pod_filesystem_available--float64--Gauge--true',
+
+								key: k8sPodFsAvailKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: '877385bf',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: '877385cd',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_pod_filesystem_capacity--float64--Gauge--true',
+
+								key: k8sPodFsCapKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: '877385bf',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: '877385cd',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: '(B-A)/B',
+							legend: podLegendTemplate,
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '16908d4e-1565-4847-8d87-01ebb8fc494a',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			fillGaps: false,
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_pod_network_io--float64--Sum--true',
+
+								key: k8sPodNetIoKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: '877385bf',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: '9613b4da',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_pod_name--string--tag--false',
+
+											key: k8sPodNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: podName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_pod_name--string--tag--false',
+
+									key: k8sPodNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: podLegendTemplate,
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '4b255d6d-4cde-474d-8866-f4418583c18b',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+	];
+};
+
+export const getNodeQueryPayload = (
+	clusterName: string,
+	nodeName: string,
+	start: number,
+	end: number,
+): GetQueryResultsProps[] => {
+	const k8sClusterNameKey = 'k8s.cluster.name';
+	const k8sNodeNameKey = 'k8s.node.name';
+	const k8sNodeCpuTimeKey = 'k8s.node.cpu.time';
+	const k8sNodeAllocCpuKey = 'k8s.node.allocatable_cpu';
+	const k8sNodeMemWsKey = 'k8s.node.memory.working_set';
+	const k8sNodeAllocMemKey = 'k8s.node.allocatable_memory';
+	const k8sNodeNetIoKey = 'k8s.node.network.io';
+	const k8sNodeFsAvailKey = 'k8s.node.filesystem.available';
+	const k8sNodeFsCapKey = 'k8s.node.filesystem.capacity';
+	const podLegend = '{{k8s.node.name}}';
+
+	return [
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_node_cpu_time--float64--Sum--true',
+
+								key: k8sNodeCpuTimeKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'c_cluster',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: 'c_node',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_node_name--string--tag--false',
+
+											key: k8sNodeNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: nodeName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_node_name--string--tag--false',
+
+									key: k8sNodeNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: podLegend,
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_node_allocatable_cpu--float64--Gauge--true',
+
+								key: k8sNodeAllocCpuKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: 'cpu_node',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_node_name--string--tag--false',
+
+											key: k8sNodeNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: nodeName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_node_name--string--tag--false',
+
+									key: k8sNodeNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: podLegend,
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: 'A/B',
+							legend: podLegend,
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '259295b5-774d-4b2e-8a4f-e5dd63e6c38d',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			fillGaps: false,
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_node_memory_working_set--float64--Gauge--true',
+
+								key: k8sNodeMemWsKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'mem_cluster',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: 'mem_node',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_node_name--string--tag--false',
+
+											key: k8sNodeNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: nodeName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_node_name--string--tag--false',
+
+									key: k8sNodeNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_node_allocatable_memory--float64--Gauge--true',
+
+								key: k8sNodeAllocMemKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: 'alloc_node',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_node_name--string--tag--false',
+
+											key: k8sNodeNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: nodeName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_node_name--string--tag--false',
+
+									key: k8sNodeNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: 'A/B',
+							legend: podLegend,
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '486af4da-2a1a-4b8f-992c-eba098d3a6f9',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			fillGaps: false,
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_node_network_io--float64--Sum--true',
+
+								key: k8sNodeNetIoKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'net_cluster',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: 'net_node',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_node_name--string--tag--false',
+
+											key: k8sNodeNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: nodeName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'interface--string--tag--false',
+
+									key: 'interface',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'direction--string--tag--false',
+
+									key: 'direction',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_node_name--string--tag--false',
+
+									key: k8sNodeNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: `${podLegend}-{{interface}}-{{direction}}`,
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: 'b56143c0-7d2f-4425-97c5-65ad6fc87366',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_node_filesystem_available--float64--Gauge--true',
+
+								key: k8sNodeFsAvailKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'fs_cluster',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: 'fs_node',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_node_name--string--tag--false',
+
+											key: k8sNodeNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: nodeName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_node_name--string--tag--false',
+
+									key: k8sNodeNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'k8s_node_filesystem_capacity--float64--Gauge--true',
+
+								key: k8sNodeFsCapKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: 'fs_clusterB',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_cluster_name--string--tag--false',
+
+											key: k8sClusterNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: clusterName,
+									},
+									{
+										id: 'fs_nodeB',
+										key: {
+											dataType: DataTypes.String,
+											id: 'k8s_node_name--string--tag--false',
+
+											key: k8sNodeNameKey,
+											type: 'tag',
+										},
+										op: 'in',
+										value: nodeName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'k8s_node_name--string--tag--false',
+
+									key: k8sNodeNameKey,
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '',
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.SUM,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: '(B-A)/B',
+							legend: podLegend,
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '57eeac15-615c-4a71-9c61-8e0c0c76b045',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+	];
+};
+
+export const getHostQueryPayload = (
+	hostName: string,
+	start: number,
+	end: number,
+	useV5HavingFormat = false,
+): GetQueryResultsProps[] => {
+	const hostNameKey = 'host.name';
+	const cpuTimeKey = 'system.cpu.time';
+	const memUsageKey = 'system.memory.usage';
+	const load1mKey = 'system.cpu.load_average.1m';
+	const load5mKey = 'system.cpu.load_average.5m';
+	const load15mKey = 'system.cpu.load_average.15m';
+	const netIoKey = 'system.network.io';
+	const netPktsKey = 'system.network.packets';
+	const netErrKey = 'system.network.errors';
+	const netDropKey = 'system.network.dropped';
+	const netConnKey = 'system.network.connections';
+	const diskIoKey = 'system.disk.io';
+	const diskOpTimeKey = 'system.disk.operation_time';
+	const diskOpsKey = 'system.disk.operations';
+	const diskPendingKey = 'system.disk.pending_operations';
+	const fsUsageKey = 'system.filesystem.usage';
+
+	return [
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_cpu_time--float64--Sum--true',
+
+								key: cpuTimeKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'cpu_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'state--string--tag--false',
+
+									key: 'state',
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '{{state}}',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_cpu_time--float64--Sum--true',
+
+								key: cpuTimeKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: 'cpu_f2',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [],
+							having: [],
+							legend: '{{state}}',
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: 'A/B',
+							legend: '{{state}}',
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '315b15fa-ff0c-442f-89f8-2bf4fb1af2f2',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_memory_usage--float64--Gauge--true',
+
+								key: memUsageKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'mem_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'state--string--tag--false',
+
+									key: 'state',
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '{{state}}',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '40218bfb-a9b7-4974-aead-5bf666e139bf',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_filesystem_usage--float64--Gauge--true',
+
+								key: fsUsageKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'fs_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+									{
+										id: 'fs_f2',
+										key: {
+											dataType: DataTypes.String,
+											id: 'state--string--tag--false',
+
+											key: 'state',
+											type: 'tag',
+										},
+										op: '=',
+										value: 'used',
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'mountpoint--string--tag--false',
+
+									key: 'mountpoint',
+									type: 'tag',
+								},
+							],
+							having: buildSumGreaterThanZeroHaving(fsUsageKey, useV5HavingFormat),
+							legend: '{{mountpoint}}',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_filesystem_usage--float64--Gauge--true',
+
+								key: fsUsageKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: true,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: 'fs_f3',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'mountpoint--string--tag--false',
+
+									key: 'mountpoint',
+									type: 'tag',
+								},
+							],
+							having: buildSumGreaterThanZeroHaving(fsUsageKey, useV5HavingFormat),
+							legend: '{{mountpoint}}',
+							limit: null,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [
+						{
+							disabled: false,
+							expression: 'A/B',
+							legend: '{{mountpoint}}',
+							queryName: 'F1',
+						},
+					],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_cpu_load_average_1m--float64--Gauge--true',
+
+								key: load1mKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'load1m_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [],
+							having: [],
+							legend: '1m',
+							limit: 30,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_cpu_load_average_5m--float64--Gauge--true',
+
+								key: load5mKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'B',
+							filters: {
+								items: [
+									{
+										id: 'load5m_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [],
+							having: [],
+							legend: '5m',
+							limit: 30,
+							orderBy: [],
+							queryName: 'B',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_cpu_load_average_15m--float64--Gauge--true',
+
+								key: load15mKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'C',
+							filters: {
+								items: [
+									{
+										id: 'load15m_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [],
+							having: [],
+							legend: '15m',
+							limit: 30,
+							orderBy: [],
+							queryName: 'C',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '8e6485ea-7018-43b0-ab27-b210f77b59ad',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_network_io--float64--Sum--true',
+
+								key: netIoKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'netio_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'direction--string--tag--false',
+
+									key: 'direction',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'device--string--tag--false',
+
+									key: 'device',
+									type: 'tag',
+								},
+							],
+							having: buildSumGreaterThanZeroHaving(netIoKey, useV5HavingFormat),
+							legend: '{{device}}::{{direction}}',
+							limit: 30,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '47173220-44df-4ef6-87f4-31e333c180c7',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_network_packets--float64--Sum--true',
+
+								key: netPktsKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'netpkts_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'direction--string--tag--false',
+
+									key: 'direction',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'device--string--tag--false',
+
+									key: 'device',
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '{{device}}::{{direction}}',
+							limit: 30,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '62eedbc6-c8ad-4d13-80a8-129396e1d1dc',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_network_errors--float64--Sum--true',
+
+								key: netErrKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'neterr_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'direction--string--tag--false',
+
+									key: 'direction',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'device--string--tag--false',
+
+									key: 'device',
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '{{device}}::{{direction}}',
+							limit: 30,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '5ddb1b38-53bb-46f5-b4fe-fe832d6b9b24',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_network_dropped--float64--Sum--true',
+
+								key: netDropKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'netdrop_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'direction--string--tag--false',
+
+									key: 'direction',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'device--string--tag--false',
+
+									key: 'device',
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '{{device}}::{{direction}}',
+							limit: 30,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: 'a849bcce-7684-4852-9134-530b45419b8f',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_network_connections--float64--Gauge--true',
+
+								key: netConnKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'avg',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'netconn_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'protocol--string--tag--false',
+
+									key: 'protocol',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'state--string--tag--false',
+
+									key: 'state',
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '{{protocol}}::{{state}}',
+							limit: 30,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'avg',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: 'ab685a3d-fa4c-4663-8d94-c452e59038f3',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_disk_io--float64--Sum--true',
+
+								key: diskIoKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'diskio_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'direction--string--tag--false',
+
+									key: 'direction',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'device--string--tag--false',
+
+									key: 'device',
+									type: 'tag',
+								},
+							],
+							having: [],
+							legend: '{{device}}::{{direction}}',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '9bd40b51-0790-4cdd-9718-551b2ded5926',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_disk_operations--float64--Sum--true',
+
+								key: diskOpsKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'diskops_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'device--string--tag--false',
+
+									key: 'device',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'direction--string--tag--false',
+
+									key: 'direction',
+									type: 'tag',
+								},
+							],
+							having: buildSumGreaterThanZeroHaving(diskOpsKey, useV5HavingFormat),
+							legend: '{{device}}::{{direction}}',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: '9c6d18ad-89ff-4e38-a15a-440e72ed6ca8',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_disk_pending_operations--float64--Gauge--true',
+
+								key: diskPendingKey,
+								type: 'Gauge',
+							},
+							aggregateOperator: 'max',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'diskpend_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'device--string--tag--false',
+
+									key: 'device',
+									type: 'tag',
+								},
+							],
+							having: buildSumGreaterThanZeroHaving(diskPendingKey, useV5HavingFormat),
+							legend: '{{device}}',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'max',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: 'f4cfc2a5-78fc-42cc-8f4a-194c8c916132',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+		{
+			selectedTime: 'GLOBAL_TIME',
+			graphType: PANEL_TYPES.TIME_SERIES,
+			query: {
+				builder: {
+					queryData: [
+						{
+							aggregateAttribute: {
+								dataType: DataTypes.Float64,
+								id: 'system_disk_operation_time--float64--Sum--true',
+
+								key: diskOpTimeKey,
+								type: 'Sum',
+							},
+							aggregateOperator: 'rate',
+							dataSource: DataSource.METRICS,
+							disabled: false,
+							expression: 'A',
+							filters: {
+								items: [
+									{
+										id: 'diskoptime_f1',
+										key: {
+											dataType: DataTypes.String,
+											id: 'host_name--string--tag--false',
+
+											key: hostNameKey,
+											type: 'tag',
+										},
+										op: '=',
+										value: hostName,
+									},
+								],
+								op: 'AND',
+							},
+							functions: [],
+							groupBy: [
+								{
+									dataType: DataTypes.String,
+									id: 'device--string--tag--false',
+
+									key: 'device',
+									type: 'tag',
+								},
+								{
+									dataType: DataTypes.String,
+									id: 'direction--string--tag--false',
+
+									key: 'direction',
+									type: 'tag',
+								},
+							],
+							having: buildSumGreaterThanZeroHaving(diskOpTimeKey, useV5HavingFormat),
+							legend: '{{device}}::{{direction}}',
+							limit: null,
+							orderBy: [],
+							queryName: 'A',
+							reduceTo: ReduceOperators.AVG,
+							spaceAggregation: 'sum',
+							stepInterval: 60,
+							timeAggregation: 'rate',
+						},
+					],
+					queryFormulas: [],
+					queryTraceOperator: [],
+				},
+				clickhouse_sql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				id: 'a8b3d2e1-4f5c-4a6b-9c8d-7e2f1a0b3c4f',
+				promql: [{ disabled: false, legend: '', name: 'A', query: '' }],
+				queryType: EQueryType.QUERY_BUILDER,
+			},
+			variables: {},
+			formatForWeb: false,
+			start,
+			end,
+		},
+	];
+};
+
+export const podWidgetInfo = [
+	{
+		title: 'CPU usage',
+		yAxisUnit: '',
+	},
+	{
+		title: 'Memory Usage',
+		yAxisUnit: 'bytes',
+	},
+	{
+		title: 'Pod CPU usage [% of Request]',
+		yAxisUnit: 'percent',
+	},
+	{
+		title: 'Pod CPU usage [% of Limit]',
+		yAxisUnit: 'percent',
+	},
+	{
+		title: 'Pod memory usage [% of Request]',
+		yAxisUnit: 'percent',
+	},
+	{
+		title: 'Pod memory usage [% of Limit]',
+		yAxisUnit: 'percent',
+	},
+	{
+		title: 'Pod filesystem usage [%]',
+		yAxisUnit: 'percentunit',
+	},
+	{
+		title: 'Pod network IO',
+		yAxisUnit: 'binBps',
+	},
+];
+
+export const VIEW_TYPES = {
+	NODE: 'node',
+	POD: 'pod',
+};
+
+export const nodeWidgetInfo = [
+	{
+		title: 'Node CPU usage',
+		yAxisUnit: 'percentunit',
+	},
+	{
+		title: 'Node memory usage (WSS)',
+		yAxisUnit: 'percentunit',
+	},
+	{
+		title: 'Node network IO',
+		yAxisUnit: 'binBps',
+	},
+	{
+		title: 'Node filesystem usage',
+		yAxisUnit: 'percentunit',
+	},
+];
+
+export const hostWidgetInfo = [
+	{
+		title: 'CPU Usage',
+		yAxisUnit: 'percentunit',
+		docPath: '/infrastructure-monitoring/host-monitoring/#cpu-usage-1',
+		description:
+			'CPU time share per state (user, system, wait, steal, idle); sustained wait points to disk I/O blocking.',
+	},
+	{
+		title: 'Memory Usage',
+		yAxisUnit: 'bytes',
+		docPath: '/infrastructure-monitoring/host-monitoring/#memory-usage-1',
+		description:
+			'Physical memory bytes per state (used, cached, buffers, free); a climbing used line suggests a leak.',
+	},
+	{
+		title: 'Disk Usage (%) by mountpoint',
+		yAxisUnit: 'percentunit',
+		docPath:
+			'/infrastructure-monitoring/host-monitoring/#disk-usage--by-mountpoint',
+		description:
+			'Used space as a percentage of capacity for each mountpoint, one line per mountpoint.',
+	},
+	{
+		title: 'System Load Average',
+		yAxisUnit: '',
+		docPath: '/infrastructure-monitoring/host-monitoring/#system-load-average',
+		description:
+			'The 1m, 5m and 15m load averages together; 1m above 15m means load is building.',
+	},
+	{
+		title: 'Network usage',
+		yAxisUnit: 'binBps',
+		docPath: '/infrastructure-monitoring/host-monitoring/#network-usage-bytes',
+		description:
+			'Throughput in bytes/s per interface and direction, to spot NICs nearing rated bandwidth.',
+	},
+	{
+		title: 'Network usage (packet/s)',
+		yAxisUnit: 'pps',
+		docPath: '/infrastructure-monitoring/host-monitoring/#network-usage-packetss',
+		description:
+			'Packets per second per interface and direction; a NIC can saturate on packet rate before bytes.',
+	},
+	{
+		title: 'Network errors',
+		yAxisUnit: 'short',
+		docPath: '/infrastructure-monitoring/host-monitoring/#network-errors',
+		description:
+			'Rate of interface-level network errors per interface and direction; any sustained value needs attention.',
+	},
+	{
+		title: 'Network drops',
+		yAxisUnit: 'short',
+		docPath: '/infrastructure-monitoring/host-monitoring/#network-drops',
+		description:
+			'Rate of dropped packets per interface and direction, usually buffer overflow rather than link errors.',
+	},
+	{
+		title: 'Network connections',
+		yAxisUnit: 'short',
+		docPath: '/infrastructure-monitoring/host-monitoring/#network-connections',
+		description:
+			'Active connection counts per protocol and state (ESTABLISHED, TIME_WAIT, SYN_RECV) to spot leaks and churn.',
+	},
+	{
+		title: 'System disk IO',
+		yAxisUnit: 'binBps',
+		docPath: '/infrastructure-monitoring/host-monitoring/#system-disk-io-bytes',
+		description:
+			'Disk throughput in bytes/s per device and direction, tracking heavy file I/O or database flushes.',
+	},
+	{
+		title: 'System disk operations/s',
+		yAxisUnit: 'short',
+		docPath:
+			'/infrastructure-monitoring/host-monitoring/#system-disk-operationss',
+		description:
+			'Rate of completed read and write operations per device; pair with disk io bytes to size each operation.',
+	},
+	{
+		title: 'Queue size',
+		yAxisUnit: 'short',
+		docPath: '/infrastructure-monitoring/host-monitoring/#queue-size',
+		description:
+			'Maximum disk request-queue depth per device; sustained high depth means the storage layer is saturated.',
+	},
+	{
+		title: 'System disk operation time/s',
+		yAxisUnit: 's',
+		docPath:
+			'/infrastructure-monitoring/host-monitoring/#system-disk-operation-times',
+		description:
+			'Rate of cumulative disk-busy time per device and direction; values near 1s/s mean the device is saturated.',
+	},
+];
