@@ -90,6 +90,14 @@ Do not hand-edit `frontend/src/api/generated/`. Schema names that still contain 
 
 Production-ish single-node compose for the existing Hostinger KVM (`213.210.36.154`) lives in [`infra/hostinger-vm/`](../infra/hostinger-vm/). UI publishes on **`:8089`** so Traefik (`:80`) and LinkedEye Argus (`:8088`) stay untouched. See that README for build/load/deploy and safety rules.
 
+**Live check (2026-09-11):** UI `http://213.210.36.154:8089/` returned HTTP 200; collector health `:13133` OK; WeCrew/Traefik left running. ClickHouse image must be **25.12.5+**.
+
+## Fork verification notes
+
+- OpenAPI product metadata is Argus (`docs/api/openapi.yml` title/contact). Orval regen skipped (v8.9.1 crash on regenerated spec) — keep existing `frontend/src/api/generated/`.
+- Focused Go checks with `GOTOOLCHAIN=go1.25.7`: `pkg/config`, `pkg/instrumentation`, `cmd/community`, `pkg/factory` passed.
+- Residual `SigNoz` strings remain largely in allowlisted upstream contracts, golden fixtures, attribution, and historical `docs/otel-demo-docs.md` (still SigNoz-flavored; treat as backlog).
+
 ## Related docs
 
 - [Development setup](contributing/development.md)
