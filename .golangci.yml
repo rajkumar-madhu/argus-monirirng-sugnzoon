@@ -51,7 +51,6 @@ linters:
       - std-error-handling
     paths:
       - pkg/query-service
-      - ee/query-service
       - scripts/
       - tmp/
       - third_party$

@@ -56,11 +56,11 @@ When the ID in the request is not what FGA needs (e.g. routes receive a role UUI
 
 SigNoz ships four managed roles, declared in [pkg/types/coretypes/registry_managed_role.go](/pkg/types/coretypes/registry_managed_role.go): `signoz-admin`, `signoz-editor`, `signoz-viewer`, and `signoz-anonymous`. Their permissions are declared in code as `Transaction`s (a verb on an object) in `ManagedRoleToTransactions` — this map is the single source of truth for what each managed role can do.
 
-At organization bootstrap, `CreateManagedRoles` and `CreateManagedUserRoleTransactions` (see [pkg/authz/authz.go](/pkg/authz/authz.go)) persist the role rows and write one OpenFGA tuple per transaction, linking `role:organization/<orgID>/role/<name>#assignee` to each permitted object. Users and service accounts are then granted roles via `Grant`/`Revoke`, which writes `assignee` tuples. Custom roles (enterprise) are managed through the roles API in [pkg/authz/signozauthzapi/handler.go](/pkg/authz/signozauthzapi/handler.go).
+At organization bootstrap, `CreateManagedRoles` and `CreateManagedUserRoleTransactions` (see [pkg/authz/authz.go](/pkg/authz/authz.go)) persist the role rows and write one OpenFGA tuple per transaction, linking `role:organization/<orgID>/role/<name>#assignee` to each permitted object. Users and service accounts are then granted roles via `Grant`/`Revoke`, which writes `assignee` tuples.
 
 ### Schema
 
-The OpenFGA authorization model is a hand-written DSL, embedded at build time: [pkg/authz/openfgaschema/base.fga](/pkg/authz/openfgaschema/base.fga) for community and [ee/authz/openfgaschema/base.fga](/ee/authz/openfgaschema/base.fga) for enterprise. The community model only supports role assignment; the enterprise model defines per-verb relations on every type, enabling genuine per-resource checks. This split is why `CheckWithTupleCreation` behaves differently per edition (see [How does a check work at runtime?](#how-does-a-check-work-at-runtime)). You only touch these files when introducing a brand-new **type** — never for a new kind.
+The OpenFGA authorization model is a hand-written DSL embedded at build time from [pkg/authz/openfgaschema/base.fga](/pkg/authz/openfgaschema/base.fga). The community model supports role assignment. You only touch this file when introducing a brand-new **type** — never for a new kind.
 
 ## How do I add authz to my feature?
 
@@ -133,16 +133,12 @@ Managed-role tuples are written from the registry at organization creation, so *
 
 1. The resource middleware ([pkg/http/middleware/resource.go](/pkg/http/middleware/resource.go)) runs on every request. It reads the matched handler's `ResourceDef`s, extracts the resource IDs from path/body, and stores the resolved resources in the request context.
 2. `CheckResources` reads them back, runs each `SelectorFunc`, and calls `AuthZ.CheckWithTupleCreation(ctx, claims, orgID, relation, resource, selectors, roleSelectors)`.
-3. What happens next depends on the edition:
-   - **Community** ([pkg/authz/openfgaserver/server.go](/pkg/authz/openfgaserver/server.go)) ignores the resource and selectors and only checks whether the subject is an `assignee` of one of the allowed roles — a plain role gate.
-   - **Enterprise** ([ee/authz/openfgaserver/server.go](/ee/authz/openfgaserver/server.go)) builds tuples via `authtypes.NewTuples` — subject `user:organization/<orgID>/user/<userID>`, relation `create`, object `serviceaccount:organization/<orgID>/serviceaccount/*` — and batch-checks them against OpenFGA: genuine per-resource authorization, including custom roles.
-
-Because both paths go through the same middleware and the same `ResourceDef` declarations, a route wired once works correctly in both editions.
+3. The community server ([pkg/authz/openfgaserver/server.go](/pkg/authz/openfgaserver/server.go)) ignores the resource selectors and checks whether the subject is an `assignee` of one of the allowed roles — a plain role gate.
 
 ## What should I remember?
 
 - Declare authz in the registries ([pkg/types/coretypes](/pkg/types/coretypes)), not in migrations — tuples for new organizations are derived from code at bootstrap.
-- A new kind never needs an OpenFGA schema change; only a new type does, and then **both** [pkg/authz/openfgaschema/base.fga](/pkg/authz/openfgaschema/base.fga) and [ee/authz/openfgaschema/base.fga](/ee/authz/openfgaschema/base.fga) must be updated together.
+- A new kind never needs an OpenFGA schema change; only a new type requires an update to [pkg/authz/openfgaschema/base.fga](/pkg/authz/openfgaschema/base.fga).
 - Prefer `CheckResources` + `ResourceDef` over the coarse `ViewAccess`/`EditAccess`/`AdminAccess` gates for new routes.
 - Use `WildcardSelector` for `create`/`list`, `IDSelector` for instance operations, and a custom `SelectorFunc` when the request ID is not the FGA selector.
 - Linking routes check **both** sides: peers via `AttachDetachSiblingResourceDef` (same verb on both), parent-child via a `BasicResourceDef` on the child (`create`/`delete`) paired with an `AttachDetachParentChildResourceDef` on the parent (`attach`/`detach`).

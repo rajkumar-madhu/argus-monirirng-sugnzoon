@@ -96,7 +96,7 @@ func (h *handler) CreateThing(rw http.ResponseWriter, req *http.Request) {
         render.Error(rw, err)
         return
     }
-    
+
     // Call module functions
     out, err := h.module.CreateThing(req.Context(), claims.OrgID, &in)
     if err != nil {
@@ -155,7 +155,7 @@ if err := router.Handle("/api/v1/things", handler.New(
 Run the following command to update the OpenAPI spec:
 
 ```bash
-go run cmd/enterprise/*.go generate openapi
+go run ./cmd/community generate openapi
 ```
 
 This will update the OpenAPI spec in `docs/api/openapi.yml` to reflect the new endpoint.
@@ -374,7 +374,7 @@ func (Plugin) PrepareJSONSchema(s *jsonschema.Schema) error {
 }
 ```
 
-Each variant must declare the discriminator property (`kind`) and mark it `required`. 
+Each variant must declare the discriminator property (`kind`) and mark it `required`.
 
 This produces the following in the generated OpenAPI spec:
 
