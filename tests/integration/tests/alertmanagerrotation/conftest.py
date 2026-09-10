@@ -3,7 +3,7 @@ from testcontainers.core.container import Network
 
 from fixtures import types
 from fixtures.maildev import NEW_PROVIDER_SMTP_PASS, OLD_PROVIDER_SMTP_PASS, create_maildev, signoz_smtp_env
-from fixtures.signoz import create_signoz
+from fixtures.argus import create_signoz
 
 
 @pytest.fixture(name="maildev_old", scope="package")

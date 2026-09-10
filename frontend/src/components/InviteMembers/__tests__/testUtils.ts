@@ -10,7 +10,7 @@ export const MOCK_ROLES = [
 	{ id: 'role-viewer', name: 'Viewer', description: 'Viewer role' },
 ];
 
-export const VALID_EMAIL = 'alice@signoz.io';
+export const VALID_EMAIL = 'alice@argus.example.com';
 export const INVALID_EMAIL = 'not-an-email';
 
 export function createSuccessHandler(): RestHandler {

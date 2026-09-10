@@ -52,7 +52,7 @@ const ADD_ONS = [
 		key: ADD_ONS_KEYS.GROUP_BY,
 		description:
 			'Break down data by attributes like service name, endpoint, status code, or region. Essential for spotting patterns and comparing performance across different segments.',
-		docLink: 'https://signoz.io/docs/querying/aggregation-grouping/#grouping',
+		docLink: 'https://argus.example.com/docs/querying/aggregation-grouping/#grouping',
 	},
 	{
 		icon: <ScrollText size={14} />,
@@ -61,7 +61,7 @@ const ADD_ONS = [
 		description:
 			'Filter grouped results based on aggregate conditions. Show only groups meeting specific criteria, like error rates > 5% or p99 latency > 500',
 		docLink:
-			'https://signoz.io/docs/querying/result-manipulation/#conditional-filtering-with-having',
+			'https://argus.example.com/docs/querying/result-manipulation/#conditional-filtering-with-having',
 	},
 	{
 		icon: <ScrollText size={14} />,
@@ -70,7 +70,7 @@ const ADD_ONS = [
 		description:
 			'Sort results to surface what matters most. Quickly identify slowest operations, most frequent errors, or highest resource consumers.',
 		docLink:
-			'https://signoz.io/docs/querying/result-manipulation/#sorting--limiting',
+			'https://argus.example.com/docs/querying/result-manipulation/#sorting--limiting',
 	},
 	{
 		icon: <ScrollText size={14} />,
@@ -79,7 +79,7 @@ const ADD_ONS = [
 		description:
 			'Show only the top/bottom N results. Perfect for focusing on outliers, reducing noise, and improving dashboard performance.',
 		docLink:
-			'https://signoz.io/docs/querying/result-manipulation/#how-limit-works-for-time-series',
+			'https://argus.example.com/docs/querying/result-manipulation/#how-limit-works-for-time-series',
 	},
 	{
 		icon: <ScrollText size={14} />,
@@ -88,7 +88,7 @@ const ADD_ONS = [
 		description:
 			'Customize series labels using variables like {{service.name}}-{{endpoint}}. Makes charts readable at a glance during incident investigation.',
 		docLink:
-			'https://signoz.io/docs/querying/aggregation-grouping/#legend-formatting',
+			'https://argus.example.com/docs/querying/aggregation-grouping/#legend-formatting',
 	},
 ];
 
@@ -99,7 +99,7 @@ const REDUCE_TO = {
 	description:
 		'Apply mathematical operations like sum, average, min, max, or percentiles to reduce multiple time series into a single value.',
 	docLink:
-		'https://signoz.io/docs/userguide/query-builder-v5/#result-manipulation',
+		'https://argus.example.com/docs/userguide/query-builder-v5/#result-manipulation',
 };
 
 const hasValue = (value: unknown): boolean =>
@@ -349,7 +349,7 @@ function QueryAddOns({
 										<TooltipContent
 											label="Group By"
 											description="Break down data by attributes like service name, endpoint, status code, or region. Essential for spotting patterns and comparing performance across different segments."
-											docLink="https://signoz.io/docs/querying/aggregation-grouping/#grouping"
+											docLink="https://argus.example.com/docs/querying/aggregation-grouping/#grouping"
 										/>
 									}
 									placement="top"
@@ -385,7 +385,7 @@ function QueryAddOns({
 										<TooltipContent
 											label="Having"
 											description="Filter grouped results based on aggregate conditions. Show only groups meeting specific criteria, like error rates > 5% or p99 latency > 500"
-											docLink="https://signoz.io/docs/querying/result-manipulation/#conditional-filtering-with-having"
+											docLink="https://argus.example.com/docs/querying/result-manipulation/#conditional-filtering-with-having"
 										/>
 									}
 									placement="top"
@@ -434,7 +434,7 @@ function QueryAddOns({
 										<TooltipContent
 											label="Order By"
 											description="Sort results to surface what matters most. Quickly identify slowest operations, most frequent errors, or highest resource consumers."
-											docLink="https://signoz.io/docs/querying/result-manipulation/#sorting--limiting"
+											docLink="https://argus.example.com/docs/querying/result-manipulation/#sorting--limiting"
 										/>
 									}
 									placement="top"
@@ -473,7 +473,7 @@ function QueryAddOns({
 											<TooltipContent
 												label="Reduce to"
 												description="Apply mathematical operations like sum, average, min, max, or percentiles to reduce multiple time series into a single value."
-												docLink="https://signoz.io/docs/userguide/query-builder-v5/#result-manipulation"
+												docLink="https://argus.example.com/docs/userguide/query-builder-v5/#result-manipulation"
 											/>
 										}
 										placement="top"

@@ -4,8 +4,8 @@ export type User = { email: string; password: string };
 
 /** Default user — admin from the pytest bootstrap (.env.local) or staging .env. */
 export const ADMIN: User = {
-	email: process.env.SIGNOZ_E2E_USERNAME!,
-	password: process.env.SIGNOZ_E2E_PASSWORD!,
+	email: process.env.ARGUS_E2E_USERNAME!,
+	password: process.env.ARGUS_E2E_PASSWORD!,
 };
 
 /**
@@ -15,8 +15,8 @@ export const ADMIN: User = {
  * so pass it explicitly whenever we know it. Left empty when the var is unset
  * so the config's staging default still applies inside a test.
  */
-const contextDefaults: { baseURL?: string } = process.env.SIGNOZ_E2E_BASE_URL
-	? { baseURL: process.env.SIGNOZ_E2E_BASE_URL }
+const contextDefaults: { baseURL?: string } = process.env.ARGUS_E2E_BASE_URL
+	? { baseURL: process.env.ARGUS_E2E_BASE_URL }
 	: {};
 
 // Per-worker storageState cache. One UI login per unique user per worker
@@ -36,7 +36,7 @@ const storageByUser = new Map<string, Promise<StorageState>>();
 async function login(page: Page, user: User): Promise<void> {
 	if (!user.email || !user.password) {
 		throw new Error(
-			'User credentials missing. Set SIGNOZ_E2E_USERNAME / SIGNOZ_E2E_PASSWORD ' +
+			'User credentials missing. Set ARGUS_E2E_USERNAME / ARGUS_E2E_PASSWORD ' +
 				'(pytest bootstrap writes them to .env.local), or pass a User via test.use({ user: ... }).',
 		);
 	}

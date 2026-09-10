@@ -178,7 +178,7 @@ function MySettings(): JSX.Element {
 					<div className="user-preference-section-title">User Preferences</div>
 
 					<div className="user-preference-section-subtitle">
-						Tailor the SigNoz console to work according to your needs.
+						Tailor the Argus console to work according to your needs.
 					</div>
 				</div>
 
@@ -196,7 +196,7 @@ function MySettings(): JSX.Element {
 						</div>
 
 						<div className="user-preference-section-content-item-description">
-							Select if SigNoz&apos;s appearance should be light, dark, or
+							Select if Argus&apos;s appearance should be light, dark, or
 							automatically follow your system preference
 						</div>
 

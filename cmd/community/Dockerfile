@@ -1,5 +1,6 @@
 FROM alpine:3.20.3
-LABEL maintainer="signoz"
+LABEL org.opencontainers.image.title="Argus"
+LABEL org.opencontainers.image.source="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon"
 WORKDIR /root
 
 ARG OS="linux"
@@ -10,10 +11,10 @@ RUN apk update && \
 	rm -rf /var/cache/apk/*
 
 
-COPY ./target/${OS}-${TARGETARCH}/signoz-community /root/signoz
+COPY ./target/${OS}-${TARGETARCH}/argus-community /root/argus
 COPY ./templates /root/templates
-COPY frontend/build/ /etc/signoz/web/
+COPY frontend/build/ /etc/argus/web/
 
-RUN chmod 755 /root /root/signoz
+RUN chmod 755 /root /root/argus
 
-ENTRYPOINT ["./signoz", "server"]
+ENTRYPOINT ["./argus", "server"]

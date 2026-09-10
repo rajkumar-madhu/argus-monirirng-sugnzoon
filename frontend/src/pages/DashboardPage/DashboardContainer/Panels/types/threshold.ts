@@ -22,7 +22,7 @@ export interface ComparisonThresholdShape {
 	format?: DashboardtypesThresholdFormatDTO;
 }
 
-/** SigNoz threshold palette; single source of truth for the hex values. */
+/** Argus threshold palette; single source of truth for the hex values. */
 export enum ThresholdColor {
 	RED = '#F1575F',
 	ORANGE = '#F5B225',

@@ -292,10 +292,10 @@ function App(): JSX.Element {
 				isChatSupportEnabled &&
 				!showAddCreditCardModal &&
 				(isCloudUser || isEnterpriseSelfHostedUser) &&
-				window.signozBootData?.settings?.pylon?.enabled
+				window.argusBootData?.settings?.pylon?.enabled
 			) {
 				const email = user.email || '';
-				const secret = window.signozBootData?.settings?.pylon?.identitySecret || '';
+				const secret = window.argusBootData?.settings?.pylon?.identitySecret || '';
 				let emailHash = '';
 
 				if (email && secret) {
@@ -304,7 +304,7 @@ function App(): JSX.Element {
 
 				window.pylon = {
 					chat_settings: {
-						app_id: window.signozBootData?.settings?.pylon?.appId,
+						app_id: window.argusBootData?.settings?.pylon?.appId,
 						email: user.email,
 						name: user.displayName || user.email,
 						email_hash: emailHash,
@@ -335,23 +335,23 @@ function App(): JSX.Element {
 	useEffect(() => {
 		if (isCloudUser || isEnterpriseSelfHostedUser) {
 			if (
-				window.signozBootData?.settings?.posthog?.enabled &&
-				window.signozBootData?.settings?.posthog?.key
+				window.argusBootData?.settings?.posthog?.enabled &&
+				window.argusBootData?.settings?.posthog?.key
 			) {
-				posthog.init(window.signozBootData.settings.posthog.key, {
-					api_host: window.signozBootData.settings.posthog.apiHost,
-					ui_host: window.signozBootData.settings.posthog.uiHost,
+				posthog.init(window.argusBootData.settings.posthog.key, {
+					api_host: window.argusBootData.settings.posthog.apiHost,
+					ui_host: window.argusBootData.settings.posthog.uiHost,
 					person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
 				});
 			}
 
 			if (
 				!isSentryInitialized &&
-				window.signozBootData?.settings?.sentry?.enabled
+				window.argusBootData?.settings?.sentry?.enabled
 			) {
 				Sentry.init({
-					dsn: window.signozBootData.settings.sentry.dsn,
-					tunnel: window.signozBootData.settings.sentry.tunnel,
+					dsn: window.argusBootData.settings.sentry.dsn,
+					tunnel: window.argusBootData.settings.sentry.tunnel,
 					environment: process.env.ENVIRONMENT,
 					release: process.env.VERSION,
 					// A tab that outlived a deploy requests hashed assets the new build no longer

@@ -1,19 +1,12 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="../docs/readme-assets/signoz-hero-dark.png" width="700">
-    <source media="(prefers-color-scheme: light)" srcset="../docs/readme-assets/signoz-hero-light.png" width="700">
-    <img alt="SigNoz - Observability on Your Terms" src="../docs/readme-assets/signoz-hero-light.png" width="700">
-  </picture>
+  <strong>Argus Frontend</strong>
 </p>
 
-<p align="center">
-  <a href="https://github.com/SigNoz/signoz/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/SigNoz/signoz"></a>
-  <a href="https://signoz.io/slack"><img alt="Slack community" src="https://img.shields.io/badge/slack-community-4A154B?logo=slack&logoColor=white"></a>
-</p>
+# Argus Frontend
 
-# SigNoz Frontend
+React-based web interface for Argus, a community observability fork of MIT-licensed SigNoz. Original SigNoz copyright is retained in the root `LICENSE`. This UI is not affiliated with SigNoz Inc.
 
-React-based web interface for [SigNoz](https://signoz.io), the open-source observability platform.
+Placeholders: `github.com/rajkumar-madhu/argus-monirirng-sugnzoon`, `https://argus.example.com`. The UI still depends on upstream `@signozhq/*` design-system packages.
 
 ## Tech Stack
 
@@ -26,7 +19,7 @@ React-based web interface for [SigNoz](https://signoz.io), the open-source obser
 
 ## Local Development Setup
 
-1. Run SigNoz backend locally — see [Self-Host Docs](https://signoz.io/docs/install/self-host/)
+1. Run the Argus backend locally — see [docs/contributing/development.md](../docs/contributing/development.md)
 
 2. Configure environment:
    ```bash
@@ -111,6 +104,4 @@ src/
 
 ## Contributing
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) in the root repo.
-
-Questions? Join our [Slack community](https://signoz.io/slack).
+See [CONTRIBUTING.md](../CONTRIBUTING.md) and [docs/ARGUS.md](../docs/ARGUS.md).

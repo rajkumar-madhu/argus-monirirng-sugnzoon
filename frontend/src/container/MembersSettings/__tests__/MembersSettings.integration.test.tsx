@@ -19,7 +19,7 @@ const mockUsers: TypesUserDTO[] = [
 	{
 		id: 'user-1',
 		displayName: 'Alice Smith',
-		email: 'alice@signoz.io',
+		email: 'alice@argus.example.com',
 		status: 'active',
 		createdAt: '2024-01-01T00:00:00.000Z',
 		orgId: 'org-1',
@@ -27,7 +27,7 @@ const mockUsers: TypesUserDTO[] = [
 	{
 		id: 'user-2',
 		displayName: 'Bob Jones',
-		email: 'bob@signoz.io',
+		email: 'bob@argus.example.com',
 		status: 'active',
 		createdAt: '2024-01-02T00:00:00.000Z',
 		orgId: 'org-1',
@@ -35,7 +35,7 @@ const mockUsers: TypesUserDTO[] = [
 	{
 		id: 'inv-1',
 		displayName: '',
-		email: 'charlie@signoz.io',
+		email: 'charlie@argus.example.com',
 		status: 'pending_invite',
 		createdAt: '2024-01-03T00:00:00.000Z',
 		orgId: 'org-1',
@@ -43,7 +43,7 @@ const mockUsers: TypesUserDTO[] = [
 	{
 		id: 'user-3',
 		displayName: 'Dave Deleted',
-		email: 'dave@signoz.io',
+		email: 'dave@argus.example.com',
 		status: 'deleted',
 		createdAt: '2024-01-04T00:00:00.000Z',
 		orgId: 'org-1',
@@ -69,7 +69,7 @@ describe('MembersSettings (integration)', () => {
 
 		await screen.findByText('Alice Smith');
 		expect(screen.getByText('Bob Jones')).toBeInTheDocument();
-		expect(screen.getByText('charlie@signoz.io')).toBeInTheDocument();
+		expect(screen.getByText('charlie@argus.example.com')).toBeInTheDocument();
 		expect(screen.getByText('Dave Deleted')).toBeInTheDocument();
 		expect(screen.getAllByText('ACTIVE')).toHaveLength(2);
 		expect(screen.getByText('INVITED')).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe('MembersSettings (integration)', () => {
 		const pendingOption = await screen.findByText(/pending invites/i);
 		await user.click(pendingOption);
 
-		await screen.findByText('charlie@signoz.io');
+		await screen.findByText('charlie@argus.example.com');
 		expect(screen.queryByText('Alice Smith')).not.toBeInTheDocument();
 	});
 
@@ -102,7 +102,7 @@ describe('MembersSettings (integration)', () => {
 
 		await screen.findByText('Bob Jones');
 		expect(screen.queryByText('Alice Smith')).not.toBeInTheDocument();
-		expect(screen.queryByText('charlie@signoz.io')).not.toBeInTheDocument();
+		expect(screen.queryByText('charlie@argus.example.com')).not.toBeInTheDocument();
 	});
 
 	it('opens EditMemberDrawer when an active member row is clicked', async () => {
@@ -129,7 +129,7 @@ describe('MembersSettings (integration)', () => {
 		fireEvent.click(screen.getByRole('button', { name: /invite member/i }));
 
 		await expect(
-			screen.findAllByPlaceholderText('e.g. john@signoz.io'),
+			screen.findAllByPlaceholderText('e.g. john@argus.example.com'),
 		).resolves.toHaveLength(3);
 	});
 
@@ -139,7 +139,7 @@ describe('MembersSettings (integration)', () => {
 		});
 
 		await expect(
-			screen.findAllByPlaceholderText('e.g. john@signoz.io'),
+			screen.findAllByPlaceholderText('e.g. john@argus.example.com'),
 		).resolves.toHaveLength(3);
 	});
 });

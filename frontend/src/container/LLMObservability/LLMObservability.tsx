@@ -4,7 +4,7 @@ import { useLLMObservabilityTabs } from './hooks/useLLMObservabilityTabs';
 import styles from './LLMObservability.module.scss';
 
 // Shell for the LLM Observability page: renders the top-level tab bar
-// (Overview / Configuration) using the SigNoz design-system Tabs, with
+// (Overview / Configuration) using the Argus design-system Tabs, with
 // route-driven active state from useLLMObservabilityTabs.
 function LLMObservability(): JSX.Element {
 	const { items, activeTab, onTabChange } = useLLMObservabilityTabs();

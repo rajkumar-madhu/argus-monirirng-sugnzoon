@@ -1,8 +1,8 @@
 import { Modal, ModalProps } from 'antd';
 
-import './SignozModal.style.scss';
+import './ArgusModal.style.scss';
 
-function SignozModal({
+function ArgusModal({
 	children,
 	width = 672,
 	rootClassName = '',
@@ -13,7 +13,7 @@ function SignozModal({
 			centered
 			width={width}
 			cancelText="Close"
-			rootClassName={`signoz-modal ${rootClassName}`}
+			rootClassName={`argus-modal ${rootClassName}`}
 			{...rest}
 		>
 			{children}
@@ -21,4 +21,4 @@ function SignozModal({
 	);
 }
 
-export default SignozModal;
+export default ArgusModal;

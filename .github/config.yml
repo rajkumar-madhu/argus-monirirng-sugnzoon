@@ -3,14 +3,14 @@
 # Configuration for new-issue-welcome - https://github.com/behaviorbot/new-issue-welcome
 # Comment to be posted to on first time issues
 newIssueWelcomeComment: >
-  Thanks for opening this issue. A team member should give feedback soon.
-  In the meantime, feel free to check out the [contributing guidelines](https://github.com/signoz/signoz/blob/main/CONTRIBUTING.md).
+  Thanks for opening this issue. A maintainer should respond soon.
+  In the meantime, feel free to check out the [contributing guidelines](https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/main/CONTRIBUTING.md).
 
 
 # Configuration for new-pr-welcome - https://github.com/behaviorbot/new-pr-welcome
 # Comment to be posted to on PRs from first time contributors in your repository
 newPRWelcomeComment: >
-  Welcome to the SigNoz community! Thank you for your first pull request and making this project better. 🤗 
+  Welcome to the Argus community! Thank you for your first pull request and making this project better.
 
 
 # Configuration for first-pr-merge - https://github.com/behaviorbot/first-pr-merge
@@ -20,7 +20,7 @@ firstPRMergeComment: >
 
   ![minion-party](https://i.imgur.com/Xlg59lP.gif)
 
-  We here at SigNoz are proud of you! 🥳
+  Thank you for contributing to Argus!
 
 
 # Configuration for request-info - https://github.com/behaviorbot/request-info

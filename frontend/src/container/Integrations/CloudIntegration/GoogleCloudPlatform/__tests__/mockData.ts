@@ -36,7 +36,7 @@ export const listAccountsResponse = {
 };
 
 /**
- * Credentials the backend hands out on SigNoz Cloud. When present the drawer
+ * Credentials the backend hands out on Argus Cloud. When present the drawer
  * renders them read-only and sends them back verbatim on submit.
  */
 export const connectionCredentials: CloudintegrationtypesCredentialsDTO = {

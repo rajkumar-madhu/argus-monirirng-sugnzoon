@@ -302,7 +302,7 @@ def export_json_types(
 
     yield _export_json_types
 
-    clickhouse.conn.query(f"TRUNCATE TABLE signoz_metadata.field_keys ON CLUSTER '{clickhouse.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' SYNC")
+    clickhouse.conn.query(f"TRUNCATE TABLE signoz_metadata.field_keys ON CLUSTER '{clickhouse.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' SYNC")
 
 
 @pytest.fixture(name="create_json_index", scope="function")
@@ -366,7 +366,7 @@ def create_json_index(
     if not created_paths:
         return
 
-    cluster = signoz.telemetrystore.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
+    cluster = signoz.telemetrystore.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
     for path in created_paths:
         result = signoz.telemetrystore.conn.query(f"SELECT name FROM system.data_skipping_indices WHERE database = 'signoz_logs' AND table = 'logs_v2' AND expr LIKE '%{path}%'")
         for (index_name,) in result.result_rows:

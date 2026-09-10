@@ -60,22 +60,22 @@ function WorkspaceAccessRestricted(): JSX.Element {
 										>
 											{activeLicense.state === LicenseState.TERMINATED && (
 												<>
-													Your SigNoz license is terminated, please contact support at{' '}
-													<a href="mailto:cloud-support@signoz.io">
-														cloud-support@signoz.io
+													Your Argus license is terminated, please contact support at{' '}
+													<a href="mailto:cloud-support@argus.example.com">
+														cloud-support@argus.example.com
 													</a>{' '}
 													for a new deployment
 												</>
 											)}
 											{activeLicense.state === LicenseState.EXPIRED && (
 												<>
-													Your SigNoz license is expired, please contact support at{' '}
-													<a href="mailto:cloud-support@signoz.io">
-														cloud-support@signoz.io
+													Your Argus license is expired, please contact support at{' '}
+													<a href="mailto:cloud-support@argus.example.com">
+														cloud-support@argus.example.com
 													</a>{' '}
 													for renewal to avoid termination of license as per our{' '}
 													<a
-														href="https://signoz.io/terms-of-service"
+														href="https://argus.example.com/terms-of-service"
 														target="_blank"
 														rel="noopener noreferrer"
 													>
@@ -86,13 +86,13 @@ function WorkspaceAccessRestricted(): JSX.Element {
 											)}
 											{activeLicense.state === LicenseState.CANCELLED && (
 												<>
-													Your SigNoz license is cancelled, please contact support at{' '}
-													<a href="mailto:cloud-support@signoz.io">
-														cloud-support@signoz.io
+													Your Argus license is cancelled, please contact support at{' '}
+													<a href="mailto:cloud-support@argus.example.com">
+														cloud-support@argus.example.com
 													</a>{' '}
 													for reactivation to avoid termination of license as per our{' '}
 													<a
-														href="https://signoz.io/terms-of-service"
+														href="https://argus.example.com/terms-of-service"
 														target="_blank"
 														rel="noopener noreferrer"
 													>
@@ -107,7 +107,7 @@ function WorkspaceAccessRestricted(): JSX.Element {
 											type="default"
 											shape="round"
 											size="middle"
-											href="mailto:cloud-support@signoz.io"
+											href="mailto:cloud-support@argus.example.com"
 											role="button"
 										>
 											Contact Us

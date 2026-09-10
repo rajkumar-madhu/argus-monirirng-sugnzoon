@@ -1,5 +1,5 @@
 import { Divider } from '@signozhq/ui/divider';
-import SignozRadioGroup from 'components/SignozRadioGroup/SignozRadioGroup';
+import ArgusRadioGroup from 'components/ArgusRadioGroup/ArgusRadioGroup';
 import { useFunnelContext } from 'pages/TracesFunnels/FunnelContext';
 import { useAppContext } from 'providers/App/App';
 import { FunnelStepData, LatencyOptions } from 'types/api/traceFunnels';
@@ -27,7 +27,7 @@ function InterStepConfig({
 				<Divider dashed />
 			</div>
 			<div className="inter-step-config__latency-options">
-				<SignozRadioGroup
+				<ArgusRadioGroup
 					value={step.latency_type ?? LatencyOptions.P99}
 					options={options}
 					disabled={!hasEditPermission}

@@ -23,11 +23,11 @@ NEW_PROVIDER_SMTP_PASS = "new-provider-smtp-secret"
 
 def signoz_smtp_env(maildev: "types.TestContainerDocker", password: str = MAILDEV_INCOMING_PASS) -> dict:
     return {
-        "SIGNOZ_ALERTMANAGER_SIGNOZ_GLOBAL_SMTP__SMARTHOST": f"{maildev.container_configs['1025'].address}:{maildev.container_configs['1025'].port}",
-        "SIGNOZ_ALERTMANAGER_SIGNOZ_GLOBAL_SMTP__FROM": SMTP_TEST_FROM,
-        "SIGNOZ_ALERTMANAGER_SIGNOZ_GLOBAL_SMTP__AUTH__USERNAME": MAILDEV_INCOMING_USER,
-        "SIGNOZ_ALERTMANAGER_SIGNOZ_GLOBAL_SMTP__AUTH__PASSWORD": password,
-        "SIGNOZ_ALERTMANAGER_SIGNOZ_GLOBAL_SMTP__REQUIRE__TLS": "false",
+        "ARGUS_ALERTMANAGER_ARGUS_GLOBAL_SMTP__SMARTHOST": f"{maildev.container_configs['1025'].address}:{maildev.container_configs['1025'].port}",
+        "ARGUS_ALERTMANAGER_ARGUS_GLOBAL_SMTP__FROM": SMTP_TEST_FROM,
+        "ARGUS_ALERTMANAGER_ARGUS_GLOBAL_SMTP__AUTH__USERNAME": MAILDEV_INCOMING_USER,
+        "ARGUS_ALERTMANAGER_ARGUS_GLOBAL_SMTP__AUTH__PASSWORD": password,
+        "ARGUS_ALERTMANAGER_ARGUS_GLOBAL_SMTP__REQUIRE__TLS": "false",
     }
 
 

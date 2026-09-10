@@ -89,7 +89,7 @@ describe('ChangelogModal', () => {
 		renderChangelog();
 		fireEvent.click(screen.getByText('Update my workspace'));
 		expect(window.open).toHaveBeenCalledWith(
-			'https://signoz.io/upgrade-path',
+			'https://argus.example.com/upgrade-path',
 			'_blank',
 			'noopener,noreferrer',
 		);

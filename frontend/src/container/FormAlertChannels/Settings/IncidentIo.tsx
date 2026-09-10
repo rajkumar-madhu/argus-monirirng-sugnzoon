@@ -47,7 +47,7 @@ function IncidentIOSettings({
 			>
 				{t('incidentio_tip')}{' '}
 				<Typography.Link
-					href="https://signoz.io/docs/alerts-management/notification-channel/incidentio/"
+					href="https://argus.example.com/docs/alerts-management/notification-channel/incidentio/"
 					target="_blank"
 					rel="noopener noreferrer"
 				>

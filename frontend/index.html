@@ -20,22 +20,22 @@
 		/>
 
 		<title data-react-helmet="true">
-			Open source Observability platform | SigNoz
+			Open source Observability platform | Argus
 		</title>
 		<meta
 			data-react-helmet="true"
 			property="og:title"
-			content="Open source Observability platform | SigNoz"
+			content="Open source Observability platform | Argus"
 		/>
 		<meta
 			data-react-helmet="true"
 			name="description"
-			content="SigNoz is an open source observability platform to help you find issues in your deployed applications & solve them quickly. It provides a single pane of glass for metrics, traces and logs with deep filtering and aggregation to pin down specific issues very quickly."
+			content="Argus is an open source observability platform to help you find issues in your deployed applications & solve them quickly. It provides a single pane of glass for metrics, traces and logs with deep filtering and aggregation to pin down specific issues very quickly."
 		/>
 		<meta
 			data-react-helmet="true"
 			property="og:description"
-			content="SigNoz is an open source observability platform to help you find issues in your deployed applications & solve them quickly. It provides a single pane of glass for metrics, traces and logs with deep filtering and aggregation to pin down specific issues very quickly."
+			content="Argus is an open source observability platform to help you find issues in your deployed applications & solve them quickly. It provides a single pane of glass for metrics, traces and logs with deep filtering and aggregation to pin down specific issues very quickly."
 		/>
 		<meta
 			data-react-helmet="true"
@@ -50,7 +50,7 @@
 		<meta
 			data-react-helmet="true"
 			name="twitter:image:alt"
-			content="Image for Open source Observability platform | SigNoz"
+			content="Image for Open source Observability platform | Argus"
 		/>
 		<meta
 			data-react-helmet="true"
@@ -68,7 +68,7 @@
 			// Mirrors the logic in ThemeProvider (hooks/useDarkMode/index.tsx).
 			(function () {
 				try {
-					// When served under a URL prefix (e.g. /signoz/), storage keys are scoped
+					// When served under a URL prefix (e.g. /argus/), storage keys are scoped
 					// to that prefix by the React app (see utils/storage.ts getScopedKey).
 					// Read the <base> tag — already populated by the Go template — to derive
 					// the same prefix here, before any JS module has loaded.
@@ -94,17 +94,17 @@
 				}
 			})();
 		</script>
-		<script type="application/json" id="signoz-boot-settings">
+		<script type="application/json" id="argus-boot-settings">
 			[[.Settings]]
 		</script>
 		<script>
 			try {
-				var _el = document.getElementById('signoz-boot-settings');
-				window.signozBootData = {
+				var _el = document.getElementById('argus-boot-settings');
+				window.argusBootData = {
 					settings: _el ? JSON.parse(_el.textContent) : null,
 				};
 			} catch (e) {
-				window.signozBootData = { settings: null };
+				window.argusBootData = { settings: null };
 			}
 		</script>
 		<noscript>You need to enable JavaScript to run this app.</noscript>
@@ -112,7 +112,7 @@
 
 		<script>
 			var pylonSettings =
-				((window.signozBootData || {}).settings || {}).pylon || {};
+				((window.argusBootData || {}).settings || {}).pylon || {};
 			var pylonEnabled = pylonSettings.enabled === true;
 			if (pylonSettings.appId && pylonEnabled) {
 				(function () {
@@ -150,7 +150,7 @@
 		</script>
 		<script>
 			var appcuesSettings =
-				((window.signozBootData || {}).settings || {}).appcues || {};
+				((window.argusBootData || {}).settings || {}).appcues || {};
 			var appcuesEnabled = appcuesSettings.enabled === true;
 			if (appcuesSettings.appId && appcuesEnabled) {
 				(function (d, t) {

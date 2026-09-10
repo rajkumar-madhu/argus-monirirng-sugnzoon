@@ -44,7 +44,7 @@ function FunnelsEmptyState({
 							New funnel
 						</Button>
 					)}
-					<LearnMore url="https://signoz.io/blog/tracing-funnels-observability-distributed-systems/" />
+					<LearnMore url="https://argus.example.com/blog/tracing-funnels-observability-distributed-systems/" />
 				</div>
 			</div>
 		</div>

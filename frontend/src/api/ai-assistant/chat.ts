@@ -68,7 +68,7 @@ import {
 	getAIBaseUrl,
 	SIGNOZ_URL_HEADER,
 } from '../AIAPIInstance';
-import { getSigNozInstanceUrl } from 'utils/signozInstanceUrl';
+import { getArgusInstanceUrl } from 'utils/argusInstanceUrl';
 
 // ---------------------------------------------------------------------------
 // SSE-only auth wrapper.
@@ -137,7 +137,7 @@ async function fetchSSEWithAuth(
 ): Promise<Response> {
 	const send = async (token: string | null): Promise<Response> => {
 		const headers: Record<string, string> = {
-			[SIGNOZ_URL_HEADER]: getSigNozInstanceUrl(),
+			[SIGNOZ_URL_HEADER]: getArgusInstanceUrl(),
 		};
 		if (token) {
 			headers.Authorization = `Bearer ${token}`;

@@ -289,11 +289,11 @@ yarn report               # open the last HTML report (artifacts/html)
 
 ### Staging fallback
 
-Point `SIGNOZ_E2E_BASE_URL` at a remote env via `.env` — no local backend bring-up, no `.env.local` generated, Playwright hits the URL directly:
+Point `ARGUS_E2E_BASE_URL` at a remote env via `.env` — no local backend bring-up, no `.env.local` generated, Playwright hits the URL directly:
 
 ```bash
 cd tests/e2e
-cp .env.example .env      # fill SIGNOZ_E2E_USERNAME / PASSWORD
+cp .env.example .env      # fill ARGUS_E2E_USERNAME / PASSWORD
 yarn test:staging
 ```
 
@@ -303,19 +303,19 @@ yarn test:staging
 
 | Variable | Description |
 |---|---|
-| `SIGNOZ_E2E_BASE_URL` | Base URL the browser targets. Written by `bootstrap/setup.py` for local mode; set manually for staging. |
-| `SIGNOZ_E2E_USERNAME` | Admin email. Bootstrap writes `admin@integration.test`. |
-| `SIGNOZ_E2E_PASSWORD` | Admin password. Bootstrap writes the integration-test default. |
-| `SIGNOZ_E2E_SEEDER_URL` | Seeder HTTP base URL — hit by specs that need per-test telemetry. |
+| `ARGUS_E2E_BASE_URL` | Base URL the browser targets. Written by `bootstrap/setup.py` for local mode; set manually for staging. |
+| `ARGUS_E2E_USERNAME` | Admin email. Bootstrap writes `admin@integration.test`. |
+| `ARGUS_E2E_PASSWORD` | Admin password. Bootstrap writes the integration-test default. |
+| `ARGUS_E2E_SEEDER_URL` | Seeder HTTP base URL — hit by specs that need per-test telemetry. |
 
 Precedence in `playwright.config.ts`, lowest to highest: `.env` (user-provided, staging) → `.env.local` (bootstrap-generated, local mode) → whatever is already in `process.env`. The config parses both files itself and only fills in keys the environment does not already define, so exporting a variable always wins:
 
 ```bash
 # runs against a locally served frontend, not whatever .env.local points at
-SIGNOZ_E2E_BASE_URL=http://127.0.0.1:3301 pnpm test tests/alerts
+ARGUS_E2E_BASE_URL=http://127.0.0.1:3301 pnpm test tests/alerts
 ```
 
-This is deliberately not `dotenv.config({ override: true })`. That flag makes the *file* beat `process.env`, which silently discarded exported values — including the `SIGNOZ_E2E_BASE_URL` in `pnpm test:staging`, whenever a `.env.local` happened to exist.
+This is deliberately not `dotenv.config({ override: true })`. That flag makes the *file* beat `process.env`, which silently discarded exported values — including the `ARGUS_E2E_BASE_URL` in `pnpm test:staging`, whenever a `.env.local` happened to exist.
 
 ### Playwright options
 

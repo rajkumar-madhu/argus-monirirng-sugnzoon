@@ -88,7 +88,7 @@ function createMockUser(overrides: Partial<IUser> = {}): IUser {
 		accessJwt: 'test-token',
 		refreshJwt: 'test-refresh-token',
 		id: 'user-id',
-		email: 'test@signoz.io',
+		email: 'test@argus.example.com',
 		displayName: 'Test User',
 		createdAt: 1732544623,
 		organization: 'Test Org',

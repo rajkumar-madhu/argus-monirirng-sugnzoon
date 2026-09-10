@@ -37,7 +37,7 @@ describe('DataSourceInfo', () => {
 			),
 		);
 
-		render(<DataSourceInfo dataSentToSigNoz={false} isLoading={false} />);
+		render(<DataSourceInfo dataSentToArgus={false} isLoading={false} />);
 
 		await screen.findByText(/custom-host\.test\.cloud/i);
 	});
@@ -49,7 +49,7 @@ describe('DataSourceInfo', () => {
 			),
 		);
 
-		render(<DataSourceInfo dataSentToSigNoz={false} isLoading={false} />);
+		render(<DataSourceInfo dataSentToArgus={false} isLoading={false} />);
 
 		await screen.findByText(/Your workspace is ready/i);
 		expect(screen.queryByText(/signoz\.cloud/i)).not.toBeInTheDocument();
@@ -62,7 +62,7 @@ describe('DataSourceInfo', () => {
 			),
 		);
 
-		render(<DataSourceInfo dataSentToSigNoz={true} isLoading={false} />);
+		render(<DataSourceInfo dataSentToArgus={true} isLoading={false} />);
 
 		await screen.findByText(/custom-host\.test\.cloud/i);
 	});

@@ -14,7 +14,7 @@ export default function LogsError(): JSX.Element {
 		if (isCloudUserVal) {
 			history.push('/support');
 		} else {
-			window.open('https://signoz.io/slack', '_blank');
+			window.open('https://argus.example.com/slack', '_blank');
 		}
 	};
 

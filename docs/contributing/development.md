@@ -1,6 +1,6 @@
 # Development Guide
 
-Welcome! This guide will help you set up your local development environment for SigNoz. Let's get you started! 🚀
+Welcome! This guide will help you set up your local development environment for Argus. Let's get you started! 🚀
 
 ## What do I need?
 
@@ -30,16 +30,16 @@ Before diving in, make sure you have these tools installed:
 1. Open your terminal
 2. Clone the repository:
    ```bash
-   git clone https://github.com/SigNoz/signoz.git
+   git clone https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon.git
    ```
 3. Navigate to the project:
    ```bash
-   cd signoz
+   cd argus-monirirng-sugnzoon
    ```
 
 ## How do I run it locally?
 
-SigNoz has three main components: Clickhouse, Backend, and Frontend. Let's set them up one by one.
+Argus has three main components: Clickhouse, Backend, and Frontend. Let's set them up one by one.
 
 ### 1. Setting up ClickHouse
 
@@ -54,7 +54,7 @@ This command:
 - Sets up Zookeeper
 - Runs the latest schema migrations
 
-### 2. Setting up SigNoz OpenTelemetry Collector
+### 2. Setting up the upstream OpenTelemetry Collector
 
 Next, start the OpenTelemetry Collector to receive telemetry data:
 
@@ -63,7 +63,7 @@ make devenv-signoz-otel-collector
 ```
 
 This command:
-- Starts the SigNoz OpenTelemetry Collector
+- Starts the upstream SigNoz OpenTelemetry Collector
 - Listens on port 4317 (gRPC) and 4318 (HTTP) for incoming telemetry data
 - Forwards data to ClickHouse for storage
 
@@ -131,17 +131,17 @@ Handy when you keep several branches checked out as separate git worktrees. Ever
 and path below is read from the environment, so set them on the `make` call:
 
 ```bash
-SIGNOZ_APISERVER_ADDRESS=0.0.0.0:8081 \
-SIGNOZ_SQLSTORE_SQLITE_PATH=/path/to/main/sqlite.db \
-SIGNOZ_INSTRUMENTATION_METRICS_READERS_PULL_EXPORTER_PROMETHEUS_PORT=9091 \
+ARGUS_APISERVER_ADDRESS=0.0.0.0:8081 \
+ARGUS_SQLSTORE_SQLITE_PATH=/path/to/main/sqlite.db \
+ARGUS_INSTRUMENTATION_METRICS_READERS_PULL_EXPORTER_PROMETHEUS_PORT=9091 \
 make go-run-community
 ```
 
 | Variable | Default | Why you'd change it |
 | --- | --- | --- |
-| `SIGNOZ_APISERVER_ADDRESS` | `0.0.0.0:8080` | Address the API server listens on |
-| `SIGNOZ_SQLSTORE_SQLITE_PATH` | `signoz.db` in worktree | To reuse same database |
-| `SIGNOZ_INSTRUMENTATION_METRICS_READERS_PULL_EXPORTER_PROMETHEUS_PORT` | `9090` | Bound by the Prometheus metrics exporter on startup |
+| `ARGUS_APISERVER_ADDRESS` | `0.0.0.0:8080` | Address the API server listens on |
+| `ARGUS_SQLSTORE_SQLITE_PATH` | `signoz.db` in worktree | To reuse same database |
+| `ARGUS_INSTRUMENTATION_METRICS_READERS_PULL_EXPORTER_PROMETHEUS_PORT` | `9090` | Bound by the Prometheus metrics exporter on startup |
 
 Point the frontend at whichever backend you want, in `frontend/.env`:
 
@@ -152,12 +152,12 @@ VITE_FRONTEND_API_ENDPOINT=http://localhost:8081
 Stop an instance using the address it was started on:
 
 ```bash
-make go-stop SIGNOZ_APISERVER_ADDRESS=0.0.0.0:8081
+make go-stop ARGUS_APISERVER_ADDRESS=0.0.0.0:8081
 ```
 
 ## How to send test data?
 
-You can now send telemetry data to your local SigNoz instance:
+You can now send telemetry data to your local Argus instance:
 
 - **OTLP gRPC**: `localhost:4317`
 - **OTLP HTTP**: `localhost:4318`

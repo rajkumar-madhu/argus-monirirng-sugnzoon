@@ -48,11 +48,11 @@ def postgres(network: Network, request: pytest.FixtureRequest, pytestconfig: pyt
             ),
             conn=engine,
             env={
-                "SIGNOZ_SQLSTORE_PROVIDER": "postgres",
-                "SIGNOZ_SQLSTORE_POSTGRES_DSN": f"postgresql://{container.username}:{container.password}@{container.get_wrapped_container().name}:{5432}/{container.dbname}",
-                "SIGNOZ_SQLSTORE_POSTGRES_DBNAME": container.dbname,
-                "SIGNOZ_SQLSTORE_POSTGRES_USER": container.username,
-                "SIGNOZ_SQLSTORE_POSTGRES_PASSWORD": container.password,
+                "ARGUS_SQLSTORE_PROVIDER": "postgres",
+                "ARGUS_SQLSTORE_POSTGRES_DSN": f"postgresql://{container.username}:{container.password}@{container.get_wrapped_container().name}:{5432}/{container.dbname}",
+                "ARGUS_SQLSTORE_POSTGRES_DBNAME": container.dbname,
+                "ARGUS_SQLSTORE_POSTGRES_USER": container.username,
+                "ARGUS_SQLSTORE_POSTGRES_PASSWORD": container.password,
             },
         )
 
@@ -72,7 +72,7 @@ def postgres(network: Network, request: pytest.FixtureRequest, pytestconfig: pyt
         host_config = container.host_configs["5432"]
         env = cache["env"]
 
-        engine = create_engine(f"postgresql+psycopg2://{env['SIGNOZ_SQLSTORE_POSTGRES_USER']}:{env['SIGNOZ_SQLSTORE_POSTGRES_PASSWORD']}@{host_config.address}:{host_config.port}/{env['SIGNOZ_SQLSTORE_POSTGRES_DBNAME']}")
+        engine = create_engine(f"postgresql+psycopg2://{env['ARGUS_SQLSTORE_POSTGRES_USER']}:{env['ARGUS_SQLSTORE_POSTGRES_PASSWORD']}@{host_config.address}:{host_config.port}/{env['ARGUS_SQLSTORE_POSTGRES_DBNAME']}")
 
         with engine.connect() as conn:
             result = conn.execute(sql.text("SELECT 1"))

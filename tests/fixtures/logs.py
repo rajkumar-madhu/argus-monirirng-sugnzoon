@@ -535,7 +535,7 @@ def insert_logs(
 
     truncate_logs_tables(
         clickhouse.conn,
-        clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
+        clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
     )
 
 
@@ -600,10 +600,10 @@ def materialize_log_field(
         if mat_field_type == "resources":
             mat_field_type = "resource"
         field = f"{mat_field_type}_{mat_field_data_type}_{mat_field_name}"
-        signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_logs.logs_v2 ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' DROP INDEX IF EXISTS {field}_idx")
+        signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_logs.logs_v2 ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' DROP INDEX IF EXISTS {field}_idx")
         for table in ["logs_v2", "distributed_logs_v2"]:
-            signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' DROP COLUMN IF EXISTS {field}")
-            signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' DROP COLUMN IF EXISTS {field}_exists")
+            signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' DROP COLUMN IF EXISTS {field}")
+            signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' DROP COLUMN IF EXISTS {field}_exists")
 
 
 @pytest.fixture(name="ttl_legacy_logs_v2_table_setup", scope="function")
@@ -615,14 +615,14 @@ def ttl_legacy_logs_v2_table_setup(request, signoz: types.SigNoz):
     """
 
     # Setup code
-    result = signoz.telemetrystore.conn.query(f"RENAME TABLE signoz_logs.logs_v2 TO signoz_logs.logs_v2_backup ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'").result_rows
+    result = signoz.telemetrystore.conn.query(f"RENAME TABLE signoz_logs.logs_v2 TO signoz_logs.logs_v2_backup ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'").result_rows
     assert result is not None
     # Add cleanup to restore original table
-    request.addfinalizer(lambda: signoz.telemetrystore.conn.query(f"RENAME TABLE signoz_logs.logs_v2_backup TO signoz_logs.logs_v2 ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'"))
+    request.addfinalizer(lambda: signoz.telemetrystore.conn.query(f"RENAME TABLE signoz_logs.logs_v2_backup TO signoz_logs.logs_v2 ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'"))
 
     # Create new test tables
     result = signoz.telemetrystore.conn.query(
-        f"""CREATE TABLE signoz_logs.logs_v2 ON CLUSTER '{signoz.telemetrystore.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
+        f"""CREATE TABLE signoz_logs.logs_v2 ON CLUSTER '{signoz.telemetrystore.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
                                                 (
                                                     `id` String,
                                                     `timestamp` UInt64 CODEC(DoubleDelta, LZ4)
@@ -634,7 +634,7 @@ def ttl_legacy_logs_v2_table_setup(request, signoz: types.SigNoz):
 
     assert result is not None
     # Add cleanup to drop test table
-    request.addfinalizer(lambda: signoz.telemetrystore.conn.query(f"DROP TABLE IF EXISTS signoz_logs.logs_v2 ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'"))
+    request.addfinalizer(lambda: signoz.telemetrystore.conn.query(f"DROP TABLE IF EXISTS signoz_logs.logs_v2 ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'"))
 
     yield  # Test runs here
 
@@ -648,14 +648,14 @@ def ttl_legacy_logs_v2_resource_table_setup(request, signoz: types.SigNoz):
     """
 
     # Setup code
-    result = signoz.telemetrystore.conn.query(f"RENAME TABLE signoz_logs.logs_v2_resource TO signoz_logs.logs_v2_resource_backup ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'").result_rows
+    result = signoz.telemetrystore.conn.query(f"RENAME TABLE signoz_logs.logs_v2_resource TO signoz_logs.logs_v2_resource_backup ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'").result_rows
     assert result is not None
     # Add cleanup to restore original table
-    request.addfinalizer(lambda: signoz.telemetrystore.conn.query(f"RENAME TABLE signoz_logs.logs_v2_resource_backup TO signoz_logs.logs_v2_resource ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'"))
+    request.addfinalizer(lambda: signoz.telemetrystore.conn.query(f"RENAME TABLE signoz_logs.logs_v2_resource_backup TO signoz_logs.logs_v2_resource ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}'"))
 
     # Create new test tables
     result = signoz.telemetrystore.conn.query(
-        f"""CREATE TABLE signoz_logs.logs_v2_resource ON CLUSTER '{signoz.telemetrystore.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
+        f"""CREATE TABLE signoz_logs.logs_v2_resource ON CLUSTER '{signoz.telemetrystore.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
                                                 (
                                                     `id` String,
                                                     `seen_at_ts_bucket_start` Int64 CODEC(Delta(8), ZSTD(1))
@@ -666,7 +666,7 @@ def ttl_legacy_logs_v2_resource_table_setup(request, signoz: types.SigNoz):
 
     assert result is not None
     # Add cleanup to drop test table
-    request.addfinalizer(lambda: signoz.telemetrystore.conn.query(f"DROP TABLE IF EXISTS signoz_logs.logs_v2_resource ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}';"))
+    request.addfinalizer(lambda: signoz.telemetrystore.conn.query(f"DROP TABLE IF EXISTS signoz_logs.logs_v2_resource ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}';"))
 
     yield  # Test runs here
 
@@ -696,19 +696,19 @@ def remove_logs_ttl_settings(signoz: types.SigNoz):
                 "distributed_logs_v2_resource",
             ]:
                 reset_retention_query = f"""
-                ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
+                ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
                 MODIFY COLUMN _retention_days UInt16 DEFAULT 0
                 """
                 signoz.telemetrystore.conn.query(reset_retention_query)
 
                 reset_retention_cold_query = f"""
-                ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
+                ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
                 MODIFY COLUMN _retention_days_cold UInt16 DEFAULT 0
                 """
                 signoz.telemetrystore.conn.query(reset_retention_cold_query)
             else:
                 alter_query = f"""
-                ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
+                ALTER TABLE signoz_logs.{table} ON CLUSTER '{signoz.telemetrystore.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]}'
                 REMOVE TTL
                 """
                 signoz.telemetrystore.conn.query(alter_query)

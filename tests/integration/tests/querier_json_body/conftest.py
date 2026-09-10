@@ -3,7 +3,7 @@ from testcontainers.core.container import Network
 
 from fixtures import types
 from fixtures.migrator import create_migrator
-from fixtures.signoz import create_signoz
+from fixtures.argus import create_signoz
 
 
 @pytest.fixture(name="migrator", scope="package")

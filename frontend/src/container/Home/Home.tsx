@@ -327,7 +327,7 @@ export default function Home(): JSX.Element {
 			<div className="home-content">
 				<div className="home-left-content">
 					<DataSourceInfo
-						dataSentToSigNoz={
+						dataSentToArgus={
 							isLogsIngestionActive ||
 							isTracesIngestionActive ||
 							isMetricsIngestionActive

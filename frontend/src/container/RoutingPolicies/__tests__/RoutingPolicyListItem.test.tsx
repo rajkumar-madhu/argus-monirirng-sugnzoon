@@ -50,7 +50,7 @@ describe('RoutingPolicyListItem', () => {
 		expect(screen.getByText(mockRoutingPolicy.expression)).toBeInTheDocument();
 		expect(screen.getByText(mockRoutingPolicy.channels[0])).toBeInTheDocument();
 		expect(
-			screen.getByText(mockRoutingPolicy.createdBy || 'user1@signoz.io'),
+			screen.getByText(mockRoutingPolicy.createdBy || 'user1@argus.example.com'),
 		).toBeInTheDocument();
 		expect(
 			screen.getByText(mockRoutingPolicy.description || 'description 1'),

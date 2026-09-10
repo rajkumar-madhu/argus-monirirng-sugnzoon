@@ -10,12 +10,12 @@ import path from 'path';
 //                 lifecycle brings the backend up locally, so it must win over
 //                 any stale .env value
 //   the real environment — anything the caller exported on purpose, e.g.
-//                 `SIGNOZ_E2E_BASE_URL=http://127.0.0.1:3301 pnpm test` to run
+//                 `ARGUS_E2E_BASE_URL=http://127.0.0.1:3301 pnpm test` to run
 //                 against a locally served frontend, or the vars pytest injects
 //                 when it shells out to `pnpm test`.
 //
 // This is deliberately *not* `dotenv.config({ override: true })`: that flag
-// makes the file beat process.env, so an exported SIGNOZ_E2E_BASE_URL was
+// makes the file beat process.env, so an exported ARGUS_E2E_BASE_URL was
 // silently discarded and every run went to whatever .env.local pointed at.
 // Parsing by hand is the only way to get ".env.local beats .env" without also
 // getting ".env.local beats the caller".
@@ -57,7 +57,7 @@ export default defineConfig({
 
 	// Workers. Playwright's local default is `cpus / 2`, which on a 32-core box is
 	// 16 — and 16 is strictly worse than 6 here, because every worker's browser
-	// shares one SigNoz container: measured on `tests/alerts/{create,edit}` at
+	// shares one Argus container: measured on `tests/alerts/{create,edit}` at
 	// `--repeat-each=3` (224 tests), 16 workers took 128 s with 3 failures while 6
 	// took 119 s with none. Past ~6 the extra workers only add queueing, which shows
 	// up as 4-6 s app mounts and save requests that outlive the test timeout — i.e.
@@ -81,7 +81,7 @@ export default defineConfig({
 	// Shared settings
 	use: {
 		baseURL:
-			process.env.SIGNOZ_E2E_BASE_URL || 'https://app.us.staging.signoz.cloud',
+			process.env.ARGUS_E2E_BASE_URL || 'https://argus.example.com',
 		trace: 'on-first-retry',
 		screenshot: 'only-on-failure',
 		video: 'retain-on-failure',

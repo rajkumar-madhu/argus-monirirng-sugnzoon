@@ -546,7 +546,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 									{isDynamicVariable && (
 										<TextToolTip
 											text="Related values: Filtered by other variable selections. All values: Unfiltered complete list. Learn more"
-											url="https://signoz.io/docs/userguide/manage-variables/#dynamic-variable-dropdowns-display-values-in-two-sections"
+											url="https://argus.example.com/docs/userguide/manage-variables/#dynamic-variable-dropdowns-display-values-in-two-sections"
 											urlText="here"
 											useFilledIcon={false}
 											outlinedIcon={

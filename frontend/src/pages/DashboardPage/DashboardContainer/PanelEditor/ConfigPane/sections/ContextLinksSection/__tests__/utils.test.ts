@@ -9,12 +9,12 @@ describe('ContextLinksSection utils', () => {
 	describe('isValidContextLinkUrl', () => {
 		it.each([
 			['', true],
-			['https://signoz.io', true],
+			['https://argus.example.com', true],
 			['http://localhost:3301/trace', true],
 			['/trace/{{_traceId}}', true],
 			['{{host}}/trace', true],
 			['trace/{{_traceId}}', false],
-			['ftp://signoz.io', false],
+			['ftp://argus.example.com', false],
 		])('validates %p as %p', (url, expected) => {
 			expect(isValidContextLinkUrl(url)).toBe(expected);
 		});

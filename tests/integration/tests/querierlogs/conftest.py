@@ -2,7 +2,7 @@ import pytest
 from testcontainers.core.container import Network
 
 from fixtures import types
-from fixtures.signoz import create_signoz
+from fixtures.argus import create_signoz
 
 
 @pytest.fixture(name="signoz_search_scan_budget", scope="package")

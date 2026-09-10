@@ -380,7 +380,7 @@ def insert_audit_logs(
 
     yield _insert_audit_logs
 
-    cluster = clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
+    cluster = clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
     for table in [
         "logs",
         "logs_resource",

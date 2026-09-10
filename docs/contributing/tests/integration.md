@@ -51,7 +51,7 @@ This command will:
 `--reuse` keeps the running SigNoz container, which means backend source changes are not picked up. `--rebuild` fixes exactly that: it kills the existing SigNoz container, rebuilds the image (incremental — only changed packages recompile thanks to the build cache), and starts a fresh one, while everything else (databases, mocks, migrations) stays reused. `make py-test-setup` passes it by default, so the iteration loop is simply:
 
 ```bash
-make py-test-setup      # (re)build signoz from your current sources
+make py-test-setup      # (re)build Argus from your current sources
 uv run pytest --basetemp=./tmp/ -vv --reuse integration/tests/<suite>/
 # ... edit backend code or tests ...
 make py-test-setup      # pick up the backend changes
@@ -60,7 +60,7 @@ uv run pytest --basetemp=./tmp/ -vv --reuse integration/tests/<suite>/
 
 The same applies to the e2e stack. `--rebuild` requires `--reuse` and cannot be combined with `--teardown` or `--clean`.
 
-Some suites define their own SigNoz variant in a suite-local `conftest.py` (`create_signoz(..., cache_key=...)` — e.g. `basepath`, `metricreduction`, `querier_json_body`). Those containers are not touched by `make py-test-setup`, which only rebuilds the default instance. For such suites, pass `--rebuild` on the suite run itself — it rebuilds every SigNoz variant the run instantiates:
+Some suites define their own Argus variant in a suite-local `conftest.py` (`create_signoz(..., cache_key=...)` — e.g. `basepath`, `metricreduction`, `querier_json_body`). Those containers are not touched by `make py-test-setup`, which only rebuilds the default instance. For such suites, pass `--rebuild` on the suite run itself — it rebuilds every Argus variant the run instantiates:
 
 ```bash
 uv run pytest --basetemp=./tmp/ -vv --reuse --rebuild integration/tests/<suite>/
@@ -84,7 +84,7 @@ This destroys the running integration test setup and cleans up resources.
 
 ### Cleaning the Image Build Cache
 
-The `signoz:integration` image build keeps its Go build and module caches in BuildKit cache mounts, so rebuilds only recompile what changed. These caches survive `--teardown` (they belong to the Docker builder, not to any container). If a cache ever needs to be nuked — suspected corruption, disk pressure, or to force a genuinely cold build — pass the `--clean` flag:
+The `argus:integration` image build keeps its Go build and module caches in BuildKit cache mounts, so rebuilds only recompile what changed. These caches survive `--teardown` (they belong to the Docker builder, not to any container). If a cache ever needs to be nuked — suspected corruption, disk pressure, or to force a genuinely cold build — pass the `--clean` flag:
 
 ```bash
 uv run pytest --basetemp=./tmp/ -vv --teardown --clean integration/bootstrap/setup.py::test_teardown

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Input } from 'antd';
-import SignozModal from 'components/SignozModal/SignozModal';
+import ArgusModal from 'components/ArgusModal/ArgusModal';
 import { useUpdateFunnelSteps } from 'hooks/TracesFunnels/useFunnels';
 import { useNotifications } from 'hooks/useNotifications';
 import { Check, X } from '@signozhq/icons';
@@ -84,12 +84,12 @@ function AddFunnelStepDetailsModal({
 	};
 
 	return (
-		<SignozModal
+		<ArgusModal
 			open={isOpen}
 			title="Add funnel step details"
 			width={384}
 			onCancel={handleCancel}
-			rootClassName="funnel-step-modal funnel-modal signoz-modal"
+			rootClassName="funnel-step-modal funnel-modal argus-modal"
 			cancelText="Cancel"
 			okText="Save changes"
 			okButtonProps={{
@@ -133,7 +133,7 @@ function AddFunnelStepDetailsModal({
 					/>
 				</div>
 			</div>
-		</SignozModal>
+		</ArgusModal>
 	);
 }
 

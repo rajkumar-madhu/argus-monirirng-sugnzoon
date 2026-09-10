@@ -543,7 +543,7 @@ export function PlannedDowntimeForm(
 									<span>
 										Scope the planned downtime by alert labels.{' '}
 										<a
-											href="https://signoz.io/docs/alerts-management/planned-maintenance/#scoping-with-label-expressions"
+											href="https://argus.example.com/docs/alerts-management/planned-maintenance/#scoping-with-label-expressions"
 											target="_blank"
 											rel="noopener noreferrer"
 										>

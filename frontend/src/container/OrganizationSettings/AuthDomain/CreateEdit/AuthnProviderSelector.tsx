@@ -59,7 +59,7 @@ function AuthnProviderSelector({
 					Configure Authentication Method
 				</Typography.Title>
 				<Typography.Text italic>
-					SigNoz supports the following single sign-on services (SSO). Get started
+					Argus supports the following single sign-on services (SSO). Get started
 					with setting your project’s SSO below
 				</Typography.Text>
 			</section>

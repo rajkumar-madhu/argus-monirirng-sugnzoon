@@ -25,7 +25,7 @@ function VariableTypeTabs(): JSX.Element {
 				<Typography.Text className={styles.label}>Variable Type</Typography.Text>
 				<TextToolTip
 					text="Learn more about supported variable types"
-					url="https://signoz.io/docs/userguide/manage-variables/#supported-variable-types"
+					url="https://argus.example.com/docs/userguide/manage-variables/#supported-variable-types"
 					urlText="here"
 					useFilledIcon={false}
 					outlinedIcon={<Info size={14} />}
@@ -81,7 +81,7 @@ function VariableTypeTabs(): JSX.Element {
 						>
 							<TextToolTip
 								text="Query variables can be slow and brittle, so they aren't recommended. Learn why"
-								url="https://signoz.io/docs/userguide/manage-variables/#why-avoid-clickhouse-query-variables"
+								url="https://argus.example.com/docs/userguide/manage-variables/#why-avoid-clickhouse-query-variables"
 								urlText="here"
 								useFilledIcon={false}
 								outlinedIcon={<Info size={14} color={Color.BG_AMBER_600} />}

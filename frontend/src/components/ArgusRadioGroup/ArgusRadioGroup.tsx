@@ -1,6 +1,6 @@
 import { ToggleGroupSimple } from '@signozhq/ui/toggle-group';
 
-import './SignozRadioGroup.styles.scss';
+import './ArgusRadioGroup.styles.scss';
 
 interface Option {
 	value: string;
@@ -8,7 +8,7 @@ interface Option {
 	icon?: React.ReactNode;
 }
 
-interface SignozRadioGroupProps {
+interface ArgusRadioGroupProps {
 	value: string;
 	options: Option[];
 	onChange: (value: string) => void;
@@ -16,18 +16,18 @@ interface SignozRadioGroupProps {
 	disabled?: boolean;
 }
 
-function SignozRadioGroup({
+function ArgusRadioGroup({
 	value,
 	options,
 	onChange,
 	className = '',
 	disabled = false,
-}: SignozRadioGroupProps): JSX.Element {
+}: ArgusRadioGroupProps): JSX.Element {
 	return (
 		<ToggleGroupSimple
 			type="single"
 			value={value}
-			className={`signoz-radio-group ${className}`}
+			className={`argus-radio-group ${className}`}
 			onChange={onChange}
 			disabled={disabled}
 			items={options.map((option) => ({
@@ -43,9 +43,9 @@ function SignozRadioGroup({
 	);
 }
 
-SignozRadioGroup.defaultProps = {
+ArgusRadioGroup.defaultProps = {
 	className: '',
 	disabled: false,
 };
 
-export default SignozRadioGroup;
+export default ArgusRadioGroup;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { Input } from 'antd';
-import SignozModal from 'components/SignozModal/SignozModal';
+import ArgusModal from 'components/ArgusModal/ArgusModal';
 import { REACT_QUERY_KEY } from 'constants/reactQueryKeys';
 import { useSaveFunnelDescription } from 'hooks/TracesFunnels/useFunnels';
 import { useNotifications } from 'hooks/useNotifications';
@@ -64,12 +64,12 @@ function AddFunnelDescriptionModal({
 	};
 
 	return (
-		<SignozModal
+		<ArgusModal
 			open={isOpen}
 			title="Add funnel description"
 			width={384}
 			onCancel={handleCancel}
-			rootClassName="funnel-step-modal funnel-modal signoz-modal"
+			rootClassName="funnel-step-modal funnel-modal argus-modal"
 			cancelText="Cancel"
 			okText="Save changes"
 			okButtonProps={{
@@ -101,7 +101,7 @@ function AddFunnelDescriptionModal({
 					/>
 				</div>
 			</div>
-		</SignozModal>
+		</ArgusModal>
 	);
 }
 

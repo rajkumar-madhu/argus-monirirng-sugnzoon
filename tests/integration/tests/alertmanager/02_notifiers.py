@@ -169,7 +169,7 @@ NOTIFIERS_TEST = [
                             "routing_key": "PagerDutyRoutingKey",
                             "event_action": "trigger",
                             "payload": {
-                                "source": "SigNoz Alert Manager",
+                                "source": "Argus Alert Manager",
                                 "severity": "critical",
                                 "custom_details": {
                                     "firing": {
@@ -184,7 +184,7 @@ NOTIFIERS_TEST = [
                                     }
                                 },
                             },
-                            "client": "SigNoz Alert Manager",
+                            "client": "Argus Alert Manager",
                             "client_url": "https://enter-signoz-host-n-port-here/alerts",
                         },
                     },

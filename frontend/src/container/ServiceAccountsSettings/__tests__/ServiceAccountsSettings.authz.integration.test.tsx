@@ -16,7 +16,7 @@ const mockServiceAccountsAPI = [
 	{
 		id: 'sa-1',
 		name: 'CI Bot',
-		email: 'ci-bot@signoz.io',
+		email: 'ci-bot@argus.example.com',
 		serviceAccountRoles: [],
 		status: 'ACTIVE',
 		createdAt: 1700000000,
@@ -25,7 +25,7 @@ const mockServiceAccountsAPI = [
 	{
 		id: 'sa-2',
 		name: 'Monitoring Agent',
-		email: 'monitor@signoz.io',
+		email: 'monitor@argus.example.com',
 		serviceAccountRoles: [],
 		status: 'ACTIVE',
 		createdAt: 1700000002,
@@ -34,7 +34,7 @@ const mockServiceAccountsAPI = [
 	{
 		id: 'sa-3',
 		name: 'Legacy Bot',
-		email: 'legacy@signoz.io',
+		email: 'legacy@argus.example.com',
 		serviceAccountRoles: [],
 		status: 'DISABLED',
 		createdAt: 1700000004,
@@ -79,7 +79,7 @@ describe('ServiceAccountsSettings (integration)', () => {
 
 		await screen.findByText('CI Bot');
 		expect(screen.getByText('Monitoring Agent')).toBeInTheDocument();
-		expect(screen.getByText('legacy@signoz.io')).toBeInTheDocument();
+		expect(screen.getByText('legacy@argus.example.com')).toBeInTheDocument();
 		expect(screen.getAllByText('ACTIVE')).toHaveLength(2);
 		expect(screen.getByText('DISABLED')).toBeInTheDocument();
 	});

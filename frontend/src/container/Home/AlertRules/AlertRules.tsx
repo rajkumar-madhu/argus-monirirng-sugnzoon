@@ -110,7 +110,7 @@ export default function AlertRules({
 								});
 
 								window.open(
-									'https://signoz.io/docs/alerts/',
+									'https://argus.example.com/docs/alerts/',
 									'_blank',
 									'noreferrer noopener',
 								);

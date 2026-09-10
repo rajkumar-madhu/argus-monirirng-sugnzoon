@@ -120,7 +120,7 @@ const mockFetchedUser = {
 	data: {
 		id: 'user-1',
 		displayName: 'Alice Smith',
-		email: 'alice@signoz.io',
+		email: 'alice@argus.example.com',
 		status: 'active',
 		userRoles: [
 			{
@@ -135,7 +135,7 @@ const mockFetchedUser = {
 const activeMember = {
 	id: 'user-1',
 	name: 'Alice Smith',
-	email: 'alice@signoz.io',
+	email: 'alice@argus.example.com',
 	status: MemberStatus.Active,
 	joinedOn: '1700000000000',
 	updatedAt: '1710000000000',
@@ -157,7 +157,7 @@ const rootMockFetchedUser = {
 const invitedMember = {
 	id: 'abc123',
 	name: '',
-	email: 'bob@signoz.io',
+	email: 'bob@argus.example.com',
 	status: MemberStatus.Invited,
 	joinedOn: '1700000000000',
 };
@@ -247,7 +247,7 @@ describe('EditMemberDrawer', () => {
 		renderDrawer();
 
 		expect(screen.getByDisplayValue('Alice Smith')).toBeInTheDocument();
-		expect(screen.getByText('alice@signoz.io')).toBeInTheDocument();
+		expect(screen.getByText('alice@argus.example.com')).toBeInTheDocument();
 		expect(screen.getByText('ACTIVE')).toBeInTheDocument();
 		expect(
 			screen.getByRole('button', { name: /save member details/i }),

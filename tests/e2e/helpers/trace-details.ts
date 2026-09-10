@@ -93,7 +93,7 @@ export async function gotoTraceUntilLoaded(
 	// re-runs on every navigation, so re-registering would stack duplicates.
 	if (!e2eHookRegistered.has(page)) {
 		await page.addInitScript(() => {
-			(window as unknown as { __SIGNOZ_E2E__?: boolean }).__SIGNOZ_E2E__ = true;
+			(window as unknown as { __ARGUS_E2E__?: boolean }).__ARGUS_E2E__ = true;
 		});
 		// Dock the left nav so it doesn't fly out on hover and overlay the trace
 		// content's left strip (which otherwise makes left-edge hover/click targets
@@ -246,7 +246,7 @@ export function loadLargeTrace(): LargeTrace {
 // ── Flamegraph canvas test hook ──────────────────────────────────────────────
 // The flamegraph is canvas-rendered, so individual bars have no DOM nodes. The
 // frontend exposes a read-only span→rect view on window.__sigTraceFlame__
-// (useFlamegraphTestHook), present only when __SIGNOZ_E2E__ is set — which
+// (useFlamegraphTestHook), present only when __ARGUS_E2E__ is set — which
 // gotoTraceUntilLoaded injects via addInitScript.
 
 // Mirror of the API exposed by useFlamegraphTestHook.

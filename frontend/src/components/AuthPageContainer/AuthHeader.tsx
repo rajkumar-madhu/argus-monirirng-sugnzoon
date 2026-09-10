@@ -2,24 +2,24 @@ import { useCallback } from 'react';
 import { Button } from '@signozhq/ui/button';
 import { LifeBuoy } from '@signozhq/icons';
 
-import signozBrandLogoUrl from '@/assets/Logos/signoz-brand-logo.svg';
+import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
 
 import './AuthHeader.styles.scss';
 
 function AuthHeader(): JSX.Element {
 	const handleGetHelp = useCallback((): void => {
-		window.open('https://signoz.io/support/', '_blank');
+		window.open('https://argus.example.com/support/', '_blank');
 	}, []);
 
 	return (
 		<header className="auth-header">
 			<div className="auth-header-logo">
 				<img
-					src={signozBrandLogoUrl}
-					alt="SigNoz"
+					src={argusBrandLogoUrl}
+					alt="Argus"
 					className="auth-header-logo-icon"
 				/>
-				<span className="auth-header-logo-text">SigNoz</span>
+				<span className="auth-header-logo-text">Argus</span>
 			</div>
 			<Button
 				className="auth-header-help-button"

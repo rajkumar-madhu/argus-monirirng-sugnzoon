@@ -242,7 +242,7 @@ function TooltipLink(): JSX.Element {
 	return (
 		<div className="tooltip-link">
 			<a
-				href="https://signoz.io/docs"
+				href="https://argus.example.com/docs"
 				target="_blank"
 				rel="noopener noreferrer"
 				className="tooltip-link-text"

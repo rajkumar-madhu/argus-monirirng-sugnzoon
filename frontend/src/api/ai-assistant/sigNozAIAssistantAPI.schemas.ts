@@ -1,8 +1,8 @@
 /**
  * ! Do not edit manually
- * * The file has been auto-generated using Orval for SigNoz AI Assistant
+ * * The file has been auto-generated using Orval for Argus AI Assistant
  * * regenerate with 'yarn generate:api'
- * SigNoz AI Assistant API
+ * Argus AI Assistant API
  * OpenAPI spec version: 0.1.0
  */
 /**
@@ -571,7 +571,7 @@ export type MessageActionDTOUrl = string | null;
 /**
    * Explorer namespace a saved view belongs to — its ``sourcePage``.
   
-  Mirrors the SigNoz product's saved-view ``sourcePage`` values so the
+  Mirrors the Argus product's saved-view ``sourcePage`` values so the
   frontend can route an ``open_resource`` action for a view to the right
   Explorer via its existing ``SOURCEPAGE_VS_ROUTES`` map. ``meter`` is the
   Cost Meter Explorer and is intentionally distinct from ``metrics`` (the
@@ -595,7 +595,7 @@ export enum MessageActionKindDTO {
 	apply_filter = 'apply_filter',
 }
 /**
- * Assistant action. Kind-specific requirements: rollback actions require actionMetadataId/resourceType/resourceId; follow_up requires input.intent; open_resource requires resourceType/resourceId; apply_filter requires signal and query; open_docs requires a SigNoz docs url. open_resource for a saved view also carries entity (logs/traces/metrics/meter) so the frontend routes to the correct Explorer.
+ * Assistant action. Kind-specific requirements: rollback actions require actionMetadataId/resourceType/resourceId; follow_up requires input.intent; open_resource requires resourceType/resourceId; apply_filter requires signal and query; open_docs requires a Argus docs url. open_resource for a saved view also carries entity (logs/traces/metrics/meter) so the frontend routes to the correct Explorer.
  */
 export interface MessageActionDTO {
 	kind: MessageActionKindDTO;
@@ -1109,7 +1109,7 @@ export type MessageActionEventDTOUrl = string | null;
 export type MessageActionEventDTOEntity = SavedViewEntityDTO | null;
 
 /**
- * Assistant action. Kind-specific requirements: rollback actions require actionMetadataId/resourceType/resourceId; follow_up requires input.intent; open_resource requires resourceType/resourceId; apply_filter requires signal and query; open_docs requires a SigNoz docs url. open_resource for a saved view also carries entity (logs/traces/metrics/meter) so the frontend routes to the correct Explorer.
+ * Assistant action. Kind-specific requirements: rollback actions require actionMetadataId/resourceType/resourceId; follow_up requires input.intent; open_resource requires resourceType/resourceId; apply_filter requires signal and query; open_docs requires a Argus docs url. open_resource for a saved view also carries entity (logs/traces/metrics/meter) so the frontend routes to the correct Explorer.
  */
 export interface MessageActionEventDTO {
 	kind: MessageActionKindDTO;
@@ -1290,13 +1290,13 @@ export interface UserMessageEventDTO {
 
 export type CreateThreadApiV1AssistantThreadsPostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type CreateThreadApiV1AssistantThreadsPostBody =
@@ -1334,13 +1334,13 @@ export enum ListThreadsApiV1AssistantThreadsGetArchived {
 }
 export type ListThreadsApiV1AssistantThreadsGetHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type GetThreadApiV1AssistantThreadsThreadIdGetPathParameters = {
@@ -1348,13 +1348,13 @@ export type GetThreadApiV1AssistantThreadsThreadIdGetPathParameters = {
 };
 export type GetThreadApiV1AssistantThreadsThreadIdGetHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type UpdateThreadApiV1AssistantThreadsThreadIdPatchPathParameters = {
@@ -1362,13 +1362,13 @@ export type UpdateThreadApiV1AssistantThreadsThreadIdPatchPathParameters = {
 };
 export type UpdateThreadApiV1AssistantThreadsThreadIdPatchHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type CreateMessageApiV1AssistantThreadsThreadIdMessagesPostPathParameters =
@@ -1377,13 +1377,13 @@ export type CreateMessageApiV1AssistantThreadsThreadIdMessagesPostPathParameters
 	};
 export type CreateMessageApiV1AssistantThreadsThreadIdMessagesPostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type RegenerateMessageApiV1AssistantMessagesMessageIdRegeneratePostPathParameters =
@@ -1393,90 +1393,90 @@ export type RegenerateMessageApiV1AssistantMessagesMessageIdRegeneratePostPathPa
 export type RegenerateMessageApiV1AssistantMessagesMessageIdRegeneratePostHeaders =
 	{
 		/**
-		 * @description SigNoz auth token (Bearer or raw JWT)
+		 * @description Argus auth token (Bearer or raw JWT)
 		 */
 		authorization?: string | null;
 		/**
-		 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+		 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 		 */
-		'X-SigNoz-URL'?: string | null;
+		'X-Argus-URL'?: string | null;
 	};
 
 export type ApproveApiV1AssistantApprovePostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type RejectApiV1AssistantRejectPostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type ClarifyApiV1AssistantClarifyPostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type CancelApiV1AssistantCancelPostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type UndoApiV1AssistantUndoPostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type RevertApiV1AssistantRevertPostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type RestoreApiV1AssistantRestorePostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type SubmitFeedbackApiV1AssistantMessagesMessageIdFeedbackPostPathParameters =
@@ -1485,24 +1485,24 @@ export type SubmitFeedbackApiV1AssistantMessagesMessageIdFeedbackPostPathParamet
 	};
 export type SubmitFeedbackApiV1AssistantMessagesMessageIdFeedbackPostHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type GetUsageApiV1AssistantUsageGetHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };
 
 export type GetChipsApiV1AssistantEmptyStateChipsGetParams = {
@@ -1514,11 +1514,11 @@ export type GetChipsApiV1AssistantEmptyStateChipsGetParams = {
 
 export type GetChipsApiV1AssistantEmptyStateChipsGetHeaders = {
 	/**
-	 * @description SigNoz auth token (Bearer or raw JWT)
+	 * @description Argus auth token (Bearer or raw JWT)
 	 */
 	authorization?: string | null;
 	/**
-	 * @description SigNoz instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
+	 * @description Argus instance base URL for multi-tenant deployments. Falls back to SIGNOZ_API_URL env var when omitted.
 	 */
-	'X-SigNoz-URL'?: string | null;
+	'X-Argus-URL'?: string | null;
 };

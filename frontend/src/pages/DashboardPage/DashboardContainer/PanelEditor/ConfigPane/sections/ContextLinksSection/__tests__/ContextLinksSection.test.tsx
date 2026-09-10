@@ -13,7 +13,7 @@ jest.mock('../useContextLinkVariables', () => ({
 }));
 
 const LINKS: DashboardtypesLinkDTO[] = [
-	{ name: 'Docs', url: 'https://signoz.io', targetBlank: true },
+	{ name: 'Docs', url: 'https://argus.example.com', targetBlank: true },
 ];
 
 const lastCall = (fn: jest.Mock): DashboardtypesLinkDTO[] =>
@@ -45,7 +45,7 @@ describe('ContextLinksSection', () => {
 		expect(save).toBeDisabled();
 
 		fireEvent.change(screen.getByTestId('context-link-url'), {
-			target: { value: 'https://signoz.io' },
+			target: { value: 'https://argus.example.com' },
 		});
 		fireEvent.change(screen.getByTestId('context-link-label'), {
 			target: { value: 'Docs' },
@@ -56,7 +56,7 @@ describe('ContextLinksSection', () => {
 		expect(onChange).toHaveBeenCalledWith([
 			{
 				name: 'Docs',
-				url: 'https://signoz.io',
+				url: 'https://argus.example.com',
 				targetBlank: true,
 				renderVariables: true,
 			},
@@ -72,7 +72,7 @@ describe('ContextLinksSection', () => {
 		const label = await screen.findByTestId('context-link-label');
 		expect(label).toHaveValue('Docs');
 		expect(screen.getByTestId('context-link-url')).toHaveValue(
-			'https://signoz.io',
+			'https://argus.example.com',
 		);
 
 		fireEvent.change(label, { target: { value: 'Runbook' } });
@@ -81,7 +81,7 @@ describe('ContextLinksSection', () => {
 		expect(onChange).toHaveBeenCalledWith([
 			{
 				name: 'Runbook',
-				url: 'https://signoz.io',
+				url: 'https://argus.example.com',
 				targetBlank: true,
 				renderVariables: true,
 			},

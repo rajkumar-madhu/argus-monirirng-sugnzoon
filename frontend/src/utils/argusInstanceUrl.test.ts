@@ -2,7 +2,7 @@ import getLocalStorageApi from 'api/browser/localstorage/get';
 import { ENVIRONMENT } from 'constants/env';
 import { LOCALSTORAGE } from 'constants/localStorage';
 
-import { getSigNozInstanceUrl } from './signozInstanceUrl';
+import { getArgusInstanceUrl } from './argusInstanceUrl';
 
 jest.mock('api/browser/localstorage/get');
 jest.mock('constants/env', () => ({
@@ -21,7 +21,7 @@ function setOrigin(origin: string): void {
 	});
 }
 
-describe('getSigNozInstanceUrl', () => {
+describe('getArgusInstanceUrl', () => {
 	beforeEach(() => {
 		mockedGet.mockReset();
 		ENVIRONMENT.baseURL = '';
@@ -33,9 +33,9 @@ describe('getSigNozInstanceUrl', () => {
 		ENVIRONMENT.baseURL = 'https://build.example.com';
 		setOrigin('https://browser.example.com');
 
-		expect(getSigNozInstanceUrl()).toBe('https://override.example.com');
+		expect(getArgusInstanceUrl()).toBe('https://override.example.com');
 		expect(mockedGet).toHaveBeenCalledWith(
-			LOCALSTORAGE.ACTIVE_SIGNOZ_INSTANCE_URL,
+			LOCALSTORAGE.ACTIVE_ARGUS_INSTANCE_URL,
 		);
 	});
 
@@ -43,7 +43,7 @@ describe('getSigNozInstanceUrl', () => {
 		mockedGet.mockReturnValue('   ');
 		ENVIRONMENT.baseURL = 'https://build.example.com';
 
-		expect(getSigNozInstanceUrl()).toBe('https://build.example.com');
+		expect(getArgusInstanceUrl()).toBe('https://build.example.com');
 	});
 
 	it('returns the build-time baseURL when no override exists (cloud)', () => {
@@ -51,7 +51,7 @@ describe('getSigNozInstanceUrl', () => {
 		ENVIRONMENT.baseURL = 'https://build.example.com';
 		setOrigin('https://browser.example.com');
 
-		expect(getSigNozInstanceUrl()).toBe('https://build.example.com');
+		expect(getArgusInstanceUrl()).toBe('https://build.example.com');
 	});
 
 	it('falls back to window.location.origin when baseURL is empty (self-hosted)', () => {
@@ -59,7 +59,7 @@ describe('getSigNozInstanceUrl', () => {
 		ENVIRONMENT.baseURL = '';
 		setOrigin('https://self-hosted.example.com');
 
-		expect(getSigNozInstanceUrl()).toBe('https://self-hosted.example.com');
+		expect(getArgusInstanceUrl()).toBe('https://self-hosted.example.com');
 	});
 
 	it('returns an empty string when nothing is resolvable', () => {
@@ -67,6 +67,6 @@ describe('getSigNozInstanceUrl', () => {
 		ENVIRONMENT.baseURL = '';
 		setOrigin('');
 
-		expect(getSigNozInstanceUrl()).toBe('');
+		expect(getArgusInstanceUrl()).toBe('');
 	});
 });

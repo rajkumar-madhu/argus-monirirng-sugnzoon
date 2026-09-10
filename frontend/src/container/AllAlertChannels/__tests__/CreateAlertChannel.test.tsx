@@ -290,10 +290,10 @@ describe('Create Alert Channel', () => {
 					helpText: 'help_pager_client',
 				});
 			});
-			it('Should check if Client input contains the default value "SigNoz Alert Manager"', () => {
+			it('Should check if Client input contains the default value "Argus Alert Manager"', () => {
 				const clientTextArea = screen.getByTestId('pager-client-textarea');
 
-				expect(clientTextArea).toHaveValue('SigNoz Alert Manager');
+				expect(clientTextArea).toHaveValue('Argus Alert Manager');
 			});
 			it('Should check if Client URL label, text area, and info (Shows up as event source link in Pagerduty) are displayed properly', () => {
 				testLabelInputAndHelpValue({
@@ -570,7 +570,7 @@ describe('Create Alert Channel', () => {
 					screen.getByRole('link', { name: 'jira_service_account_tip_link' }),
 				).toHaveAttribute(
 					'href',
-					'https://signoz.io/docs/alerts-management/notification-channel/jira/#use-a-service-account-recommended',
+					'https://argus.example.com/docs/alerts-management/notification-channel/jira/#use-a-service-account-recommended',
 				);
 			});
 
@@ -680,7 +680,7 @@ describe('Create Alert Channel', () => {
 					screen.getByRole('link', { name: 'jsmops_tip_link' }),
 				).toHaveAttribute(
 					'href',
-					'https://signoz.io/docs/alerts-management/notification-channel/jsm-ops/',
+					'https://argus.example.com/docs/alerts-management/notification-channel/jsm-ops/',
 				);
 			});
 
@@ -766,7 +766,7 @@ describe('Create Alert Channel', () => {
 					screen.getByRole('link', { name: 'incidentio_tip_link' }),
 				).toHaveAttribute(
 					'href',
-					'https://signoz.io/docs/alerts-management/notification-channel/incidentio/',
+					'https://argus.example.com/docs/alerts-management/notification-channel/incidentio/',
 				);
 			});
 

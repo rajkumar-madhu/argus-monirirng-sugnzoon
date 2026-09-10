@@ -18,15 +18,15 @@ import hurrayUrl from '@/assets/Icons/hurray.svg';
 import { DOCS_LINKS } from '../constants';
 
 function DataSourceInfo({
-	dataSentToSigNoz,
+	dataSentToArgus,
 	isLoading,
 }: {
-	dataSentToSigNoz: boolean;
+	dataSentToArgus: boolean;
 	isLoading: boolean;
 }): JSX.Element {
 	const { activeLicense } = useAppContext();
 
-	const notSendingData = !dataSentToSigNoz;
+	const notSendingData = !dataSentToArgus;
 
 	const isEnabled =
 		activeLicense && activeLicense.platform === LicensePlatform.CLOUD;
@@ -60,13 +60,13 @@ function DataSourceInfo({
 	const renderNotSendingData = (): JSX.Element => (
 		<>
 			<h2 className="welcome-title">
-				Hello there, Welcome to your SigNoz workspace
+				Hello there, Welcome to your Argus workspace
 			</h2>
 
 			<p className="welcome-description">
 				You’re not sending any data yet. <br />
-				SigNoz is so much better with your data ⎯ start by sending your telemetry
-				data to SigNoz.
+				Argus is so much better with your data ⎯ start by sending your telemetry
+				data to Argus.
 			</p>
 
 			<Card className="welcome-card">
@@ -109,7 +109,7 @@ function DataSourceInfo({
 	const renderDataReceived = (): JSX.Element => (
 		<>
 			<h2 className="welcome-title">
-				Hello there, Welcome to your SigNoz workspace
+				Hello there, Welcome to your Argus workspace
 			</h2>
 
 			{!isError && hostsData && (
@@ -151,7 +151,7 @@ function DataSourceInfo({
 				</>
 			)}
 
-			{!isLoading && dataSentToSigNoz && renderDataReceived()}
+			{!isLoading && dataSentToArgus && renderDataReceived()}
 
 			{!isLoading && notSendingData && renderNotSendingData()}
 		</div>

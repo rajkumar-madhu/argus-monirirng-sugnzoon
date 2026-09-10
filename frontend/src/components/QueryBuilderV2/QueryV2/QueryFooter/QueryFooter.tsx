@@ -44,7 +44,7 @@ function TraceOperatorSection({
 					<div style={{ textAlign: 'center' }}>
 						Add Trace Matching
 						<Typography.Link
-							href="https://signoz.io/docs/querying/multi-query-analysis/#trace-matching"
+							href="https://argus.example.com/docs/querying/multi-query-analysis/#trace-matching"
 							target="_blank"
 							style={{ textDecoration: 'underline' }}
 						>
@@ -106,7 +106,7 @@ export default function QueryFooter({
 								<div style={{ textAlign: 'center' }}>
 									Add New Formula
 									<Typography.Link
-										href="https://signoz.io/docs/querying/multi-query-analysis/#advanced-comparisons"
+										href="https://argus.example.com/docs/querying/multi-query-analysis/#advanced-comparisons"
 										target="_blank"
 										style={{ textDecoration: 'underline' }}
 									>

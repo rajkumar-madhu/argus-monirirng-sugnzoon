@@ -29,23 +29,23 @@ function SelectAlertType({ onSelect }: SelectAlertTypeProps): JSX.Element {
 		let url = '';
 		switch (option) {
 			case AlertTypes.ANOMALY_BASED_ALERT:
-				url = 'https://signoz.io/docs/alerts-management/anomaly-based-alerts/';
+				url = 'https://argus.example.com/docs/alerts-management/anomaly-based-alerts/';
 				break;
 			case AlertTypes.METRICS_BASED_ALERT:
 				url =
-					'https://signoz.io/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
+					'https://argus.example.com/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
 				break;
 			case AlertTypes.LOGS_BASED_ALERT:
 				url =
-					'https://signoz.io/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
+					'https://argus.example.com/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
 				break;
 			case AlertTypes.TRACES_BASED_ALERT:
 				url =
-					'https://signoz.io/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
+					'https://argus.example.com/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
 				break;
 			case AlertTypes.EXCEPTIONS_BASED_ALERT:
 				url =
-					'https://signoz.io/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
+					'https://argus.example.com/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
 				break;
 			default:
 				break;

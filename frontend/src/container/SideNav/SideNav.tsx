@@ -77,7 +77,7 @@ import { isModifierKeyPressed } from 'utils/app';
 import { showErrorNotification } from 'utils/error';
 import { openInNewTab } from 'utils/navigation';
 
-import signozBrandLogoUrl from '@/assets/Logos/signoz-brand-logo.svg';
+import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
 
 import { useCmdK } from '../../providers/cmdKProvider';
 import { routeConfig } from './config';
@@ -609,7 +609,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 							icon: <ScrollText size={14} />,
 							itemKey: changelogKey,
 							isExternal: true,
-							url: 'https://signoz.io/changelog/',
+							url: 'https://argus.example.com/changelog/',
 						},
 					];
 				}
@@ -635,7 +635,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 						icon: <ScrollText size={14} />,
 						itemKey: changelogKey,
 						isExternal: true,
-						url: 'https://signoz.io/changelog/',
+						url: 'https://argus.example.com/changelog/',
 					},
 				];
 			});
@@ -1015,7 +1015,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 									onClickHandler(ROUTES.HOME, event);
 								}}
 							>
-								<img src={signozBrandLogoUrl} alt="SigNoz" />
+								<img src={argusBrandLogoUrl} alt="Argus" />
 							</div>
 
 							{(licenseTag || currentVersion) && (

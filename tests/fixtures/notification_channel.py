@@ -75,7 +75,7 @@ pagerduty_default_config = {
         {
             "routing_key": "PagerDutyRoutingKey",
             "url": "v2/enqueue",  # base_url configured on runtime
-            "client": "SigNoz Alert Manager",
+            "client": "Argus Alert Manager",
             "client_url": "https://enter-signoz-host-n-port-here/alerts",
             "description": '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }} for {{ .CommonLabels.job }}\n\t{{- if gt (len .CommonLabels) (len .GroupLabels) -}}\n\t {{" "}}(\n\t {{- with .CommonLabels.Remove .GroupLabels.Names }}\n\t\t{{- range $index, $label := .SortedPairs -}}\n\t\t {{ if $index }}, {{ end }}\n\t\t {{- $label.Name }}="{{ $label.Value -}}"\n\t\t{{- end }}\n\t {{- end -}}\n\t )\n\t{{- end }}',
             "details": {
@@ -84,7 +84,7 @@ pagerduty_default_config = {
                 "num_resolved": "{{ .Alerts.Resolved | len }}",
                 "resolved": '{{ template "pagerduty.default.instances" .Alerts.Resolved }}',
             },
-            "source": "SigNoz Alert Manager",
+            "source": "Argus Alert Manager",
             "severity": "{{ (index .Alerts 0).Labels.severity }}",
         }
     ],

@@ -1,16 +1,16 @@
-# yaml-language-server: $schema=https://goreleaser.com/static/schema-pro.json
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 # vim: set ts=2 sw=2 tw=0 fo=cnqoj
 version: 2
 
-project_name: signoz-community
+project_name: argus
 
 before:
   hooks:
     - go mod tidy
 
 builds:
-  - id: signoz
-    binary: bin/signoz
+  - id: argus
+    binary: bin/argus
     main: ./cmd/community
     goos:
       - linux
@@ -29,7 +29,6 @@ builds:
       - -X github.com/your-org/argus/pkg/version.hash={{ .ShortCommit }}
       - -X github.com/your-org/argus/pkg/version.time={{ .CommitTimestamp }}
       - -X github.com/your-org/argus/pkg/version.branch={{ .Branch }}
-      - -X github.com/your-org/argus/pkg/analytics.key=9kRrJ7oPCGPEJLF6QjMPLt5bljFhRQBr
     mod_timestamp: "{{ .CommitTimestamp }}"
     tags:
       - timetzdata

@@ -5,14 +5,14 @@ from testcontainers.core.container import Network
 
 from fixtures import types
 from fixtures.auth import register_admin, session_context_getter, token_getter
-from fixtures.signoz import create_signoz
+from fixtures.argus import create_signoz
 
-# SigNoz is served under this URL path prefix for the base-path suite. The auth
+# Argus is served under this URL path prefix for the base-path suite. The auth
 # helpers from fixtures/auth.py are reused via their factories with this prefix,
 # so these fixtures shadow the same-named root ones without duplicating logic.
 # Only the path component is read by global.ExternalPath(), which derives the
 # http.StripPrefix route prefix.
-BASE_PATH = "/signoz"
+BASE_PATH = "/argus"
 
 
 @pytest.fixture(name="signoz", scope="package")
@@ -26,7 +26,7 @@ def signoz_base_path(  # pylint: disable=too-many-arguments,too-many-positional-
     pytestconfig: pytest.Config,
 ) -> types.SigNoz:
     """
-    Package-scoped SigNoz served under BASE_PATH. Sets SIGNOZ_GLOBAL_EXTERNAL__URL
+    Package-scoped Argus served under BASE_PATH. Sets ARGUS_GLOBAL_EXTERNAL__URL
     with the prefix so the backend derives the http.StripPrefix route prefix.
     """
     return create_signoz(
@@ -38,7 +38,7 @@ def signoz_base_path(  # pylint: disable=too-many-arguments,too-many-positional-
         request=request,
         pytestconfig=pytestconfig,
         cache_key="signoz_base_path",
-        env_overrides={"SIGNOZ_GLOBAL_EXTERNAL__URL": f"http://localhost:8080{BASE_PATH}"},
+        env_overrides={"ARGUS_GLOBAL_EXTERNAL__URL": f"http://localhost:8080{BASE_PATH}"},
     )
 
 

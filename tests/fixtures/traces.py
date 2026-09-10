@@ -919,7 +919,7 @@ def insert_traces(
 
     truncate_traces_tables(
         clickhouse.conn,
-        clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
+        clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
     )
 
 
@@ -932,7 +932,7 @@ def insert_top_level_operations(
 
     yield _insert
 
-    clickhouse.conn.query(f"TRUNCATE TABLE signoz_traces.top_level_operations ON CLUSTER '{clickhouse.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' SYNC")
+    clickhouse.conn.query(f"TRUNCATE TABLE signoz_traces.top_level_operations ON CLUSTER '{clickhouse.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' SYNC")
 
 
 @pytest.fixture(name="remove_traces_ttl_and_storage_settings", scope="function")
@@ -953,8 +953,8 @@ def remove_traces_ttl_and_storage_settings(signoz: types.SigNoz):
 
     for table in tables:
         try:
-            signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_traces.{table} ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' REMOVE TTL")
-            signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_traces.{table} ON CLUSTER '{signoz.telemetrystore.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' RESET SETTING storage_policy;")
+            signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_traces.{table} ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' REMOVE TTL")
+            signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_traces.{table} ON CLUSTER '{signoz.telemetrystore.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER']}' RESET SETTING storage_policy;")
         except Exception as e:  # pylint: disable=broad-exception-caught
             print(f"ttl and storage policy reset failed for {table}: {e}")
 

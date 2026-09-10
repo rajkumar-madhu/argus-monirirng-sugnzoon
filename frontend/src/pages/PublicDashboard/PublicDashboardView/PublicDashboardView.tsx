@@ -13,7 +13,7 @@ import { useMemo, useState } from 'react';
 import { useInterval } from 'react-use';
 import { NANO_SECOND_MULTIPLIER } from 'store/globalTime/utils';
 
-import signozBrandLogoUrl from '@/assets/Logos/signoz-brand-logo.svg';
+import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
 
 import PublicAutoRefresh from './PublicAutoRefresh/PublicAutoRefresh';
 import PublicSectionGrid from './PublicSectionGrid/PublicSectionGrid';
@@ -99,8 +99,8 @@ function PublicDashboardView({
 			<div className={styles.header}>
 				<div className={styles.headerLeft}>
 					<div className={styles.brand}>
-						<img src={signozBrandLogoUrl} alt="SigNoz" className={styles.brandLogo} />
-						<Typography className={styles.brandName}>SigNoz</Typography>
+						<img src={argusBrandLogoUrl} alt="Argus" className={styles.brandLogo} />
+						<Typography className={styles.brandName}>Argus</Typography>
 					</div>
 					<Typography.Text className={styles.title}>
 						{dashboard?.spec?.display?.name}

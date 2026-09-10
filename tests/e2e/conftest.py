@@ -3,7 +3,7 @@ import pytest
 from testcontainers.core.container import Network
 
 from fixtures import types
-from fixtures.signoz import create_signoz
+from fixtures.argus import create_signoz
 
 
 @pytest.fixture(name="signoz", scope="package")
@@ -17,7 +17,7 @@ def signoz_e2e(  # pylint: disable=too-many-arguments,too-many-positional-argume
     pytestconfig: pytest.Config,
 ) -> types.SigNoz:
     """
-    E2E-scoped SigNoz override. Enables the experimental AI/LLM Observability
+    E2E-scoped Argus override. Enables the experimental AI/LLM Observability
     module (disabled by default in pkg/flagger/registry.go) so its routes render
     instead of redirecting to /home — required by the llm-o11y e2e specs. Scoped
     to the e2e package via this conftest so normal integration tests keep the
@@ -34,6 +34,6 @@ def signoz_e2e(  # pylint: disable=too-many-arguments,too-many-positional-argume
         pytestconfig=pytestconfig,
         cache_key="signoz_e2e",
         env_overrides={
-            "SIGNOZ_FLAGGER_CONFIG_BOOLEAN_ENABLE__AI__OBSERVABILITY": True,
+            "ARGUS_FLAGGER_CONFIG_BOOLEAN_ENABLE__AI__OBSERVABILITY": True,
         },
     )

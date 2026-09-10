@@ -84,7 +84,7 @@ describe('CreateEdit Modal', () => {
 				/>,
 			);
 
-			expect(screen.getByDisplayValue('signoz.io')).toBeInTheDocument();
+			expect(screen.getByDisplayValue('argus.example.com')).toBeInTheDocument();
 			expect(screen.getByDisplayValue('test-client-id')).toBeInTheDocument();
 		});
 
@@ -97,7 +97,7 @@ describe('CreateEdit Modal', () => {
 				/>,
 			);
 
-			const domainInput = screen.getByDisplayValue('signoz.io');
+			const domainInput = screen.getByDisplayValue('argus.example.com');
 			expect(domainInput).toBeDisabled();
 		});
 

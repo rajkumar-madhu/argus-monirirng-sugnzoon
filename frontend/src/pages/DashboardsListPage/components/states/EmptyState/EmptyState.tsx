@@ -14,7 +14,7 @@ interface Props {
 }
 
 const LEARN_MORE_HREF =
-	'https://signoz.io/docs/userguide/manage-dashboards?utm_source=product&utm_medium=dashboard-list-empty-state';
+	'https://argus.example.com/docs/userguide/manage-dashboards?utm_source=product&utm_medium=dashboard-list-empty-state';
 
 function EmptyState({ createDropdown }: Props): JSX.Element {
 	return (

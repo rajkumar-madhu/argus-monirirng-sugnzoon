@@ -30,7 +30,7 @@ const EMAIL_PASSWORD_ENDPOINT = '*/api/v2/sessions/email_password';
 const mockSignupResponse: SignupResponse = {
 	orgId: 'test-org-id',
 	createdAt: Date.now(),
-	email: 'test@signoz.io',
+	email: 'test@argus.example.com',
 	id: 'test-user-id',
 	displayName: 'Test User',
 	role: 'ADMIN',
@@ -109,7 +109,7 @@ describe('SignUp Component - Regular Signup', () => {
 			// Missing password
 			await user.clear(passwordInput);
 			await user.clear(confirmPasswordInput);
-			await user.type(emailInput, 'test@signoz.io');
+			await user.type(emailInput, 'test@argus.example.com');
 			await user.type(confirmPasswordInput, 'password123');
 			expect(submitButton).toBeDisabled();
 
@@ -204,7 +204,7 @@ describe('SignUp Component - Regular Signup', () => {
 				name: /access my workspace/i,
 			});
 
-			await user.type(emailInput, 'test@signoz.io');
+			await user.type(emailInput, 'test@argus.example.com');
 			await user.type(passwordInput, 'password123');
 			await user.type(confirmPasswordInput, 'password123');
 
@@ -252,7 +252,7 @@ describe('SignUp Component - Regular Signup', () => {
 				name: /access my workspace/i,
 			});
 
-			await user.type(emailInput, 'existing@signoz.io');
+			await user.type(emailInput, 'existing@argus.example.com');
 			await user.type(passwordInput, 'password123');
 			await user.type(confirmPasswordInput, 'password123');
 

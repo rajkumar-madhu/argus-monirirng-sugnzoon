@@ -23,7 +23,7 @@ assignees: ''
 3.
 
 ## Version information 
-* **Signoz version**:
+* **Argus version**:
 * **Browser version**:
 * **Your OS and version**:
 * **Your CPU Architecture**(ARM/Intel): 

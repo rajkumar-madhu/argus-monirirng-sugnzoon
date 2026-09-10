@@ -62,7 +62,7 @@ describe('GCP CloudAccountSetupDrawer', () => {
 		);
 	});
 
-	it('renders SigNoz-provided credentials as read-only fields', async () => {
+	it('renders Argus-provided credentials as read-only fields', async () => {
 		renderDrawer();
 
 		await waitFor(() => {
@@ -80,7 +80,7 @@ describe('GCP CloudAccountSetupDrawer', () => {
 		expect(screen.getByTestId('gcp-ingestion-key-input')).toHaveTextContent(
 			connectionCredentials.ingestionKey,
 		);
-		expect(screen.getByText('Auto-filled by SigNoz')).toBeInTheDocument();
+		expect(screen.getByText('Auto-filled by Argus')).toBeInTheDocument();
 	});
 
 	it('blocks submission and surfaces validation errors when the form is empty', async () => {

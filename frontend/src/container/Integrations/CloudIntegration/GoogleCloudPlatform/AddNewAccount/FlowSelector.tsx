@@ -65,7 +65,7 @@ function FlowSelector({ value, onChange }: FlowSelectorProps): JSX.Element {
 						color="muted"
 						className={styles.flowRadioDesc}
 					>
-						SigNoz deploys and manages the collector for you.
+						Argus deploys and manages the collector for you.
 					</Typography.Text>
 				</RadioGroupItem>
 			</RadioGroup>

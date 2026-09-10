@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Empty } from 'antd';
-import SignozRadioGroup from 'components/SignozRadioGroup/SignozRadioGroup';
+import ArgusRadioGroup from 'components/ArgusRadioGroup/ArgusRadioGroup';
 import { History, Table } from '@signozhq/icons';
 import { DataSource } from 'types/common/queryBuilder';
 
@@ -81,7 +81,7 @@ function InfraMetrics({
 
 	return (
 		<div className="infra-metrics-container">
-			<SignozRadioGroup
+			<ArgusRadioGroup
 				value={selectedView}
 				onChange={handleModeChange}
 				className="views-tabs"

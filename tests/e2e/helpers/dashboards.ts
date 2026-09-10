@@ -171,7 +171,7 @@ export async function createChartDataDashboardViaApi(
 //
 // The pytest harness brings up an HTTP seeder container exposing
 // POST/DELETE on /telemetry/{traces,logs,metrics}. Its URL is written to
-// `tests/e2e/.env.local` as `SIGNOZ_E2E_SEEDER_URL` and read here from the
+// `tests/e2e/.env.local` as `ARGUS_E2E_SEEDER_URL` and read here from the
 // process environment.
 
 /** Minimal shape the seeder accepts for a single metric sample. */
@@ -188,10 +188,10 @@ export interface SeederMetric {
 }
 
 function seederUrl(): string {
-	const url = process.env.SIGNOZ_E2E_SEEDER_URL;
+	const url = process.env.ARGUS_E2E_SEEDER_URL;
 	if (!url) {
 		throw new Error(
-			'SIGNOZ_E2E_SEEDER_URL not set — pytest test_setup must be running.',
+			'ARGUS_E2E_SEEDER_URL not set — pytest test_setup must be running.',
 		);
 	}
 	return url;

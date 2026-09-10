@@ -80,7 +80,7 @@ exports[`PipelinePage container test should render PipelinePageLayout section 1`
               >
                 learn_more 
                 <a
-                  href="https://signoz.io/docs/logs-pipelines/introduction/?utm_source=product&utm_medium=pipelines-tab"
+                  href="https://argus.example.com/docs/logs-pipelines/introduction/?utm_source=product&utm_medium=pipelines-tab"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

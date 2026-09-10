@@ -119,14 +119,14 @@ describe('OnboardingQuestionaire Component', () => {
 
 			// Initially not visible
 			expect(
-				screen.queryByText(/What is your timeline for migrating to SigNoz/i),
+				screen.queryByText(/What is your timeline for migrating to Argus/i),
 			).not.toBeInTheDocument();
 
 			const datadogCheckbox = screen.getByLabelText(/datadog/i);
 			await user.click(datadogCheckbox);
 
 			await expect(
-				screen.findByText(/What is your timeline for migrating to SigNoz/i),
+				screen.findByText(/What is your timeline for migrating to Argus/i),
 			).resolves.toBeInTheDocument();
 
 			// Not visible when None is selected
@@ -134,7 +134,7 @@ describe('OnboardingQuestionaire Component', () => {
 			await user.click(noneCheckbox);
 
 			expect(
-				screen.queryByText(/What is your timeline for migrating to SigNoz/i),
+				screen.queryByText(/What is your timeline for migrating to Argus/i),
 			).not.toBeInTheDocument();
 		});
 
@@ -155,7 +155,7 @@ describe('OnboardingQuestionaire Component', () => {
 		});
 	});
 
-	describe('Step 2: About SigNoz', () => {
+	describe('Step 2: About Argus', () => {
 		it('renders about signoz questions after step 1 completion', async () => {
 			const user = userEvent.setup({ pointerEventsCheck: 0 });
 			render(<OnboardingQuestionaire />);
@@ -243,7 +243,7 @@ describe('OnboardingQuestionaire Component', () => {
 		});
 	});
 
-	describe('Step 3: Optimize SigNoz Needs', () => {
+	describe('Step 3: Optimize Argus Needs', () => {
 		it('renders scale questions after step 2 completion', async () => {
 			const user = userEvent.setup({ pointerEventsCheck: 0 });
 			render(<OnboardingQuestionaire />);

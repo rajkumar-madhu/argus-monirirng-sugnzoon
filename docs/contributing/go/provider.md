@@ -59,7 +59,7 @@ func NewMyProviderFactories() factory.NamedMap[factory.ProviderFactory[myprovide
 }
 ```
 
-3. Instantiate the provider by adding it to the `SigNoz` struct in `pkg/argus/signoz.go`:
+3. Instantiate the provider by adding it to the `Argus` struct in `pkg/argus/argus.go`:
 
 ```go
 type SigNoz struct {

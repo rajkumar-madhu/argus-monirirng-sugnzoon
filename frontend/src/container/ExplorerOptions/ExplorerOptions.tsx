@@ -716,13 +716,13 @@ function ExplorerOptions({
 
 	const infoIconLink = useMemo(() => {
 		if (isLogsExplorer) {
-			return 'https://signoz.io/docs/userguide/logs_query_builder/?utm_source=product&utm_medium=logs-explorer-toolbar';
+			return 'https://argus.example.com/docs/userguide/logs_query_builder/?utm_source=product&utm_medium=logs-explorer-toolbar';
 		}
 		// TODO: Add metrics explorer info icon link
 		if (isMetricsExplorer) {
 			return '';
 		}
-		return 'https://signoz.io/docs/userguide/traces/?utm_source=product&utm_medium=trace-explorer-toolbar';
+		return 'https://argus.example.com/docs/userguide/traces/?utm_source=product&utm_medium=trace-explorer-toolbar';
 	}, [isLogsExplorer, isMetricsExplorer]);
 
 	const getQueryName = (query: Query): string => {

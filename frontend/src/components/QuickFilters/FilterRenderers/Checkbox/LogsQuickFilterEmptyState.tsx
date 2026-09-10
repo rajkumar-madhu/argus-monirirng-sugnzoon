@@ -23,7 +23,7 @@ function LogsQuickFilterEmptyState({
 		const section = QUICK_FILTER_DOC_PATHS[attributeKey];
 
 		window.open(
-			`https://signoz.io/docs/logs-management/features/logs-quick-filters#${section}`,
+			`https://argus.example.com/docs/logs-management/features/logs-quick-filters#${section}`,
 			'_blank',
 		);
 	};

@@ -4,7 +4,7 @@ import { generatePath, matchPath, useLocation } from 'react-router-dom';
 import { Input } from '@signozhq/ui/input';
 import logEvent from 'api/common/logEvent';
 import axios from 'axios';
-import SignozModal from 'components/SignozModal/SignozModal';
+import ArgusModal from 'components/ArgusModal/ArgusModal';
 import { REACT_QUERY_KEY } from 'constants/reactQueryKeys';
 import ROUTES from 'constants/routes';
 import { useCreateFunnel } from 'hooks/TracesFunnels/useFunnels';
@@ -97,7 +97,7 @@ function CreateFunnel({
 	};
 
 	return (
-		<SignozModal
+		<ArgusModal
 			open={isOpen}
 			title="Create new funnel"
 			width={384}
@@ -137,7 +137,7 @@ function CreateFunnel({
 					<span className="funnel-modal-content__error">{inputError}</span>
 				)}
 			</div>
-		</SignozModal>
+		</ArgusModal>
 	);
 }
 

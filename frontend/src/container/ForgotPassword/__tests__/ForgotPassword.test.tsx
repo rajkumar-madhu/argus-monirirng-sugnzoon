@@ -59,7 +59,7 @@ const mockMultipleOrgs: OrgSessionContext[] = [
 	},
 ];
 
-const TEST_EMAIL = 'jest.test@signoz.io';
+const TEST_EMAIL = 'jest.test@argus.example.com';
 
 const defaultProps: ForgotPasswordRouteState = {
 	email: TEST_EMAIL,

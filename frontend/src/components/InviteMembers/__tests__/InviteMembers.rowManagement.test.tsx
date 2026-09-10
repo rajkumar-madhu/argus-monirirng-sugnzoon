@@ -19,11 +19,11 @@ describe('InviteMembers - Row Management', () => {
 
 		render(<InviteMembers initialRowCount={2} />);
 
-		expect(screen.getAllByPlaceholderText('e.g. john@signoz.io')).toHaveLength(2);
+		expect(screen.getAllByPlaceholderText('e.g. john@argus.example.com')).toHaveLength(2);
 
 		await user.click(screen.getByRole('button', { name: /add another/i }));
 
-		expect(screen.getAllByPlaceholderText('e.g. john@signoz.io')).toHaveLength(3);
+		expect(screen.getAllByPlaceholderText('e.g. john@argus.example.com')).toHaveLength(3);
 	});
 
 	it('removes a row when trash button is clicked', async () => {
@@ -36,7 +36,7 @@ describe('InviteMembers - Row Management', () => {
 
 		await user.click(removeButtons[0]);
 
-		expect(screen.getAllByPlaceholderText('e.g. john@signoz.io')).toHaveLength(2);
+		expect(screen.getAllByPlaceholderText('e.g. john@argus.example.com')).toHaveLength(2);
 	});
 
 	it('respects minRows constraint when removing rows', async () => {
@@ -55,7 +55,7 @@ describe('InviteMembers - Row Management', () => {
 
 		await user.click(removeButtons[0]);
 
-		expect(screen.getAllByPlaceholderText('e.g. john@signoz.io')).toHaveLength(2);
+		expect(screen.getAllByPlaceholderText('e.g. john@argus.example.com')).toHaveLength(2);
 		expect(screen.queryAllByRole('button', { name: /remove row/i })).toHaveLength(
 			0,
 		);
@@ -69,7 +69,7 @@ describe('InviteMembers - Row Management', () => {
 		const removeButtons = screen.getAllByRole('button', { name: /remove row/i });
 		await user.click(removeButtons[0]);
 
-		expect(screen.getAllByPlaceholderText('e.g. john@signoz.io')).toHaveLength(1);
+		expect(screen.getAllByPlaceholderText('e.g. john@argus.example.com')).toHaveLength(1);
 		expect(screen.queryAllByRole('button', { name: /remove row/i })).toHaveLength(
 			0,
 		);
@@ -80,16 +80,16 @@ describe('InviteMembers - Row Management', () => {
 
 		render(<InviteMembers initialRowCount={3} />);
 
-		const emailInputs = screen.getAllByPlaceholderText('e.g. john@signoz.io');
-		await user.type(emailInputs[0], 'first@signoz.io');
-		await user.type(emailInputs[2], 'third@signoz.io');
+		const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+		await user.type(emailInputs[0], 'first@argus.example.com');
+		await user.type(emailInputs[2], 'third@argus.example.com');
 
 		const removeButtons = screen.getAllByRole('button', { name: /remove row/i });
 		await user.click(removeButtons[1]);
 
-		const remainingInputs = screen.getAllByPlaceholderText('e.g. john@signoz.io');
+		const remainingInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
 		expect(remainingInputs).toHaveLength(2);
-		expect(remainingInputs[0]).toHaveValue('first@signoz.io');
-		expect(remainingInputs[1]).toHaveValue('third@signoz.io');
+		expect(remainingInputs[0]).toHaveValue('first@argus.example.com');
+		expect(remainingInputs[1]).toHaveValue('third@argus.example.com');
 	});
 });

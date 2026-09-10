@@ -2,22 +2,22 @@
 
 set -o errexit
 
-# Regular Colors
-Yellow='\033[0;33m' # Yellow
-Green='\033[0;32m'  # Green
-NC='\033[0m'        # No Color
+Yellow='\033[0;33m'
+Green='\033[0;32m'
+NC='\033[0m'
 
 echo ""
-echo -e "👋 Thank you for trying out SigNoz!"
+echo -e "👋 Thank you for trying Argus!"
 echo ""
-echo -e "SigNoz now installs and runs through ${Green}Foundry${NC}."
+echo -e "${Yellow}⚠️  This install script is deprecated and no longer maintained.${NC}"
 echo ""
-echo -e "${Yellow}⚠️  This install script has been deprecated and is no longer maintained.${NC}"
-echo -e "${Yellow}⚠️  Please see https://github.com/your-org/argus/blob/main/deploy/README.md for new installation and migrations to Foundry.${NC}"
+echo -e "Argus community installs are self-managed and do not use SigNoz Foundry."
 echo ""
+echo -e "Please see:"
+echo -e "${Green}👉 https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/main/deploy/README.md${NC}"
+echo -e "${Green}👉 https://argus.example.com/docs/install${NC} (replace with your docs URL)"
 echo ""
-echo -e "Please follow the latest installation instructions here:"
-echo -e "${Green}👉 https://signoz.io/docs/install/docker/${NC}"
+echo -e "Migration from SigNoz production deployments is not supported — see deploy/MIGRATION.md."
 echo ""
 echo -e "🙏 Thank you!"
 echo ""

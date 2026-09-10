@@ -1,4 +1,4 @@
-// Dark theme — SigNoz design palette
+// Dark theme — Argus design palette
 export const darkTheme = {
 	scheme: 'signoz-dark',
 	author: 'signoz',

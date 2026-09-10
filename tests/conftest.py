@@ -13,7 +13,7 @@ pytest_plugins = [
     "fixtures.sql",
     "fixtures.sqlite",
     "fixtures.keeper",
-    "fixtures.signoz",
+    "fixtures.argus",
     "fixtures.audit",
     "fixtures.logs",
     "fixtures.traces",
@@ -43,7 +43,7 @@ pytest_plugins = [
 def pytest_configure(config: pytest.Config):
     if config.getoption("--rebuild"):
         if not config.getoption("--reuse"):
-            raise pytest.UsageError("--rebuild requires --reuse: it replaces the signoz container within an environment that is being reused.")
+            raise pytest.UsageError("--rebuild requires --reuse: it replaces the argus container within an environment that is being reused.")
         if config.getoption("--teardown"):
             raise pytest.UsageError("--rebuild cannot be combined with --teardown.")
         if config.getoption("--clean"):
@@ -73,13 +73,13 @@ def pytest_addoption(parser: pytest.Parser):
         "--rebuild",
         action="store_true",
         default=False,
-        help="Rebuild the signoz container from the current sources while reusing the rest of the stack (databases, mocks, migrations). Only meaningful together with --reuse: pytest --basetemp=./tmp/ -vv --reuse --rebuild integration/bootstrap/setup.py::test_setup.",
+        help="Rebuild the argus container from the current sources while reusing the rest of the stack (databases, mocks, migrations). Only meaningful together with --reuse: pytest --basetemp=./tmp/ -vv --reuse --rebuild integration/bootstrap/setup.py::test_setup.",
     )
     parser.addoption(
         "--clean",
         action="store_true",
         default=False,
-        help="Prune the BuildKit cache mounts (go build and module caches) used by the signoz image build, forcing the next build to start cold. Combine with --teardown to reset everything: pytest --basetemp=./tmp/ -vv --teardown --clean integration/bootstrap/setup.py::test_teardown.",
+        help="Prune the BuildKit cache mounts (go build and module caches) used by the argus image build, forcing the next build to start cold. Combine with --teardown to reset everything: pytest --basetemp=./tmp/ -vv --teardown --clean integration/bootstrap/setup.py::test_teardown.",
     )
     parser.addoption(
         "--with-web",

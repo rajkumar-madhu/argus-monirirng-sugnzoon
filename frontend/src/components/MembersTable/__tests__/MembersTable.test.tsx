@@ -7,14 +7,14 @@ const mockActiveMembers: MemberRow[] = [
 	{
 		id: 'user-1',
 		name: 'Alice Smith',
-		email: 'alice@signoz.io',
+		email: 'alice@argus.example.com',
 		status: MemberStatus.Active,
 		joinedOn: '1700000000000',
 	},
 	{
 		id: 'user-2',
 		name: 'Bob Jones',
-		email: 'bob@signoz.io',
+		email: 'bob@argus.example.com',
 		status: MemberStatus.Active,
 		joinedOn: null,
 	},
@@ -23,7 +23,7 @@ const mockActiveMembers: MemberRow[] = [
 const mockInvitedMember: MemberRow = {
 	id: 'inv-abc',
 	name: '',
-	email: 'charlie@signoz.io',
+	email: 'charlie@argus.example.com',
 	status: MemberStatus.Invited,
 	joinedOn: null,
 };
@@ -47,7 +47,7 @@ describe('MembersTable', () => {
 		render(<MembersTable {...defaultProps} data={mockActiveMembers} />);
 
 		expect(screen.getByText('Alice Smith')).toBeInTheDocument();
-		expect(screen.getByText('alice@signoz.io')).toBeInTheDocument();
+		expect(screen.getByText('alice@argus.example.com')).toBeInTheDocument();
 		expect(screen.getAllByText('ACTIVE')).toHaveLength(2);
 	});
 
@@ -61,7 +61,7 @@ describe('MembersTable', () => {
 		);
 
 		expect(screen.getByText('INVITED')).toBeInTheDocument();
-		expect(screen.getByText('charlie@signoz.io')).toBeInTheDocument();
+		expect(screen.getByText('charlie@argus.example.com')).toBeInTheDocument();
 	});
 
 	it('calls onRowClick with the member data when a row is clicked', async () => {
@@ -82,7 +82,7 @@ describe('MembersTable', () => {
 
 		expect(onRowClick).toHaveBeenCalledTimes(1);
 		expect(onRowClick).toHaveBeenCalledWith(
-			expect.objectContaining({ id: 'user-1', email: 'alice@signoz.io' }),
+			expect.objectContaining({ id: 'user-1', email: 'alice@argus.example.com' }),
 		);
 	});
 
@@ -92,7 +92,7 @@ describe('MembersTable', () => {
 		const deletedMember: MemberRow = {
 			id: 'user-del',
 			name: 'Dave Deleted',
-			email: 'dave@signoz.io',
+			email: 'dave@argus.example.com',
 			status: MemberStatus.Deleted,
 			joinedOn: null,
 		};

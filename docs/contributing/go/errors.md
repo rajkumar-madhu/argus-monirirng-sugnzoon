@@ -44,7 +44,7 @@ An optional link to documentation that explains the error in more depth, set wit
 
 ```go
 return errors.New(errors.TypeInvalidInput, CodeBadThing, "bad thing").
-    WithUrl("https://signoz.io/docs/...")
+    WithUrl("https://argus.example.com/docs/...")
 ```
 
 ### Additional

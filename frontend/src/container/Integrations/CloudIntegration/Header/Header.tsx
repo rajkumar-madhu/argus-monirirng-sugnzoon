@@ -39,7 +39,7 @@ function Header({ type }: { type: IntegrationType }): JSX.Element {
 						color="secondary"
 						onClick={(): void => {
 							window.open(
-								'https://signoz.io/blog/native-aws-integrations-with-autodiscovery/',
+								'https://argus.example.com/blog/native-aws-integrations-with-autodiscovery/',
 								'_blank',
 							);
 						}}

@@ -14,7 +14,7 @@ export const AUTH_DOMAINS_DELETE_ENDPOINT = '*/api/v2/auth_domains/:id';
 // Mock Auth Domain with Google Auth
 export const mockGoogleAuthDomain: AuthtypesGettableAuthDomainDTO = {
 	id: 'domain-1',
-	name: 'signoz.io',
+	name: 'argus.example.com',
 	enabled: true,
 	config: {
 		kind: AuthtypesAuthDomainConfigGoogleDTOKind.google,

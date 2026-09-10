@@ -30,7 +30,7 @@ def create_migrator(  # pylint: disable=too-many-arguments,too-many-positional-a
 
         container = client.containers.run(
             image=f"signoz/signoz-schema-migrator:{migrator_version}",
-            command=f"sync --replication=true --cluster-name=cluster --up= --dsn={clickhouse.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_DSN']}",
+            command=f"sync --replication=true --cluster-name=cluster --up= --dsn={clickhouse.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_DSN']}",
             detach=True,
             auto_remove=False,
             network=network.id,
@@ -49,7 +49,7 @@ def create_migrator(  # pylint: disable=too-many-arguments,too-many-positional-a
 
         container = client.containers.run(
             image=f"signoz/signoz-schema-migrator:{migrator_version}",
-            command=f"async --replication=true --cluster-name=cluster --up= --dsn={clickhouse.env['SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_DSN']}",
+            command=f"async --replication=true --cluster-name=cluster --up= --dsn={clickhouse.env['ARGUS_TELEMETRYSTORE_CLICKHOUSE_DSN']}",
             detach=True,
             auto_remove=False,
             network=network.id,

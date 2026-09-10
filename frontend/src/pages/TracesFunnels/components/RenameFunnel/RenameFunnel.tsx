@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { Input } from '@signozhq/ui/input';
-import SignozModal from 'components/SignozModal/SignozModal';
+import ArgusModal from 'components/ArgusModal/ArgusModal';
 import { REACT_QUERY_KEY } from 'constants/reactQueryKeys';
 import { useRenameFunnel } from 'hooks/TracesFunnels/useFunnels';
 import { useNotifications } from 'hooks/useNotifications';
@@ -61,7 +61,7 @@ function RenameFunnel({
 	};
 
 	return (
-		<SignozModal
+		<ArgusModal
 			open={isOpen}
 			title="Rename Funnel"
 			width={384}
@@ -95,7 +95,7 @@ function RenameFunnel({
 					autoFocus
 				/>
 			</div>
-		</SignozModal>
+		</ArgusModal>
 	);
 }
 

@@ -707,7 +707,7 @@ function GeneralSettings({
 						<TextToolTip
 							{...{
 								text: `More details on how to set retention period`,
-								url: 'https://signoz.io/docs/userguide/retention-period/',
+								url: 'https://argus.example.com/docs/userguide/retention-period/',
 							}}
 						/>
 					)}

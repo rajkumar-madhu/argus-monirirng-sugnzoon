@@ -27,7 +27,7 @@ const SA_ROLE_DELETE_ENDPOINT = '*/api/v1/service_account_roles/:id';
 const activeAccountResponse = {
 	id: 'sa-1',
 	name: 'CI Bot',
-	email: 'ci-bot@signoz.io',
+	email: 'ci-bot@argus.example.com',
 	status: 'ACTIVE',
 	createdAt: '2026-01-01T00:00:00Z',
 	updatedAt: '2026-01-02T00:00:00Z',

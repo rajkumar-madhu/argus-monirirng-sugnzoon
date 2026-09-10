@@ -12,7 +12,7 @@ export const MOCK_ROUTING_POLICY_1: RoutingPolicy = {
 	channels: ['Channel 1'],
 	createdAt: '2021-01-04',
 	updatedAt: undefined,
-	createdBy: 'user1@signoz.io',
+	createdBy: 'user1@argus.example.com',
 	updatedBy: undefined,
 };
 
@@ -24,8 +24,8 @@ export const MOCK_ROUTING_POLICY_2: RoutingPolicy = {
 	channels: ['Channel 2'],
 	createdAt: '2021-01-05',
 	updatedAt: '2021-01-05',
-	createdBy: 'user2@signoz.io',
-	updatedBy: 'user2@signoz.io',
+	createdBy: 'user2@argus.example.com',
+	updatedBy: 'user2@argus.example.com',
 };
 
 export const MOCK_CHANNEL_1: Channels = {
@@ -86,7 +86,7 @@ export function getAppContextMockState(
 			accessJwt: 'some-token',
 			refreshJwt: 'some-refresh-token',
 			id: 'some-user-id',
-			email: 'user@signoz.io',
+			email: 'user@argus.example.com',
 			displayName: 'John Doe',
 			createdAt: 1732544623,
 			organization: 'Nightswatch',

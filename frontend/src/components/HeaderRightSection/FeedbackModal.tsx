@@ -144,7 +144,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
 						</Typography.Link>
 						or{' '}
 						<a
-							href="https://signoz.io/docs/introduction/"
+							href="https://argus.example.com/docs/introduction/"
 							target="_blank"
 							rel="noreferrer"
 							className="read-docs-link"

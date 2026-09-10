@@ -12,7 +12,7 @@ export const managedRoles: AuthtypesGettableRoleDTO[] = [
 		updatedAt: '2026-02-03T18:00:55.624356Z',
 		name: 'signoz-admin',
 		description:
-			'Role assigned to users who have full administrative access to SigNoz resources.',
+			'Role assigned to users who have full administrative access to Argus resources.',
 		type: 'managed',
 		orgId,
 	},
@@ -22,7 +22,7 @@ export const managedRoles: AuthtypesGettableRoleDTO[] = [
 		updatedAt: '2026-02-03T18:00:55.624359Z',
 		name: 'signoz-editor',
 		description:
-			'Role assigned to users who can create, edit, and manage SigNoz resources but do not have full administrative privileges.',
+			'Role assigned to users who can create, edit, and manage Argus resources but do not have full administrative privileges.',
 		type: 'managed',
 		orgId,
 	},
@@ -32,7 +32,7 @@ export const managedRoles: AuthtypesGettableRoleDTO[] = [
 		updatedAt: '2026-02-03T18:00:55.624362Z',
 		name: 'signoz-viewer',
 		description:
-			'Role assigned to users who have read-only access to SigNoz resources.',
+			'Role assigned to users who have read-only access to Argus resources.',
 		type: 'managed',
 		orgId,
 	},

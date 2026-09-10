@@ -1,8 +1,11 @@
-# Configuring OpenTelemetry Demo App with SigNoz
+# Configuring OpenTelemetry Demo App with Argus
 
-[The OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo) is an e-commerce web application, with **15 core microservices** in a **distributed system** which communicate over gRPC. Designed as a **polyglot** environment, it leverages a diverse set of programming languages, including Go, Python, .NET, Java, and others, showcasing cross-language instrumentation with OpenTelemetry. The intention is to get a quickstart application to send data and experience SigNoz firsthand.
+This walkthrough sends the [OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo) demo to a **self-hosted Argus** backend (OTLP `4317`/`4318`). Argus keeps upstream SigNoz collector/schema contracts, so collector image names remain `signoz/signoz-otel-collector`.
 
-This guide provides a step-by-step walkthrough for setting up the **OpenTelemetry Demo App** with **SigNoz** as backend for observability. It outlines steps to export telemetry data to **SigNoz self-hosted with Docker**, **SigNoz self-hosted with Kubernetes** and **SigNoz cloud**. 
+This fork does **not** use SigNoz Cloud, official Helm charts, or Foundry. Replace any leftover `signoz.io` links with `https://argus.example.com` and point OTLP exporters at your Argus collector.
+
+Original SigNoz-specific cloud/Kubernetes chart steps below are **historical** and unsupported in this community fork. Use the Docker collector path against a local Argus devenv (`make devenv-up`).
+ 
 <br/>
 
 __Table of Contents__

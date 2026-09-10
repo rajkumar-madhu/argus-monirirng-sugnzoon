@@ -53,7 +53,7 @@ const supportChannels = [
 		name: 'Documentation',
 		icon: <Book size={16} />,
 		title: 'Find answers in the documentation.',
-		url: 'https://signoz.io/docs/',
+		url: 'https://argus.example.com/docs/',
 		btnText: 'Visit docs',
 		isExternal: true,
 	},
@@ -62,7 +62,7 @@ const supportChannels = [
 		name: 'Github',
 		icon: <Github size={16} />,
 		title: 'Create an issue on GitHub to report bugs or request new features.',
-		url: 'https://github.com/SigNoz/signoz/issues',
+		url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues',
 		btnText: 'Create issue',
 		isExternal: true,
 	},
@@ -70,8 +70,8 @@ const supportChannels = [
 		key: 'slack_community',
 		name: 'Slack Community',
 		icon: <Slack size={16} />,
-		title: 'Get support from the SigNoz community on Slack.',
-		url: 'https://signoz.io/slack',
+		title: 'Get support from the Argus community.',
+		url: 'https://argus.example.com/slack',
 		btnText: 'Join Slack',
 		isExternal: true,
 	},
@@ -180,7 +180,7 @@ export default function Support(): JSX.Element {
 				handleChat();
 				break;
 			default:
-				handleChannelWithRedirects('https://signoz.io/slack');
+				handleChannelWithRedirects('https://argus.example.com/slack');
 				break;
 		}
 	};
@@ -266,7 +266,7 @@ export default function Support(): JSX.Element {
 			>
 				<Typography.Text className="add-credit-card-text">
 					You&apos;re currently on <span className="highlight-text">Trial plan</span>
-					. Add a credit card to access SigNoz chat support to your workspace.
+					. Add a credit card to access Argus chat support to your workspace.
 				</Typography.Text>
 			</Modal>
 		</div>

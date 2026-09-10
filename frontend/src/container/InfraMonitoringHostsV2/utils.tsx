@@ -12,7 +12,7 @@ import { INFRA_MONITORING_ATTR_KEYS } from 'container/InfraMonitoringK8sV2/const
 import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { DataSource } from 'types/common/queryBuilder';
 const HOSTNAME_DOCS_URL =
-	'https://signoz.io/docs/infrastructure-monitoring/hostmetrics/#host-name-is-blankempty';
+	'https://argus.example.com/docs/infrastructure-monitoring/hostmetrics/#host-name-is-blankempty';
 
 export function HostnameCell({
 	hostName,

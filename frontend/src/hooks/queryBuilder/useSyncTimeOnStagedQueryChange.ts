@@ -9,7 +9,7 @@ import { GlobalReducer } from 'types/reducer/globalTime';
 // relative time interval. The data hooks that read minTime/maxTime from Redux
 // otherwise keep refetching with the originally frozen window and the time
 // picker displays a stale absolute range.
-// ref - SigNoz/signoz#8277
+// ref - Argus/signoz#8277
 export function useSyncTimeOnStagedQueryChange(
 	stagedQueryId: string | undefined,
 ): void {

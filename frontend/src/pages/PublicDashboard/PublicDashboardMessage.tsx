@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Typography } from '@signozhq/ui/typography';
 
-import signozBrandLogoUrl from '@/assets/Logos/signoz-brand-logo.svg';
+import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
 
 interface PublicDashboardMessageProps {
 	icon: ReactNode;
@@ -27,10 +27,10 @@ function PublicDashboardMessage({
 
 			<div className="public-dashboard-error-content-header">
 				<div className="brand">
-					<img src={signozBrandLogoUrl} alt="SigNoz" className="brand-logo" />
+					<img src={argusBrandLogoUrl} alt="Argus" className="brand-logo" />
 
 					<Typography.Title level={2} className="brand-title">
-						SigNoz
+						Argus
 					</Typography.Title>
 				</div>
 

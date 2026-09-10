@@ -18,7 +18,7 @@ jest.mock(
 			return (
 				<div>
 					{children}
-					{Anchor && <Anchor href="https://signoz.io/docs">docs</Anchor>}
+					{Anchor && <Anchor href="https://argus.example.com/docs">docs</Anchor>}
 				</div>
 			);
 		},

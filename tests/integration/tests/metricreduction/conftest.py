@@ -9,7 +9,7 @@ from fixtures.auth import register_admin
 from fixtures.clickhouse import create_clickhouse_cluster
 from fixtures.keeper import create_clickhouse_keeper
 from fixtures.migrator import create_migrator
-from fixtures.signoz import create_signoz
+from fixtures.argus import create_signoz
 
 
 @pytest.fixture(name="keeper", scope="package")

@@ -22,7 +22,7 @@ interface UseLLMObservabilityTabsResult {
 
 // Drives the top-level LLM Observability tabs. Route-driven: the active tab is
 // derived from the pathname (each tab owns a URL) and changing tabs navigates,
-// so tabs stay shareable/back-button friendly while rendering with the SigNoz
+// so tabs stay shareable/back-button friendly while rendering with the Argus
 // design-system Tabs.
 export function useLLMObservabilityTabs(): UseLLMObservabilityTabsResult {
 	const { pathname } = useLocation();

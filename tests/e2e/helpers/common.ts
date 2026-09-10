@@ -7,12 +7,12 @@ import type { Page, Request } from '@playwright/test';
 
 // Base URL of the HTTP seeder container the pytest harness brings up (exposes
 // POST/DELETE on /telemetry/{traces,logs,metrics}). Written to
-// `tests/e2e/.env.local` as `SIGNOZ_E2E_SEEDER_URL` and read here from the env.
+// `tests/e2e/.env.local` as `ARGUS_E2E_SEEDER_URL` and read here from the env.
 export function seederUrl(): string {
-	const url = process.env.SIGNOZ_E2E_SEEDER_URL;
+	const url = process.env.ARGUS_E2E_SEEDER_URL;
 	if (!url) {
 		throw new Error(
-			'SIGNOZ_E2E_SEEDER_URL not set — pytest test_setup must be running.',
+			'ARGUS_E2E_SEEDER_URL not set — pytest test_setup must be running.',
 		);
 	}
 	return url;

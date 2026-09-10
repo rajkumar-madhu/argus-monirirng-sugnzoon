@@ -21,7 +21,7 @@ const ADMIN_ASSIGNMENT_ID = 'sar-admin-1';
 const activeAccountResponse = {
 	id: 'sa-1',
 	name: 'CI Bot',
-	email: 'ci-bot@signoz.io',
+	email: 'ci-bot@argus.example.com',
 	status: 'ACTIVE',
 	createdAt: '2026-01-01T00:00:00Z',
 	updatedAt: '2026-01-02T00:00:00Z',
@@ -92,7 +92,7 @@ describe('ServiceAccountDrawer', () => {
 		await expect(
 			screen.findByDisplayValue('CI Bot'),
 		).resolves.toBeInTheDocument();
-		expect(screen.getByText('ci-bot@signoz.io')).toBeInTheDocument();
+		expect(screen.getByText('ci-bot@argus.example.com')).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: /Save Changes/i })).toBeDisabled();
 	});
 

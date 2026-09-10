@@ -143,7 +143,7 @@ CONTENT_TEMPLATING_TEST = [
                                     }
                                 },
                             },
-                            "client": "SigNoz Alert Manager",
+                            "client": "Argus Alert Manager",
                             "client_url": "https://enter-signoz-host-n-port-here/alerts",
                         },
                     },

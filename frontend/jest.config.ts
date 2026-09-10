@@ -52,7 +52,7 @@ const config: Config.InitialOptions = {
 		],
 		'^.+\\.(js|jsx)$': 'babel-jest',
 	},
-	// TODO: https://github.com/SigNoz/engineering-pod/issues/5334
+	// TODO: https://github.com/Argus/engineering-pod/issues/5334
 	transformIgnorePatterns: [
 		// @chenglou/pretext is ESM-only; @signozhq/ui pulls it in via text-ellipsis.
 		// Pattern 1: allow .pnpm virtual store through (handled by pattern 2), plus root-level ESM packages.

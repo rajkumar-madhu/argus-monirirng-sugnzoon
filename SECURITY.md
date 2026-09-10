@@ -1,27 +1,29 @@
 # Security Policy
 
-SigNoz is looking forward to working with security researchers across the world to keep SigNoz and our users safe. If you have found an issue in our systems/applications, please report it to us privately.
+Argus is a community fork of SigNoz MIT-licensed code. We take security reports seriously for **this repository** (`github.com/rajkumar-madhu/argus-monirirng-sugnzoon`). Argus is not affiliated with SigNoz Inc.; do not report Argus fork issues to SigNoz commercial channels unless they affect upstream SigNoz products you operate separately.
 
 ## Supported Versions
 
-We always recommend using the latest version of SigNoz to ensure you get all security updates.
+We recommend running the latest release from your Argus fork. Community support is best-effort.
 
 ## Reporting a Vulnerability
 
-If you believe you have found a security vulnerability within SigNoz, please let us know right away. We'll try and fix the problem as soon as possible.
-
 **Do not report vulnerabilities using public GitHub issues, discussions, or pull requests.**
 
-Instead, report it privately through GitHub's private vulnerability reporting:
+Report privately through GitHub's private vulnerability reporting:
 
-1. Go to the [**Security** tab](https://github.com/your-org/argus/security) of this repository.
-2. Click **Report a vulnerability**, or use [this link](https://github.com/your-org/argus/security/advisories/new).
-3. Describe the issue with as much detail as you can — affected version, impact, and steps to reproduce help us triage faster. Please submit one report per vulnerability.
+1. Go to the [**Security** tab](https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/security) of this repository.
+2. Click **Report a vulnerability**, or use [this link](https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/security/advisories/new).
+3. Describe the issue with as much detail as you can — affected version, impact, and steps to reproduce.
 
-This opens a private advisory visible only to you and the SigNoz maintainers. We'll respond there, keep you updated as we work on a fix, and coordinate disclosure. If the report is valid we'll credit you on the published advisory and request a CVE.
+If you cannot use GitHub private reporting, email **security@your-org.example** (replace with your team's address).
 
-If you're unable to use GitHub's private reporting, you can email <security@signoz.io> instead.
+We will respond, work on a fix, and coordinate disclosure. Valid reports may be credited on the published advisory.
+
+## Upstream SigNoz
+
+Vulnerabilities in upstream SigNoz products or `github.com/SigNoz/*` modules should be reported to [SigNoz's security policy](https://github.com/SigNoz/signoz/security/policy) when they affect those projects directly.
 
 ## Thanks
 
-Thank you for keeping SigNoz and our users safe. 🙇
+Thank you for helping keep Argus and its users safe.

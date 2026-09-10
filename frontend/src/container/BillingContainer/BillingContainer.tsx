@@ -376,7 +376,7 @@ export default function BillingContainer(): JSX.Element {
 				</Typography.Link>
 			</AuthZTooltip>
 			{` if your payment information has changed. Email us at `}
-			<Typography.Text color="muted">cloud-support@signoz.io</Typography.Text>
+			<Typography.Text color="muted">cloud-support@argus.example.com</Typography.Text>
 			{` otherwise. Be sure to provide this information immediately to avoid interruption to your service.`}
 		</Typography>
 	);
@@ -614,7 +614,7 @@ export default function BillingContainer(): JSX.Element {
 								<span>
 									{t('checkout_plans')} &nbsp;
 									<a
-										href="https://signoz.io/pricing/"
+										href="https://argus.example.com/pricing/"
 										style={{
 											color: 'var(--bg-cherry-300)',
 										}}

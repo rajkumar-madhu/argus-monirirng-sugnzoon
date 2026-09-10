@@ -20,7 +20,7 @@ GO_BUILD_LDFLAGS_COMMUNITY 		= $(GO_BUILD_VERSION_LDFLAGS) -X github.com/your-or
 
 DOCKER_BUILD_ARCHS_COMMUNITY 	= $(addprefix docker-build-community-,$(ARCHS))
 DOCKERFILE_COMMUNITY 			= $(SRC)/cmd/community/Dockerfile
-DOCKER_REGISTRY_COMMUNITY 		?= ghcr.io/your-org/argus
+DOCKER_REGISTRY_COMMUNITY 		?= ghcr.io/rajkumar-madhu/argus
 JS_BUILD_CONTEXT 				= $(SRC)/frontend
 
 ##############################################################
@@ -166,11 +166,11 @@ py-lint: ## Run ruff check across the shared tests project
 	@cd tests && uv run ruff check --fix .
 
 .PHONY: py-test-setup
-py-test-setup: ## Bring up the shared SigNoz backend used by integration and e2e tests, rebuilding signoz from the current sources
+py-test-setup: ## Bring up the shared Argus backend used by integration and e2e tests, rebuilding argus from the current sources
 	@cd tests && uv run pytest --basetemp=./tmp/ -vv --reuse --rebuild --capture=no integration/bootstrap/setup.py::test_setup
 
 .PHONY: py-test-teardown
-py-test-teardown: ## Tear down the shared SigNoz backend
+py-test-teardown: ## Tear down the shared Argus backend
 	@cd tests && uv run pytest --basetemp=./tmp/ -vv --teardown --capture=no  integration/bootstrap/setup.py::test_teardown
 
 .PHONY: py-test

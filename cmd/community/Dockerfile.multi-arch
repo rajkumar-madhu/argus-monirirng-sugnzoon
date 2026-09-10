@@ -1,7 +1,8 @@
 ARG ALPINE_SHA="pass-a-valid-docker-sha-otherwise-this-will-fail"
 
 FROM alpine@sha256:${ALPINE_SHA}
-LABEL maintainer="signoz"
+LABEL org.opencontainers.image.title="Argus"
+LABEL org.opencontainers.image.source="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon"
 WORKDIR /root
 
 ARG OS="linux"
@@ -11,10 +12,10 @@ RUN apk update && \
     apk add ca-certificates && \
     rm -rf /var/cache/apk/*
 
-COPY ./target/${OS}-${ARCH}/signoz-community /root/signoz-community
+COPY ./target/${OS}-${ARCH}/argus-community /root/argus
 COPY ./templates /root/templates
-COPY frontend/build/ /etc/signoz/web/
+COPY frontend/build/ /etc/argus/web/
 
-RUN chmod 755 /root /root/signoz-community
+RUN chmod 755 /root /root/argus
 
-ENTRYPOINT ["./signoz-community", "server"]
+ENTRYPOINT ["./argus", "server"]

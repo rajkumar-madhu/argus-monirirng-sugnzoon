@@ -227,7 +227,7 @@ describe('FeedbackModal', () => {
 		const docsLink = screen.getByText('Read our docs');
 		expect(docsLink).toHaveAttribute(
 			'href',
-			'https://signoz.io/docs/introduction/',
+			'https://argus.example.com/docs/introduction/',
 		);
 		expect(docsLink).toHaveAttribute('target', '_blank');
 		expect(docsLink).toHaveAttribute('rel', 'noreferrer');

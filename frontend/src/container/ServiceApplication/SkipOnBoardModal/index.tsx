@@ -29,7 +29,7 @@ function SkipOnBoardingModal({ onContinueClick }: Props): JSX.Element {
 					<Typography>
 						Please instrument your application as mentioned&nbsp;
 						<a
-							href="https://signoz.io/docs/instrumentation/overview"
+							href="https://argus.example.com/docs/instrumentation/overview"
 							target="_blank"
 							rel="noreferrer"
 						>

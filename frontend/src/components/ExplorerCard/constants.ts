@@ -1,5 +1,5 @@
 export const ExploreHeaderToolTip = {
-	url: 'https://signoz.io/docs/querying/overview/?utm_source=product&utm_medium=new-query-builder',
+	url: 'https://argus.example.com/docs/querying/overview/?utm_source=product&utm_medium=new-query-builder',
 	text: 'More details on how to use query builder',
 };
 

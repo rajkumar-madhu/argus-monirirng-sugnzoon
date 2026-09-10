@@ -6,7 +6,7 @@ const baseProps = {
 	link: '/dashboard/abc',
 	dashboardId: 'abc',
 	dashboardName: 'My Dashboard',
-	createdBy: 'someone-else@signoz.io',
+	createdBy: 'someone-else@argus.example.com',
 	isLocked: false,
 	tags: [],
 	canEdit: true,

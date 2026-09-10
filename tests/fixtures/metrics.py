@@ -923,7 +923,7 @@ def insert_metrics(
 
     truncate_metrics_tables(
         clickhouse.conn,
-        clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
+        clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
     )
 
 
@@ -978,7 +978,7 @@ def insert_exp_histogram_metrics(
 
     truncate_metrics_tables(
         clickhouse.conn,
-        clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
+        clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
     )
 
 
@@ -1115,7 +1115,7 @@ def insert_reduced_metrics(
 
     yield _insert_reduced_metrics
 
-    cluster = clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
+    cluster = clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
     for table in _REDUCED_METRICS_TABLES_TO_TRUNCATE:
         clickhouse.conn.query(f"TRUNCATE TABLE signoz_metrics.{table} ON CLUSTER '{cluster}' SYNC")
 
@@ -1132,7 +1132,7 @@ def insert_buffer_metrics(
 
     yield _insert_buffer_metrics
 
-    cluster = clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
+    cluster = clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
     for table in _REDUCED_METRICS_TABLES_TO_TRUNCATE:
         clickhouse.conn.query(f"TRUNCATE TABLE signoz_metrics.{table} ON CLUSTER '{cluster}' SYNC")
 
@@ -1155,7 +1155,7 @@ def remove_metrics_ttl_and_storage_settings(signoz: types.SigNoz):
         "metadata",
     ]
 
-    cluster = signoz.telemetrystore.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
+    cluster = signoz.telemetrystore.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"]
     for table in tables:
         try:
             signoz.telemetrystore.conn.query(f"ALTER TABLE signoz_metrics.{table} ON CLUSTER '{cluster}' REMOVE TTL")

@@ -113,7 +113,7 @@ describe('panel capabilities guard', () => {
 		});
 	});
 
-	// A dashboard spec written by a newer SigNoz can name a kind this build has no
+	// A dashboard spec written by a newer Argus can name a kind this build has no
 	// definition for. The registry answers with UNSUPPORTED_PANEL rather than nothing, so
 	// every guard below reads it without first proving a definition exists.
 	describe('a kind this build cannot render', () => {

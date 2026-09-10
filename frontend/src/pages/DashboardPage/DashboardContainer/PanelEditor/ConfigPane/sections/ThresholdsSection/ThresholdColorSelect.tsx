@@ -10,7 +10,7 @@ interface ThresholdColorSelectProps {
 	onChange: (hex: string) => void;
 }
 
-// Named presets from the SigNoz palette (cherry / amber / forest / robin). They surface
+// Named presets from the Argus palette (cherry / amber / forest / robin). They surface
 // as quick swatches in the picker; the full picker below covers any custom color.
 const PRESETS: { label: string; value: ThresholdColor }[] = [
 	{ label: 'Red', value: ThresholdColor.RED },

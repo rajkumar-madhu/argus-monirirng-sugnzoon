@@ -1,7 +1,7 @@
 {
-  "name": "signoz-frontend-automation",
+  "name": "argus-frontend-automation",
   "version": "1.0.0",
-  "description": "E2E tests for SigNoz frontend with Playwright",
+  "description": "E2E tests for Argus frontend with Playwright",
   "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -10,7 +10,7 @@
     "env:clean": "rm -rf ../tmp ../.pytest_cache .env.local artifacts && echo 'Cleaned. Run docker container prune if needed.'",
     "test": "playwright test",
     "test:local": "pnpm env:start && pnpm test",
-    "test:staging": "SIGNOZ_E2E_BASE_URL=https://app.us.staging.signoz.cloud playwright test",
+    "test:staging": "ARGUS_E2E_BASE_URL=https://argus.example.com playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
@@ -31,7 +31,7 @@
     "playwright",
     "e2e",
     "testing",
-    "signoz"
+    "argus"
   ],
   "author": "",
   "license": "MIT",

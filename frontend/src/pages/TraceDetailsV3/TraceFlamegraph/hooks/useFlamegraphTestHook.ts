@@ -10,7 +10,7 @@ import { SpanRect } from '../types';
  * Playwright spec can resolve a span's on-screen point and drive real
  * hover/click events at it (see tests/e2e/helpers/trace-details.ts).
  *
- * Gated on `window.__SIGNOZ_E2E__` (set by Playwright via addInitScript), so
+ * Gated on `window.__ARGUS_E2E__` (set by Playwright via addInitScript), so
  * nothing is attached in normal runtime — the e2e build is a production build,
  * so this must be a RUNTIME flag, not a NODE_ENV/mode check.
  */
@@ -29,7 +29,7 @@ interface FlamegraphTestApi {
 
 declare global {
 	interface Window {
-		__SIGNOZ_E2E__?: boolean;
+		__ARGUS_E2E__?: boolean;
 		__sigTraceFlame__?: FlamegraphTestApi;
 	}
 }
@@ -61,7 +61,7 @@ export function useFlamegraphTestHook({
 	spanRectsRef,
 }: UseFlamegraphTestHookParams): void {
 	useEffect(() => {
-		if (!window.__SIGNOZ_E2E__) {
+		if (!window.__ARGUS_E2E__) {
 			return undefined;
 		}
 

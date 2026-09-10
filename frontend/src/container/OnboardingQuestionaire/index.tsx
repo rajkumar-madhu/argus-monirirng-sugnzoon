@@ -16,9 +16,9 @@ import history from 'lib/history';
 import { useAppContext } from 'providers/App/App';
 
 import {
-	AboutSigNozQuestions,
+	AboutArgusQuestions,
 	SignozDetails,
-} from './AboutSigNozQuestions/AboutSigNozQuestions';
+} from './AboutArgusQuestions/AboutArgusQuestions';
 import InviteTeamMembers from './InviteTeamMembers/InviteTeamMembers';
 import OptimiseSignozNeeds, {
 	OptimiseSignozDetails,
@@ -201,7 +201,7 @@ function OnboardingQuestionaire(): JSX.Element {
 				)}
 
 				{currentStep === 2 && (
-					<AboutSigNozQuestions
+					<AboutArgusQuestions
 						signozDetails={signozDetails}
 						setSignozDetails={setSignozDetails}
 						onNext={(): void => {

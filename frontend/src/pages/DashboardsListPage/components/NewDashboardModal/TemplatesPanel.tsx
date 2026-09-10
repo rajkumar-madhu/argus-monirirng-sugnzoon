@@ -15,7 +15,7 @@ import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 import styles from './NewDashboardModal.module.scss';
 
 const TEMPLATES_DOCS_URL =
-	'https://signoz.io/docs/dashboards/dashboard-templates/overview/';
+	'https://argus.example.com/docs/dashboards/dashboard-templates/overview/';
 
 // Templates aren't served by the BE yet, so this tab is a browse-and-request
 // placeholder: link out to the published template library, and let cloud users

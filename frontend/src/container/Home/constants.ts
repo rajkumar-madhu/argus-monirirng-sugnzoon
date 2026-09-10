@@ -28,14 +28,14 @@ export const checkListStepToPreferenceKeyMap = {
 };
 
 export const DOCS_LINKS = {
-	ADD_DATA_SOURCE: 'https://signoz.io/docs/instrumentation/overview/',
-	SEND_LOGS: 'https://signoz.io/docs/userguide/logs_query_builder/',
-	SEND_TRACES: 'https://signoz.io/docs/userguide/traces/',
-	SEND_METRICS: 'https://signoz.io/docs/metrics-management/metrics-explorer/',
-	SETUP_ALERTS: 'https://signoz.io/docs/alerts/',
+	ADD_DATA_SOURCE: 'https://argus.example.com/docs/instrumentation/overview/',
+	SEND_LOGS: 'https://argus.example.com/docs/userguide/logs_query_builder/',
+	SEND_TRACES: 'https://argus.example.com/docs/userguide/traces/',
+	SEND_METRICS: 'https://argus.example.com/docs/metrics-management/metrics-explorer/',
+	SETUP_ALERTS: 'https://argus.example.com/docs/alerts/',
 	SETUP_SAVED_VIEWS:
-		'https://signoz.io/docs/metrics-management/metrics-explorer/#saved-views-in-metrics-explorer',
-	SETUP_DASHBOARDS: 'https://signoz.io/docs/userguide/manage-dashboards/',
+		'https://argus.example.com/docs/metrics-management/metrics-explorer/#saved-views-in-metrics-explorer',
+	SETUP_DASHBOARDS: 'https://argus.example.com/docs/userguide/manage-dashboards/',
 };
 
 export const defaultChecklistItemsState: ChecklistItem[] = [
@@ -63,7 +63,7 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 		id: 'SEND_LOGS',
 		title: 'Send your logs',
 		description:
-			'Send your logs to SigNoz to get more visibility into how your resources interact.',
+			'Send your logs to Argus to get more visibility into how your resources interact.',
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,
@@ -75,7 +75,7 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 		id: 'SEND_TRACES',
 		title: 'Send your traces',
 		description:
-			'Send your traces to SigNoz to get more visibility into how your resources interact.',
+			'Send your traces to Argus to get more visibility into how your resources interact.',
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,
@@ -87,7 +87,7 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 		id: 'SEND_METRICS',
 		title: 'Send your metrics',
 		description:
-			'Send your metrics to SigNoz to get more visibility into how your resources interact.',
+			'Send your metrics to Argus to get more visibility into how your resources interact.',
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,

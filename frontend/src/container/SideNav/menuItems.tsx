@@ -448,7 +448,7 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 		),
 		icon: <Book size={14} />,
 		isExternal: true,
-		url: 'https://signoz.io/docs',
+		url: 'https://argus.example.com/docs',
 		itemKey: 'documentation',
 	},
 	{
@@ -475,7 +475,7 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 		),
 		icon: <Slack size={14} />,
 		isExternal: true,
-		url: 'https://signoz.io/slack',
+		url: 'https://argus.example.com/slack',
 		itemKey: 'community-slack',
 	},
 	{

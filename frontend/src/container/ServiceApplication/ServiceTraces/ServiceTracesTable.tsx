@@ -59,7 +59,7 @@ function ServiceTraceTable({
 				<Flex justify="left">
 					<Typography.Title level={5} color="warning" style={{ marginTop: 0 }}>
 						<SolidAlertTriangle size="md" /> {getText('rps_over_100')}
-						<a href="mailto:cloud-support@signoz.io">email</a>
+						<a href="mailto:cloud-support@argus.example.com">email</a>
 					</Typography.Title>
 				</Flex>
 			)}

@@ -622,18 +622,18 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 		<div className="workspace-restricted-banner">
 			{activeLicense?.state === LicenseState.TERMINATED && (
 				<>
-					Your SigNoz license is terminated, enterprise features have been disabled.
+					Your Argus license is terminated, enterprise features have been disabled.
 					Please contact support at{' '}
-					<a href="mailto:support@signoz.io">support@signoz.io</a> for new license
+					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for new license
 				</>
 			)}
 			{activeLicense?.state === LicenseState.EXPIRED && (
 				<>
-					Your SigNoz license has expired. Please contact support at{' '}
-					<a href="mailto:support@signoz.io">support@signoz.io</a> for renewal to
+					Your Argus license has expired. Please contact support at{' '}
+					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for renewal to
 					avoid termination of license as per our{' '}
 					<a
-						href="https://signoz.io/terms-of-service"
+						href="https://argus.example.com/terms-of-service"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -643,11 +643,11 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 			)}
 			{activeLicense?.state === LicenseState.CANCELLED && (
 				<>
-					Your SigNoz license is cancelled. Please contact support at{' '}
-					<a href="mailto:support@signoz.io">support@signoz.io</a> for reactivation
+					Your Argus license is cancelled. Please contact support at{' '}
+					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for reactivation
 					to avoid termination of license as per our{' '}
 					<a
-						href="https://signoz.io/terms-of-service"
+						href="https://argus.example.com/terms-of-service"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -658,12 +658,12 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 
 			{activeLicense?.state === LicenseState.DEFAULTED && (
 				<>
-					Your SigNoz license is defaulted. Please clear the bill to continue using
+					Your Argus license is defaulted. Please clear the bill to continue using
 					the enterprise features. Contact support at{' '}
-					<a href="mailto:support@signoz.io">support@signoz.io</a> to avoid
+					<a href="mailto:support@argus.example.com">support@argus.example.com</a> to avoid
 					termination of license as per our{' '}
 					<a
-						href="https://signoz.io/terms-of-service"
+						href="https://argus.example.com/terms-of-service"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -674,11 +674,11 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 
 			{activeLicense?.state === LicenseState.EVALUATION_EXPIRED && (
 				<>
-					Your SigNoz trial has ended. Please contact support at{' '}
-					<a href="mailto:support@signoz.io">support@signoz.io</a> for next steps to
+					Your Argus trial has ended. Please contact support at{' '}
+					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for next steps to
 					avoid termination of license as per our{' '}
 					<a
-						href="https://signoz.io/terms-of-service"
+						href="https://argus.example.com/terms-of-service"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -793,7 +793,7 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 									<a className="upgrade-link" onClick={handleUpgrade}>
 										upgrade
 									</a>
-									to continue using SigNoz features.
+									to continue using Argus features.
 									<span className="refresh-payment-status">
 										{' '}
 										| Already upgraded? <RefreshPaymentStatus type="text" />
@@ -823,7 +823,7 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 											pay the bill
 										</a>
 									</AuthZTooltip>
-									to continue using SigNoz features.
+									to continue using Argus features.
 									<span className="refresh-payment-status">
 										{' '}
 										| Already paid? <RefreshPaymentStatus type="text" />

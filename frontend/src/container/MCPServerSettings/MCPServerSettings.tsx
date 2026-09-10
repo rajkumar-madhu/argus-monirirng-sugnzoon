@@ -121,10 +121,10 @@ function MCPServerSettings(): JSX.Element {
 	return (
 		<div className="mcp-settings" data-testid="mcp-settings">
 			<header className="mcp-settings__header">
-				<h1 className="mcp-settings__header-title">SigNoz MCP Server</h1>
+				<h1 className="mcp-settings__header-title">Argus MCP Server</h1>
 				<p className="mcp-settings__header-subtitle">
 					Connect AI assistants like Claude, Cursor, VS Code, and Codex to your
-					SigNoz data via the Model Context Protocol. Authenticate from your MCP
+					Argus data via the Model Context Protocol. Authenticate from your MCP
 					client with a service-account API key.
 				</p>
 			</header>
@@ -137,9 +137,9 @@ function MCPServerSettings(): JSX.Element {
 					Configure your client
 				</h3>
 				<p className="mcp-settings__card-description">
-					Add SigNoz to your MCP client. Use a one-click install where available, or
+					Add Argus to your MCP client. Use a one-click install where available, or
 					copy the config for manual setup. On first connect, the client will open a
-					SigNoz authorization page - use the instance URL and API key from step 2.
+					Argus authorization page - use the instance URL and API key from step 2.
 				</p>
 				<ClientTabs
 					endpoint={endpoint}

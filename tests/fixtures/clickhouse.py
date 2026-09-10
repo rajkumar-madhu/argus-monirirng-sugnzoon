@@ -183,7 +183,7 @@ def install_histogram_quantile(container: ClickHouseContainer) -> None:
                 'node_os=$(uname -s | tr "[:upper:]" "[:lower:]") && '
                 "node_arch=$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && "
                 "cd /tmp && "
-                'wget -O histogram-quantile.tar.gz "https://github.com/your-org/argus/releases/download/histogram-quantile%2F${version}/histogram-quantile_${node_os}_${node_arch}.tar.gz" && '
+                'wget -O histogram-quantile.tar.gz "https://github.com/SigNoz/signoz/releases/download/histogram-quantile%2F${version}/histogram-quantile_${node_os}_${node_arch}.tar.gz" && '
                 "tar -xzf histogram-quantile.tar.gz && "
                 "mkdir -p /var/lib/clickhouse/user_scripts && "
                 "mv histogram-quantile /var/lib/clickhouse/user_scripts/histogramQuantile && "
@@ -270,10 +270,10 @@ def create_clickhouse(  # pylint: disable=too-many-arguments,too-many-positional
             ),
             conn=connection,
             env={
-                "SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_DSN": f"tcp://{container.username}:{container.password}@{container.get_wrapped_container().name}:{9000}",
-                "SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_USERNAME": container.username,
-                "SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_PASSWORD": container.password,
-                "SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER": "cluster",
+                "ARGUS_TELEMETRYSTORE_CLICKHOUSE_DSN": f"tcp://{container.username}:{container.password}@{container.get_wrapped_container().name}:{9000}",
+                "ARGUS_TELEMETRYSTORE_CLICKHOUSE_USERNAME": container.username,
+                "ARGUS_TELEMETRYSTORE_CLICKHOUSE_PASSWORD": container.password,
+                "ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER": "cluster",
             },
         )
 
@@ -294,8 +294,8 @@ def create_clickhouse(  # pylint: disable=too-many-arguments,too-many-positional
         env = cache["env"]
 
         conn = clickhouse_connect.get_client(
-            user=env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_USERNAME"],
-            password=env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_PASSWORD"],
+            user=env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_USERNAME"],
+            password=env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_PASSWORD"],
             host=host_config.address,
             port=host_config.port,
         )
@@ -347,8 +347,8 @@ def clickhouse_node_conns(
     fixtures, which don't populate `nodes`."""
     conns = [
         clickhouse_connect.get_client(
-            user=clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_USERNAME"],
-            password=clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_PASSWORD"],
+            user=clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_USERNAME"],
+            password=clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_PASSWORD"],
             host=node.host_configs["8123"].address,
             port=node.host_configs["8123"].port,
         )
@@ -470,10 +470,10 @@ def create_clickhouse_cluster(  # pylint: disable=too-many-arguments,too-many-po
             container=nodes[0],
             conn=connection,
             env={
-                "SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_DSN": f"tcp://{CLICKHOUSE_USERNAME}:{CLICKHOUSE_PASSWORD}@{aliases[0]}:{9000}",
-                "SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_USERNAME": CLICKHOUSE_USERNAME,
-                "SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_PASSWORD": CLICKHOUSE_PASSWORD,
-                "SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER": "cluster",
+                "ARGUS_TELEMETRYSTORE_CLICKHOUSE_DSN": f"tcp://{CLICKHOUSE_USERNAME}:{CLICKHOUSE_PASSWORD}@{aliases[0]}:{9000}",
+                "ARGUS_TELEMETRYSTORE_CLICKHOUSE_USERNAME": CLICKHOUSE_USERNAME,
+                "ARGUS_TELEMETRYSTORE_CLICKHOUSE_PASSWORD": CLICKHOUSE_PASSWORD,
+                "ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER": "cluster",
             },
             nodes=nodes,
         )
@@ -496,8 +496,8 @@ def create_clickhouse_cluster(  # pylint: disable=too-many-arguments,too-many-po
         host_config = nodes[0].host_configs["8123"]
 
         conn = clickhouse_connect.get_client(
-            user=env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_USERNAME"],
-            password=env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_PASSWORD"],
+            user=env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_USERNAME"],
+            password=env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_PASSWORD"],
             host=host_config.address,
             port=host_config.port,
         )

@@ -20,7 +20,7 @@ from fixtures.maildev import (
     verify_email_received,
 )
 from fixtures.notification_channel import send_test_notification
-from fixtures.signoz import create_signoz
+from fixtures.argus import create_signoz
 
 logger = setup_logger(__name__)
 

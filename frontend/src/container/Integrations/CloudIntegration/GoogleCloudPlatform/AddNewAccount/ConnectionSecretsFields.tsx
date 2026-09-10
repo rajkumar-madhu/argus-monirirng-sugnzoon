@@ -27,17 +27,17 @@ interface FieldConfig {
 const FIELDS: FieldConfig[] = [
 	{
 		name: 'sigNozApiUrl',
-		label: 'SigNoz API URL',
-		tooltip: 'Base URL of your SigNoz instance the collector reports to',
+		label: 'Argus API URL',
+		tooltip: 'Base URL of your Argus instance the collector reports to',
 		placeholder: 'https://<tenant>.signoz.cloud',
 		testId: 'gcp-signoz-api-url-input',
 		type: 'url',
 	},
 	{
 		name: 'sigNozApiKey',
-		label: 'SigNoz API Key',
-		tooltip: 'API key used to authenticate with your SigNoz instance',
-		placeholder: 'Enter SigNoz API key',
+		label: 'Argus API Key',
+		tooltip: 'API key used to authenticate with your Argus instance',
+		placeholder: 'Enter Argus API key',
 		testId: 'gcp-signoz-api-key-input',
 		type: 'text',
 	},
@@ -52,7 +52,7 @@ const FIELDS: FieldConfig[] = [
 	{
 		name: 'ingestionKey',
 		label: 'Ingestion Key',
-		tooltip: 'Ingestion key that authorizes telemetry sent to SigNoz',
+		tooltip: 'Ingestion key that authorizes telemetry sent to Argus',
 		placeholder: 'Enter ingestion key',
 		testId: 'gcp-ingestion-key-input',
 		type: 'text',
@@ -84,7 +84,7 @@ function ConnectionSecretsFields({
 					<div className={styles.headLabel}>
 						<Lock size={12} />
 						<Typography.Text as="span" size="small" className={styles.headLabel}>
-							Auto-filled by SigNoz
+							Auto-filled by Argus
 						</Typography.Text>
 					</div>
 				)}

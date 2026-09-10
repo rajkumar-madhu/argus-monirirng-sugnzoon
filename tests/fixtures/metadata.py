@@ -136,5 +136,5 @@ def insert_attributes_metadata(
 
     truncate_attributes_metadata_table(
         clickhouse.conn,
-        clickhouse.env["SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
+        clickhouse.env["ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER"],
     )

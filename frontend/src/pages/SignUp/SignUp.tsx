@@ -113,7 +113,7 @@ function SignUp(): JSX.Element {
 					</Typography.Title>
 					<Typography.Text className="signup-header-subtitle">
 						You&apos;re almost in. Create a password to start monitoring your
-						applications with SigNoz.
+						applications with Argus.
 					</Typography.Text>
 				</div>
 
@@ -124,7 +124,7 @@ function SignUp(): JSX.Element {
 								<Label htmlFor="signupEmail">Email address</Label>
 								<FormContainer.Item noStyle name="email">
 									<Input
-										placeholder="e.g. john@signoz.io"
+										placeholder="e.g. john@argus.example.com"
 										type="email"
 										autoFocus
 										required

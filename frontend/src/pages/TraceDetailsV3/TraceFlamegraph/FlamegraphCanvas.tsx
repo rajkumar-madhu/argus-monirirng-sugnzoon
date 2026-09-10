@@ -161,7 +161,7 @@ function FlamegraphCanvas(props: FlamegraphCanvasProps): JSX.Element {
 	useCanvasSetup(canvasRef, containerRef, drawFlamegraph, overlayCanvasRef);
 
 	// E2E-only: expose the live span→rect map so specs can target canvas bars.
-	// No-op unless window.__SIGNOZ_E2E__ is set (Playwright addInitScript).
+	// No-op unless window.__ARGUS_E2E__ is set (Playwright addInitScript).
 	useFlamegraphTestHook({
 		canvasRef,
 		containerRef,

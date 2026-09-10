@@ -94,7 +94,7 @@ const EmptyState = memo(
 									source: 'Service Metrics',
 								});
 								window.open(
-									'https://signoz.io/docs/instrumentation/overview/',
+									'https://argus.example.com/docs/instrumentation/overview/',
 									'_blank',
 								);
 							}}

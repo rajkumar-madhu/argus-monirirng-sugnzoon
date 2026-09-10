@@ -47,7 +47,7 @@ import { Organization } from 'types/api/user/getOrganization';
 import { UserResponse } from 'types/api/user/getUser';
 import { ROLES, USER_ROLES } from 'types/roles';
 import { toISOString } from 'utils/app';
-import { setSigNozInstanceUrl } from 'utils/signozInstanceUrl';
+import { setArgusInstanceUrl } from 'utils/argusInstanceUrl';
 
 import { IAppContext, IUser } from './types';
 import { getUserDefaults } from './utils';
@@ -263,7 +263,7 @@ export function AppProvider({ children }: PropsWithChildren): JSX.Element {
 		}
 		const activeHost =
 			hosts.find((h) => !h.is_default) ?? hosts.find((h) => h.is_default);
-		setSigNozInstanceUrl(activeHost?.url);
+		setArgusInstanceUrl(activeHost?.url);
 	}, [hostsData]);
 
 	// fetcher for feature flags

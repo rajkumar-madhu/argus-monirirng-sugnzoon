@@ -232,7 +232,7 @@ function CloudAccountSetupModal({
 					{isHowItWorksOpen && (
 						<div className="cloud-account-setup-how-it-works-accordion__description">
 							<div className="cloud-account-setup-how-it-works-accordion__description-item">
-								SigNoz will create new resource-group to manage the resources required
+								Argus will create new resource-group to manage the resources required
 								for this integration. The following steps will create a User-Assigned
 								Managed Identity with the necessary permissions and follows the
 								Principle of Least Privilege.
@@ -254,7 +254,7 @@ function CloudAccountSetupModal({
 					<div className="cloud-account-setup-form__content">
 						<div className="cloud-account-setup-form__form-group">
 							<div className="cloud-account-setup-form__title">
-								Where should we deploy the SigNoz collector resources?
+								Where should we deploy the Argus collector resources?
 							</div>
 							<div className="cloud-account-setup-form__description">
 								Choose the Azure region for deployment.

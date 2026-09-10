@@ -2,7 +2,7 @@ import pytest
 from testcontainers.core.container import Network
 
 from fixtures import types
-from fixtures.signoz import create_signoz
+from fixtures.argus import create_signoz
 
 ROOT_USER_EMAIL = "rootuser@integration.test"
 ROOT_USER_PASSWORD = "password123Z$"
