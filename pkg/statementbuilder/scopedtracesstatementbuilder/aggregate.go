@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/telemetryschema/tracestelemetryschema"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/telemetryschema/tracestelemetryschema"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // Aggregate renders one column's SQL through the resolvers and lists the attribute

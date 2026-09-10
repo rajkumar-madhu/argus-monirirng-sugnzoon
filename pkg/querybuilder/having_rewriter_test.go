@@ -3,11 +3,11 @@ package querybuilder
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/metrictypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/metrictypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 func toTraceAggregations(logs []qbtypes.LogAggregation) []qbtypes.TraceAggregation {

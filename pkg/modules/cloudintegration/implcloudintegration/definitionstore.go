@@ -12,8 +12,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	citypes "github.com/SigNoz/signoz/pkg/types/cloudintegrationtypes"
+	"github.com/your-org/argus/pkg/errors"
+	citypes "github.com/your-org/argus/pkg/types/cloudintegrationtypes"
 )
 
 const definitionsRoot = "fs/definitions"

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 // Helper function to limit string length for display.

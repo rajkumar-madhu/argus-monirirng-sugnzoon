@@ -3,7 +3,7 @@ package telemetrytypes
 import (
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 const wildcardSelector = "*"
@@ -17,7 +17,7 @@ var telemetryGrantQueryTypes = map[string]bool{
 }
 
 var telemetryGrantKeys = map[string]struct{}{
-	"signoz.workspace.key.id": {},
+	"argus.workspace.key.id": {},
 }
 
 func NewTelemetryGrantKey(keyText string) (string, bool) {

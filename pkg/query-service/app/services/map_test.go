@@ -3,8 +3,8 @@ package services
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/query-service/model"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/query-service/model"
 )
 
 func TestBuildServiceMapQueryFamily(t *testing.T) {

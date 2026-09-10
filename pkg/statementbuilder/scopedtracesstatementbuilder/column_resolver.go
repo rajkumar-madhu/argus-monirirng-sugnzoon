@@ -3,10 +3,10 @@ package scopedtracesstatementbuilder
 import (
 	"context"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/huandu/go-sqlbuilder"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // columnResolver resolves keys to bare column/value expressions through the shared

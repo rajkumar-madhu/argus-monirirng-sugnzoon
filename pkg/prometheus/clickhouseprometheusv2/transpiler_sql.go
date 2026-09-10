@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/telemetryschema/metricstelemetryschema"
 	"github.com/huandu/go-sqlbuilder"
+	"github.com/your-org/argus/pkg/telemetryschema/metricstelemetryschema"
 )
 
 // experimental gate for the timeSeries*ToGrid aggregate functions; attached

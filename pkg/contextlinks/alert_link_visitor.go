@@ -5,11 +5,11 @@ import (
 	"slices"
 	"strings"
 
-	parser "github.com/SigNoz/signoz/pkg/parser/filterquery/grammar"
 	"github.com/antlr4-go/antlr/v4"
+	parser "github.com/your-org/argus/pkg/parser/filterquery/grammar"
 	"golang.org/x/exp/maps"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 type WhereClauseRewriter struct {

@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/metricstelemetryschema"
-	"github.com/SigNoz/signoz/pkg/types/inframonitoringtypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/huandu/go-sqlbuilder"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/telemetryschema/metricstelemetryschema"
+	"github.com/your-org/argus/pkg/types/inframonitoringtypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/valuer"
 	"golang.org/x/sync/errgroup"
 )
 

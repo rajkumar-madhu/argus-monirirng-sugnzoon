@@ -4,9 +4,9 @@ import (
 	"context"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
 	"github.com/prometheus/common/model"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 // MockNotificationManager is a simple mock implementation of NotificationManager.

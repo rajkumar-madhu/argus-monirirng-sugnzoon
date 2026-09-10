@@ -3,10 +3,10 @@ package contextlinks
 import (
 	"testing"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestBuilderQueryForSignal(t *testing.T) {

@@ -4,11 +4,11 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	openfgav1 "github.com/openfga/api/proto/openfga/v1"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type AuthZ interface {

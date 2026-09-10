@@ -3,8 +3,8 @@ package integrations
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	"github.com/SigNoz/signoz/pkg/types/cloudintegrationtypes"
+	"github.com/your-org/argus/pkg/query-service/model"
+	"github.com/your-org/argus/pkg/types/cloudintegrationtypes"
 )
 
 type InstalledIntegrationsRepo interface {

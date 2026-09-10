@@ -3,8 +3,8 @@ package noopstatsreporter
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/statsreporter"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/statsreporter"
 )
 
 type provider struct {

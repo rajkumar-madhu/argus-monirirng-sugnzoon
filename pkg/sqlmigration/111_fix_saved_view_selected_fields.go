@@ -8,8 +8,8 @@ import (
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/migrate"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
 )
 
 // knownQueryTypes mirrors the discriminator values qbtypes.QueryType currently defines.

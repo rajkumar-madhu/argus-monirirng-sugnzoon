@@ -5,8 +5,8 @@ import (
 
 	"github.com/SigNoz/signoz-otel-collector/constants"
 	"github.com/SigNoz/signoz-otel-collector/pkg/keycheck"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 type WrappedIndex struct {

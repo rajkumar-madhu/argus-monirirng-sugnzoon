@@ -1,6 +1,6 @@
 package coretypes
 
-import "github.com/SigNoz/signoz/pkg/valuer"
+import "github.com/your-org/argus/pkg/valuer"
 
 var (
 	ActionCategoryAccessControl       = ActionCategory{valuer.NewString("access_control")}

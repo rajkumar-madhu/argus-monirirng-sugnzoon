@@ -1,15 +1,15 @@
 package aistatementbuilder
 
 import (
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/statementbuilder"
-	scopedtraces "github.com/SigNoz/signoz/pkg/statementbuilder/scopedtracesstatementbuilder"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/aitelemetryschema"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
-	"github.com/SigNoz/signoz/pkg/types/aiobservabilitytypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/statementbuilder"
+	scopedtraces "github.com/your-org/argus/pkg/statementbuilder/scopedtracesstatementbuilder"
+	"github.com/your-org/argus/pkg/telemetryschema/aitelemetryschema"
+	"github.com/your-org/argus/pkg/telemetrystore"
+	"github.com/your-org/argus/pkg/types/aiobservabilitytypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 // NewFactory returns the provider factory for builder_ai_query: the gen_ai Scope
@@ -39,7 +39,7 @@ func Scope() scopedtraces.TraceScope {
 	toolName := defs[aiobservabilitytypes.GenAIToolName]
 	inTok := defs[aiobservabilitytypes.GenAIUsageInputTokens]
 	outTok := defs[aiobservabilitytypes.GenAIUsageOutputTokens]
-	cost := defs[aiobservabilitytypes.SignozGenAITotalCost]
+	cost := defs[aiobservabilitytypes.ArgusGenAITotalCost]
 	inMsg := defs[aiobservabilitytypes.GenAIInputMessages]
 	outMsg := defs[aiobservabilitytypes.GenAIOutputMessages]
 
@@ -53,7 +53,7 @@ func Scope() scopedtraces.TraceScope {
 		scopedtraces.TraceColumn{Alias: "input_tokens", Orderable: true, Expr: scopedtraces.Reduce(scopedtraces.AggSum, &inTok)},
 		scopedtraces.TraceColumn{Alias: "output_tokens", Orderable: true, Expr: scopedtraces.Reduce(scopedtraces.AggSum, &outTok)},
 		scopedtraces.TraceColumn{Alias: "total_tokens", Orderable: true, Expr: scopedtraces.SumOfKeys(telemetrytypes.FieldDataTypeFloat64, &inTok, &outTok)},
-		// per-span cost attached by the SigNoz LLM pricing processor.
+		// per-span cost attached by the Argus LLM pricing processor.
 		scopedtraces.TraceColumn{Alias: "estimated_total_cost", Orderable: true, Expr: scopedtraces.Reduce(scopedtraces.AggSum, &cost)},
 		// slowest single LLM call in the trace.
 		scopedtraces.TraceColumn{Alias: "max_llm_duration_nano", Orderable: true, Expr: scopedtraces.ScopedToKeyColumn(scopedtraces.AggMax, scopedtraces.IntrinsicSpanKey("duration_nano"), &reqModel)},

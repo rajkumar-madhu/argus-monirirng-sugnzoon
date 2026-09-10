@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 // QueryFilterAnalyzeRequest represents the request body for query filter analysis.

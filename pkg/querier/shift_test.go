@@ -3,8 +3,8 @@ package querier
 import (
 	"testing"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
 	"github.com/stretchr/testify/assert"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 // TestAdjustTimeRangeForShift tests the time range adjustment logic.

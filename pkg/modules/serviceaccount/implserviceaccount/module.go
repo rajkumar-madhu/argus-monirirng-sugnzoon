@@ -4,17 +4,17 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/analytics"
-	"github.com/SigNoz/signoz/pkg/authz"
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/modules/serviceaccount"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/cachetypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/types/serviceaccounttypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/analytics"
+	"github.com/your-org/argus/pkg/authz"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/modules/serviceaccount"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/cachetypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/types/serviceaccounttypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
@@ -31,7 +31,7 @@ type module struct {
 }
 
 func NewModule(store serviceaccounttypes.Store, authz authz.AuthZ, cache cache.Cache, analytics analytics.Analytics, providerSettings factory.ProviderSettings, config serviceaccount.Config) serviceaccount.Module {
-	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/modules/serviceaccount/implserviceaccount")
+	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/modules/serviceaccount/implserviceaccount")
 	return &module{store: store, authz: authz, cache: cache, analytics: analytics, settings: settings, config: config}
 }
 

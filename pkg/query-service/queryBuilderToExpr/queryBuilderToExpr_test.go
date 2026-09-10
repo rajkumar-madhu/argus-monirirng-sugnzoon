@@ -4,10 +4,10 @@ import (
 	"testing"
 
 	signozstanzahelper "github.com/SigNoz/signoz-otel-collector/processor/signozlogspipelineprocessor/stanza/operator/helper"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
 	"github.com/expr-lang/expr/vm"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	"github.com/stretchr/testify/assert"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 func TestParseExpression(t *testing.T) {

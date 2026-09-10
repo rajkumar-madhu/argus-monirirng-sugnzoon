@@ -3,13 +3,13 @@ package clickhouseprometheus
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
 	"github.com/prometheus/common/model"
 	"github.com/prometheus/prometheus/model/labels"
 	"github.com/prometheus/prometheus/storage"
 	"github.com/prometheus/prometheus/storage/remote"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/telemetrystore"
 )
 
 var stCallback = func() (int64, error) {
@@ -31,7 +31,7 @@ func NewFactory(telemetryStore telemetrystore.TelemetryStore) factory.ProviderFa
 }
 
 func New(ctx context.Context, providerSettings factory.ProviderSettings, config prometheus.Config, telemetryStore telemetrystore.TelemetryStore) (prometheus.Prometheus, error) {
-	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/prometheus/clickhouseprometheus")
+	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/prometheus/clickhouseprometheus")
 
 	readClient := NewReadClient(settings, telemetryStore)
 

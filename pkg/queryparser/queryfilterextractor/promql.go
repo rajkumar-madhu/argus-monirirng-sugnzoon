@@ -3,11 +3,11 @@ package queryfilterextractor
 import (
 	"sort"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/prometheus"
 	"github.com/prometheus/common/model"
 	"github.com/prometheus/prometheus/model/labels"
 	"github.com/prometheus/prometheus/promql/parser"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/prometheus"
 )
 
 // PromQLFilterExtractor extracts metric names and grouping keys from PromQL queries.

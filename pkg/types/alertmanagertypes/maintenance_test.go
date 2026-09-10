@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/prometheus/common/model"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func TestShouldSkipMaintenance(t *testing.T) {

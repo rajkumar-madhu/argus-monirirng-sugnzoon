@@ -1,7 +1,7 @@
 package authz
 
 import (
-	"github.com/SigNoz/signoz/pkg/factory"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 type Config struct {

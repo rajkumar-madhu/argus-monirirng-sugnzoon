@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/types/audittypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/types/audittypes"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/metric"

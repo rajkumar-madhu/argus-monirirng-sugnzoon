@@ -3,7 +3,7 @@ package querybuilder
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestQueryToKeys(t *testing.T) {

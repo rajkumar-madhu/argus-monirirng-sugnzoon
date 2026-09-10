@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/prometheus/alertmanager/config"
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/prometheus/common/model"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 const defaultJiraReopenDuration = model.Duration(3 * 24 * time.Hour)
@@ -37,7 +37,7 @@ const (
 {{ end }}`
 )
 
-// JiraReceiverConfig is the SigNoz Jira receiver. Fields are declared explicitly
+// JiraReceiverConfig is the Argus Jira receiver. Fields are declared explicitly
 // instead of embedding upstream config.JiraConfig because that type's own
 // UnmarshalYAML would reset our defaults and drop sibling fields on the yaml
 // round-trip. Only Jira Cloud (v3/ADF) is supported, so api_url is derived from Site.

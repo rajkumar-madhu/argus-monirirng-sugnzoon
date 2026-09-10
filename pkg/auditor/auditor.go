@@ -3,9 +3,9 @@ package auditor
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/types/audittypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/types/audittypes"
 )
 
 var (

@@ -3,7 +3,7 @@ package sqlschema
 import (
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (

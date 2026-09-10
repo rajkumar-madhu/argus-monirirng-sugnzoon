@@ -5,10 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/metrictypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/metrictypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestQueryBuilderQuery_Copy(t *testing.T) {

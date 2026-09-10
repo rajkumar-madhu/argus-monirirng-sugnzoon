@@ -10,23 +10,23 @@ import (
 	"github.com/huandu/go-sqlbuilder"
 	"golang.org/x/exp/maps"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/audittelemetryschema"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/logstelemetryschema"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/metertelemetryschema"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/metricstelemetryschema"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/tracestelemetryschema"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
-	"github.com/SigNoz/signoz/pkg/types/ctxtypes"
-	"github.com/SigNoz/signoz/pkg/types/featuretypes"
-	"github.com/SigNoz/signoz/pkg/types/instrumentationtypes"
-	"github.com/SigNoz/signoz/pkg/types/metrictypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/telemetryschema/audittelemetryschema"
+	"github.com/your-org/argus/pkg/telemetryschema/logstelemetryschema"
+	"github.com/your-org/argus/pkg/telemetryschema/metertelemetryschema"
+	"github.com/your-org/argus/pkg/telemetryschema/metricstelemetryschema"
+	"github.com/your-org/argus/pkg/telemetryschema/tracestelemetryschema"
+	"github.com/your-org/argus/pkg/telemetrystore"
+	"github.com/your-org/argus/pkg/types/ctxtypes"
+	"github.com/your-org/argus/pkg/types/featuretypes"
+	"github.com/your-org/argus/pkg/types/instrumentationtypes"
+	"github.com/your-org/argus/pkg/types/metrictypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
@@ -80,7 +80,7 @@ func NewTelemetryMetaStore(
 	telemetrystore telemetrystore.TelemetryStore,
 	fl flagger.Flagger,
 ) telemetrytypes.MetadataStore {
-	metadataSettings := factory.NewScopedProviderSettings(settings, "github.com/SigNoz/signoz/pkg/telemetrymetadata")
+	metadataSettings := factory.NewScopedProviderSettings(settings, "github.com/your-org/argus/pkg/telemetrymetadata")
 
 	fm := NewFieldMapper()
 	conditionBuilder := NewConditionBuilder(fm)

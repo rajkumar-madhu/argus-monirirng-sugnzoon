@@ -6,13 +6,13 @@ import (
 	"strings"
 
 	"github.com/SigNoz/govaluate"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/http/binding"
-	signozjsonschema "github.com/SigNoz/signoz/pkg/jsonschema"
-	"github.com/SigNoz/signoz/pkg/types/metrictypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/http/binding"
+	signozjsonschema "github.com/your-org/argus/pkg/jsonschema"
+	"github.com/your-org/argus/pkg/types/metrictypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type QueryEnvelope struct {
@@ -46,9 +46,9 @@ func (builderQuerySpec) PrepareJSONSchema(s *jsonschema.Schema) error {
 	s.ExtraProperties["x-signoz-discriminator"] = map[string]any{
 		"propertyName": "signal",
 		"mapping": map[string]string{
-			telemetrytypes.SignalTraces.StringValue():  "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation",
-			telemetrytypes.SignalLogs.StringValue():    "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation",
-			telemetrytypes.SignalMetrics.StringValue(): "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation",
+			telemetrytypes.SignalTraces.StringValue():  "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation",
+			telemetrytypes.SignalLogs.StringValue():    "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation",
+			telemetrytypes.SignalMetrics.StringValue(): "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation",
 		},
 	}
 	return nil
@@ -119,7 +119,7 @@ func (QueryEnvelope) JSONSchemaOneOf() []any {
 var _ jsonschema.Preparer = QueryEnvelope{}
 
 // PrepareJSONSchema marks the envelope as a `type`-discriminated union;
-// signoz.attachDiscriminators promotes it and strips the base properties.
+// argus.attachDiscriminators promotes it and strips the base properties.
 func (QueryEnvelope) PrepareJSONSchema(s *jsonschema.Schema) error {
 	if s.ExtraProperties == nil {
 		s.ExtraProperties = map[string]any{}
@@ -391,7 +391,7 @@ type QueryRangeRequest struct {
 	// PromQLProvider serves this request's PromQL queries via the named
 	// prometheus provider ("clickhousev2") instead of the default — the same
 	// data read through a different implementation. It is set from the
-	// X-SigNoz-PromQL-Provider header by the API handler, never from the
+	// X-Argus-PromQL-Provider header by the API handler, never from the
 	// body: a rollout-scoped comparison hook for integration tests and
 	// support should not become part of the public request schema.
 	PromQLProvider string `json:"-"`

@@ -12,8 +12,8 @@ import (
 	"slices"
 
 	"github.com/SigNoz/govaluate"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/http/binding"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/http/binding"
 )
 
 type QueryBuilderFormula struct {
@@ -145,7 +145,7 @@ type seriesLookup struct {
 // FormulaEvaluator handles formula evaluation b/w time series from different aggregations
 // Why do we evaluate the formula expression in query-service?
 // In the initial iteration, we let the CH take care of the formula evaluation.
-// Look at the query here https://github.com/SigNoz/signoz/blob/ad2d4ed56cf8457a0feee2b6947aed95c355c957/pkg/query-service/app/queryBuilder/query_builder_test.go#L459
+// Look at the query here https://github.com/your-org/argus/blob/ad2d4ed56cf8457a0feee2b6947aed95c355c957/pkg/query-service/app/queryBuilder/query_builder_test.go#L459
 // This was achieved using the INNER JOIN between the query results.
 //
 // What are the issues with this approach?

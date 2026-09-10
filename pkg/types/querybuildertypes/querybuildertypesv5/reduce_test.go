@@ -4,9 +4,9 @@ import (
 	"math"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func TestFunctionReduceTo(t *testing.T) {

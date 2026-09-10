@@ -7,11 +7,11 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/units"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/errors"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/units"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type ThresholdKind struct {
@@ -54,7 +54,7 @@ func (RuleThresholdData) JSONSchemaOneOf() []any {
 }
 
 // PrepareJSONSchema marks the schema with x-signoz-discriminator;
-// signoz.attachDiscriminators promotes it to a real OpenAPI 3
+// argus.attachDiscriminators promotes it to a real OpenAPI 3
 // discriminator after reflection.
 func (RuleThresholdData) PrepareJSONSchema(schema *jsonschema.Schema) error {
 	if schema.ExtraProperties == nil {

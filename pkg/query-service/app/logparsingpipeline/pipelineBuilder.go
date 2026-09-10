@@ -7,14 +7,14 @@ import (
 	"strings"
 
 	signozstanzahelper "github.com/SigNoz/signoz-otel-collector/processor/signozlogspipelineprocessor/stanza/operator/helper"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	"github.com/SigNoz/signoz/pkg/query-service/queryBuilderToExpr"
-	"github.com/SigNoz/signoz/pkg/types/pipelinetypes"
 	"github.com/antonmedv/expr"
 	"github.com/antonmedv/expr/ast"
 	"github.com/antonmedv/expr/parser"
 	"github.com/google/uuid"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	"github.com/your-org/argus/pkg/query-service/queryBuilderToExpr"
+	"github.com/your-org/argus/pkg/types/pipelinetypes"
 )
 
 const (

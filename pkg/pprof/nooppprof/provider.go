@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/pprof"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/pprof"
 )
 
 type provider struct {

@@ -6,11 +6,11 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/queryBuilderToExpr"
-	"github.com/SigNoz/signoz/pkg/types"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/errors"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/queryBuilderToExpr"
+	"github.com/your-org/argus/pkg/types"
 )
 
 type JSONMappingType = string

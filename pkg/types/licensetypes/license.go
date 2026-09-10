@@ -6,11 +6,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/zeustypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/zeustypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
@@ -225,11 +225,11 @@ func NewZeusLicenseFromData(data map[string]any) (*zeustypes.License, error) {
 	return zeusLicense, nil
 }
 
-// ErrIfCloud returns an error if the license is managed by SigNoz Cloud. The
+// ErrIfCloud returns an error if the license is managed by Argus Cloud. The
 // caller should enrich the error with the specific operation using errors.WithAdditionalf.
 func (license *License) ErrIfCloud() error {
 	if license.Platform == LicensePlatformCloud {
-		return errors.New(errors.TypeInvalidInput, ErrCodeCloudLicenseOperationUnsupported, "this operation is not supported for licenses managed by SigNoz Cloud")
+		return errors.New(errors.TypeInvalidInput, ErrCodeCloudLicenseOperationUnsupported, "this operation is not supported for licenses managed by Argus Cloud")
 	}
 	return nil
 }

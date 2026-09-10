@@ -4,13 +4,13 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/http/binding"
-	"github.com/SigNoz/signoz/pkg/http/render"
-	"github.com/SigNoz/signoz/pkg/modules/metricsexplorer"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/metricsexplorertypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/http/binding"
+	"github.com/your-org/argus/pkg/http/render"
+	"github.com/your-org/argus/pkg/modules/metricsexplorer"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/metricsexplorertypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type handler struct {
@@ -350,7 +350,7 @@ func (h *handler) InspectMetrics(rw http.ResponseWriter, req *http.Request) {
 }
 
 func (h *handler) GetOnboardingStatus(rw http.ResponseWriter, req *http.Request) {
-	hasMetrics, err := h.module.HasNonSigNozMetrics(req.Context())
+	hasMetrics, err := h.module.HasNonArgusMetrics(req.Context())
 	if err != nil {
 		render.Error(rw, err)
 		return

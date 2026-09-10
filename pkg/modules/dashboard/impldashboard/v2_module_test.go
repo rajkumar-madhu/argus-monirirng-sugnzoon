@@ -7,17 +7,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/analytics/analyticstest"
-	"github.com/SigNoz/signoz/pkg/factory/factorytest"
-	"github.com/SigNoz/signoz/pkg/modules/tag/impltag"
-	"github.com/SigNoz/signoz/pkg/queryparser"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/sqlstore/sqlitesqlstore"
-	"github.com/SigNoz/signoz/pkg/types/dashboardtypes"
-	"github.com/SigNoz/signoz/pkg/types/tagtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/analytics/analyticstest"
+	"github.com/your-org/argus/pkg/factory/factorytest"
+	"github.com/your-org/argus/pkg/modules/tag/impltag"
+	"github.com/your-org/argus/pkg/queryparser"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/sqlstore/sqlitesqlstore"
+	"github.com/your-org/argus/pkg/types/dashboardtypes"
+	"github.com/your-org/argus/pkg/types/tagtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 const testDashboardName = "test-overview"
@@ -142,7 +142,7 @@ func TestSystemDashboardsAreImmutableToUsers(t *testing.T) {
 	provisioned, err := dashboardModule.GetSystemDashboard(ctx, orgID, testDashboardName)
 	require.NoError(t, err)
 
-	_, err = dashboardModule.UpdateV2(ctx, orgID, provisioned.ID, "user@signoz.io", newTestDefinition(t, 1, "edited").ToUpdatable())
+	_, err = dashboardModule.UpdateV2(ctx, orgID, provisioned.ID, "user@argus.example.com", newTestDefinition(t, 1, "edited").ToUpdatable())
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "cannot be modified")
 }
@@ -178,7 +178,7 @@ func TestGetRejectsANonSystemDashboard(t *testing.T) {
 		"tags": [],
 		"spec": {"display": {"name": "user"}, "variables": [], "panels": {}, "layouts": []}
 	}`)))
-	_, err := dashboardModule.CreateV2(ctx, orgID, "user@signoz.io", valuer.GenerateUUID(), dashboardtypes.SourceUser, postable)
+	_, err := dashboardModule.CreateV2(ctx, orgID, "user@argus.example.com", valuer.GenerateUUID(), dashboardtypes.SourceUser, postable)
 	require.NoError(t, err)
 
 	// The server-side prefix makes user names structurally unreachable here.

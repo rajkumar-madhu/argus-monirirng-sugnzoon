@@ -4,12 +4,12 @@ import (
 	"context"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/config"
 	koanfenv "github.com/knadh/koanf/providers/env"
+	"github.com/your-org/argus/pkg/config"
 )
 
 const (
-	prefix string = "SIGNOZ_"
+	prefix string = "ARGUS_"
 	scheme string = "env"
 )
 

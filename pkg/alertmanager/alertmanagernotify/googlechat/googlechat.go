@@ -9,15 +9,15 @@ import (
 	"net/http"
 	"unicode/utf8"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/templating/markdownrenderer"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/template"
 	"github.com/prometheus/alertmanager/types"
 	"github.com/prometheus/common/model"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagertemplate"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/templating/markdownrenderer"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 )
 
 const (
@@ -157,7 +157,7 @@ func (n *Notifier) Notify(ctx context.Context, alerts ...*types.Alert) (bool, er
 	// trimming the text fields always brings the payload under the limit.
 	title := c.title
 	bodies := append([]string(nil), capBodies...)
-	// The shared "Open in SigNoz" button is per-rule (LabelRuleSource), so source
+	// The shared "Open in Argus" button is per-rule (LabelRuleSource), so source
 	// it from the original first alert, not the capped set which is empty when no
 	// body renders.
 	var footerAlert *types.Alert
@@ -253,11 +253,11 @@ func relatedButtons(alert *types.Alert) []button {
 	return buttons
 }
 
-// sigNozButton builds the shared "Open in SigNoz" button from the ruleSource
+// sigNozButton builds the shared "Open in Argus" button from the ruleSource
 // label, which is per-rule (identical for every alert in the group).
 func sigNozButton(alert *types.Alert) *button {
 	if u := string(alert.Labels[ruletypes.LabelRuleSource]); u != "" {
-		return &button{Text: "Open in SigNoz", OnClick: onClick{OpenLink: openLink{URL: u}}}
+		return &button{Text: "Open in Argus", OnClick: onClick{OpenLink: openLink{URL: u}}}
 	}
 	return nil
 }
@@ -290,7 +290,7 @@ func capAlertSections(alerts []*types.Alert, bodies []string) ([]*types.Alert, [
 
 // buildMessage assembles the text+card payload: a plain text summary plus a card
 // with a status banner, one section per alert (its body + related-link buttons),
-// an optional "+N more" note, and a shared "Open in SigNoz" footer button. The
+// an optional "+N more" note, and a shared "Open in Argus" footer button. The
 // alerts and bodies slices are the already-capped, aligned render set; footerAlert
 // is the original first alert, used for the per-rule footer button so it survives
 // even when no body renders.
@@ -311,7 +311,7 @@ func buildMessage(title, statusHTML string, alerts []*types.Alert, bodies []stri
 	}
 
 	if remaining > 0 {
-		note := fmt.Sprintf("<i>…and %d more alerts. Open in SigNoz for the full list.</i>", remaining)
+		note := fmt.Sprintf("<i>…and %d more alerts. Open in Argus for the full list.</i>", remaining)
 		sections = append(sections, cardSection{Widgets: []widget{{TextParagraph: &textParagraph{Text: note}}}})
 	}
 

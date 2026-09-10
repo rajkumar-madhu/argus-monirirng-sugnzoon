@@ -1,4 +1,4 @@
-// Copyright (c) 2026 SigNoz, Inc.
+// Copyright (c) 2026 Argus, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package jsmops delivers Jira Service Management Ops alerts by reusing the
@@ -11,16 +11,16 @@ import (
 	"log/slog"
 	"net/url"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagernotify/opsgenie"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
 	"github.com/prometheus/alertmanager/config"
 	"github.com/prometheus/alertmanager/template"
 	commoncfg "github.com/prometheus/common/config"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagernotify/opsgenie"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 const (
 	Integration = "jsmops"
-	source      = "SigNoz"
+	source      = "Argus"
 )
 
 // New builds an Opsgenie notifier pointed at the JSM native endpoint.

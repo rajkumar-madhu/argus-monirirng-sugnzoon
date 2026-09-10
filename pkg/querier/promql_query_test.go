@@ -11,12 +11,12 @@ import (
 	"github.com/prometheus/prometheus/model/labels"
 	"github.com/prometheus/prometheus/promql"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/prometheus/prometheustest"
-	qbv5 "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/prometheus/prometheustest"
+	qbv5 "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 func TestRemoveAllVarMatchers(t *testing.T) {

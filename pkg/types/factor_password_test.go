@@ -3,8 +3,8 @@ package types
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func TestMustGenerateFactorPassword(t *testing.T) {

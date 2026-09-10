@@ -8,11 +8,11 @@ import (
 	"slices"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // BucketCache is the interface for bucket-based caching.
@@ -35,7 +35,7 @@ var _ BucketCache = (*bucketCache)(nil)
 
 // NewBucketCache creates a new BucketCache implementation.
 func NewBucketCache(settings factory.ProviderSettings, cache cache.Cache, cacheTTL time.Duration, fluxInterval time.Duration) BucketCache {
-	cacheSettings := factory.NewScopedProviderSettings(settings, "github.com/SigNoz/signoz/pkg/querier/bucket_cache")
+	cacheSettings := factory.NewScopedProviderSettings(settings, "github.com/your-org/argus/pkg/querier/bucket_cache")
 	return &bucketCache{
 		cache:        cache,
 		logger:       cacheSettings.Logger(),

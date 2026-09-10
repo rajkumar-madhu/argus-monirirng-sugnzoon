@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strings"
 
-	logsV3 "github.com/SigNoz/signoz/pkg/query-service/app/logs/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/app/resource"
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/utils"
+	logsV3 "github.com/your-org/argus/pkg/query-service/app/logs/v3"
+	"github.com/your-org/argus/pkg/query-service/app/resource"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/utils"
 )
 
 var logOperators = map[v3.FilterOperator]string{
@@ -74,7 +74,7 @@ func getClickhouseKey(key v3.AttributeKey) string {
 	}
 
 	// materialized column created from query
-	// https://github.com/SigNoz/signoz/pull/4775
+	// https://github.com/your-org/argus/pull/4775
 	return "`" + utils.GetClickhouseColumnNameV2(string(key.Type), string(key.DataType), key.Key) + "`"
 }
 
@@ -265,7 +265,7 @@ func orderBy(panelType v3.PanelType, items []v3.OrderBy, tagLookup map[string]st
 	var orderBy []string
 
 	for _, item := range items {
-		if item.ColumnName == constants.SigNozOrderByValue {
+		if item.ColumnName == constants.ArgusOrderByValue {
 			orderBy = append(orderBy, fmt.Sprintf("value %s", item.Order))
 		} else if _, ok := tagLookup[item.ColumnName]; ok {
 			orderBy = append(orderBy, fmt.Sprintf("`%s` %s", item.ColumnName, item.Order))

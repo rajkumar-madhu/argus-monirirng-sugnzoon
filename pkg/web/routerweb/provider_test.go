@@ -12,12 +12,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/factory/factorytest"
-	"github.com/SigNoz/signoz/pkg/global"
-	"github.com/SigNoz/signoz/pkg/web"
 	"github.com/gorilla/mux"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/factory/factorytest"
+	"github.com/your-org/argus/pkg/global"
+	"github.com/your-org/argus/pkg/web"
 )
 
 func expectedHTML(baseHref string, settings web.Settings) string {

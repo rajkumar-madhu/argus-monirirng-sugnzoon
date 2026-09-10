@@ -12,14 +12,14 @@ import (
 	"github.com/prometheus/prometheus/promql"
 	"github.com/prometheus/prometheus/util/stats"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 // Handler serves the Prometheus HTTP query API over a Prometheus provider:
 // /query and /query_range in the shape of Prometheus' /api/v1 endpoints
 // (https://prometheus.io/docs/prometheus/latest/querying/api/), intended to
 // be mounted under a distinguishing prefix (/prometheus/api/v1) so
-// PromQL-only endpoints are separate from the SigNoz query APIs. The request
+// PromQL-only endpoints are separate from the Argus query APIs. The request
 // and response contracts follow Prometheus: form-encoded GET/POST params,
 // {"status":"success","data":{resultType,result}} on success and
 // {"status":"error","errorType","error"} with Prometheus' status codes on

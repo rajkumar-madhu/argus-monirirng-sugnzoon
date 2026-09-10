@@ -6,10 +6,10 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/web"
 	"github.com/spf13/cobra"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/web"
 )
 
 const webSettingsSchemaPath = "frontend/src/schemas/generated/webSettings.schema.json"

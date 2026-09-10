@@ -1,6 +1,6 @@
 package implinframonitoring
 
-import "github.com/SigNoz/signoz/pkg/types/inframonitoringtypes"
+import "github.com/your-org/argus/pkg/types/inframonitoringtypes"
 
 // Component names — the 5 OTel collector receivers/processors that produce
 // metrics and resource attributes consumed by infra-monitoring tabs. Bare
@@ -16,11 +16,11 @@ const (
 
 // Documentation links — one per component. User-facing; emitted on missing-entries.
 const (
-	docLinkHostMetricsReceiver        = "https://signoz.io/docs/infrastructure-monitoring/hostmetrics/#configure-the-hostmetrics-receiver"
-	docLinkKubeletStatsReceiver       = "https://signoz.io/docs/infrastructure-monitoring/k8s-metrics/#2-configure-the-kubelet-stats-receiver"
-	docLinkK8sClusterReceiver         = "https://signoz.io/docs/infrastructure-monitoring/k8s-metrics/#1-configure-the-k8s-cluster-receiver"
-	docLinkResourceDetectionProcessor = "https://signoz.io/docs/infrastructure-monitoring/hostmetrics/#configure-the-processors"
-	docLinkK8sAttributesProcessor     = "https://signoz.io/docs/infrastructure-monitoring/k8s-metrics/#3-enable-kubernetes-metadata"
+	docLinkHostMetricsReceiver        = "https://argus.example.com/docs/infrastructure-monitoring/hostmetrics/#configure-the-hostmetrics-receiver"
+	docLinkKubeletStatsReceiver       = "https://argus.example.com/docs/infrastructure-monitoring/k8s-metrics/#2-configure-the-kubelet-stats-receiver"
+	docLinkK8sClusterReceiver         = "https://argus.example.com/docs/infrastructure-monitoring/k8s-metrics/#1-configure-the-k8s-cluster-receiver"
+	docLinkResourceDetectionProcessor = "https://argus.example.com/docs/infrastructure-monitoring/hostmetrics/#configure-the-processors"
+	docLinkK8sAttributesProcessor     = "https://argus.example.com/docs/infrastructure-monitoring/k8s-metrics/#3-enable-kubernetes-metadata"
 )
 
 var (

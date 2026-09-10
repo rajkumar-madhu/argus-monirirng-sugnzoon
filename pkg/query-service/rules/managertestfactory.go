@@ -6,29 +6,29 @@ import (
 	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/SigNoz/signoz/pkg/alertmanager"
-	alertmanagermock "github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertest"
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/cache/cachetest"
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/instrumentation/instrumentationtest"
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/prometheus/prometheustest"
-	"github.com/SigNoz/signoz/pkg/querier"
-	"github.com/SigNoz/signoz/pkg/querier/signozquerier"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/sqlstore/sqlstoretest"
-	"github.com/SigNoz/signoz/pkg/statementbuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder/aistatementbuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder/auditstatementbuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder/logsstatementbuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder/meterstatementbuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder/metricsstatementbuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder/tracesstatementbuilder"
-	"github.com/SigNoz/signoz/pkg/telemetrymetadata"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
-	"github.com/SigNoz/signoz/pkg/telemetrystore/telemetrystoretest"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/alertmanager"
+	alertmanagermock "github.com/your-org/argus/pkg/alertmanager/alertmanagertest"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/cache/cachetest"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/instrumentation/instrumentationtest"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/prometheus/prometheustest"
+	"github.com/your-org/argus/pkg/querier"
+	"github.com/your-org/argus/pkg/querier/argusquerier"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/sqlstore/sqlstoretest"
+	"github.com/your-org/argus/pkg/statementbuilder"
+	"github.com/your-org/argus/pkg/statementbuilder/aistatementbuilder"
+	"github.com/your-org/argus/pkg/statementbuilder/auditstatementbuilder"
+	"github.com/your-org/argus/pkg/statementbuilder/logsstatementbuilder"
+	"github.com/your-org/argus/pkg/statementbuilder/meterstatementbuilder"
+	"github.com/your-org/argus/pkg/statementbuilder/metricsstatementbuilder"
+	"github.com/your-org/argus/pkg/statementbuilder/tracesstatementbuilder"
+	"github.com/your-org/argus/pkg/telemetrymetadata"
+	"github.com/your-org/argus/pkg/telemetrystore"
+	"github.com/your-org/argus/pkg/telemetrystore/telemetrystoretest"
 )
 
 type queryMatcherAny struct {
@@ -131,7 +131,7 @@ func NewTestManager(t *testing.T, testOpts *TestManagerOptions) *Manager {
 	meterStmtBuilder, err := meterstatementbuilder.NewFactory(metadataStore, flagger).New(ctx, providerSettings, cfg)
 	require.NoError(t, err)
 	bucketCache := querier.NewBucketCache(providerSettings, cache, 0, 0)
-	providerFactory := signozquerier.NewFactory(telemetryStore, prometheus, nil, metadataStore, traceStmtBuilder, aiTraceStmtBuilder, logStmtBuilder, auditStmtBuilder, metricStmtBuilder, meterStmtBuilder, traceOperatorStmtBuilder, bucketCache, flagger)
+	providerFactory := argusquerier.NewFactory(telemetryStore, prometheus, nil, metadataStore, traceStmtBuilder, aiTraceStmtBuilder, logStmtBuilder, auditStmtBuilder, metricStmtBuilder, meterStmtBuilder, traceOperatorStmtBuilder, bucketCache, flagger)
 	mockQuerier, err := providerFactory.New(context.Background(), providerSettings, querier.Config{})
 	require.NoError(t, err)
 

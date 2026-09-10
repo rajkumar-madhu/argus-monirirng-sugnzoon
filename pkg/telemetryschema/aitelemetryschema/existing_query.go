@@ -1,8 +1,8 @@
 package aitelemetryschema
 
 import (
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/types/aiobservabilitytypes"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/types/aiobservabilitytypes"
 )
 
 var (

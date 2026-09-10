@@ -4,9 +4,9 @@ import (
 	"context"
 	"sync"
 
-	"github.com/SigNoz/signoz/pkg/prometheus"
 	"github.com/prometheus/prometheus/prompb"
 	"github.com/prometheus/prometheus/storage"
+	"github.com/your-org/argus/pkg/prometheus"
 )
 
 // statementRecorder collects the statements a PromQL evaluation would run.

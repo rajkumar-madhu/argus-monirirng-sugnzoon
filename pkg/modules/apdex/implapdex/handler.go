@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/http/render"
-	"github.com/SigNoz/signoz/pkg/modules/apdex"
-	"github.com/SigNoz/signoz/pkg/types/apdextypes"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/http/render"
+	"github.com/your-org/argus/pkg/modules/apdex"
+	"github.com/your-org/argus/pkg/types/apdextypes"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type handler struct {

@@ -3,12 +3,12 @@ package sqlmigration
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlschema"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlschema"
+	"github.com/your-org/argus/pkg/sqlstore"
 )
 
 type fixChangelogOperationType struct {
@@ -38,9 +38,9 @@ func (migration *fixChangelogOperationType) Up(ctx context.Context, db *bun.DB) 
 	//      tuple and changelog tables (BYTEA <-> TEXT)
 	//
 	// Changelog: drop and recreate (it is only used by OpenFGA's ReadChanges
-	// API which SigNoz does not call; authorization data lives in tuple).
+	// API which Argus does not call; authorization data lives in tuple).
 	// Tuple: alter columns in place (condition columns are always NULL since
-	// SigNoz does not use FGA conditions).
+	// Argus does not use FGA conditions).
 
 	tx, err := db.BeginTx(ctx, nil)
 	if err != nil {

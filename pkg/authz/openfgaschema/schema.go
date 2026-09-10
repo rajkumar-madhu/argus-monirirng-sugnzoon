@@ -4,8 +4,8 @@ import (
 	"context"
 	_ "embed"
 
-	"github.com/SigNoz/signoz/pkg/authz"
 	openfgapkgtransformer "github.com/openfga/language/pkg/go/transformer"
+	"github.com/your-org/argus/pkg/authz"
 )
 
 var (

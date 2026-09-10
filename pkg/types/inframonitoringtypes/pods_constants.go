@@ -3,7 +3,7 @@ package inframonitoringtypes
 import (
 	"slices"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // PodStatus is the kubectl-style pod display status, derived from

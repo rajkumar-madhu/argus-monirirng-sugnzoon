@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strings"
 
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/utils"
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/semconv"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/utils"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/semconv"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 var resourceLogOperators = map[v3.FilterOperator]string{

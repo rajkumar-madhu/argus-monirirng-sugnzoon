@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type Identifiable struct {

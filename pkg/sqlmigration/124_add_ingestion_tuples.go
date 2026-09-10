@@ -6,14 +6,14 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
 )
 
 type addIngestionTuples struct {
@@ -38,7 +38,7 @@ func (migration *addIngestionTuples) Up(ctx context.Context, db *bun.DB) error {
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -58,30 +58,30 @@ func (migration *addIngestionTuples) Up(ctx context.Context, db *bun.DB) error {
 	// CheckResources, which on enterprise requires real tuples -- existing orgs
 	// never had these written, only new orgs get them from the registry at bootstrap.
 	tuples := []migrationTuple{
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-key", "create"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-key", "read"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-key", "update"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-key", "delete"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-key", "list"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-key", "attach"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-key", "detach"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-limit", "create"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-limit", "read"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-limit", "update"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-limit", "delete"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "ingestion-limit", "list"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-key", "create"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-key", "read"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-key", "update"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-key", "delete"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-key", "list"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-key", "attach"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-key", "detach"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-limit", "create"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-limit", "read"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-limit", "update"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-limit", "delete"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "ingestion-limit", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-key", "create"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-key", "read"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-key", "update"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-key", "delete"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-key", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-key", "attach"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-key", "detach"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-limit", "create"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-limit", "read"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-limit", "update"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-limit", "delete"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "ingestion-limit", "list"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-key", "create"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-key", "read"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-key", "update"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-key", "delete"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-key", "list"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-key", "attach"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-key", "detach"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-limit", "create"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-limit", "read"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-limit", "update"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-limit", "delete"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "ingestion-limit", "list"},
 	}
 
 	for _, orgID := range orgIDs {

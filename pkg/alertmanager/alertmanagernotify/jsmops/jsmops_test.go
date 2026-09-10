@@ -3,10 +3,10 @@ package jsmops
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 func TestToOpsGenieConfig(t *testing.T) {
@@ -15,7 +15,7 @@ func TestToOpsGenieConfig(t *testing.T) {
 		Message:     "msg",
 		Description: "desc",
 		Priority:    "P1",
-		Tags:        "signoz",
+		Tags:        "argus",
 		HTTPConfig:  &commoncfg.HTTPClientConfig{},
 	}
 
@@ -29,7 +29,7 @@ func TestToOpsGenieConfig(t *testing.T) {
 	assert.Equal(t, "msg", og.Message)
 	assert.Equal(t, "desc", og.Description)
 	assert.Equal(t, "P1", og.Priority)
-	assert.Equal(t, "signoz", og.Tags)
+	assert.Equal(t, "argus", og.Tags)
 	assert.Equal(t, source, og.Source)
 	assert.Same(t, c.HTTPConfig, og.HTTPConfig)
 }

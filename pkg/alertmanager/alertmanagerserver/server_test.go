@@ -11,13 +11,6 @@ import (
 	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagerstore/sqlalertmanagerstore"
-	"github.com/SigNoz/signoz/pkg/alertmanager/nfmanager/nfmanagertest"
-	"github.com/SigNoz/signoz/pkg/factory/factorytest"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/sqlstore/sqlstoretest"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes/alertmanagertypestest"
 	"github.com/go-openapi/strfmt"
 	"github.com/prometheus/alertmanager/api/v2/models"
 	"github.com/prometheus/alertmanager/config"
@@ -26,6 +19,13 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagerstore/sqlalertmanagerstore"
+	"github.com/your-org/argus/pkg/alertmanager/nfmanager/nfmanagertest"
+	"github.com/your-org/argus/pkg/factory/factorytest"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/sqlstore/sqlstoretest"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes/alertmanagertypestest"
 )
 
 func newTestMaintenanceStore() alertmanagertypes.MaintenanceStore {

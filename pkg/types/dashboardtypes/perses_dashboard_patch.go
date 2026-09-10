@@ -3,10 +3,10 @@ package dashboardtypes
 import (
 	"encoding/json"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	jsonpatch "github.com/evanphx/json-patch/v5"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // PatchableDashboardV2 is an RFC 6902 patch request.

@@ -4,7 +4,7 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 var _ Valuer = (*UnsetOrNonEmptyString)(nil)

@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type Module interface {

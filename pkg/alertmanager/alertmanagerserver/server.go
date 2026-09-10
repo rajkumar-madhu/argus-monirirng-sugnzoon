@@ -10,7 +10,6 @@ import (
 	"github.com/prometheus/alertmanager/types"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/prometheus/alertmanager/dispatch"
 	"github.com/prometheus/alertmanager/featurecontrol"
 	"github.com/prometheus/alertmanager/inhibit"
@@ -22,11 +21,12 @@ import (
 	"github.com/prometheus/alertmanager/timeinterval"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/model"
+	"github.com/your-org/argus/pkg/errors"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagernotify"
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
-	"github.com/SigNoz/signoz/pkg/alertmanager/nfmanager"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagernotify"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagertemplate"
+	"github.com/your-org/argus/pkg/alertmanager/nfmanager"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 // This is not a real snapshot file and will never be used. We need this placeholder to ensure maintenance runs on shutdown.
@@ -83,7 +83,7 @@ func New(
 	maintenanceStore alertmanagertypes.MaintenanceStore,
 ) (*Server, error) {
 	server := &Server{
-		logger:              logger.With(slog.String("pkg", "go.signoz.io/pkg/alertmanager/alertmanagerserver")),
+		logger:              logger.With(slog.String("pkg", "github.com/your-org/argus/pkg/alertmanager/alertmanagerserver")),
 		registry:            registry,
 		srvConfig:           srvConfig,
 		orgID:               orgID,
@@ -247,11 +247,11 @@ func (server *Server) SetConfig(ctx context.Context, alertmanagerConfig *alertma
 	}
 	config := resolved.AlertmanagerConfig()
 
-	// Load SigNoz's alertmanager notification templates from the configured
+	// Load Argus's alertmanager notification templates from the configured
 	// globs. The upstream default templates (default.tmpl, email.tmpl) are
 	// always loaded from the embedded alertmanager assets inside FromGlobs, so
-	// only SigNoz's own templates (e.g. the email.signoz.html layout) are listed
-	// here. The upstream config.Templates field is not used: SigNoz never
+	// only Argus's own templates (e.g. the email.argus.html layout) are listed
+	// here. The upstream config.Templates field is not used: Argus never
 	// populates it (there is no per-org template configuration).
 	server.tmpl, err = alertmanagertypes.FromGlobs(server.srvConfig.Templates)
 	if err != nil {

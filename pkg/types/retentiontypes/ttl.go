@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types"
 )
 
 const secondsPerDay = 24 * 60 * 60

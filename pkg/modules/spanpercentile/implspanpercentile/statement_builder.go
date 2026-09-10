@@ -6,9 +6,9 @@ import (
 	"sort"
 	"strings"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/spanpercentiletypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/spanpercentiletypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func buildSpanPercentileQuery(

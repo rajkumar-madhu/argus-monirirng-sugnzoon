@@ -1,8 +1,8 @@
 package featuretypes
 
 import (
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/open-feature/go-sdk/openfeature"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 // Consumer facing interface for the feature registry.

@@ -7,13 +7,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/modules/organization"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/opamptypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/open-telemetry/opamp-go/protobufs"
 	"github.com/open-telemetry/opamp-go/server/types"
 	"github.com/pkg/errors"
+	"github.com/your-org/argus/pkg/modules/organization"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/opamptypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var AllAgents = Agents{

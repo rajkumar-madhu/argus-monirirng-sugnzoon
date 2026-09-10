@@ -7,8 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	ginbinding "github.com/gin-gonic/gin/binding"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 var (

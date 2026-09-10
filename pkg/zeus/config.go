@@ -3,7 +3,7 @@ package zeus
 import (
 	"net/url"
 
-	"github.com/SigNoz/signoz/pkg/factory"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 var _ factory.Config = (*Config)(nil)

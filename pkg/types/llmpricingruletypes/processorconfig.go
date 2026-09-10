@@ -3,8 +3,8 @@ package llmpricingruletypes
 import (
 	"bytes"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/aiobservabilitytypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/aiobservabilitytypes"
 	"gopkg.in/yaml.v3"
 )
 
@@ -94,11 +94,11 @@ func buildProcessorConfig(rules []*LLMPricingRule) *LLMPricingRuleProcessorConfi
 			Rules: pricingRules,
 		},
 		OutputAttrs: LLMPricingRuleProcessorOutputAttrs{
-			In:         aiobservabilitytypes.SignozGenAICostInput,
-			Out:        aiobservabilitytypes.SignozGenAICostOutput,
-			CacheRead:  aiobservabilitytypes.SignozGenAICostCacheRead,
-			CacheWrite: aiobservabilitytypes.SignozGenAICostCacheWrite,
-			Total:      aiobservabilitytypes.SignozGenAITotalCost,
+			In:         aiobservabilitytypes.ArgusGenAICostInput,
+			Out:        aiobservabilitytypes.ArgusGenAICostOutput,
+			CacheRead:  aiobservabilitytypes.ArgusGenAICostCacheRead,
+			CacheWrite: aiobservabilitytypes.ArgusGenAICostCacheWrite,
+			Total:      aiobservabilitytypes.ArgusGenAITotalCost,
 		},
 	}
 }

@@ -9,13 +9,13 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/template"
 	"github.com/prometheus/alertmanager/types"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagertemplate"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 )
 
 const (
@@ -97,7 +97,7 @@ func (n *Notifier) Notify(ctx context.Context, as ...*types.Alert) (bool, error)
 		title = string(as[0].Labels[ruletypes.LabelAlertName])
 	}
 	if strings.TrimSpace(title) == "" {
-		title = "SigNoz alert"
+		title = "Argus alert"
 	}
 
 	var parts []string
@@ -170,7 +170,7 @@ func (n *Notifier) metadata(ctx context.Context, as []*types.Alert) map[string]s
 	return out
 }
 
-// sourceURL returns the per-rule SigNoz link from the ruleSource label, which
+// sourceURL returns the per-rule Argus link from the ruleSource label, which
 // is identical for every alert in the group.
 func sourceURL(as []*types.Alert) string {
 	if len(as) == 0 {

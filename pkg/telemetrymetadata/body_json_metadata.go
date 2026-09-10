@@ -11,13 +11,13 @@ import (
 	"github.com/ClickHouse/clickhouse-go/v2/lib/chcol"
 	schemamigrator "github.com/SigNoz/signoz-otel-collector/cmd/signozschemamigrator/schema_migrator"
 	"github.com/SigNoz/signoz-otel-collector/constants"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/logstelemetryschema"
-	"github.com/SigNoz/signoz/pkg/types/ctxtypes"
-	"github.com/SigNoz/signoz/pkg/types/instrumentationtypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/huandu/go-sqlbuilder"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/telemetryschema/logstelemetryschema"
+	"github.com/your-org/argus/pkg/types/ctxtypes"
+	"github.com/your-org/argus/pkg/types/instrumentationtypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 var (

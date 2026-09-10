@@ -1,10 +1,10 @@
 package implinframonitoring
 
 import (
-	"github.com/SigNoz/signoz/pkg/types/inframonitoringtypes"
-	"github.com/SigNoz/signoz/pkg/types/metrictypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/types/inframonitoringtypes"
+	"github.com/your-org/argus/pkg/types/metrictypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 const statefulSetsBaseFilterExpr = "k8s.statefulset.name != ''"

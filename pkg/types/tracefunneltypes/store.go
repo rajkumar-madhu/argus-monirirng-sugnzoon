@@ -3,7 +3,7 @@ package tracefunneltypes
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type FunnelStore interface {

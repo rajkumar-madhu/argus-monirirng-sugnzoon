@@ -6,13 +6,13 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/template"
 	"github.com/prometheus/alertmanager/types"
 	"github.com/prometheus/common/model"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 )
 
 type templater struct {

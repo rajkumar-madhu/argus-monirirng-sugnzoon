@@ -4,7 +4,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestExtractFieldKeysFromTblStatement(t *testing.T) {

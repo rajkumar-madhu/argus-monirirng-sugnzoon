@@ -4,17 +4,17 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlschema"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlschema"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
-	userRoleToSigNozManagedRoleMap = map[string]string{
+	userRoleToArgusManagedRoleMap = map[string]string{
 		"ADMIN":  "signoz-admin",
 		"EDITOR": "signoz-editor",
 		"VIEWER": "signoz-viewer",
@@ -159,7 +159,7 @@ func (migration *addUserRole) Up(ctx context.Context, db *bun.DB) error {
 	now := time.Now()
 	userRoles := make([]*userRoleRow, 0, len(users))
 	for _, u := range users {
-		managedRoleName, ok := userRoleToSigNozManagedRoleMap[u.Role]
+		managedRoleName, ok := userRoleToArgusManagedRoleMap[u.Role]
 		if !ok {
 			managedRoleName = "signoz-viewer" // fallback
 		}

@@ -3,9 +3,9 @@ package impllogspipeline
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/modules/logspipeline"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/modules/logspipeline"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 const elementType = "log_pipelines"

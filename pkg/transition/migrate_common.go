@@ -9,8 +9,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/telemetryschema/tracestelemetryschema"
-	"github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/telemetryschema/tracestelemetryschema"
+	"github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 type migrateCommon struct {

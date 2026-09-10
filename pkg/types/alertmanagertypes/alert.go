@@ -8,7 +8,6 @@ import (
 	"sort"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/go-openapi/runtime/middleware"
 	v2 "github.com/prometheus/alertmanager/api/v2"
 	"github.com/prometheus/alertmanager/api/v2/models"
@@ -19,6 +18,7 @@ import (
 	"github.com/prometheus/alertmanager/provider"
 	"github.com/prometheus/alertmanager/types"
 	"github.com/prometheus/common/model"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 type (
@@ -143,9 +143,9 @@ func NewTestAlert(receiver *Receiver, startsAt time.Time, updatedAt time.Time) *
 				"severity":  "critical",
 			},
 			Annotations: model.LabelSet{
-				"description": "Test alert fired from SigNoz",
-				"summary":     "Test alert fired from SigNoz",
-				"message":     "Test alert fired from SigNoz",
+				"description": "Test alert fired from Argus",
+				"summary":     "Test alert fired from Argus",
+				"message":     "Test alert fired from Argus",
 			},
 		},
 		UpdatedAt: updatedAt,

@@ -3,11 +3,11 @@ package impltag
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/types/tagtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/types/tagtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type store struct {

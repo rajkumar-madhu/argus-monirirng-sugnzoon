@@ -4,8 +4,8 @@ import (
 	"log/slog"
 	"regexp"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 var _ slog.LogValuer = (Name{})

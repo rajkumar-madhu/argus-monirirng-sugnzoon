@@ -1,9 +1,9 @@
 package alertmanagertypes
 
 import (
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/prometheus/alertmanager/config"
 	commoncfg "github.com/prometheus/common/config"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 // JSMOpsAPIBaseURL is the native JSM Ops integration-events gateway. It is a
@@ -25,7 +25,7 @@ const (
 
 {{ end }}{{ if .Annotations.description }}**Description:** {{ .Annotations.description }}
 
-{{ end }}{{ if .GeneratorURL }}[View in SigNoz]({{ .GeneratorURL }})
+{{ end }}{{ if .GeneratorURL }}[View in Argus]({{ .GeneratorURL }})
 
 {{ end }}{{ if .Annotations.related_logs }}[View related logs]({{ .Annotations.related_logs }})
 
@@ -34,7 +34,7 @@ const (
 {{ end }}{{ end }}`
 )
 
-// JSMOpsReceiverConfig is the SigNoz Jira Service Management Ops receiver. It is
+// JSMOpsReceiverConfig is the Argus Jira Service Management Ops receiver. It is
 // delivered by reusing the Opsgenie notifier (JSM Ops is the ex-Opsgenie alert
 // API): the notifier package maps these fields onto config.OpsGenieConfig with
 // APIURL pinned to JSMOpsAPIBaseURL.
@@ -59,7 +59,7 @@ var DefaultJSMOpsReceiverConfig = JSMOpsReceiverConfig{
 	},
 	Message:     DefaultJSMOpsMessageTemplate,
 	Description: DefaultJSMOpsDescriptionTemplate,
-	Tags:        "signoz",
+	Tags:        "argus",
 }
 
 func (c *JSMOpsReceiverConfig) UnmarshalYAML(unmarshal func(any) error) error {

@@ -4,15 +4,15 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/authz"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/modules/organization"
-	"github.com/SigNoz/signoz/pkg/modules/user"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/authz"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/modules/organization"
+	"github.com/your-org/argus/pkg/modules/user"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type service struct {
@@ -37,7 +37,7 @@ func NewService(
 	config user.RootConfig,
 ) user.Service {
 	return &service{
-		settings:  factory.NewScopedProviderSettings(providerSettings, "go.signoz.io/pkg/modules/user"),
+		settings:  factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/modules/user"),
 		store:     store,
 		getter:    getter,
 		setter:    setter,
@@ -148,7 +148,7 @@ func (s *service) createOrPromoteRootUser(ctx context.Context, orgID valuer.UUID
 		if err := s.authz.ModifyGrant(ctx,
 			orgID,
 			existingUserRoleNames,
-			[]string{authtypes.SigNozAdminRoleName},
+			[]string{authtypes.ArgusAdminRoleName},
 			authtypes.MustNewSubject(coretypes.NewResourceUser(), existingUser.ID.StringValue(), orgID, nil),
 		); err != nil {
 			return err
@@ -166,7 +166,7 @@ func (s *service) createOrPromoteRootUser(ctx context.Context, orgID valuer.UUID
 				ctx,
 				existingUser.OrgID,
 				existingUser.ID,
-				[]string{authtypes.SigNozAdminRoleName},
+				[]string{authtypes.ArgusAdminRoleName},
 			); err != nil {
 				return err
 			}
@@ -192,7 +192,7 @@ func (s *service) createOrPromoteRootUser(ctx context.Context, orgID valuer.UUID
 		return err
 	}
 
-	return s.setter.CreateUser(ctx, newUser, user.WithFactorPassword(factorPassword), user.WithRoleNames([]string{authtypes.SigNozAdminRoleName}))
+	return s.setter.CreateUser(ctx, newUser, user.WithFactorPassword(factorPassword), user.WithRoleNames([]string{authtypes.ArgusAdminRoleName}))
 }
 
 func (s *service) updateExistingRootUser(ctx context.Context, orgID valuer.UUID, existingRoot *types.User) error {

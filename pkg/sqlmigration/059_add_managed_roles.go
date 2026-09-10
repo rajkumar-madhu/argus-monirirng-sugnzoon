@@ -5,13 +5,13 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlschema"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlschema"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type addManagedRoles struct {
@@ -87,10 +87,10 @@ func (migration *addManagedRoles) Up(ctx context.Context, db *bun.DB) error {
 		}
 
 		managedRoles = append(managedRoles,
-			newManagedRole(authtypes.SigNozAdminRoleName, authtypes.SigNozAdminRoleDescription, orgID),
-			newManagedRole(authtypes.SigNozEditorRoleName, authtypes.SigNozEditorRoleDescription, orgID),
-			newManagedRole(authtypes.SigNozViewerRoleName, authtypes.SigNozViewerRoleDescription, orgID),
-			newManagedRole(authtypes.SigNozAnonymousRoleName, authtypes.SigNozAnonymousRoleDescription, orgID),
+			newManagedRole(authtypes.ArgusAdminRoleName, authtypes.ArgusAdminRoleDescription, orgID),
+			newManagedRole(authtypes.ArgusEditorRoleName, authtypes.ArgusEditorRoleDescription, orgID),
+			newManagedRole(authtypes.ArgusViewerRoleName, authtypes.ArgusViewerRoleDescription, orgID),
+			newManagedRole(authtypes.ArgusAnonymousRoleName, authtypes.ArgusAnonymousRoleDescription, orgID),
 		)
 	}
 

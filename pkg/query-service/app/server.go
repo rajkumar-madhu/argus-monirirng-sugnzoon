@@ -3,50 +3,50 @@ package app
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/queryparser"
+	"github.com/your-org/argus/pkg/queryparser"
 
-	"github.com/SigNoz/signoz/pkg/http/middleware"
-	"github.com/SigNoz/signoz/pkg/query-service/agentConf"
-	"github.com/SigNoz/signoz/pkg/query-service/app/clickhouseReader"
-	"github.com/SigNoz/signoz/pkg/query-service/app/integrations"
-	"github.com/SigNoz/signoz/pkg/query-service/app/logparsingpipeline"
-	"github.com/SigNoz/signoz/pkg/query-service/app/opamp"
-	opAmpModel "github.com/SigNoz/signoz/pkg/query-service/app/opamp/model"
-	"github.com/SigNoz/signoz/pkg/signoz"
+	"github.com/your-org/argus/pkg/argus"
+	"github.com/your-org/argus/pkg/http/middleware"
+	"github.com/your-org/argus/pkg/query-service/agentConf"
+	"github.com/your-org/argus/pkg/query-service/app/clickhouseReader"
+	"github.com/your-org/argus/pkg/query-service/app/integrations"
+	"github.com/your-org/argus/pkg/query-service/app/logparsingpipeline"
+	"github.com/your-org/argus/pkg/query-service/app/opamp"
+	opAmpModel "github.com/your-org/argus/pkg/query-service/app/opamp/model"
 
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
+	"github.com/your-org/argus/pkg/query-service/constants"
 )
 
-// Server runs auxiliary servers (opamp) alongside the signoz apiserver
+// Server runs auxiliary servers (opamp) alongside the Argus API server.
 type Server struct {
 	opampServer *opamp.Server
 }
 
 // NewServer creates and initializes Server
-func NewServer(config signoz.Config, signoz *signoz.SigNoz) (*Server, error) {
-	integrationsController, err := integrations.NewController(signoz.SQLStore, signoz.Modules.Dashboard)
+func NewServer(config argus.Config, appInstance *argus.Argus) (*Server, error) {
+	integrationsController, err := integrations.NewController(appInstance.SQLStore, appInstance.Modules.Dashboard)
 	if err != nil {
 		return nil, err
 	}
 
 	reader := clickhouseReader.NewReader(
-		signoz.Instrumentation.Logger(),
-		signoz.SQLStore,
-		signoz.TelemetryStore,
-		signoz.Prometheus,
-		signoz.TelemetryStore.Cluster(),
-		signoz.Cache,
-		signoz.Flagger,
+		appInstance.Instrumentation.Logger(),
+		appInstance.SQLStore,
+		appInstance.TelemetryStore,
+		appInstance.Prometheus,
+		appInstance.TelemetryStore.Cluster(),
+		appInstance.Cache,
+		appInstance.Flagger,
 		nil,
 	)
 
 	logParsingPipelineController, err := logparsingpipeline.NewLogParsingPipelinesController(
-		signoz.SQLStore,
+		appInstance.SQLStore,
 		integrationsController.GetPipelinesForInstalledIntegrations,
 		reader,
-		signoz.Flagger,
+		appInstance.Flagger,
 	)
 	if err != nil {
 		return nil, err
@@ -57,8 +57,8 @@ func NewServer(config signoz.Config, signoz *signoz.SigNoz) (*Server, error) {
 		IntegrationsController:        integrationsController,
 		LogsParsingPipelineController: logParsingPipelineController,
 		FluxInterval:                  config.Querier.FluxInterval,
-		Signoz:                        signoz,
-		QueryParserAPI:                queryparser.NewAPI(signoz.Instrumentation.ToProviderSettings(), signoz.QueryParser),
+		Argus:                         appInstance,
+		QueryParserAPI:                queryparser.NewAPI(appInstance.Instrumentation.ToProviderSettings(), appInstance.QueryParser),
 	}, config)
 	if err != nil {
 		return nil, err
@@ -67,8 +67,8 @@ func NewServer(config signoz.Config, signoz *signoz.SigNoz) (*Server, error) {
 	// Register the legacy query-service routes on the apiserver router. The
 	// apiserver owns the HTTP server and applies the middleware chain at serve
 	// time, so these routes get the same treatment as the apiserver routes.
-	r := signoz.APIServer.Router()
-	am := middleware.NewAuthZ(signoz.Instrumentation.Logger(), signoz.Modules.OrgGetter, signoz.Authz)
+	r := appInstance.APIServer.Router()
+	am := middleware.NewAuthZ(appInstance.Instrumentation.Logger(), appInstance.Modules.OrgGetter, appInstance.Authz)
 
 	apiHandler.RegisterRoutes(r, am)
 	apiHandler.RegisterLogsRoutes(r, am)
@@ -79,15 +79,15 @@ func NewServer(config signoz.Config, signoz *signoz.SigNoz) (*Server, error) {
 	apiHandler.RegisterThirdPartyApiRoutes(r, am)
 	apiHandler.RegisterTraceFunnelsRoutes(r, am)
 
-	opAmpModel.Init(signoz.SQLStore, signoz.Instrumentation.Logger(), signoz.Modules.OrgGetter)
+	opAmpModel.Init(appInstance.SQLStore, appInstance.Instrumentation.Logger(), appInstance.Modules.OrgGetter)
 
 	agentConfMgr, err := agentConf.Initiate(
 		&agentConf.ManagerOptions{
-			Store: signoz.SQLStore,
+			Store: appInstance.SQLStore,
 			AgentFeatures: []agentConf.AgentFeature{
 				logParsingPipelineController,
-				signoz.Modules.SpanMapper,
-				signoz.Modules.LLMPricingRule,
+				appInstance.Modules.SpanMapper,
+				appInstance.Modules.LLMPricingRule,
 			},
 		},
 	)
@@ -100,14 +100,14 @@ func NewServer(config signoz.Config, signoz *signoz.SigNoz) (*Server, error) {
 	s.opampServer = opamp.InitializeServer(
 		&opAmpModel.AllAgents,
 		agentConfMgr,
-		signoz.Instrumentation,
+		appInstance.Instrumentation,
 	)
 
 	return s, nil
 }
 
 // Start starts the opamp websocket server. The HTTP API server is started by
-// the signoz registry.
+// the Argus registry.
 func (s *Server) Start(ctx context.Context) error {
 	slog.Info("Starting OpAmp Websocket server", "addr", constants.OpAmpWsEndpoint)
 	if err := s.opampServer.Start(constants.OpAmpWsEndpoint); err != nil {

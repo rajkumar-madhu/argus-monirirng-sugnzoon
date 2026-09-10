@@ -1,7 +1,7 @@
 package spantypes
 
 import (
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type SpanMapperTestSpan struct {

@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/types/pipelinetypes"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/query-service/model"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/types/pipelinetypes"
 )
 
 func TestTimestampParsingProcessor(t *testing.T) {
@@ -59,7 +59,7 @@ func TestTimestampParsingProcessor(t *testing.T) {
 	testPipelines[0].Config = append(testPipelines[0].Config, timestampParserOp)
 
 	testTimestampStr := "2023-11-27T12:03:28.239907+0530"
-	testLog := makeTestSignozLog(
+	testLog := makeTestArgusLog(
 		"test log",
 		map[string]interface{}{
 			"method":         "GET",
@@ -70,7 +70,7 @@ func TestTimestampParsingProcessor(t *testing.T) {
 	result, collectorWarnAndErrorLogs, err := SimulatePipelinesProcessing(
 		context.Background(),
 		testPipelines,
-		[]model.SignozLog{
+		[]model.ArgusLog{
 			testLog,
 		},
 	)

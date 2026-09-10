@@ -8,19 +8,19 @@ import (
 
 	"github.com/dustin/go-humanize"
 
-	"github.com/SigNoz/signoz/pkg/analytics"
-	"github.com/SigNoz/signoz/pkg/authz"
-	"github.com/SigNoz/signoz/pkg/emailing"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/modules/organization"
-	root "github.com/SigNoz/signoz/pkg/modules/user"
-	"github.com/SigNoz/signoz/pkg/tokenizer"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/types/emailtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/analytics"
+	"github.com/your-org/argus/pkg/authz"
+	"github.com/your-org/argus/pkg/emailing"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/modules/organization"
+	root "github.com/your-org/argus/pkg/modules/user"
+	"github.com/your-org/argus/pkg/tokenizer"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/types/emailtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type setter struct {
@@ -39,7 +39,7 @@ type setter struct {
 
 // This module is a WIP, don't take inspiration from this.
 func NewSetter(store types.UserStore, tokenizer tokenizer.Tokenizer, emailing emailing.Emailing, providerSettings factory.ProviderSettings, orgSetter organization.Setter, authz authz.AuthZ, analytics analytics.Analytics, config root.Config, userRoleStore authtypes.UserRoleStore, getter root.Getter, onDeleteUser []root.OnDeleteUser) root.Setter {
-	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/modules/user/impluser")
+	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/modules/user/impluser")
 	return &setter{
 		store:         store,
 		userRoleStore: userRoleStore,
@@ -152,7 +152,7 @@ func (module *setter) CreatePendingInviteUser(ctx context.Context, identityID va
 	tokenLifetime := module.config.Password.Invite.MaxTokenLifetime
 	humanizedTokenLifetime := strings.TrimSpace(humanize.RelTime(time.Now(), time.Now().Add(tokenLifetime), "", ""))
 
-	if err := module.emailing.SendHTML(ctx, user.Email.String(), "You're Invited to Join SigNoz", emailtypes.TemplateNameInvitationEmail, map[string]any{
+	if err := module.emailing.SendHTML(ctx, user.Email.String(), "You're Invited to Join Argus", emailtypes.TemplateNameInvitationEmail, map[string]any{
 		"inviter_email": identityEmail.StringValue(),
 		"link":          resetLink,
 		"Expiry":        humanizedTokenLifetime,
@@ -369,7 +369,7 @@ func (module *setter) ForgotPassword(ctx context.Context, orgID valuer.UUID, ema
 	if err := module.emailing.SendHTML(
 		ctx,
 		user.Email.String(),
-		"A Password Reset Was Requested for SigNoz",
+		"A Password Reset Was Requested for Argus",
 		emailtypes.TemplateNameResetPassword,
 		map[string]any{
 			"Link":   resetLink,
@@ -556,7 +556,7 @@ func (module *setter) CreateFirstUser(ctx context.Context, organization *types.O
 		return nil, err
 	}
 
-	roleNames := []string{authtypes.SigNozAdminRoleName}
+	roleNames := []string{authtypes.ArgusAdminRoleName}
 
 	if err = module.store.RunInTx(ctx, func(ctx context.Context) error {
 		err = module.orgSetter.Create(ctx, organization, func(ctx context.Context, orgID valuer.UUID) error {

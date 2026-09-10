@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 type HavingExpressionRewriter struct {

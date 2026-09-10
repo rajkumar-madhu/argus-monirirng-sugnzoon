@@ -9,7 +9,7 @@ import (
 	"github.com/prometheus/prometheus/util/stats"
 	"github.com/swaggest/jsonschema-go"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 // This file is the single description of the Prometheus API wire shapes:

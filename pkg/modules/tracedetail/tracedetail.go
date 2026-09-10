@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/types/spantypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/types/spantypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 // Handler exposes HTTP handlers for trace detail APIs.

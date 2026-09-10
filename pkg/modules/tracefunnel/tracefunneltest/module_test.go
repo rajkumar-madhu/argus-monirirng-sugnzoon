@@ -5,12 +5,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/modules/tracefunnel/impltracefunnel"
-	"github.com/SigNoz/signoz/pkg/types"
-	traceFunnels "github.com/SigNoz/signoz/pkg/types/tracefunneltypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"github.com/your-org/argus/pkg/modules/tracefunnel/impltracefunnel"
+	"github.com/your-org/argus/pkg/types"
+	traceFunnels "github.com/your-org/argus/pkg/types/tracefunneltypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type MockStore struct {

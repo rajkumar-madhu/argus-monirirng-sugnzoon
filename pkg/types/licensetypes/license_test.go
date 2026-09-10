@@ -5,10 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/zeustypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/zeustypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func TestNewLicenseValidation(t *testing.T) {
@@ -131,5 +131,5 @@ func TestNewLicenseFromStorableLicenseRoundTrip(t *testing.T) {
 	assert.Equal(t, license.ValidFrom, roundTrippedLicense.ValidFrom)
 	assert.Equal(t, license.ValidUntil, roundTrippedLicense.ValidUntil)
 
-	assert.ErrorContains(t, roundTrippedLicense.ErrIfCloud(), "not supported for licenses managed by SigNoz Cloud")
+	assert.ErrorContains(t, roundTrippedLicense.ErrIfCloud(), "not supported for licenses managed by Argus Cloud")
 }

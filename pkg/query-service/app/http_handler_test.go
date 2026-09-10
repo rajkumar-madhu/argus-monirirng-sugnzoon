@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/query-service/model"
+	"github.com/your-org/argus/pkg/query-service/model"
 )
 
 func TestPrepareQuery(t *testing.T) {

@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/rulestatehistorytypes"
-	ruletypes "github.com/SigNoz/signoz/pkg/types/ruletypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/types/rulestatehistorytypes"
+	ruletypes "github.com/your-org/argus/pkg/types/ruletypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // A Rule encapsulates a vector expression which is evaluated at a specified

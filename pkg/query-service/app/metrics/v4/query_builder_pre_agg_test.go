@@ -3,9 +3,9 @@ package v4
 import (
 	"testing"
 
-	metricsV3 "github.com/SigNoz/signoz/pkg/query-service/app/metrics/v3"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
 	"github.com/stretchr/testify/assert"
+	metricsV3 "github.com/your-org/argus/pkg/query-service/app/metrics/v3"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 func TestPrepareMetricQueryCumulativeRatePreAgg(t *testing.T) {

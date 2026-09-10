@@ -3,8 +3,8 @@ package metricreductionruletypes_test
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/metricreductionruletypes"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/metricreductionruletypes"
 )
 
 func TestUpdatableReductionRuleValidate(t *testing.T) {

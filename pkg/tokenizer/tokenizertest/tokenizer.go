@@ -8,10 +8,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/tokenizer"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	mock "github.com/stretchr/testify/mock"
+	"github.com/your-org/argus/pkg/tokenizer"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // NewMockTokenizer creates a new instance of MockTokenizer. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.

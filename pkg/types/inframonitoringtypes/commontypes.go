@@ -1,7 +1,7 @@
 package inframonitoringtypes
 
 import (
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type ResponseType struct {

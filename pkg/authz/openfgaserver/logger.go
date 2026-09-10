@@ -4,8 +4,8 @@ import (
 	"context"
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/instrumentation"
 	pkgopenfgalogger "github.com/openfga/openfga/pkg/logger"
+	"github.com/your-org/argus/pkg/instrumentation"
 	"go.uber.org/zap" //nolint:depguard
 )
 

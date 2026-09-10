@@ -5,14 +5,14 @@ import (
 	"net"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/thirdpartyapitypes"
+	"github.com/your-org/argus/pkg/types/thirdpartyapitypes"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 const (
-	derivedKeyHTTPURL  = "http_url" // https://signoz.io/docs/traces-management/guides/derived-fields-spans/#http_url
+	derivedKeyHTTPURL  = "http_url" // https://argus.example.com/docs/traces-management/guides/derived-fields-spans/#http_url
 	derivedKeyHTTPHost = "http_host"
 )
 

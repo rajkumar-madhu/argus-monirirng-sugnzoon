@@ -1,16 +1,16 @@
 package main
 
 import (
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/signoz"
-	"github.com/SigNoz/signoz/pkg/sqlschema"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/argus"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlschema"
+	"github.com/your-org/argus/pkg/sqlstore"
 )
 
 func sqlstoreProviderFactories() factory.NamedMap[factory.ProviderFactory[sqlstore.SQLStore, sqlstore.Config]] {
-	return signoz.NewSQLStoreProviderFactories()
+	return argus.NewSQLStoreProviderFactories()
 }
 
 func sqlschemaProviderFactories(sqlstore sqlstore.SQLStore) factory.NamedMap[factory.ProviderFactory[sqlschema.SQLSchema, sqlschema.Config]] {
-	return signoz.NewSQLSchemaProviderFactories(sqlstore)
+	return argus.NewSQLSchemaProviderFactories(sqlstore)
 }

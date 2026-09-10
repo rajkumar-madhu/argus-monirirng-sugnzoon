@@ -4,9 +4,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/query-service/agentConf"
-	"github.com/SigNoz/signoz/pkg/types/llmpricingruletypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/query-service/agentConf"
+	"github.com/your-org/argus/pkg/types/llmpricingruletypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type Module interface {

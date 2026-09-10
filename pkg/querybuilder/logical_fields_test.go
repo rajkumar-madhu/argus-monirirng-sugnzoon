@@ -4,12 +4,12 @@ import (
 	"context"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/flagger/flaggertest"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/flagger/flaggertest"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // familiesOn returns a flagger with resolve_semconv_families on.

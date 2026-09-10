@@ -3,9 +3,9 @@ package querier
 import (
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/statementbuilder"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/statementbuilder"
 )
 
 const DefaultMaxConcurrentQueries = 8
@@ -63,5 +63,5 @@ func (c Config) Validate() error {
 }
 
 func (c Config) Provider() string {
-	return "signoz"
+	return "argus"
 }

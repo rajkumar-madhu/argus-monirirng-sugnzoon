@@ -6,19 +6,19 @@ import (
 	"log/slog"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder/resourcefilter"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/logstelemetryschema"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
-	"github.com/SigNoz/signoz/pkg/types/featuretypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/huandu/go-sqlbuilder"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/statementbuilder"
+	"github.com/your-org/argus/pkg/statementbuilder/resourcefilter"
+	"github.com/your-org/argus/pkg/telemetryschema/logstelemetryschema"
+	"github.com/your-org/argus/pkg/telemetrystore"
+	"github.com/your-org/argus/pkg/types/featuretypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 const bodySearchDefaultWarning = "body searches default to `body.message:string`. Use `body.<key>` to search a different field inside body"
@@ -81,7 +81,7 @@ func NewLogQueryStatementBuilder(
 	telemetryStore telemetrystore.TelemetryStore,
 	cfg statementbuilder.Config,
 ) *logQueryStatementBuilder {
-	logsSettings := factory.NewScopedProviderSettings(settings, "github.com/SigNoz/signoz/pkg/telemetryschema/logstelemetryschema")
+	logsSettings := factory.NewScopedProviderSettings(settings, "github.com/your-org/argus/pkg/telemetryschema/logstelemetryschema")
 
 	resourceFilterResolver := resourcefilter.NewResolver[qbtypes.LogAggregation](
 		settings,

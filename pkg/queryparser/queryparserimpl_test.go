@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/instrumentation/instrumentationtest"
-	"github.com/SigNoz/signoz/pkg/queryparser/queryfilterextractor"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/instrumentation/instrumentationtest"
+	"github.com/your-org/argus/pkg/queryparser/queryfilterextractor"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 func TestBaseRule_ExtractMetricAndGroupBys(t *testing.T) {

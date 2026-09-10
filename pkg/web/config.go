@@ -1,7 +1,7 @@
 package web
 
 import (
-	"github.com/SigNoz/signoz/pkg/factory"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 // Config holds the configuration for web.
@@ -59,7 +59,7 @@ func newConfig() factory.Config {
 	return &Config{
 		Enabled:   true,
 		Index:     "index.html",
-		Directory: "/etc/signoz/web",
+		Directory: "/etc/argus/web",
 		Settings: SettingsConfig{
 			Posthog: PosthogConfig{
 				Enabled: false,

@@ -9,13 +9,13 @@ import (
 	"time"
 
 	"dario.cat/mergo"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/prometheus/alertmanager/config"
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/prometheus/common/model"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 const (

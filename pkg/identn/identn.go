@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type IdentNResolver interface {

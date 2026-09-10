@@ -3,8 +3,8 @@ package retention
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/types/retentiontypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/types/retentiontypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // Getter resolves retention data and expressions for read paths.

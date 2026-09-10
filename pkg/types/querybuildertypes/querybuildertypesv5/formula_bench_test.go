@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 // createBenchmarkTimeSeriesData creates test data for benchmarking.

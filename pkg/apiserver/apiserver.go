@@ -1,12 +1,12 @@
 package apiserver
 
 import (
-	"github.com/SigNoz/signoz/pkg/factory"
 	"github.com/gorilla/mux"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 type APIServer interface {
-	// APIServer is a long running service serving the SigNoz API.
+	// APIServer is a long running service serving the Argus API.
 	factory.ServiceWithHealthy
 
 	// Returns the mux router for the API server. Primarily used for collecting OpenAPI operations.

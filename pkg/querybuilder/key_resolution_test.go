@@ -3,9 +3,9 @@ package querybuilder
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestSynthesizeKeys(t *testing.T) {

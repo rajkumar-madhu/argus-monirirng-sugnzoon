@@ -5,9 +5,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 
-	"github.com/SigNoz/signoz/pkg/sqlschema"
+	"github.com/your-org/argus/pkg/sqlschema"
 )
 
 // Inspired by https://github.com/go-gorm/sqlite

@@ -7,8 +7,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 const (
@@ -68,7 +68,7 @@ type WaterfallSpan struct {
 	TraceState   string            `json:"trace_state"`
 	References   []OtelSpanRef     `json:"references" required:"true" nullable:"false"`
 
-	// Calculated fields https://signoz.io/docs/traces-management/guides/derived-fields-spans
+	// Calculated fields https://argus.example.com/docs/traces-management/guides/derived-fields-spans
 	DBName             string `json:"db_name,omitempty"`
 	DBOperation        string `json:"db_operation,omitempty"`
 	ExternalHTTPMethod string `json:"external_http_method,omitempty"`

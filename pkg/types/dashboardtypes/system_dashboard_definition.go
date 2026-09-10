@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 // SystemDashboardDefinition is one shipped system dashboard. Version is bumped on

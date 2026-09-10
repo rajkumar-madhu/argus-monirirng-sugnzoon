@@ -5,10 +5,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/tagtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/tagtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // basePostableJSON is the postable shape of a small but realistic v2
@@ -109,7 +109,7 @@ func TestPatchableDashboardV2_Apply(t *testing.T) {
 	var p PostableDashboardV2
 	require.NoError(t, json.Unmarshal([]byte(basePostableJSON), &p), "base postable JSON must validate")
 	testOrgID := valuer.GenerateUUID()
-	base, err := p.NewDashboardV2(testOrgID, "somecreatedthisiguess@signoz.io", SourceUser)
+	base, err := p.NewDashboardV2(testOrgID, "somecreatedthisiguess@argus.example.com", SourceUser)
 	require.NoError(t, err)
 	base.Tags = []*tagtypes.Tag{
 		{Key: "team", Value: "alpha"},

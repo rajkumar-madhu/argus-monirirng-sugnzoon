@@ -5,10 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/flagger/flaggertest"
-	"github.com/SigNoz/signoz/pkg/instrumentation/instrumentationtest"
-	"github.com/SigNoz/signoz/pkg/querybuilder"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/flagger/flaggertest"
+	"github.com/your-org/argus/pkg/instrumentation/instrumentationtest"
+	"github.com/your-org/argus/pkg/querybuilder"
 )
 
 // TestLikeAndILikeWithoutWildcards_Warns Tests that LIKE/ILIKE without wildcards add warnings and include docs URL.

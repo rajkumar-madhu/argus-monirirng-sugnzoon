@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/prometheus/alertmanager/config"
 	commoncfg "github.com/prometheus/common/config"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 // incidentIOEventsPathPrefix is the path of incident.io's HTTP alert source
@@ -27,7 +27,7 @@ const (
 
 {{ end }}{{ if .Annotations.description }}**Description:** {{ .Annotations.description }}
 
-{{ end }}{{ if .GeneratorURL }}[View in SigNoz]({{ .GeneratorURL }})
+{{ end }}{{ if .GeneratorURL }}[View in Argus]({{ .GeneratorURL }})
 
 {{ end }}{{ if .Annotations.related_logs }}[View related logs]({{ .Annotations.related_logs }})
 
@@ -36,7 +36,7 @@ const (
 {{ end }}{{ end }}`
 )
 
-// IncidentIOReceiverConfig is the SigNoz incident.io receiver, backed by an
+// IncidentIOReceiverConfig is the Argus incident.io receiver, backed by an
 // incident.io HTTP alert source. URL is the per-source alert events endpoint
 // and Token its secret, both copied from the source's setup page.
 type IncidentIOReceiverConfig struct {

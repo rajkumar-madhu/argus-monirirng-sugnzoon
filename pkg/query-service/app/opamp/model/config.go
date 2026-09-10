@@ -3,8 +3,8 @@ package model
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/types/opamptypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/types/opamptypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // Interface for source of otel collector config recommendations.

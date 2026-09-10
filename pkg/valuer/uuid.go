@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/google/uuid"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 var _ Valuer = (*UUID)(nil)

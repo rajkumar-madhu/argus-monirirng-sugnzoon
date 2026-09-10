@@ -4,9 +4,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/query-service/agentConf"
-	"github.com/SigNoz/signoz/pkg/types/spantypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/query-service/agentConf"
+	"github.com/your-org/argus/pkg/types/spantypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // Module defines the business logic for span attribute mapping groups and mappers.

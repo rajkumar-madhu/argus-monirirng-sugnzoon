@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/identn"
-	"github.com/SigNoz/signoz/pkg/modules/organization"
-	"github.com/SigNoz/signoz/pkg/modules/user"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/identn"
+	"github.com/your-org/argus/pkg/modules/organization"
+	"github.com/your-org/argus/pkg/modules/user"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type provider struct {
@@ -31,7 +31,7 @@ func NewFactory(orgGetter organization.Getter, userGetter user.Getter, userConfi
 }
 
 func New(ctx context.Context, providerSettings factory.ProviderSettings, config identn.Config, orgGetter organization.Getter, userGetter user.Getter, userConfig user.Config) (identn.IdentN, error) {
-	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/identn/impersonationidentn")
+	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/identn/impersonationidentn")
 
 	settings.Logger().WarnContext(ctx, "impersonation identity provider is enabled, all requests will impersonate the root user")
 

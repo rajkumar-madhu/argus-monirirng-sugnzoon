@@ -1,8 +1,8 @@
 package jwttokenizer
 
 import (
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 var _ jwt.ClaimsValidator = (*Claims)(nil)

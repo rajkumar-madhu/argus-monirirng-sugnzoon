@@ -5,8 +5,8 @@ import (
 	"io"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/jsonschema"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/jsonschema"
 )
 
 const (

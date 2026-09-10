@@ -3,9 +3,9 @@ package impldashboard
 import (
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/dashboardtypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/dashboardtypes"
 )
 
 type Compiled struct {

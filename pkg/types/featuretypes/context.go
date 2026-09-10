@@ -1,8 +1,8 @@
 package featuretypes
 
 import (
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/open-feature/go-sdk/openfeature"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // A concrete wrapper around the openfeature.EvaluationContext.

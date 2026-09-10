@@ -1,8 +1,8 @@
 package factorytest
 
 import (
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/instrumentation/instrumentationtest"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/instrumentation/instrumentationtest"
 )
 
 func NewSettings() factory.ProviderSettings {

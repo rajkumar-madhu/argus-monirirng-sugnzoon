@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/types/cachetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/types/cachetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type Cache interface {

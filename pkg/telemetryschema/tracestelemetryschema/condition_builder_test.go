@@ -2,16 +2,16 @@ package tracestelemetryschema
 
 import (
 	"context"
-	"github.com/SigNoz/signoz/pkg/flagger/flaggertest"
+	"github.com/your-org/argus/pkg/flagger/flaggertest"
 	"testing"
 	"time"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/huandu/go-sqlbuilder"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func TestConditionFor(t *testing.T) {
@@ -417,7 +417,7 @@ func TestConditionForScopeIntrinsicFields(t *testing.T) {
 				FieldDataType: telemetrytypes.FieldDataTypeString,
 			},
 			operator:    qbtypes.FilterOperatorEqual,
-			value:       "io.signoz.payment",
+			value:       "io.argus.payment",
 			expectedSQL: "(scope.name::String = ? AND scope.name::String <> '')",
 		},
 		{
@@ -463,7 +463,7 @@ func TestConditionForScopeIntrinsicFields(t *testing.T) {
 				FieldDataType: telemetrytypes.FieldDataTypeString,
 			},
 			operator:    qbtypes.FilterOperatorEqual,
-			value:       "io.signoz.checkout",
+			value:       "io.argus.checkout",
 			expectedSQL: "(scope.attributes.`name`::String = ? AND scope.attributes.`name` IS NOT NULL)",
 		},
 	}

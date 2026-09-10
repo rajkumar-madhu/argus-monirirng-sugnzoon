@@ -3,9 +3,9 @@ package instrumentationtest
 import (
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/instrumentation"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/instrumentation"
 	sdkmetric "go.opentelemetry.io/otel/metric"
 	noopmetric "go.opentelemetry.io/otel/metric/noop"
 	sdktrace "go.opentelemetry.io/otel/trace"

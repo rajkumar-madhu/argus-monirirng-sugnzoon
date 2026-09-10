@@ -16,7 +16,7 @@ const (
 	CodeNamespace = semconv.AttributeCodeNamespace
 	// ExceptionType is the error type (errors.typ).
 	ExceptionType = semconv.AttributeExceptionType
-	// ExceptionCode is the error code (errors.code); SigNoz-specific, no OTel equivalent.
+	// ExceptionCode is the error code (errors.code); Argus-specific, no OTel equivalent.
 	ExceptionCode = "exception.code"
 	// ExceptionMessage is the error message.
 	ExceptionMessage = semconv.AttributeExceptionMessage

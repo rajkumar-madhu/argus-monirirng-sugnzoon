@@ -3,8 +3,8 @@ package v4
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 func Test_getClickHouseTracesColumnType(t *testing.T) {
@@ -406,7 +406,7 @@ func Test_orderByAttributeKeyTags(t *testing.T) {
 			name: "order by value",
 			args: args{
 				panelType: v3.PanelTypeGraph,
-				items:     []v3.OrderBy{{ColumnName: "name", Order: "ASC"}, {ColumnName: constants.SigNozOrderByValue, Order: "DESC"}},
+				items:     []v3.OrderBy{{ColumnName: "name", Order: "ASC"}, {ColumnName: constants.ArgusOrderByValue, Order: "DESC"}},
 				tags:      []v3.AttributeKey{{Key: "name", DataType: v3.AttributeKeyDataTypeString, Type: v3.AttributeKeyTypeTag}},
 			},
 			want: "`name` ASC,value DESC",

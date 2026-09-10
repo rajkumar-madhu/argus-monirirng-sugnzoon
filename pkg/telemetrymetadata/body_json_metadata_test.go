@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/SigNoz/signoz-otel-collector/constants"
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/logstelemetryschema"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/telemetryschema/logstelemetryschema"
 )
 
 func TestBuildListLogsJSONIndexesQuery(t *testing.T) {

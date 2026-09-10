@@ -10,15 +10,15 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/modules/organization"
-	"github.com/SigNoz/signoz/pkg/tokenizer"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/cachetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/modules/organization"
+	"github.com/your-org/argus/pkg/tokenizer"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/cachetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
@@ -46,7 +46,7 @@ func NewFactory(cache cache.Cache, tokenStore authtypes.TokenStore, orgGetter or
 }
 
 func New(ctx context.Context, providerSettings factory.ProviderSettings, config tokenizer.Config, cache cache.Cache, tokenStore authtypes.TokenStore, orgGetter organization.Getter) (tokenizer.Tokenizer, error) {
-	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/tokenizer/opaquetokenizer")
+	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/tokenizer/opaquetokenizer")
 
 	// * move these hardcoded values to a config based value when needed
 	lastObservedAtCache, err := ristretto.NewCache(&ristretto.Config[string, time.Time]{

@@ -7,9 +7,9 @@ import (
 
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
 	expr "github.com/antonmedv/expr"
+	"github.com/your-org/argus/pkg/errors"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 var (

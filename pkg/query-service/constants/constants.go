@@ -5,9 +5,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/query-service/model"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 const OpAmpWsEndpoint = "0.0.0.0:4320" // address for opamp websocket
@@ -113,7 +113,7 @@ const (
 // alert related constants
 const (
 	// AlertHelpPage is used in case default alert repo url is not set
-	AlertHelpPage   = "https://signoz.io/docs/alerts/"
+	AlertHelpPage   = "https://argus.example.com/docs/alerts/"
 	AlertTimeFormat = "2006-01-02 15:04:05"
 )
 
@@ -296,7 +296,7 @@ var StaticFieldsLogsV3 = map[string]v3.AttributeKey{
 	},
 }
 
-const SigNozOrderByValue = "#SIGNOZ_VALUE"
+const ArgusOrderByValue = "#SIGNOZ_VALUE"
 
 const TIMESTAMP = "timestamp"
 

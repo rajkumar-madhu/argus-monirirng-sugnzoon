@@ -10,10 +10,10 @@ import (
 
 	opentracing "github.com/opentracing/opentracing-go"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/ctxtypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/ctxtypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 )
 
 // RuleTask holds a rule (with composite queries)

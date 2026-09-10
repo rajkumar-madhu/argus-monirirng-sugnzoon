@@ -3,7 +3,7 @@ package inframonitoringtypes
 import (
 	"slices"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // ContainerStatus is the kubectl-style display status of a container, derived

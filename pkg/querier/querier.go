@@ -15,22 +15,22 @@ import (
 	"golang.org/x/exp/maps"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/query-service/utils"
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/statsreporter"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
-	"github.com/SigNoz/signoz/pkg/types/ctxtypes"
-	"github.com/SigNoz/signoz/pkg/types/featuretypes"
-	"github.com/SigNoz/signoz/pkg/types/instrumentationtypes"
-	"github.com/SigNoz/signoz/pkg/types/metrictypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/query-service/utils"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/statsreporter"
+	"github.com/your-org/argus/pkg/telemetrystore"
+	"github.com/your-org/argus/pkg/types/ctxtypes"
+	"github.com/your-org/argus/pkg/types/featuretypes"
+	"github.com/your-org/argus/pkg/types/instrumentationtypes"
+	"github.com/your-org/argus/pkg/types/metrictypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
@@ -101,7 +101,7 @@ func New(
 	logTraceIDWindowPadding time.Duration,
 	maxConcurrentQueries int,
 ) *querier {
-	querierSettings := factory.NewScopedProviderSettings(settings, "github.com/SigNoz/signoz/pkg/querier")
+	querierSettings := factory.NewScopedProviderSettings(settings, "github.com/your-org/argus/pkg/querier")
 	if maxConcurrentQueries <= 0 {
 		maxConcurrentQueries = DefaultMaxConcurrentQueries
 	}
@@ -215,7 +215,7 @@ func (q *querier) QueryRange(ctx context.Context, orgID valuer.UUID, req *qbtype
 // promqlOptions derives the PromQL execution options for a request. With the
 // org's use_prometheus_clickhouse_v2 flag on, queries are shadow-compared
 // against the clickhousev2 provider (serving unaffected, diffs logged; see
-// promql_shadow.go). The X-SigNoz-PromQL-Provider header may instead pin the
+// promql_shadow.go). The X-Argus-PromQL-Provider header may instead pin the
 // response to that provider — integration tests and support fetch both
 // results for comparison — so it is deliberately flag-gated too: without the
 // gate the header would be an unaudited switch onto a provider still under
@@ -490,7 +490,7 @@ func (q *querier) resolveMetricMetadata(ctx context.Context, orgID valuer.UUID, 
 		return missingMetricQueries, nil, nil
 	}
 
-	isInternalMetric := func(n string) bool { return strings.HasPrefix(n, "signoz.") || strings.HasPrefix(n, "signoz_") }
+	isInternalMetric := func(n string) bool { return strings.HasPrefix(n, "argus.") || strings.HasPrefix(n, "signoz_") }
 	externalMissingMetrics := make([]string, 0, len(missingMetrics))
 	for _, m := range missingMetrics {
 		if !isInternalMetric(m) {

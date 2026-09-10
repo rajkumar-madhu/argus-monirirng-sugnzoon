@@ -3,12 +3,12 @@ package implorganization
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager"
-	"github.com/SigNoz/signoz/pkg/modules/dashboard"
-	"github.com/SigNoz/signoz/pkg/modules/organization"
-	"github.com/SigNoz/signoz/pkg/modules/quickfilter"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/alertmanager"
+	"github.com/your-org/argus/pkg/modules/dashboard"
+	"github.com/your-org/argus/pkg/modules/organization"
+	"github.com/your-org/argus/pkg/modules/quickfilter"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type setter struct {

@@ -5,10 +5,10 @@ import (
 	"math"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/query-service/app/metrics/v4/helpers"
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/utils"
+	"github.com/your-org/argus/pkg/query-service/app/metrics/v4/helpers"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/utils"
 )
 
 // This logic is little convoluted for a reason.

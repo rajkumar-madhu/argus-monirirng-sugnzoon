@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/inframonitoringtypes"
 	"github.com/huandu/go-sqlbuilder"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/types/inframonitoringtypes"
 )
 
 func TestApplyPodStatusFilter(t *testing.T) {

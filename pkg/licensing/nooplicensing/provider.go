@@ -3,11 +3,11 @@ package nooplicensing
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/licensing"
-	"github.com/SigNoz/signoz/pkg/types/licensetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/licensing"
+	"github.com/your-org/argus/pkg/types/licensetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type noopLicensing struct {

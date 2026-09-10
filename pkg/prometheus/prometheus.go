@@ -41,7 +41,7 @@ type StatementCapturer interface {
 
 // ProviderClickhouseV2 is the clickhousev2 provider name: the factory
 // registration, the prometheus::provider config value and the
-// X-SigNoz-PromQL-Provider request header all use it, so they cannot drift
+// X-Argus-PromQL-Provider request header all use it, so they cannot drift
 // apart.
 const ProviderClickhouseV2 = "clickhousev2"
 

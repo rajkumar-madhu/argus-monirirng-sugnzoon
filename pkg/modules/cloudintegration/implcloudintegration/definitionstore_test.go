@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	citypes "github.com/SigNoz/signoz/pkg/types/cloudintegrationtypes"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	citypes "github.com/your-org/argus/pkg/types/cloudintegrationtypes"
 )
 
 func TestServiceDefinitionsAreValid(t *testing.T) {

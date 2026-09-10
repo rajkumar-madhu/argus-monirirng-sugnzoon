@@ -3,10 +3,10 @@ package metricreductionruletypes_test
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/http/binding"
-	"github.com/SigNoz/signoz/pkg/types/metricreductionruletypes"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/http/binding"
+	"github.com/your-org/argus/pkg/types/metricreductionruletypes"
 )
 
 func TestListReductionRulesParamsSortDefaults(t *testing.T) {

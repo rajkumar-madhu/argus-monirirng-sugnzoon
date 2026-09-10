@@ -3,7 +3,7 @@
 ##############################################################
 SHELL                   := /bin/bash
 SRC						?= $(shell pwd)
-NAME					?= signoz
+NAME					?= argus
 OS                      ?= $(shell uname -s | tr '[A-Z]' '[a-z]')
 ARCH                    ?= $(shell uname -m | sed 's/x86_64/amd64/g' | sed 's/aarch64/arm64/g')
 COMMIT_SHORT_SHA        ?= $(shell git rev-parse --short HEAD)
@@ -13,14 +13,14 @@ TIMESTAMP               ?= $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 ARCHS					?= amd64 arm64
 TARGET_DIR              ?= $(shell pwd)/target
 
-GO_BUILD_VERSION_LDFLAGS 		= -X github.com/SigNoz/signoz/pkg/version.version=$(VERSION) -X github.com/SigNoz/signoz/pkg/version.hash=$(COMMIT_SHORT_SHA) -X github.com/SigNoz/signoz/pkg/version.time=$(TIMESTAMP) -X github.com/SigNoz/signoz/pkg/version.branch=$(BRANCH_NAME)
+GO_BUILD_VERSION_LDFLAGS 		= -X github.com/your-org/argus/pkg/version.version=$(VERSION) -X github.com/your-org/argus/pkg/version.hash=$(COMMIT_SHORT_SHA) -X github.com/your-org/argus/pkg/version.time=$(TIMESTAMP) -X github.com/your-org/argus/pkg/version.branch=$(BRANCH_NAME)
 GO_BUILD_ARCHS_COMMUNITY 		= $(addprefix go-build-community-,$(ARCHS))
 GO_BUILD_CONTEXT_COMMUNITY 		= $(SRC)/cmd/community
-GO_BUILD_LDFLAGS_COMMUNITY 		= $(GO_BUILD_VERSION_LDFLAGS) -X github.com/SigNoz/signoz/pkg/version.variant=community
+GO_BUILD_LDFLAGS_COMMUNITY 		= $(GO_BUILD_VERSION_LDFLAGS) -X github.com/your-org/argus/pkg/version.variant=community
 
 DOCKER_BUILD_ARCHS_COMMUNITY 	= $(addprefix docker-build-community-,$(ARCHS))
 DOCKERFILE_COMMUNITY 			= $(SRC)/cmd/community/Dockerfile
-DOCKER_REGISTRY_COMMUNITY 		?= docker.io/signoz/signoz-community
+DOCKER_REGISTRY_COMMUNITY 		?= ghcr.io/your-org/argus
 JS_BUILD_CONTEXT 				= $(SRC)/frontend
 
 ##############################################################
@@ -58,7 +58,7 @@ devenv-signoz-otel-collector: ## Run signoz-otel-collector in devenv (requires c
 devenv-up: devenv-clickhouse devenv-signoz-otel-collector ## Start both clickhouse and signoz-otel-collector for local development
 	@echo "Development environment is ready!"
 	@echo "   - ClickHouse: http://localhost:8123"
-	@echo "   - Signoz OTel Collector: grpc://localhost:4317, http://localhost:4318"
+	@echo "   - Upstream OTel Collector: grpc://localhost:4317, http://localhost:4318"
 
 .PHONY: devenv-clickhouse-clean
 devenv-clickhouse-clean: ## Clean all ClickHouse data from filesystem
@@ -69,8 +69,8 @@ devenv-clickhouse-clean: ## Clean all ClickHouse data from filesystem
 ##############################################################
 # go commands
 ##############################################################
-SIGNOZ_SQLSTORE_SQLITE_PATH ?= signoz.db
-SIGNOZ_APISERVER_ADDRESS    ?= 0.0.0.0:8080
+ARGUS_SQLSTORE_SQLITE_PATH ?= argus.db
+ARGUS_APISERVER_ADDRESS    ?= 0.0.0.0:8080
 
 .PHONY: go-test
 go-test: ## Runs go unit tests
@@ -78,24 +78,24 @@ go-test: ## Runs go unit tests
 
 .PHONY: go-run-community
 go-run-community: ## Runs the community go backend server
-	@SIGNOZ_INSTRUMENTATION_LOGS_LEVEL=debug \
-	SIGNOZ_SQLSTORE_SQLITE_PATH=$(SIGNOZ_SQLSTORE_SQLITE_PATH) \
-	SIGNOZ_WEB_ENABLED=false \
-	SIGNOZ_TOKENIZER_JWT_SECRET=secret \
-	SIGNOZ_ALERTMANAGER_PROVIDER=signoz \
-	SIGNOZ_TELEMETRYSTORE_PROVIDER=clickhouse \
-	SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_DSN=tcp://127.0.0.1:9000 \
-	SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER=cluster \
+	@ARGUS_INSTRUMENTATION_LOGS_LEVEL=debug \
+	ARGUS_SQLSTORE_SQLITE_PATH=$(ARGUS_SQLSTORE_SQLITE_PATH) \
+	ARGUS_WEB_ENABLED=false \
+	ARGUS_TOKENIZER_JWT_SECRET=secret \
+	ARGUS_ALERTMANAGER_PROVIDER=argus \
+	ARGUS_TELEMETRYSTORE_PROVIDER=clickhouse \
+	ARGUS_TELEMETRYSTORE_CLICKHOUSE_DSN=tcp://127.0.0.1:9000 \
+	ARGUS_TELEMETRYSTORE_CLICKHOUSE_CLUSTER=cluster \
 	go run -race \
 		$(GO_BUILD_CONTEXT_COMMUNITY)/*.go server
 
 .PHONY: go-stop
-go-stop: ## Stops the go backend server listening on SIGNOZ_APISERVER_ADDRESS, waiting for it to release every port it holds
-	@PORT=$(lastword $(subst :, ,$(SIGNOZ_APISERVER_ADDRESS))); \
+go-stop: ## Stops the go backend server listening on ARGUS_APISERVER_ADDRESS, waiting for it to release every port it holds
+	@PORT=$(lastword $(subst :, ,$(ARGUS_APISERVER_ADDRESS))); \
 	PIDS=$$(lsof -ti tcp:$$PORT); \
 	if [ -z "$$PIDS" ]; then \
-		echo "No signoz server running on port $$PORT."; \
-		echo "If it's running on a different port, rerun as: make go-stop SIGNOZ_APISERVER_ADDRESS=host:port"; \
+		echo "No Argus server running on port $$PORT."; \
+		echo "If it's running on a different port, rerun as: make go-stop ARGUS_APISERVER_ADDRESS=host:port"; \
 		exit 0; \
 	fi; \
 	kill $$PIDS 2>/dev/null; \
@@ -109,7 +109,7 @@ go-stop: ## Stops the go backend server listening on SIGNOZ_APISERVER_ADDRESS, w
 		echo "Graceful shutdown did not finish in 10s, sending SIGKILL to $$alive"; \
 		kill -9 $$alive 2>/dev/null; \
 	fi; \
-	echo "Stopped signoz server on port $$PORT (pid $$PIDS)"
+	echo "Stopped Argus server on port $$PORT (pid $$PIDS)"
 
 .PHONY: go-build-community $(GO_BUILD_ARCHS_COMMUNITY)
 go-build-community: ## Builds the go backend server for community

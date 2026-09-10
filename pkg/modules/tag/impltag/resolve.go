@@ -4,9 +4,9 @@ import (
 	"context"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/types/tagtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/types/tagtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // resolve canonicalizes a batch of user-supplied (key, value) tag pairs against

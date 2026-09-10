@@ -3,11 +3,11 @@ package querybuilder
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/semconv"
-	"github.com/SigNoz/signoz/pkg/types/featuretypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/semconv"
+	"github.com/your-org/argus/pkg/types/featuretypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // semconvFamiliesEnabled evaluates the resolve_semconv_families flag for the

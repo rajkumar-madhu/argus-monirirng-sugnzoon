@@ -4,16 +4,16 @@ import (
 	"context"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/config"
-	"github.com/SigNoz/signoz/pkg/config/envprovider"
-	"github.com/SigNoz/signoz/pkg/factory"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/config"
+	"github.com/your-org/argus/pkg/config/envprovider"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 func TestNewWithEnvProvider(t *testing.T) {
-	t.Setenv("SIGNOZ_PPROF_ENABLED", "false")
-	t.Setenv("SIGNOZ_PPROF_ADDRESS", "127.0.0.1:6061")
+	t.Setenv("ARGUS_PPROF_ENABLED", "false")
+	t.Setenv("ARGUS_PPROF_ADDRESS", "127.0.0.1:6061")
 
 	conf, err := config.New(
 		context.Background(),

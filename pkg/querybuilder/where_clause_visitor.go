@@ -8,21 +8,21 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/flagger"
-	grammar "github.com/SigNoz/signoz/pkg/parser/filterquery/grammar"
-	"github.com/SigNoz/signoz/pkg/semconv"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/antlr4-go/antlr/v4"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/flagger"
+	grammar "github.com/your-org/argus/pkg/parser/filterquery/grammar"
+	"github.com/your-org/argus/pkg/semconv"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 
 	sqlbuilder "github.com/huandu/go-sqlbuilder"
 )
 
-var searchTroubleshootingGuideURL = "https://signoz.io/docs/userguide/search-troubleshooting/"
+var searchTroubleshootingGuideURL = "https://argus.example.com/docs/userguide/search-troubleshooting/"
 
-const stringMatchingOperatorDocURL = "https://signoz.io/docs/userguide/operators-reference/#string-matching-operators"
+const stringMatchingOperatorDocURL = "https://argus.example.com/docs/userguide/operators-reference/#string-matching-operators"
 
 // filterExpressionVisitor implements the FilterQueryVisitor interface
 // to convert the parsed filter expressions into ClickHouse WHERE clause.

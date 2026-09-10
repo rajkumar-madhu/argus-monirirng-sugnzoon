@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type IntegrationDashboardProviderType struct{ valuer.String }

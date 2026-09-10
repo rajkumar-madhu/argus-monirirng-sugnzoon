@@ -3,7 +3,7 @@ package utils
 import (
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
+	"github.com/your-org/argus/pkg/query-service/constants"
 )
 
 var (

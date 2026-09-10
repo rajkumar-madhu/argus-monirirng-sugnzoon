@@ -4,8 +4,8 @@ package nfmanager
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
 	"github.com/prometheus/common/model"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 // NotificationManager defines how alerts should be grouped and configured for notification.

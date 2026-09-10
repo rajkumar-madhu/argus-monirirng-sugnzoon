@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"unicode/utf8"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	qb "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/perses/spec/go/common"
 	"github.com/perses/spec/go/dashboard"
 	"github.com/perses/spec/go/dashboard/variable"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/errors"
+	qb "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // MaxDisplayNameLen bounds the human-readable display names — dashboard, panel,
@@ -48,7 +48,7 @@ type Panel struct {
 }
 
 // PanelKind is the panel envelope discriminator. Perses leaves it a free
-// string; SigNoz locks it to the single valid value.
+// string; Argus locks it to the single valid value.
 type PanelKind string
 
 const PanelKindPanel PanelKind = "Panel"
@@ -115,8 +115,8 @@ type Variable struct {
 
 func (Variable) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "kind", map[string]string{
-		string(variable.KindList): schemaRef("DashboardtypesVariableEnvelopeGithubComSigNozSignozPkgTypesDashboardtypesListVariableSpec"),
-		string(variable.KindText): schemaRef("DashboardtypesVariableEnvelopeGithubComSigNozSignozPkgTypesDashboardtypesTextVariableSpec"),
+		string(variable.KindList): schemaRef("DashboardtypesVariableEnvelopeGithubComArgusArgusPkgTypesDashboardtypesListVariableSpec"),
+		string(variable.KindText): schemaRef("DashboardtypesVariableEnvelopeGithubComArgusArgusPkgTypesDashboardtypesTextVariableSpec"),
 	})
 }
 
@@ -178,7 +178,7 @@ type ListVariableSpec struct {
 
 // VariableDefaultValue is a list variable's defaultValue: the string | []string
 // union. It subclasses the perses variable.DefaultValue (which marshals as a
-// scalar-or-array) so SigNoz can attach the oneOf schema to it as a named
+// scalar-or-array) so Argus can attach the oneOf schema to it as a named
 // component.
 //
 // Emitting it as a named oneOf component (and having defaultValue $ref it),

@@ -1,6 +1,6 @@
 package telemetrytypes
 
-import "github.com/SigNoz/signoz/pkg/valuer"
+import "github.com/your-org/argus/pkg/valuer"
 
 type Signal struct {
 	valuer.String

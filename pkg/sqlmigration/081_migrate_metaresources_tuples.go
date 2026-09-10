@@ -4,13 +4,13 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type migrateMetaresourcesTuples struct {
@@ -43,7 +43,7 @@ func (migration *migrateMetaresourcesTuples) Up(ctx context.Context, db *bun.DB)
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -86,19 +86,19 @@ func (migration *migrateMetaresourcesTuples) Up(ctx context.Context, db *bun.DB)
 	// Also add new detach tuples for role/user/serviceaccount.
 	tuples := []migrationTuple{
 		// New detach tuples for admin
-		{authtypes.SigNozAdminRoleName, "role", "role", "detach"},
-		{authtypes.SigNozAdminRoleName, "serviceaccount", "serviceaccount", "detach"},
+		{authtypes.ArgusAdminRoleName, "role", "role", "detach"},
+		{authtypes.ArgusAdminRoleName, "serviceaccount", "serviceaccount", "detach"},
 		// Replacement create/list for user/serviceaccount/role (moved from metaresources to own types)
-		{authtypes.SigNozAdminRoleName, "serviceaccount", "serviceaccount", "create"},
-		{authtypes.SigNozAdminRoleName, "serviceaccount", "serviceaccount", "list"},
-		{authtypes.SigNozAdminRoleName, "role", "role", "create"},
-		{authtypes.SigNozAdminRoleName, "role", "role", "list"},
+		{authtypes.ArgusAdminRoleName, "serviceaccount", "serviceaccount", "create"},
+		{authtypes.ArgusAdminRoleName, "serviceaccount", "serviceaccount", "list"},
+		{authtypes.ArgusAdminRoleName, "role", "role", "create"},
+		{authtypes.ArgusAdminRoleName, "role", "role", "list"},
 		// Replacement create/list for resources that move from "metaresources" to "metaresource"
-		{authtypes.SigNozAdminRoleName, "metaresource", "factor-api-key", "create"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "factor-api-key", "list"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "factor-api-key", "read"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "factor-api-key", "update"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "factor-api-key", "delete"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "factor-api-key", "create"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "factor-api-key", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "factor-api-key", "read"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "factor-api-key", "update"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "factor-api-key", "delete"},
 	}
 
 	for _, orgID := range orgIDs {

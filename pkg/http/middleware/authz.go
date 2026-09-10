@@ -6,14 +6,14 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/authz"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/http/render"
-	"github.com/SigNoz/signoz/pkg/modules/organization"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/authz"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/http/render"
+	"github.com/your-org/argus/pkg/modules/organization"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 const (
@@ -46,9 +46,9 @@ func (middleware *AuthZ) ViewAccess(next http.HandlerFunc) http.HandlerFunc {
 		}
 
 		selectors := []coretypes.Selector{
-			coretypes.TypeRole.MustSelector(authtypes.SigNozAdminRoleName),
-			coretypes.TypeRole.MustSelector(authtypes.SigNozEditorRoleName),
-			coretypes.TypeRole.MustSelector(authtypes.SigNozViewerRoleName),
+			coretypes.TypeRole.MustSelector(authtypes.ArgusAdminRoleName),
+			coretypes.TypeRole.MustSelector(authtypes.ArgusEditorRoleName),
+			coretypes.TypeRole.MustSelector(authtypes.ArgusViewerRoleName),
 		}
 
 		err = middleware.authzService.CheckWithTupleCreation(
@@ -85,8 +85,8 @@ func (middleware *AuthZ) EditAccess(next http.HandlerFunc) http.HandlerFunc {
 		}
 
 		selectors := []coretypes.Selector{
-			coretypes.TypeRole.MustSelector(authtypes.SigNozAdminRoleName),
-			coretypes.TypeRole.MustSelector(authtypes.SigNozEditorRoleName),
+			coretypes.TypeRole.MustSelector(authtypes.ArgusAdminRoleName),
+			coretypes.TypeRole.MustSelector(authtypes.ArgusEditorRoleName),
 		}
 
 		err = middleware.authzService.CheckWithTupleCreation(
@@ -123,7 +123,7 @@ func (middleware *AuthZ) AdminAccess(next http.HandlerFunc) http.HandlerFunc {
 		}
 
 		selectors := []coretypes.Selector{
-			coretypes.TypeRole.MustSelector(authtypes.SigNozAdminRoleName),
+			coretypes.TypeRole.MustSelector(authtypes.ArgusAdminRoleName),
 		}
 
 		err = middleware.authzService.CheckWithTupleCreation(

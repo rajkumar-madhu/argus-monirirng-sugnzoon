@@ -5,11 +5,11 @@ import (
 	"math"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/modules/rulestatehistory"
-	"github.com/SigNoz/signoz/pkg/types/rulestatehistorytypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/modules/rulestatehistory"
+	"github.com/your-org/argus/pkg/types/rulestatehistorytypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type module struct {

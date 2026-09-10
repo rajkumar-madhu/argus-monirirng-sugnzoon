@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/prometheus/alertmanager/config"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 // ════════════════════════════════════════════════════════════════════════

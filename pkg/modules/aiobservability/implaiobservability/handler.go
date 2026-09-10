@@ -6,16 +6,16 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/http/binding"
-	"github.com/SigNoz/signoz/pkg/http/render"
-	"github.com/SigNoz/signoz/pkg/modules/aiobservability"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/aitelemetryschema"
-	"github.com/SigNoz/signoz/pkg/types/aiobservabilitytypes"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/http/binding"
+	"github.com/your-org/argus/pkg/http/render"
+	"github.com/your-org/argus/pkg/modules/aiobservability"
+	"github.com/your-org/argus/pkg/telemetryschema/aitelemetryschema"
+	"github.com/your-org/argus/pkg/types/aiobservabilitytypes"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type handler struct {
@@ -25,7 +25,7 @@ type handler struct {
 
 func NewHandler(providerSettings factory.ProviderSettings, telemetryMetadataStore telemetrytypes.MetadataStore) aiobservability.Handler {
 	return &handler{
-		settings:               factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/modules/aiobservability/implaiobservability"),
+		settings:               factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/modules/aiobservability/implaiobservability"),
 		telemetryMetadataStore: telemetryMetadataStore,
 	}
 }

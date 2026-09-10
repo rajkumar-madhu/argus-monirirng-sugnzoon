@@ -3,8 +3,8 @@ package queryparser
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/queryparser/queryfilterextractor"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/queryparser/queryfilterextractor"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 // QueryParser defines the interface for parsing and analyzing queries.

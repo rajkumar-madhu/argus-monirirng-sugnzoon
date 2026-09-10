@@ -3,9 +3,9 @@ package cachetest
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/cache/memorycache"
-	"github.com/SigNoz/signoz/pkg/factory/factorytest"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/cache/memorycache"
+	"github.com/your-org/argus/pkg/factory/factorytest"
 )
 
 func New(config cache.Config) (cache.Cache, error) {

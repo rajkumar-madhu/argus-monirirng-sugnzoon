@@ -1,7 +1,7 @@
 package analytics
 
 import (
-	"github.com/SigNoz/signoz/pkg/factory"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 // This will be set via ldflags at build time.

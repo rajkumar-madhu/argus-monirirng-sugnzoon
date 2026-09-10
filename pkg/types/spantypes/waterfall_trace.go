@@ -7,7 +7,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/cachetypes"
+	"github.com/your-org/argus/pkg/types/cachetypes"
 )
 
 type TraceSummary struct {

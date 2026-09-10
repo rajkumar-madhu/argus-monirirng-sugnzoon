@@ -4,8 +4,8 @@ import (
 	"context"
 	"math"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sharder"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sharder"
 )
 
 type provider struct {
@@ -17,7 +17,7 @@ func NewFactory() factory.ProviderFactory[sharder.Sharder, sharder.Config] {
 }
 
 func New(ctx context.Context, providerSettings factory.ProviderSettings, config sharder.Config) (sharder.Sharder, error) {
-	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/sharder/noopsharder")
+	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/sharder/noopsharder")
 
 	return &provider{
 		settings: settings,

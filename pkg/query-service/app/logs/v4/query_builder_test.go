@@ -3,9 +3,9 @@ package v4
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 func Test_getClickhouseKey(t *testing.T) {
@@ -559,7 +559,7 @@ func Test_orderByAttributeKeyTags(t *testing.T) {
 						Order:      "asc",
 					},
 					{
-						ColumnName: constants.SigNozOrderByValue,
+						ColumnName: constants.ArgusOrderByValue,
 						Order:      "desc",
 					},
 				},
@@ -604,7 +604,7 @@ func Test_orderByAttributeKeyTags(t *testing.T) {
 						Order:      "asc",
 					},
 					{
-						ColumnName: constants.SigNozOrderByValue,
+						ColumnName: constants.ArgusOrderByValue,
 						Order:      "asc",
 					},
 					{
@@ -631,7 +631,7 @@ func Test_orderByAttributeKeyTags(t *testing.T) {
 						Order:      "asc",
 					},
 					{
-						ColumnName: constants.SigNozOrderByValue,
+						ColumnName: constants.ArgusOrderByValue,
 						Order:      "asc",
 					},
 					{

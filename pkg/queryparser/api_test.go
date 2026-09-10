@@ -11,9 +11,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/instrumentation/instrumentationtest"
-	"github.com/SigNoz/signoz/pkg/types/parsertypes"
-	"github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/instrumentation/instrumentationtest"
+	"github.com/your-org/argus/pkg/types/parsertypes"
+	"github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 func TestAPI_AnalyzeQueryFilter(t *testing.T) {

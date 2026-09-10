@@ -14,8 +14,8 @@ If you believe you have found a security vulnerability within SigNoz, please let
 
 Instead, report it privately through GitHub's private vulnerability reporting:
 
-1. Go to the [**Security** tab](https://github.com/SigNoz/signoz/security) of this repository.
-2. Click **Report a vulnerability**, or use [this link](https://github.com/SigNoz/signoz/security/advisories/new).
+1. Go to the [**Security** tab](https://github.com/your-org/argus/security) of this repository.
+2. Click **Report a vulnerability**, or use [this link](https://github.com/your-org/argus/security/advisories/new).
 3. Describe the issue with as much detail as you can — affected version, impact, and steps to reproduce help us triage faster. Please submit one report per vulnerability.
 
 This opens a private advisory visible only to you and the SigNoz maintainers. We'll respond there, keep you updated as we work on a fix, and coordinate disclosure. If the report is valid we'll credit you on the published advisory and request a CVE.

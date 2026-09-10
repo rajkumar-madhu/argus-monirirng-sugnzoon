@@ -20,13 +20,13 @@ const (
 	GenAIOutputMessages = "gen_ai.output.messages"
 )
 
-// Per-span costs the SigNoz LLM pricing processor attaches; not OTel semconv.
+// Per-span costs the Argus LLM pricing processor attaches; not OTel semconv.
 const (
-	SignozGenAICostInput      = "_signoz.gen_ai.cost_input"
-	SignozGenAICostOutput     = "_signoz.gen_ai.cost_output"
-	SignozGenAICostCacheRead  = "_signoz.gen_ai.cost_cache_read"
-	SignozGenAICostCacheWrite = "_signoz.gen_ai.cost_cache_write"
-	SignozGenAITotalCost      = "_signoz.gen_ai.total_cost"
+	ArgusGenAICostInput      = "_signoz.gen_ai.cost_input"
+	ArgusGenAICostOutput     = "_signoz.gen_ai.cost_output"
+	ArgusGenAICostCacheRead  = "_signoz.gen_ai.cost_cache_read"
+	ArgusGenAICostCacheWrite = "_signoz.gen_ai.cost_cache_write"
+	ArgusGenAITotalCost      = "_signoz.gen_ai.total_cost"
 )
 
 // GenAISpanGateKeys mark a span as gen_ai: an LLM call, a tool call, or an

@@ -5,14 +5,14 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/http/binding"
-	"github.com/SigNoz/signoz/pkg/http/render"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/savedviewtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/gorilla/mux"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/http/binding"
+	"github.com/your-org/argus/pkg/http/render"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/savedviewtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func (handler *handler) CreateV2(w http.ResponseWriter, r *http.Request) {

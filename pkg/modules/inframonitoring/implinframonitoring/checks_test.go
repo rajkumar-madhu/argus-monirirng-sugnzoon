@@ -3,8 +3,8 @@ package implinframonitoring
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/inframonitoringtypes"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/inframonitoringtypes"
 )
 
 // Component used across splitBucket cases — it's a processor so the test

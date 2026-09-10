@@ -8,16 +8,16 @@ import (
 	"time"
 
 	signozstanzahelper "github.com/SigNoz/signoz-otel-collector/processor/signozlogspipelineprocessor/stanza/operator/helper"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/utils"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/pipelinetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/google/uuid"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/query-service/model"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/utils"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/pipelinetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var prepareProcessorTestData = []struct {
@@ -247,7 +247,7 @@ func TestNoCollectorErrorsFromProcessorsForMismatchedLogs(t *testing.T) {
 	makeTestLog := func(
 		body string,
 		attributes map[string]string,
-	) model.SignozLog {
+	) model.ArgusLog {
 		attributes["method"] = "GET"
 
 		testTraceId, err := utils.RandomHex(16)
@@ -256,7 +256,7 @@ func TestNoCollectorErrorsFromProcessorsForMismatchedLogs(t *testing.T) {
 		testSpanId, err := utils.RandomHex(8)
 		require.Nil(err)
 
-		return model.SignozLog{
+		return model.ArgusLog{
 			Timestamp:         uint64(time.Now().UnixNano()),
 			Body:              body,
 			Attributes_string: attributes,
@@ -271,7 +271,7 @@ func TestNoCollectorErrorsFromProcessorsForMismatchedLogs(t *testing.T) {
 	type pipelineTestCase struct {
 		Name           string
 		Operator       pipelinetypes.PipelineOperator
-		NonMatchingLog model.SignozLog
+		NonMatchingLog model.ArgusLog
 	}
 
 	testCases := []pipelineTestCase{
@@ -460,7 +460,7 @@ func TestNoCollectorErrorsFromProcessorsForMismatchedLogs(t *testing.T) {
 		result, collectorWarnAndErrorLogs, err := SimulatePipelinesProcessing(
 			context.Background(),
 			testPipelines,
-			[]model.SignozLog{testCase.NonMatchingLog},
+			[]model.ArgusLog{testCase.NonMatchingLog},
 		)
 		require.Nil(err)
 		require.Equal(0, len(collectorWarnAndErrorLogs), strings.Join(collectorWarnAndErrorLogs, "\n"))
@@ -507,7 +507,7 @@ func TestResourceFiltersWork(t *testing.T) {
 		},
 	}
 
-	testLog := model.SignozLog{
+	testLog := model.ArgusLog{
 		Timestamp:         uint64(time.Now().UnixNano()),
 		Body:              "test log",
 		Attributes_string: map[string]string{},
@@ -523,7 +523,7 @@ func TestResourceFiltersWork(t *testing.T) {
 	result, collectorWarnAndErrorLogs, err := SimulatePipelinesProcessing(
 		context.Background(),
 		[]pipelinetypes.GettablePipeline{testPipeline},
-		[]model.SignozLog{testLog},
+		[]model.ArgusLog{testLog},
 	)
 	require.Nil(err)
 	require.Equal(0, len(collectorWarnAndErrorLogs), strings.Join(collectorWarnAndErrorLogs, "\n"))
@@ -577,7 +577,7 @@ func TestPipelineFilterWithStringOpsShouldNotSpamWarningsIfAttributeIsMissing(t 
 			},
 		}
 
-		testLog := model.SignozLog{
+		testLog := model.ArgusLog{
 			Timestamp:         uint64(time.Now().UnixNano()),
 			Body:              "test log",
 			Attributes_string: map[string]string{},
@@ -591,7 +591,7 @@ func TestPipelineFilterWithStringOpsShouldNotSpamWarningsIfAttributeIsMissing(t 
 		result, collectorWarnAndErrorLogs, err := SimulatePipelinesProcessing(
 			context.Background(),
 			[]pipelinetypes.GettablePipeline{testPipeline},
-			[]model.SignozLog{testLog},
+			[]model.ArgusLog{testLog},
 		)
 		require.Nil(err)
 		require.Equal(0, len(collectorWarnAndErrorLogs), strings.Join(collectorWarnAndErrorLogs, "\n"))
@@ -638,8 +638,8 @@ func TestAttributePathsContainingDollarDoNotBreakCollector(t *testing.T) {
 		},
 	}
 
-	testLogs := []model.SignozLog{
-		makeTestSignozLog("test log", map[string]interface{}{
+	testLogs := []model.ArgusLog{
+		makeTestArgusLog("test log", map[string]interface{}{
 			"$test": "test",
 		}),
 	}
@@ -658,8 +658,8 @@ func TestAttributePathsContainingDollarDoNotBreakCollector(t *testing.T) {
 func TestMembershipOpInProcessorFieldExpressions(t *testing.T) {
 	require := require.New(t)
 
-	testLogs := []model.SignozLog{
-		makeTestSignozLog("test log", map[string]any{
+	testLogs := []model.ArgusLog{
+		makeTestArgusLog("test log", map[string]any{
 			"http.method":    "GET",
 			"order.products": `{"ids": ["pid0", "pid1"]}`,
 		}),
@@ -770,8 +770,8 @@ func TestContainsFilterIsCaseInsensitive(t *testing.T) {
 	// Pipeline filter should also behave in the same way.
 	require := require.New(t)
 
-	testLogs := []model.SignozLog{
-		makeTestSignozLog("test Ecom Log", map[string]interface{}{}),
+	testLogs := []model.ArgusLog{
+		makeTestArgusLog("test Ecom Log", map[string]interface{}{}),
 	}
 
 	testPipelines := []pipelinetypes.GettablePipeline{{

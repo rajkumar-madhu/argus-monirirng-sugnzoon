@@ -183,7 +183,7 @@ def install_histogram_quantile(container: ClickHouseContainer) -> None:
                 'node_os=$(uname -s | tr "[:upper:]" "[:lower:]") && '
                 "node_arch=$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && "
                 "cd /tmp && "
-                'wget -O histogram-quantile.tar.gz "https://github.com/SigNoz/signoz/releases/download/histogram-quantile%2F${version}/histogram-quantile_${node_os}_${node_arch}.tar.gz" && '
+                'wget -O histogram-quantile.tar.gz "https://github.com/your-org/argus/releases/download/histogram-quantile%2F${version}/histogram-quantile_${node_os}_${node_arch}.tar.gz" && '
                 "tar -xzf histogram-quantile.tar.gz && "
                 "mkdir -p /var/lib/clickhouse/user_scripts && "
                 "mv histogram-quantile /var/lib/clickhouse/user_scripts/histogramQuantile && "

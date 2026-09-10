@@ -3,11 +3,11 @@ package impltracedetail
 import (
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/http/binding"
-	"github.com/SigNoz/signoz/pkg/http/render"
-	"github.com/SigNoz/signoz/pkg/modules/tracedetail"
-	"github.com/SigNoz/signoz/pkg/types/spantypes"
 	"github.com/gorilla/mux"
+	"github.com/your-org/argus/pkg/http/binding"
+	"github.com/your-org/argus/pkg/http/render"
+	"github.com/your-org/argus/pkg/modules/tracedetail"
+	"github.com/your-org/argus/pkg/types/spantypes"
 )
 
 type handler struct {

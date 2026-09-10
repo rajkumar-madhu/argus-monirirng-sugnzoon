@@ -1,6 +1,6 @@
 package preferencetypes
 
-import "github.com/SigNoz/signoz/pkg/valuer"
+import "github.com/your-org/argus/pkg/valuer"
 
 var (
 	ScopeOrg  = Scope{valuer.NewString("org")}

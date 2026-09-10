@@ -5,25 +5,25 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/config"
-	"github.com/SigNoz/signoz/pkg/config/envprovider"
-	"github.com/SigNoz/signoz/pkg/factory"
-	httpserver "github.com/SigNoz/signoz/pkg/http/server"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/config"
+	"github.com/your-org/argus/pkg/config/envprovider"
+	"github.com/your-org/argus/pkg/factory"
+	httpserver "github.com/your-org/argus/pkg/http/server"
 )
 
 func TestNewWithEnvProvider(t *testing.T) {
-	t.Setenv("SIGNOZ_APISERVER_ADDRESS", "0.0.0.0:9090")
-	t.Setenv("SIGNOZ_APISERVER_READ__TIMEOUT", "80s")
-	t.Setenv("SIGNOZ_APISERVER_TLS_ENABLED", "true")
-	t.Setenv("SIGNOZ_APISERVER_TLS_CERT__FILE", "/etc/signoz/server.crt")
-	t.Setenv("SIGNOZ_APISERVER_TLS_KEY__FILE", "/etc/signoz/server.key")
-	t.Setenv("SIGNOZ_APISERVER_TLS_MIN__VERSION", "1.3")
-	t.Setenv("SIGNOZ_APISERVER_TIMEOUT_DEFAULT", "70s")
-	t.Setenv("SIGNOZ_APISERVER_TIMEOUT_MAX", "700s")
-	t.Setenv("SIGNOZ_APISERVER_TIMEOUT_EXCLUDED__ROUTES", "/excluded1,/excluded2")
-	t.Setenv("SIGNOZ_APISERVER_LOGGING_EXCLUDED__ROUTES", "/api/v1/health1")
+	t.Setenv("ARGUS_APISERVER_ADDRESS", "0.0.0.0:9090")
+	t.Setenv("ARGUS_APISERVER_READ__TIMEOUT", "80s")
+	t.Setenv("ARGUS_APISERVER_TLS_ENABLED", "true")
+	t.Setenv("ARGUS_APISERVER_TLS_CERT__FILE", "/etc/argus/server.crt")
+	t.Setenv("ARGUS_APISERVER_TLS_KEY__FILE", "/etc/argus/server.key")
+	t.Setenv("ARGUS_APISERVER_TLS_MIN__VERSION", "1.3")
+	t.Setenv("ARGUS_APISERVER_TIMEOUT_DEFAULT", "70s")
+	t.Setenv("ARGUS_APISERVER_TIMEOUT_MAX", "700s")
+	t.Setenv("ARGUS_APISERVER_TIMEOUT_EXCLUDED__ROUTES", "/excluded1,/excluded2")
+	t.Setenv("ARGUS_APISERVER_LOGGING_EXCLUDED__ROUTES", "/api/v1/health1")
 
 	conf, err := config.New(
 		context.Background(),
@@ -50,8 +50,8 @@ func TestNewWithEnvProvider(t *testing.T) {
 			ReadTimeout: 80 * time.Second,
 			TLS: httpserver.TLS{
 				Enabled:    true,
-				CertFile:   "/etc/signoz/server.crt",
-				KeyFile:    "/etc/signoz/server.key",
+				CertFile:   "/etc/argus/server.crt",
+				KeyFile:    "/etc/argus/server.key",
 				MinVersion: "1.3",
 			},
 		},

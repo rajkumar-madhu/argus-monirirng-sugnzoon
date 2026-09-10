@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/telemetrystore"
 )
 
 func TestNew(t *testing.T) {

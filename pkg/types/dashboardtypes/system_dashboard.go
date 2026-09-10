@@ -3,10 +3,10 @@ package dashboardtypes
 import (
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
@@ -16,7 +16,7 @@ var (
 )
 
 // ProvisionerIdentity is stamped into created_by/updated_by by the reconciler.
-const ProvisionerIdentity = "signoz"
+const ProvisionerIdentity = "argus"
 
 // StorableSystemDashboard records the shipped version each org's copy of a system
 // dashboard was last provisioned at. That version is the only thing the dashboard

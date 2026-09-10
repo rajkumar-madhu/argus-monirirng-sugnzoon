@@ -5,13 +5,13 @@ import (
 	"testing"
 	"time"
 
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/savedviewtypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/savedviewtypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func testQueries() []qbtypes.QueryEnvelope {
@@ -163,8 +163,8 @@ func TestNewLegacyViewFromSavedView(t *testing.T) {
 	savedView.ID = valuer.GenerateUUID()
 	savedView.CreatedAt = now
 	savedView.UpdatedAt = now
-	savedView.CreatedBy = "creator@signoz.io"
-	savedView.UpdatedBy = "updater@signoz.io"
+	savedView.CreatedBy = "creator@argus.example.com"
+	savedView.UpdatedBy = "updater@argus.example.com"
 
 	legacy, err := newLegacyViewFromSavedView(savedView)
 	require.NoError(t, err)

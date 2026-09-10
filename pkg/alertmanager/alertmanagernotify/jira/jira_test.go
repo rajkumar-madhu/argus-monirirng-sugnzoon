@@ -12,9 +12,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/notify/test"
 	"github.com/prometheus/alertmanager/types"
@@ -22,6 +19,9 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagertemplate"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 )
 
 type mockReq struct {
@@ -274,8 +274,8 @@ func (m *mockJira) lastBody(t *testing.T, suffix string) map[string]any {
 func TestNotifyRichDescriptionPanelAndLinks(t *testing.T) {
 	m := newMockJira(t)
 	a := alert(true)
-	a.Labels[ruletypes.LabelRuleSource] = model.LabelValue("https://app.signoz.io/alerts?ruleId=1")
-	a.Annotations[ruletypes.AnnotationRelatedLogs] = model.LabelValue("https://app.signoz.io/logs")
+	a.Labels[ruletypes.LabelRuleSource] = model.LabelValue("https://argus.example.com/alerts?ruleId=1")
+	a.Annotations[ruletypes.AnnotationRelatedLogs] = model.LabelValue("https://argus.example.com/logs")
 
 	_, err := newNotifier(t, m).Notify(ctx(), a)
 	require.NoError(t, err)
@@ -284,13 +284,13 @@ func TestNotifyRichDescriptionPanelAndLinks(t *testing.T) {
 	js, err := json.Marshal(body)
 	require.NoError(t, err)
 	s := string(js)
-	assert.Contains(t, s, `"panel"`)                               // status panel present
-	assert.Contains(t, s, `"error"`)                               // firing → error panel
-	assert.Contains(t, s, "Open in SigNoz")                        // rule deep-link
-	assert.Contains(t, s, "https://app.signoz.io/alerts?ruleId=1") // rule url
-	assert.Contains(t, s, "View Related Logs")                     // related-logs deep-link
-	assert.Contains(t, s, "Summary:")                              // labeled body section
-	assert.Contains(t, s, "cpu high")                              // rendered annotation
+	assert.Contains(t, s, `"panel"`)                              // status panel present
+	assert.Contains(t, s, `"error"`)                              // firing → error panel
+	assert.Contains(t, s, "Open in Argus")                        // rule deep-link
+	assert.Contains(t, s, "https://argus.example.com/alerts?ruleId=1") // rule url
+	assert.Contains(t, s, "View Related Logs")                    // related-logs deep-link
+	assert.Contains(t, s, "Summary:")                             // labeled body section
+	assert.Contains(t, s, "cpu high")                             // rendered annotation
 }
 
 func TestNotifyCustomTemplateAnnotationsOverrideDefaults(t *testing.T) {

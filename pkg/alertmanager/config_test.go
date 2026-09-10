@@ -8,18 +8,18 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/config"
-	"github.com/SigNoz/signoz/pkg/config/envprovider"
-	"github.com/SigNoz/signoz/pkg/factory"
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/config"
+	"github.com/your-org/argus/pkg/config/envprovider"
+	"github.com/your-org/argus/pkg/factory"
 )
 
-const prefix = "SIGNOZ_"
+const prefix = "ARGUS_"
 
-// clearSignozEnv unsets all existing SIGNOZ_* env vars for the duration of the test.
-func clearSignozEnv(t *testing.T) {
+// clearArgusEnv unsets all existing ARGUS_* env vars for the duration of the test.
+func clearArgusEnv(t *testing.T) {
 	t.Helper()
 	for _, kv := range os.Environ() {
 		if strings.HasPrefix(kv, prefix) {
@@ -32,12 +32,12 @@ func clearSignozEnv(t *testing.T) {
 }
 
 func TestNewWithEnvProvider(t *testing.T) {
-	clearSignozEnv(t)
-	t.Setenv("SIGNOZ_ALERTMANAGER_PROVIDER", "signoz")
-	t.Setenv("SIGNOZ_ALERTMANAGER_LEGACY_API__URL", "http://localhost:9093/api")
-	t.Setenv("SIGNOZ_ALERTMANAGER_SIGNOZ_ROUTE_REPEAT__INTERVAL", "5m")
-	t.Setenv("SIGNOZ_ALERTMANAGER_SIGNOZ_EXTERNAL__URL", "https://example.com/test")
-	t.Setenv("SIGNOZ_ALERTMANAGER_SIGNOZ_GLOBAL_RESOLVE__TIMEOUT", "10s")
+	clearArgusEnv(t)
+	t.Setenv("ARGUS_ALERTMANAGER_PROVIDER", "argus")
+	t.Setenv("ARGUS_ALERTMANAGER_LEGACY_API__URL", "http://localhost:9093/api")
+	t.Setenv("ARGUS_ALERTMANAGER_ARGUS_ROUTE_REPEAT__INTERVAL", "5m")
+	t.Setenv("ARGUS_ALERTMANAGER_ARGUS_EXTERNAL__URL", "https://example.com/test")
+	t.Setenv("ARGUS_ALERTMANAGER_ARGUS_GLOBAL_RESOLVE__TIMEOUT", "10s")
 
 	conf, err := config.New(
 		context.Background(),
@@ -58,17 +58,17 @@ func TestNewWithEnvProvider(t *testing.T) {
 	require.NoError(t, err)
 
 	def := NewConfigFactory().New().(Config)
-	def.Signoz.Global.ResolveTimeout = model.Duration(10 * time.Second)
-	def.Signoz.Route.RepeatInterval = 5 * time.Minute
-	def.Signoz.ExternalURL = &url.URL{
+	def.Argus.Global.ResolveTimeout = model.Duration(10 * time.Second)
+	def.Argus.Route.RepeatInterval = 5 * time.Minute
+	def.Argus.ExternalURL = &url.URL{
 		Scheme: "https",
 		Host:   "example.com",
 		Path:   "/test",
 	}
 
 	expected := &Config{
-		Provider: "signoz",
-		Signoz:   def.Signoz,
+		Provider: "argus",
+		Argus:    def.Argus,
 	}
 
 	assert.Equal(t, expected, actual)

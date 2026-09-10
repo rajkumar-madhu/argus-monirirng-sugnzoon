@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/template"

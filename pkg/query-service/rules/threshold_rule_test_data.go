@@ -3,9 +3,9 @@ package rules
 import (
 	"time"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/ruletypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 type recoveryTestCase struct {

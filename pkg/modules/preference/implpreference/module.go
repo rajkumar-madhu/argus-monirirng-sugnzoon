@@ -3,10 +3,10 @@ package implpreference
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/modules/preference"
-	"github.com/SigNoz/signoz/pkg/types/preferencetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/modules/preference"
+	"github.com/your-org/argus/pkg/types/preferencetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type module struct {

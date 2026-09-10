@@ -3,7 +3,7 @@ package zeustypes
 import (
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 type MeterWindow struct {

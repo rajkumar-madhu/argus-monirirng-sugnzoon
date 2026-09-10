@@ -1,4 +1,4 @@
-// Copyright (c) 2026 SigNoz, Inc.
+// Copyright (c) 2026 Argus, Inc.
 // Copyright 2019 Prometheus Team
 // SPDX-License-Identifier: Apache-2.0
 
@@ -19,14 +19,14 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/prometheus/common/model"
 	"github.com/prometheus/common/promslog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagertemplate"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 
 	"github.com/prometheus/alertmanager/config"
 	"github.com/prometheus/alertmanager/notify"
@@ -596,7 +596,7 @@ func TestBuildHTMLDescriptionOverflow(t *testing.T) {
 			assert.Equal(t, strings.Count(got, "<div>"), strings.Count(got, "</div>"))
 			assert.True(t, strings.HasSuffix(got, "</div>"))
 			if c.wantTrailer {
-				assert.Regexp(t, `…and \d+ more alerts\. Open in SigNoz for the full list\.`, got)
+				assert.Regexp(t, `…and \d+ more alerts\. Open in Argus for the full list\.`, got)
 			} else {
 				assert.NotContains(t, got, "more alerts")
 			}
@@ -641,7 +641,7 @@ func TestPrepareContentDescriptionOverflow(t *testing.T) {
 	require.NoError(t, err)
 	assert.LessOrEqual(t, utf8.RuneCountInString(desc), maxDescriptionLenRunes)
 	assert.Equal(t, strings.Count(desc, "<div>"), strings.Count(desc, "</div>"))
-	assert.Regexp(t, `…and \d+ more alerts\. Open in SigNoz for the full list\.`, desc)
+	assert.Regexp(t, `…and \d+ more alerts\. Open in Argus for the full list\.`, desc)
 }
 
 func repeatParts(part string, n int) []string {

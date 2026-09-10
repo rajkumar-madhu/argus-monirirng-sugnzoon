@@ -10,12 +10,12 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/prometheus/alertmanager/config"
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/prometheus/common/model"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
@@ -158,7 +158,7 @@ func (ChannelConfig) JSONSchemaOneOf() []any {
 }
 
 // PrepareJSONSchema marks the envelope with x-signoz-discriminator, which
-// signoz.attachDiscriminators promotes to a real discriminator after reflection.
+// argus.attachDiscriminators promotes to a real discriminator after reflection.
 func (ChannelConfig) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "kind", map[string]string{
 		ChannelKindSlack.StringValue():      channelVariantRef("ChannelSlackConfig"),
@@ -868,7 +868,7 @@ func newChannelIncidentIOConfigFromReceiver(name string, receiver *Receiver) (Ch
 // Helpers
 // ════════════════════════════════════════════════════════════════════════
 
-// bearerAuthorizationType is the scheme SigNoz writes for token auth.
+// bearerAuthorizationType is the scheme Argus writes for token auth.
 const bearerAuthorizationType = "Bearer"
 
 // parseSecretURL and parseUpstreamURL wrap the two URL types upstream uses for
@@ -1150,7 +1150,7 @@ func decodeChannelSpec[T ChannelSpec](specJSON []byte, target T, channelType str
 	return &target, nil
 }
 
-// signozDiscriminatorKey is the extension key that signoz.attachDiscriminators
+// signozDiscriminatorKey is the extension key that argus.attachDiscriminators
 // promotes into a native OpenAPI 3 discriminator after reflection.
 const signozDiscriminatorKey = "x-signoz-discriminator"
 
@@ -1163,7 +1163,7 @@ func schemaRef(name string) string {
 // ChannelConfigVariant instantiation: the generic's name followed by the fully
 // qualified type argument.
 func channelVariantRef(spec string) string {
-	return schemaRef("AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypes" + spec)
+	return schemaRef("AlertmanagertypesChannelConfigVariantGithubComArgusArgusPkgTypesAlertmanagertypes" + spec)
 }
 
 // markDiscriminator tags a oneOf schema with x-signoz-discriminator, keyed on

@@ -8,13 +8,13 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	cmock "github.com/SigNoz/clickhouse-go-mock"
-	"github.com/SigNoz/signoz/pkg/modules/tracedetail/impltracedetail"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
-	"github.com/SigNoz/signoz/pkg/telemetrystore/telemetrystoretest"
-	"github.com/SigNoz/signoz/pkg/types/spantypes"
-	"github.com/SigNoz/signoz/pkg/types/spantypes/spantypestest"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/modules/tracedetail/impltracedetail"
+	"github.com/your-org/argus/pkg/telemetrystore"
+	"github.com/your-org/argus/pkg/telemetrystore/telemetrystoretest"
+	"github.com/your-org/argus/pkg/types/spantypes"
+	"github.com/your-org/argus/pkg/types/spantypes/spantypestest"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 var (

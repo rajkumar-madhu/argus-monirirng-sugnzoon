@@ -8,14 +8,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlschema"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlschema"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // sanitizeForEmail converts an arbitrary string into a valid email local part
@@ -244,9 +244,9 @@ func (migration *deprecateAPIKey) Up(ctx context.Context, db *bun.DB) error {
 			OrgID:        user.OrgID,
 		})
 
-		managedRoleName, ok := authtypes.ExistingRoleToSigNozManagedRoleMap[types.Role(oldKey.Role)]
+		managedRoleName, ok := authtypes.ExistingRoleToArgusManagedRoleMap[types.Role(oldKey.Role)]
 		if !ok {
-			managedRoleName = authtypes.SigNozViewerRoleName
+			managedRoleName = authtypes.ArgusViewerRoleName
 		}
 
 		roleID, ok := roleMap[orgRoleKey{OrgID: user.OrgID, RoleName: managedRoleName}]

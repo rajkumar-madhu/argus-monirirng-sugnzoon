@@ -4,8 +4,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/telemetryschema/tracestelemetryschema"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/telemetryschema/tracestelemetryschema"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 // boolFieldValues is the suggestion set for a bool field, optionally narrowed

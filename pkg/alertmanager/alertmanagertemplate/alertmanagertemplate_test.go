@@ -7,11 +7,11 @@ import (
 	"testing"
 	"time"
 
-	test "github.com/SigNoz/signoz/pkg/alertmanager/alertmanagernotify/alertmanagernotifytest"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/require"
+	test "github.com/your-org/argus/pkg/alertmanager/alertmanagernotify/alertmanagernotifytest"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/types"

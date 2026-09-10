@@ -4,16 +4,16 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	qb "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/prometheus/common/model"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/errors"
+	qb "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // ══════════════════════════════════════════════
-// SigNoz variable plugin specs
+// Argus variable plugin specs
 // ══════════════════════════════════════════════
 
 type VariablePluginKind string
@@ -86,7 +86,7 @@ type CustomVariableSpec struct {
 }
 
 // ══════════════════════════════════════════════
-// SigNoz query plugin specs — aliased from querybuildertypesv5
+// Argus query plugin specs — aliased from querybuildertypesv5
 // ══════════════════════════════════════════════
 
 type QueryPluginKind string
@@ -142,9 +142,9 @@ func (b BuilderQuerySpec) MarshalJSON() ([]byte, error) {
 // cleanly even though it doesn't carry a `kind`.
 func (BuilderQuerySpec) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "signal", map[string]string{
-		telemetrytypes.SignalLogs.StringValue():    schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation"),
-		telemetrytypes.SignalMetrics.StringValue(): schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation"),
-		telemetrytypes.SignalTraces.StringValue():  schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation"),
+		telemetrytypes.SignalLogs.StringValue():    schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation"),
+		telemetrytypes.SignalMetrics.StringValue(): schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation"),
+		telemetrytypes.SignalTraces.StringValue():  schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation"),
 	})
 }
 
@@ -160,7 +160,7 @@ func (BuilderQuerySpec) JSONSchemaOneOf() []any {
 }
 
 // ══════════════════════════════════════════════
-// SigNoz panel plugin specs
+// Argus panel plugin specs
 // ══════════════════════════════════════════════
 
 type PanelPluginKind string

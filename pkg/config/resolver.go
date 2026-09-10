@@ -3,7 +3,7 @@ package config
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 var (

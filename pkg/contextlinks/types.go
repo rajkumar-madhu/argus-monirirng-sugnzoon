@@ -1,7 +1,7 @@
 package contextlinks
 
 import (
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 )
 
 // TODO(srikanthccv): Fix the URL management.

@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/SigNoz/signoz/pkg/modules/dashboard"
-	"github.com/SigNoz/signoz/pkg/query-service/agentConf"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/pipelinetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/modules/dashboard"
+	"github.com/your-org/argus/pkg/query-service/agentConf"
+	"github.com/your-org/argus/pkg/query-service/model"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/pipelinetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type Controller struct {

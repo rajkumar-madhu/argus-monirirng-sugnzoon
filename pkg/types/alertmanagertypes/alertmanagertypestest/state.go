@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 var _ alertmanagertypes.StateStore = (*StateStore)(nil)

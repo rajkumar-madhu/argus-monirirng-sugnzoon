@@ -110,7 +110,7 @@ func main() {
 
 	var schemaPaths stringListFlag
 	flag.Var(&schemaPaths, "schema", "schema source (repeatable)")
-	overlayPath := flag.String("overlay", filepath.Join(root, "scripts/semconv/overlay.yaml"), "SigNoz overlay")
+	overlayPath := flag.String("overlay", filepath.Join(root, "scripts/semconv/overlay.yaml"), "Argus overlay")
 	goOutput := flag.String("go-out", filepath.Join(root, "pkg/semconv/families_gen.go"), "generated Go output")
 	tsOutput := flag.String("ts-out", filepath.Join(root, "frontend/src/constants/generated/semconvFamilies.gen.ts"), "generated TypeScript output")
 	check := flag.Bool("check", false, "fail if generated files are stale")
@@ -568,7 +568,7 @@ func renderGo(families []generatedFamily) ([]byte, error) {
 		}
 	}
 	if needsTelemetryTypes {
-		out.WriteString("import \"github.com/SigNoz/signoz/pkg/types/telemetrytypes\"\n\n")
+		out.WriteString("import \"github.com/your-org/argus/pkg/types/telemetrytypes\"\n\n")
 	}
 	out.WriteString("var families = []Family{\n")
 	for _, family := range families {

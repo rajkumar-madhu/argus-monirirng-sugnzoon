@@ -4,8 +4,8 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 type SQLStoreTxOptions = sql.TxOptions

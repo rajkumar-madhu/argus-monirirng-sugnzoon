@@ -37,8 +37,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/spantypes"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/types/spantypes"
 )
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -4,13 +4,13 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type addDashboardTuples struct {
@@ -35,7 +35,7 @@ func (migration *addDashboardTuples) Up(ctx context.Context, db *bun.DB) error {
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -61,18 +61,18 @@ func (migration *addDashboardTuples) Up(ctx context.Context, db *bun.DB) error {
 	// bootstrapped before these entries landed in ManagedRoleToTransactions never
 	// got them.
 	tuples := []migrationTuple{
-		{authtypes.SigNozAdminRoleName, "metaresource", "dashboard", "read"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "dashboard", "update"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "dashboard", "delete"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "dashboard", "create"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "dashboard", "list"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "dashboard", "read"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "dashboard", "update"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "dashboard", "delete"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "dashboard", "create"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "dashboard", "list"},
-		{authtypes.SigNozViewerRoleName, "metaresource", "dashboard", "read"},
-		{authtypes.SigNozViewerRoleName, "metaresource", "dashboard", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "dashboard", "read"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "dashboard", "update"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "dashboard", "delete"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "dashboard", "create"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "dashboard", "list"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "dashboard", "read"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "dashboard", "update"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "dashboard", "delete"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "dashboard", "create"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "dashboard", "list"},
+		{authtypes.ArgusViewerRoleName, "metaresource", "dashboard", "read"},
+		{authtypes.ArgusViewerRoleName, "metaresource", "dashboard", "list"},
 	}
 
 	for _, orgID := range orgIDs {

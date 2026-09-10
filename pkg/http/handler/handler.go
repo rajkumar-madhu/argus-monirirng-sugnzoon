@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/http/render"
 	"github.com/swaggest/openapi-go"
 	"github.com/swaggest/openapi-go/openapi3"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/http/render"
 )
 
 type ServeOpenAPIFunc func(openapi.OperationContext)

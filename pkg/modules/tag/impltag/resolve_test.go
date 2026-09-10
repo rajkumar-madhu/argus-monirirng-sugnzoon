@@ -5,12 +5,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/types/tagtypes"
-	"github.com/SigNoz/signoz/pkg/types/tagtypes/tagtypestest"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/types/tagtypes"
+	"github.com/your-org/argus/pkg/types/tagtypes/tagtypestest"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var testKind = coretypes.KindDashboard

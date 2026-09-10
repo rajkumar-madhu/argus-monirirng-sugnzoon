@@ -1,4 +1,4 @@
-// Copyright (c) 2026 SigNoz, Inc.
+// Copyright (c) 2026 Argus, Inc.
 // Copyright 2019 Prometheus Team
 // SPDX-License-Identifier: Apache-2.0
 
@@ -16,12 +16,12 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/templating/markdownrenderer"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/prometheus/common/model"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagertemplate"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/templating/markdownrenderer"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 
 	"github.com/prometheus/alertmanager/config"
 	"github.com/prometheus/alertmanager/notify"
@@ -210,7 +210,7 @@ func (n *Notifier) prepareContent(ctx context.Context, alerts []*types.Alert) (s
 	}
 
 	// The API silently truncates over-limit descriptions, which would drop the
-	// trailing SigNoz link; cap here with an ellipsis instead. The HTML path is
+	// trailing Argus link; cap here with an ellipsis instead. The HTML path is
 	// pre-fitted above, so this only ever cuts the plain-text default body.
 	description, descTruncated := notify.TruncateInRunes(description, maxDescriptionLenRunes)
 	if descTruncated {
@@ -270,7 +270,7 @@ func buildHTMLDescription(parts []string, budget int) (string, error) {
 		included++
 	}
 	if dropped := len(rendering) - included; dropped > 0 {
-		fmt.Fprintf(&b, "<hr><div><i>…and %d more alerts. Open in SigNoz for the full list.</i></div>", dropped)
+		fmt.Fprintf(&b, "<hr><div><i>…and %d more alerts. Open in Argus for the full list.</i></div>", dropped)
 	}
 	return b.String(), nil
 }

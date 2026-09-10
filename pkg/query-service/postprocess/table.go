@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 func roundToTwoDecimal(number float64) float64 {
@@ -151,11 +151,11 @@ func sortRows(rows []*v3.TableRow, builderQueries map[string]*v3.BuilderQuery, q
 			orderByList := query.OrderBy
 			if len(orderByList) == 0 {
 				// If no orderBy is specified, sort by value in descending order
-				orderByList = []v3.OrderBy{{ColumnName: constants.SigNozOrderByValue, Order: "desc"}}
+				orderByList = []v3.OrderBy{{ColumnName: constants.ArgusOrderByValue, Order: "desc"}}
 			}
 			for _, orderBy := range orderByList {
 				name := orderBy.ColumnName
-				if name == constants.SigNozOrderByValue {
+				if name == constants.ArgusOrderByValue {
 					name = queryName
 				}
 

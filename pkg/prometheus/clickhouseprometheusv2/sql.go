@@ -3,10 +3,10 @@ package clickhouseprometheusv2
 import (
 	"fmt"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/metricstelemetryschema"
 	"github.com/huandu/go-sqlbuilder"
 	"github.com/prometheus/prometheus/model/labels"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/telemetryschema/metricstelemetryschema"
 )
 
 // metricNameLabel is the reserved PromQL label holding the metric name.

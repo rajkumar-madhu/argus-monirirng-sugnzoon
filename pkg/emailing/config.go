@@ -1,6 +1,6 @@
 package emailing
 
-import "github.com/SigNoz/signoz/pkg/factory"
+import "github.com/your-org/argus/pkg/factory"
 
 type Config struct {
 	Enabled   bool      `mapstructure:"enabled"`

@@ -6,12 +6,12 @@ import (
 	"slices"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/metricstelemetryschema"
 	"github.com/huandu/go-sqlbuilder"
 	"github.com/prometheus/prometheus/model/labels"
 	"github.com/prometheus/prometheus/storage"
 	"github.com/prometheus/prometheus/util/annotations"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/telemetryschema/metricstelemetryschema"
 )
 
 // defaultLookbackDelta mirrors promql's default when the config leaves the

@@ -4,9 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
 	"github.com/prometheus/alertmanager/template"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 func TestExtractFieldMappings(t *testing.T) {

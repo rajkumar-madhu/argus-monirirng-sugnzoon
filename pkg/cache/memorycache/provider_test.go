@@ -9,12 +9,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/factory/factorytest"
-	"github.com/SigNoz/signoz/pkg/types/cachetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/factory/factorytest"
+	"github.com/your-org/argus/pkg/types/cachetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type CloneableA struct {

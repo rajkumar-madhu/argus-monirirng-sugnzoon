@@ -12,13 +12,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagertemplate"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 
 	"github.com/prometheus/alertmanager/config"
 	"github.com/prometheus/alertmanager/notify"
@@ -331,16 +331,16 @@ func TestGoogleChatLinkButtons(t *testing.T) {
 			name: "all links present",
 			labels: model.LabelSet{
 				"alertname":               "X",
-				ruletypes.LabelRuleSource: "https://signoz.example/alerts/1",
+				ruletypes.LabelRuleSource: "https://argus.example/alerts/1",
 			},
 			annotations: model.LabelSet{
-				ruletypes.AnnotationRelatedLogs:   "https://signoz.example/logs",
-				ruletypes.AnnotationRelatedTraces: "https://signoz.example/traces",
+				ruletypes.AnnotationRelatedLogs:   "https://argus.example/logs",
+				ruletypes.AnnotationRelatedTraces: "https://argus.example/traces",
 			},
 			wantButtons: map[string]string{
-				"Open in SigNoz":      "https://signoz.example/alerts/1",
-				"View Related Logs":   "https://signoz.example/logs",
-				"View Related Traces": "https://signoz.example/traces",
+				"Open in Argus":       "https://argus.example/alerts/1",
+				"View Related Logs":   "https://argus.example/logs",
+				"View Related Traces": "https://argus.example/traces",
 			},
 		},
 		{
@@ -382,11 +382,11 @@ func TestGoogleChatFooterButtonSurvivesEmptyBody(t *testing.T) {
 	defer server.Close()
 
 	// Cleared Description (empty text template) → body renders empty while the
-	// title still renders. The per-rule "Open in SigNoz" button must survive.
+	// title still renders. The per-rule "Open in Argus" button must survive.
 	alerts := []*types.Alert{{Alert: model.Alert{
 		Labels: model.LabelSet{
 			"alertname":               "X",
-			ruletypes.LabelRuleSource: "https://signoz.example/alerts/1",
+			ruletypes.LabelRuleSource: "https://argus.example/alerts/1",
 		},
 		StartsAt: time.Now(),
 		EndsAt:   time.Now().Add(time.Minute),
@@ -397,8 +397,8 @@ func TestGoogleChatFooterButtonSurvivesEmptyBody(t *testing.T) {
 
 	buttons := cardButtons(t, got)
 	require.Len(t, buttons, 1)
-	assert.Equal(t, "Open in SigNoz", buttons[0].Text)
-	assert.Equal(t, "https://signoz.example/alerts/1", buttons[0].OnClick.OpenLink.URL)
+	assert.Equal(t, "Open in Argus", buttons[0].Text)
+	assert.Equal(t, "https://argus.example/alerts/1", buttons[0].OnClick.OpenLink.URL)
 }
 
 func TestGoogleChatMultiAlertSections(t *testing.T) {
@@ -407,13 +407,13 @@ func TestGoogleChatMultiAlertSections(t *testing.T) {
 	defer server.Close()
 
 	// A per-alert custom body template yields one card section per alert, each
-	// with that alert's own related-link buttons, plus one shared SigNoz button.
+	// with that alert's own related-link buttons, plus one shared Argus button.
 	mkAlert := func(pod, logs string) *types.Alert {
 		return &types.Alert{Alert: model.Alert{
 			Labels: model.LabelSet{
 				"alertname":               "X",
 				"pod":                     model.LabelValue(pod),
-				ruletypes.LabelRuleSource: "https://signoz.example/alerts/1",
+				ruletypes.LabelRuleSource: "https://argus.example/alerts/1",
 			},
 			Annotations: model.LabelSet{
 				ruletypes.AnnotationBodyTemplate: "an alert fired",
@@ -424,29 +424,29 @@ func TestGoogleChatMultiAlertSections(t *testing.T) {
 		}}
 	}
 	alerts := []*types.Alert{
-		mkAlert("pod-1", "https://signoz.example/logs?pod=pod-1"),
-		mkAlert("pod-2", "https://signoz.example/logs?pod=pod-2"),
+		mkAlert("pod-1", "https://argus.example/logs?pod=pod-1"),
+		mkAlert("pod-2", "https://argus.example/logs?pod=pod-2"),
 	}
 	n := newTestNotifier(t, server.URL, "T", "default body")
 	_, err := n.Notify(newTestContext(), alerts...)
 	require.NoError(t, err)
 
-	// banner + one section per alert + shared SigNoz footer.
+	// banner + one section per alert + shared Argus footer.
 	assert.Equal(t, 4, cardSectionCount(t, got))
 
 	sigNoz := 0
 	logsURLs := map[string]bool{}
 	for _, b := range cardButtons(t, got) {
 		switch b.Text {
-		case "Open in SigNoz":
+		case "Open in Argus":
 			sigNoz++
 		case "View Related Logs":
 			logsURLs[b.OnClick.OpenLink.URL] = true
 		}
 	}
-	assert.Equal(t, 1, sigNoz, "SigNoz button must appear once (shared, per-rule)")
-	assert.True(t, logsURLs["https://signoz.example/logs?pod=pod-1"], "pod-1's logs button")
-	assert.True(t, logsURLs["https://signoz.example/logs?pod=pod-2"], "pod-2's logs button")
+	assert.Equal(t, 1, sigNoz, "Argus button must appear once (shared, per-rule)")
+	assert.True(t, logsURLs["https://argus.example/logs?pod=pod-1"], "pod-1's logs button")
+	assert.True(t, logsURLs["https://argus.example/logs?pod=pod-2"], "pod-2's logs button")
 }
 
 func TestGoogleChatDefaultBodyGrouped(t *testing.T) {
@@ -461,10 +461,10 @@ func TestGoogleChatDefaultBodyGrouped(t *testing.T) {
 			Labels: model.LabelSet{
 				"alertname":               "X",
 				"pod":                     model.LabelValue(pod),
-				ruletypes.LabelRuleSource: "https://signoz.example/alerts/1",
+				ruletypes.LabelRuleSource: "https://argus.example/alerts/1",
 			},
 			Annotations: model.LabelSet{
-				ruletypes.AnnotationRelatedLogs: model.LabelValue("https://signoz.example/logs?pod=" + pod),
+				ruletypes.AnnotationRelatedLogs: model.LabelValue("https://argus.example/logs?pod=" + pod),
 			},
 			StartsAt: time.Now(),
 			EndsAt:   time.Now().Add(time.Minute),
@@ -475,7 +475,7 @@ func TestGoogleChatDefaultBodyGrouped(t *testing.T) {
 	_, err := n.Notify(newTestContext(), alerts...)
 	require.NoError(t, err)
 
-	// banner + one combined alert section + shared SigNoz footer = 3 sections.
+	// banner + one combined alert section + shared Argus footer = 3 sections.
 	assert.Equal(t, 3, cardSectionCount(t, got))
 
 	body := cardBody(t, got)
@@ -503,7 +503,7 @@ func TestGoogleChatSectionCap(t *testing.T) {
 		alerts = append(alerts, &types.Alert{Alert: model.Alert{
 			Labels: model.LabelSet{
 				"alertname":               "X",
-				ruletypes.LabelRuleSource: "https://signoz.example/alerts/1",
+				ruletypes.LabelRuleSource: "https://argus.example/alerts/1",
 			},
 			Annotations: model.LabelSet{ruletypes.AnnotationBodyTemplate: "an alert fired"},
 			StartsAt:    time.Now(),
@@ -514,20 +514,20 @@ func TestGoogleChatSectionCap(t *testing.T) {
 	_, err := n.Notify(newTestContext(), alerts...)
 	require.NoError(t, err)
 
-	// banner + 30 alert sections + "+N more" note + shared SigNoz footer.
+	// banner + 30 alert sections + "+N more" note + shared Argus footer.
 	assert.Equal(t, 1+maxAlertSections+1+1, cardSectionCount(t, got))
 
 	body := cardBody(t, got)
 	assert.Contains(t, body, "5 more alerts", "overflow note must state the dropped count")
 
-	// The SigNoz footer must survive after the note (last section).
+	// The Argus footer must survive after the note (last section).
 	sigNoz := 0
 	for _, b := range cardButtons(t, got) {
-		if b.Text == "Open in SigNoz" {
+		if b.Text == "Open in Argus" {
 			sigNoz++
 		}
 	}
-	assert.Equal(t, 1, sigNoz, "SigNoz footer must be present despite the cap")
+	assert.Equal(t, 1, sigNoz, "Argus footer must be present despite the cap")
 }
 
 func TestGoogleChatStatusLine(t *testing.T) {

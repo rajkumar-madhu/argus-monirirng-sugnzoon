@@ -5,13 +5,13 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type addSubscriptionTuples struct {
@@ -36,7 +36,7 @@ func (migration *addSubscriptionTuples) Up(ctx context.Context, db *bun.DB) erro
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -53,11 +53,11 @@ func (migration *addSubscriptionTuples) Up(ctx context.Context, db *bun.DB) erro
 	isPG := migration.sqlstore.BunDB().Dialect().Name() == dialect.PG
 
 	tuples := []migrationTuple{
-		{authtypes.SigNozAdminRoleName, "metaresource", "subscription", "create"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "subscription", "read"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "subscription", "update"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "subscription", "delete"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "subscription", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "subscription", "create"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "subscription", "read"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "subscription", "update"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "subscription", "delete"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "subscription", "list"},
 	}
 
 	for _, orgID := range orgIDs {

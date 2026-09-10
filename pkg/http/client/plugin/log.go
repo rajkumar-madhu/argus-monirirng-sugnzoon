@@ -10,7 +10,7 @@ import (
 	"github.com/gojek/heimdall/v7"
 	semconv "go.opentelemetry.io/otel/semconv/v1.27.0"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 type reqResLog struct {
@@ -87,9 +87,9 @@ func (plugin *reqResLog) OnError(request *http.Request, err error) {
 func redactSensitiveHeaders(headers http.Header) http.Header {
 	// maintained list of headers to redact
 	sensitiveHeaders := map[string]bool{
-		"Authorization":          true,
-		"Cookie":                 true,
-		"X-Signoz-Cloud-Api-Key": true,
+		"Authorization":         true,
+		"Cookie":                true,
+		"X-Argus-Cloud-Api-Key": true,
 	}
 
 	safeHeaders := make(http.Header)

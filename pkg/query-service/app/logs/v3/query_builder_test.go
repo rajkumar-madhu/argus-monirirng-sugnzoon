@@ -3,9 +3,9 @@ package v3
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
 	. "github.com/smartystreets/goconvey/convey"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 var testGetClickhouseColumnNameData = []struct {
@@ -1081,7 +1081,7 @@ var testOrderBy = []struct {
 				Order:      "asc",
 			},
 			{
-				ColumnName: constants.SigNozOrderByValue,
+				ColumnName: constants.ArgusOrderByValue,
 				Order:      "desc",
 			},
 		},
@@ -1141,7 +1141,7 @@ var testOrderBy = []struct {
 				Order:      "asc",
 			},
 			{
-				ColumnName: constants.SigNozOrderByValue,
+				ColumnName: constants.ArgusOrderByValue,
 				Order:      "asc",
 			},
 			{
@@ -1164,7 +1164,7 @@ var testOrderBy = []struct {
 				Order:      "asc",
 			},
 			{
-				ColumnName: constants.SigNozOrderByValue,
+				ColumnName: constants.ArgusOrderByValue,
 				Order:      "asc",
 			},
 			{
@@ -1253,7 +1253,7 @@ var testPrepLogsQueryData = []struct {
 			},
 			Limit:   10,
 			GroupBy: []v3.AttributeKey{{Key: "method", DataType: v3.AttributeKeyDataTypeString, Type: v3.AttributeKeyTypeTag}},
-			OrderBy: []v3.OrderBy{{ColumnName: constants.SigNozOrderByValue, Order: "ASC"}},
+			OrderBy: []v3.OrderBy{{ColumnName: constants.ArgusOrderByValue, Order: "ASC"}},
 		},
 		TableName:     "logs",
 		ExpectedQuery: "SELECT `method` from (SELECT attributes_string_value[indexOf(attributes_string_key, 'method')] as `method`, toFloat64(count(distinct(attributes_string_value[indexOf(attributes_string_key, 'name')]))) as value from signoz_logs.distributed_logs where (timestamp >= 1680066360726000000 AND timestamp <= 1680066458000000000) AND attributes_string_value[indexOf(attributes_string_key, 'method')] = 'GET' AND has(attributes_string_key, 'method') AND has(attributes_string_key, 'name') group by `method` order by value ASC) LIMIT 10",

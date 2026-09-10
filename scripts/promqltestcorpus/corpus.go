@@ -1,4 +1,4 @@
-// SigNoz corpus policy: which upstream cases are representable through the
+// Argus corpus policy: which upstream cases are representable through the
 // API, the grid variants that steer coarse-step code paths, the API's value
 // rounding, and the frozen JSON model. Nothing in this file mirrors
 // upstream code; it encodes what our conformance harness needs.

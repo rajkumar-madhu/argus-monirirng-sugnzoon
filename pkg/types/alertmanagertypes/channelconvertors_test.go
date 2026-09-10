@@ -4,12 +4,12 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/prometheus/alertmanager/config"
 	commoncfg "github.com/prometheus/common/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // The spec types and the upstream configs they translate through carry the same
@@ -171,7 +171,7 @@ func TestChannelToPostableChannelRoundTripsEveryFieldOfEveryKind(t *testing.T) {
 				Summary:           valuer.MustNewUnsetOrNonEmptyString("jira summary"),
 				Description:       valuer.MustNewUnsetOrNonEmptyString("jira description"),
 				Priority:          "High",
-				Labels:            []string{"signoz", "alert"},
+				Labels:            []string{"argus", "alert"},
 				ResolveTransition: "Done",
 				ReopenTransition:  "Reopen",
 				ReopenDuration:    valuer.MustNewUnsetOrNonEmptyString("3d"),
@@ -188,7 +188,7 @@ func TestChannelToPostableChannelRoundTripsEveryFieldOfEveryKind(t *testing.T) {
 				Summary:           valuer.MustNewUnsetOrNonEmptyString("jira summary"),
 				Description:       valuer.MustNewUnsetOrNonEmptyString("jira description"),
 				Priority:          "High",
-				Labels:            []string{"signoz", "alert"},
+				Labels:            []string{"argus", "alert"},
 				ResolveTransition: "Done",
 				ReopenTransition:  "Reopen",
 				ReopenDuration:    valuer.MustNewUnsetOrNonEmptyString("3d"),
@@ -347,7 +347,7 @@ func TestPostableChannelToReceiverRoundTripsWebhookAuthModes(t *testing.T) {
 	}
 }
 
-// The SigNoz notifiers validate in their UnmarshalYAML, which ToReceiver reaches
+// The Argus notifiers validate in their UnmarshalYAML, which ToReceiver reaches
 // only through the defaulting round-trip. A spec that passes Validate can still
 // be rejected there, and the request has to fail as invalid input rather than as
 // an internal error.

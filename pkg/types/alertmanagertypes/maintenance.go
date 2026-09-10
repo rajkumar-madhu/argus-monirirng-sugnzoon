@@ -10,14 +10,14 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/uptrace/bun"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var ErrCodeInvalidPlannedMaintenancePayload = errors.MustNewCode("invalid_planned_maintenance_payload")
 
-const scopeDocUrl = "https://signoz.io/docs/alerts-management/planned-maintenance/#scoping-with-label-expressions"
+const scopeDocUrl = "https://argus.example.com/docs/alerts-management/planned-maintenance/#scoping-with-label-expressions"
 
 type MaintenanceStatus struct {
 	valuer.String

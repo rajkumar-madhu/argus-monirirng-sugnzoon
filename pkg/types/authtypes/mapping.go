@@ -50,7 +50,7 @@ type RoleMapping struct {
 	// Default role assigned to new SSO users when no group mapping applies.
 	DefaultRole string `json:"defaultRole"`
 
-	// Map of IDP group name to SigNoz role name.
+	// Map of IDP group name to Argus role name.
 	GroupMappings map[string]string `json:"groupMappings"`
 
 	// If true, use the role claim directly from IDP instead of group mappings.
@@ -76,7 +76,7 @@ func (roleMapping *RoleMapping) UnmarshalJSON(data []byte) error {
 
 func (roleMapping *RoleMapping) NewRolesFromCallbackIdentity(callbackIdentity *CallbackIdentity, roleAttributeExists bool) []string {
 	if roleMapping == nil {
-		return []string{SigNozViewerRoleName}
+		return []string{ArgusViewerRoleName}
 	}
 
 	if roleAttributeExists {
@@ -110,7 +110,7 @@ func (roleMapping *RoleMapping) DefaultRoleName() string {
 		return roleMapping.DefaultRole
 	}
 
-	return SigNozViewerRoleName
+	return ArgusViewerRoleName
 }
 
 func (roleMapping *RoleMapping) RoleNames() []string {

@@ -6,14 +6,14 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
 )
 
 type addAuthDomainTuples struct {
@@ -38,7 +38,7 @@ func (migration *addAuthDomainTuples) Up(ctx context.Context, db *bun.DB) error 
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -58,13 +58,13 @@ func (migration *addAuthDomainTuples) Up(ctx context.Context, db *bun.DB) error 
 	// which on enterprise requires real tuples -- existing orgs never had these
 	// written, only new orgs get them from the registry at bootstrap.
 	tuples := []migrationTuple{
-		{authtypes.SigNozAdminRoleName, "metaresource", "auth-domain", "create"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "auth-domain", "read"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "auth-domain", "update"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "auth-domain", "delete"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "auth-domain", "list"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "auth-domain", "attach"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "auth-domain", "detach"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "auth-domain", "create"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "auth-domain", "read"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "auth-domain", "update"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "auth-domain", "delete"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "auth-domain", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "auth-domain", "attach"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "auth-domain", "detach"},
 	}
 
 	for _, orgID := range orgIDs {

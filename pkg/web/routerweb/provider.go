@@ -8,12 +8,12 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/global"
-	"github.com/SigNoz/signoz/pkg/http/middleware"
-	"github.com/SigNoz/signoz/pkg/web"
 	"github.com/gorilla/mux"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/global"
+	"github.com/your-org/argus/pkg/http/middleware"
+	"github.com/your-org/argus/pkg/web"
 )
 
 type provider struct {
@@ -50,7 +50,7 @@ func New(ctx context.Context, settings factory.ProviderSettings, config web.Conf
 		return nil, errors.WrapInternalf(err, errors.CodeInternal, "cannot marshal web settings to JSON")
 	}
 
-	logger := factory.NewScopedProviderSettings(settings, "github.com/SigNoz/signoz/pkg/web/routerweb").Logger()
+	logger := factory.NewScopedProviderSettings(settings, "github.com/your-org/argus/pkg/web/routerweb").Logger()
 	indexContents := web.NewIndex(ctx, logger, config.Index, raw, web.TemplateData{
 		BaseHref: globalConfig.ExternalPathTrailing(),
 		Settings: template.JS(settingsJSON),

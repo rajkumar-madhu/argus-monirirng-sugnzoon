@@ -7,12 +7,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/instrumentation/instrumentationtest"
-	"github.com/SigNoz/signoz/pkg/types/cachetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/go-redis/redismock/v9"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/instrumentation/instrumentationtest"
+	"github.com/your-org/argus/pkg/types/cachetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type CacheableA struct {
@@ -44,7 +44,7 @@ func (cacheable *CacheableA) UnmarshalBinary(data []byte) error {
 func TestSet(t *testing.T) {
 	db, mock := redismock.NewClientMock()
 	providerSettings := instrumentationtest.New().ToProviderSettings()
-	cache := &provider{client: db, settings: factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/cache/rediscache")}
+	cache := &provider{client: db, settings: factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/cache/rediscache")}
 
 	cacheable := &CacheableA{
 		Key:    "some-random-key",

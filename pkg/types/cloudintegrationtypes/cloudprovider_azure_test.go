@@ -6,24 +6,24 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var testTemplateData = azureTemplateData{
 	TemplateURL:             fmt.Sprintf(AgentArmTemplateStorePath, "v0.1.0"),
 	Location:                "eastus",
-	SignozAPIKey:            "test-api-key",
-	SignozAPIUrl:            "https://signoz.example.com",
-	SignozIngestionURL:      "https://ingest.example.com",
-	SignozIngestionKey:      "test-ingest-key",
+	ArgusAPIKey:             "test-api-key",
+	ArgusAPIUrl:             "https://argus.example.com",
+	ArgusIngestionURL:       "https://ingest.example.com",
+	ArgusIngestionKey:       "test-ingest-key",
 	AccountID:               "acct-123",
 	AgentVersion:            "v0.1.0",
 	StackName:               AgentDeploymentStackName,
 	ParamLocation:           armParamLocation,
-	ParamSignozAPIKey:       armParamSignozAPIKey,
-	ParamSignozAPIUrl:       armParamSignozAPIUrl,
-	ParamSignozIngestionURL: armParamSignozIngestionURL,
-	ParamSignozIngestionKey: armParamSignozIngestionKey,
+	ParamArgusAPIKey:        armParamArgusAPIKey,
+	ParamArgusAPIUrl:        armParamArgusAPIUrl,
+	ParamArgusIngestionURL:  armParamArgusIngestionURL,
+	ParamArgusIngestionKey:  armParamArgusIngestionKey,
 	ParamAccountID:          armParamAccountID,
 	ParamAgentVersion:       armParamAgentVersion,
 	ParamRgName:             armParamRgName,
@@ -46,10 +46,10 @@ func TestNewAzureConnectionCLICommand(t *testing.T) {
 		fmt.Sprintf("--location %s", testTemplateData.Location),
 		fmt.Sprintf("--template-uri %s", testTemplateData.TemplateURL),
 		fmt.Sprintf("%s='%s'", armParamLocation, testTemplateData.Location),
-		fmt.Sprintf("%s='%s'", armParamSignozAPIKey, testTemplateData.SignozAPIKey),
-		fmt.Sprintf("%s='%s'", armParamSignozAPIUrl, testTemplateData.SignozAPIUrl),
-		fmt.Sprintf("%s='%s'", armParamSignozIngestionURL, testTemplateData.SignozIngestionURL),
-		fmt.Sprintf("%s='%s'", armParamSignozIngestionKey, testTemplateData.SignozIngestionKey),
+		fmt.Sprintf("%s='%s'", armParamArgusAPIKey, testTemplateData.ArgusAPIKey),
+		fmt.Sprintf("%s='%s'", armParamArgusAPIUrl, testTemplateData.ArgusAPIUrl),
+		fmt.Sprintf("%s='%s'", armParamArgusIngestionURL, testTemplateData.ArgusIngestionURL),
+		fmt.Sprintf("%s='%s'", armParamArgusIngestionKey, testTemplateData.ArgusIngestionKey),
 		fmt.Sprintf("%s='%s'", armParamAccountID, testTemplateData.AccountID),
 		fmt.Sprintf("%s='%s'", armParamAgentVersion, testTemplateData.AgentVersion),
 		"--action-on-unmanage deleteAll",
@@ -80,10 +80,10 @@ func TestNewAzureConnectionPowerShellCommand(t *testing.T) {
 		fmt.Sprintf("-Location \"%s\"", testTemplateData.Location),
 		fmt.Sprintf("-TemplateUri \"%s\"", testTemplateData.TemplateURL),
 		armParamLocation,
-		armParamSignozAPIKey,
-		armParamSignozAPIUrl,
-		armParamSignozIngestionURL,
-		armParamSignozIngestionKey,
+		armParamArgusAPIKey,
+		armParamArgusAPIUrl,
+		armParamArgusIngestionURL,
+		armParamArgusIngestionKey,
 		armParamAccountID,
 		armParamAgentVersion,
 		armParamRgName,
@@ -112,8 +112,8 @@ func TestNewAzureConnectionArtifact(t *testing.T) {
 	accountID := valuer.GenerateUUID()
 	agentVersion := "v0.1.0"
 	creds := &Credentials{
-		SigNozAPIURL: "https://signoz.example.com",
-		SigNozAPIKey: "test-api-key",
+		ArgusAPIURL:  "https://argus.example.com",
+		ArgusAPIKey:  "test-api-key",
 		IngestionURL: "https://ingest.example.com",
 		IngestionKey: "test-ingest-key",
 	}

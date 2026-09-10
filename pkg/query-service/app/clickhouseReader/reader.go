@@ -17,22 +17,22 @@ import (
 
 	"github.com/uptrace/bun"
 
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/ctxtypes"
-	"github.com/SigNoz/signoz/pkg/types/featuretypes"
-	"github.com/SigNoz/signoz/pkg/types/instrumentationtypes"
-	"github.com/SigNoz/signoz/pkg/types/retentiontypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/telemetrystore"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/ctxtypes"
+	"github.com/your-org/argus/pkg/types/featuretypes"
+	"github.com/your-org/argus/pkg/types/instrumentationtypes"
+	"github.com/your-org/argus/pkg/types/retentiontypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 
-	errorsV2 "github.com/SigNoz/signoz/pkg/errors"
+	errorsV2 "github.com/your-org/argus/pkg/errors"
 
 	"github.com/prometheus/prometheus/promql"
 	"github.com/prometheus/prometheus/util/stats"
@@ -40,21 +40,21 @@ import (
 	"github.com/ClickHouse/clickhouse-go/v2"
 	"github.com/ClickHouse/clickhouse-go/v2/lib/driver"
 
-	"github.com/SigNoz/signoz/pkg/cache"
+	"github.com/your-org/argus/pkg/cache"
 
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/query-service/app/resource"
-	"github.com/SigNoz/signoz/pkg/query-service/app/services"
-	"github.com/SigNoz/signoz/pkg/query-service/app/traces/smart"
-	"github.com/SigNoz/signoz/pkg/query-service/common"
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
+	"github.com/your-org/argus/pkg/query-service/app/resource"
+	"github.com/your-org/argus/pkg/query-service/app/services"
+	"github.com/your-org/argus/pkg/query-service/app/traces/smart"
+	"github.com/your-org/argus/pkg/query-service/common"
+	"github.com/your-org/argus/pkg/query-service/constants"
 
-	chErrors "github.com/SigNoz/signoz/pkg/query-service/errors"
-	"github.com/SigNoz/signoz/pkg/query-service/metrics"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/utils"
+	chErrors "github.com/your-org/argus/pkg/query-service/errors"
+	"github.com/your-org/argus/pkg/query-service/metrics"
+	"github.com/your-org/argus/pkg/query-service/model"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/utils"
 )
 
 const (
@@ -339,7 +339,7 @@ func (r *ClickHouseReader) buildResourceSubQuery(ctx context.Context, orgID valu
 	filterSet := v3.FilterSet{}
 	for _, tag := range tags {
 		// skip the collector id as we don't add it to traces
-		if tag.Key == "signoz.collector.id" {
+		if tag.Key == "argus.collector.id" {
 			continue
 		}
 		key := v3.AttributeKey{
@@ -995,7 +995,7 @@ func (r *ClickHouseReader) setTTLLogs(ctx context.Context, orgID string, params 
 	// set the ttl if nothing is pending/ no errors
 	go func(ttlPayload map[string]string) {
 		for tableName, query := range ttlPayload {
-			// https://github.com/SigNoz/signoz/issues/5470
+			// https://github.com/your-org/argus/issues/5470
 			// we will change ttl for only the new parts and not the old ones
 			query += " SETTINGS materialize_ttl_after_modify=0"
 
@@ -2944,7 +2944,7 @@ func (r *ClickHouseReader) QueryDashboardVars(ctx context.Context, query string)
 	return &result, nil
 }
 
-func (r *ClickHouseReader) GetMetricAggregateAttributes(ctx context.Context, orgID valuer.UUID, req *v3.AggregateAttributeRequest, skipSignozMetrics bool) (*v3.AggregateAttributeResponse, error) {
+func (r *ClickHouseReader) GetMetricAggregateAttributes(ctx context.Context, orgID valuer.UUID, req *v3.AggregateAttributeRequest, skipArgusMetrics bool) (*v3.AggregateAttributeResponse, error) {
 	ctx = ctxtypes.NewContextWithCommentVals(ctx, map[string]string{
 		instrumentationtypes.TelemetrySignal:  telemetrytypes.SignalMetrics.StringValue(),
 		instrumentationtypes.CodeNamespace:    "clickhouse-reader",
@@ -2990,7 +2990,7 @@ func (r *ClickHouseReader) GetMetricAggregateAttributes(ctx context.Context, org
 		if err := rows.Scan(&name); err != nil {
 			return nil, fmt.Errorf("error while scanning metric name: %s", err.Error())
 		}
-		if skipSignozMetrics && strings.HasPrefix(name, "signoz") {
+		if skipArgusMetrics && strings.HasPrefix(name, "signoz") {
 			continue
 		}
 		metricNames = append(metricNames, name)

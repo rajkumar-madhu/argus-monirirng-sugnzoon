@@ -1,7 +1,7 @@
 package auditorserver
 
 import (
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 	"go.opentelemetry.io/otel/metric"
 )
 

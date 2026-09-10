@@ -4,13 +4,13 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type addTelemetryTuples struct {
@@ -35,7 +35,7 @@ func (migration *addTelemetryTuples) Up(ctx context.Context, db *bun.DB) error {
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -57,19 +57,19 @@ func (migration *addTelemetryTuples) Up(ctx context.Context, db *bun.DB) error {
 	isPG := migration.sqlstore.BunDB().Dialect().Name() == dialect.PG
 
 	tuples := []migrationTuple{
-		{authtypes.SigNozAdminRoleName, "telemetryresource", "logs", "read"},
-		{authtypes.SigNozAdminRoleName, "telemetryresource", "traces", "read"},
-		{authtypes.SigNozAdminRoleName, "telemetryresource", "metrics", "read"},
-		{authtypes.SigNozAdminRoleName, "telemetryresource", "audit-logs", "read"},
-		{authtypes.SigNozAdminRoleName, "telemetryresource", "meter-metrics", "read"},
-		{authtypes.SigNozEditorRoleName, "telemetryresource", "logs", "read"},
-		{authtypes.SigNozEditorRoleName, "telemetryresource", "traces", "read"},
-		{authtypes.SigNozEditorRoleName, "telemetryresource", "metrics", "read"},
-		{authtypes.SigNozEditorRoleName, "telemetryresource", "meter-metrics", "read"},
-		{authtypes.SigNozViewerRoleName, "telemetryresource", "logs", "read"},
-		{authtypes.SigNozViewerRoleName, "telemetryresource", "traces", "read"},
-		{authtypes.SigNozViewerRoleName, "telemetryresource", "metrics", "read"},
-		{authtypes.SigNozViewerRoleName, "telemetryresource", "meter-metrics", "read"},
+		{authtypes.ArgusAdminRoleName, "telemetryresource", "logs", "read"},
+		{authtypes.ArgusAdminRoleName, "telemetryresource", "traces", "read"},
+		{authtypes.ArgusAdminRoleName, "telemetryresource", "metrics", "read"},
+		{authtypes.ArgusAdminRoleName, "telemetryresource", "audit-logs", "read"},
+		{authtypes.ArgusAdminRoleName, "telemetryresource", "meter-metrics", "read"},
+		{authtypes.ArgusEditorRoleName, "telemetryresource", "logs", "read"},
+		{authtypes.ArgusEditorRoleName, "telemetryresource", "traces", "read"},
+		{authtypes.ArgusEditorRoleName, "telemetryresource", "metrics", "read"},
+		{authtypes.ArgusEditorRoleName, "telemetryresource", "meter-metrics", "read"},
+		{authtypes.ArgusViewerRoleName, "telemetryresource", "logs", "read"},
+		{authtypes.ArgusViewerRoleName, "telemetryresource", "traces", "read"},
+		{authtypes.ArgusViewerRoleName, "telemetryresource", "metrics", "read"},
+		{authtypes.ArgusViewerRoleName, "telemetryresource", "meter-metrics", "read"},
 	}
 
 	for _, orgID := range orgIDs {

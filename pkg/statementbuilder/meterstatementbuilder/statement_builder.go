@@ -5,19 +5,19 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder"
-	"github.com/SigNoz/signoz/pkg/statementbuilder/metricsstatementbuilder"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/metertelemetryschema"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/metricstelemetryschema"
-	"github.com/SigNoz/signoz/pkg/types/metrictypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/huandu/go-sqlbuilder"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/statementbuilder"
+	"github.com/your-org/argus/pkg/statementbuilder/metricsstatementbuilder"
+	"github.com/your-org/argus/pkg/telemetryschema/metertelemetryschema"
+	"github.com/your-org/argus/pkg/telemetryschema/metricstelemetryschema"
+	"github.com/your-org/argus/pkg/types/metrictypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type meterQueryStatementBuilder struct {
@@ -58,7 +58,7 @@ func NewMeterQueryStatementBuilder(
 	conditionBuilder qbtypes.ConditionBuilder,
 	metricsStatementBuilder *metricsstatementbuilder.StatementBuilder,
 ) *meterQueryStatementBuilder {
-	metricsSettings := factory.NewScopedProviderSettings(settings, "github.com/SigNoz/signoz/pkg/telemetryschema/metertelemetryschema")
+	metricsSettings := factory.NewScopedProviderSettings(settings, "github.com/your-org/argus/pkg/telemetryschema/metertelemetryschema")
 
 	return &meterQueryStatementBuilder{
 		logger:                  metricsSettings.Logger(),

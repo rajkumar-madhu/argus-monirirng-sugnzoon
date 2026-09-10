@@ -3,11 +3,11 @@ package implquickfilter
 import (
 	"testing"
 
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/types/quickfiltertypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/types/quickfiltertypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestNewTelemetryFieldKeysFromLegacy(t *testing.T) {

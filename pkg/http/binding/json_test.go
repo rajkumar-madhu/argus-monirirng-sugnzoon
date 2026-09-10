@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 type s struct {

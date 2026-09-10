@@ -3,10 +3,10 @@ package tracefunnel
 import (
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	tracev4 "github.com/SigNoz/signoz/pkg/query-service/app/traces/v4"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/types/tracefunneltypes"
+	"github.com/your-org/argus/pkg/errors"
+	tracev4 "github.com/your-org/argus/pkg/query-service/app/traces/v4"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/types/tracefunneltypes"
 )
 
 // sanitizeClause adds AND prefix to non-empty clauses if not already present.

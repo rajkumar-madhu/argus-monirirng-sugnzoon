@@ -19,13 +19,13 @@ import (
 	"github.com/prometheus/prometheus/promql"
 	"github.com/prometheus/prometheus/promql/parser"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/querybuilder"
-	"github.com/SigNoz/signoz/pkg/types/ctxtypes"
-	"github.com/SigNoz/signoz/pkg/types/instrumentationtypes"
-	qbv5 "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/querybuilder"
+	"github.com/your-org/argus/pkg/types/ctxtypes"
+	"github.com/your-org/argus/pkg/types/instrumentationtypes"
+	qbv5 "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 // unquotedDottedNamePattern matches unquoted identifiers containing dots
@@ -452,7 +452,7 @@ func (q *promqlQuery) Execute(ctx context.Context) (*qbv5.Result, error) {
 // toResult converts an evaluated matrix into the v5 result shape, attaching
 // the ClickHouse scan stats accumulated during evaluation.
 func (q *promqlQuery) toResult(matrix promql.Matrix, warnings []string, began time.Time, statsMu *sync.Mutex, rowsScanned, bytesScanned *uint64) *qbv5.Result {
-	// Hide only known SigNoz storage keys: label names are user data and may
+	// Hide only known Argus storage keys: label names are user data and may
 	// legitimately start with "__" (e.g. __address__), so a blanket dunder
 	// strip mangles user labelsets. The __scope./__resource. prefixes cover
 	// every exporter version's keys.

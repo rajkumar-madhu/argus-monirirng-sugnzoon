@@ -9,13 +9,13 @@ import (
 
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/errors"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/errors"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 
-	"github.com/SigNoz/signoz/pkg/query-service/utils/labels"
-	"github.com/SigNoz/signoz/pkg/types/cachetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/query-service/utils/labels"
+	"github.com/your-org/argus/pkg/types/cachetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type queryCache struct {

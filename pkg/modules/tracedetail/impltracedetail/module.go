@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/modules/tracedetail"
-	"github.com/SigNoz/signoz/pkg/types/spantypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/modules/tracedetail"
+	"github.com/your-org/argus/pkg/types/spantypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 	"go.opentelemetry.io/otel/metric"
 )
 
@@ -19,7 +19,7 @@ type module struct {
 }
 
 func NewModule(traceStore spantypes.TraceStore, providerSettings factory.ProviderSettings, cfg tracedetail.Config) *module {
-	scopedProviderSettings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/modules/tracedetail/impltracedetail")
+	scopedProviderSettings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/modules/tracedetail/impltracedetail")
 
 	metrics, err := newModuleMetrics(scopedProviderSettings.Meter())
 	if err != nil {

@@ -1,7 +1,7 @@
 package cache
 
 import (
-	"github.com/SigNoz/signoz/pkg/factory"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 type Memory struct {

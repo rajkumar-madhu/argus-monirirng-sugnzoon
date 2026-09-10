@@ -5,21 +5,21 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/config"
-	"github.com/SigNoz/signoz/pkg/config/envprovider"
-	"github.com/SigNoz/signoz/pkg/factory"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/config"
+	"github.com/your-org/argus/pkg/config/envprovider"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 func TestNewWithEnvProvider(t *testing.T) {
-	t.Setenv("SIGNOZ_SQLSTORE_PROVIDER", "sqlite")
-	t.Setenv("SIGNOZ_SQLSTORE_SQLITE_PATH", "/tmp/test.db")
-	t.Setenv("SIGNOZ_SQLSTORE_SQLITE_MODE", "wal")
-	t.Setenv("SIGNOZ_SQLSTORE_SQLITE_BUSY__TIMEOUT", "5s")
-	t.Setenv("SIGNOZ_SQLSTORE_SQLITE_TRANSACTION__MODE", "immediate")
-	t.Setenv("SIGNOZ_SQLSTORE_MAX__OPEN__CONNS", "50")
-	t.Setenv("SIGNOZ_SQLSTORE_MAX__CONN__LIFETIME", "3h")
+	t.Setenv("ARGUS_SQLSTORE_PROVIDER", "sqlite")
+	t.Setenv("ARGUS_SQLSTORE_SQLITE_PATH", "/tmp/test.db")
+	t.Setenv("ARGUS_SQLSTORE_SQLITE_MODE", "wal")
+	t.Setenv("ARGUS_SQLSTORE_SQLITE_BUSY__TIMEOUT", "5s")
+	t.Setenv("ARGUS_SQLSTORE_SQLITE_TRANSACTION__MODE", "immediate")
+	t.Setenv("ARGUS_SQLSTORE_MAX__OPEN__CONNS", "50")
+	t.Setenv("ARGUS_SQLSTORE_MAX__CONN__LIFETIME", "3h")
 
 	conf, err := config.New(
 		context.Background(),

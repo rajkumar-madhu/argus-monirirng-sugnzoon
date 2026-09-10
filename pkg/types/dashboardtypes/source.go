@@ -4,9 +4,9 @@ import (
 	"database/sql/driver"
 	"slices"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type Source struct {

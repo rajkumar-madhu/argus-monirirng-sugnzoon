@@ -3,12 +3,12 @@ package implapdex
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/modules/apdex"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/apdextypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/modules/apdex"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/apdextypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 const (

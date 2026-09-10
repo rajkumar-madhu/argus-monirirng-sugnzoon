@@ -24,12 +24,12 @@ builds:
       - v8.0
     ldflags:
       - -s -w
-      - -X github.com/SigNoz/signoz/pkg/version.version=v{{ .Version }}
-      - -X github.com/SigNoz/signoz/pkg/version.variant=community
-      - -X github.com/SigNoz/signoz/pkg/version.hash={{ .ShortCommit }}
-      - -X github.com/SigNoz/signoz/pkg/version.time={{ .CommitTimestamp }}
-      - -X github.com/SigNoz/signoz/pkg/version.branch={{ .Branch }}
-      - -X github.com/SigNoz/signoz/pkg/analytics.key=9kRrJ7oPCGPEJLF6QjMPLt5bljFhRQBr
+      - -X github.com/your-org/argus/pkg/version.version=v{{ .Version }}
+      - -X github.com/your-org/argus/pkg/version.variant=community
+      - -X github.com/your-org/argus/pkg/version.hash={{ .ShortCommit }}
+      - -X github.com/your-org/argus/pkg/version.time={{ .CommitTimestamp }}
+      - -X github.com/your-org/argus/pkg/version.branch={{ .Branch }}
+      - -X github.com/your-org/argus/pkg/analytics.key=9kRrJ7oPCGPEJLF6QjMPLt5bljFhRQBr
     mod_timestamp: "{{ .CommitTimestamp }}"
     tags:
       - timetzdata

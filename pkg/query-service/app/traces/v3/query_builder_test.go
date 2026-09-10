@@ -3,9 +3,9 @@ package v3
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
 	. "github.com/smartystreets/goconvey/convey"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 var buildFilterQueryData = []struct {
@@ -357,7 +357,7 @@ var testOrderBy = []struct {
 				Order:      "asc",
 			},
 			{
-				ColumnName: constants.SigNozOrderByValue,
+				ColumnName: constants.ArgusOrderByValue,
 				Order:      "desc",
 			},
 		},
@@ -394,7 +394,7 @@ var testOrderBy = []struct {
 				Order:      "asc",
 			},
 			{
-				ColumnName: constants.SigNozOrderByValue,
+				ColumnName: constants.ArgusOrderByValue,
 				Order:      "asc",
 			},
 			{

@@ -10,11 +10,11 @@ import (
 	"github.com/redis/go-redis/extra/redisotel/v9"
 	"github.com/redis/go-redis/v9"
 
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/types/cachetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/types/cachetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type provider struct {
@@ -27,7 +27,7 @@ func NewFactory() factory.ProviderFactory[cache.Cache, cache.Config] {
 }
 
 func New(ctx context.Context, providerSettings factory.ProviderSettings, config cache.Config) (cache.Cache, error) {
-	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/cache/rediscache")
+	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/cache/rediscache")
 	client := redis.NewClient(&redis.Options{
 		Addr:     strings.Join([]string{config.Redis.Host, fmt.Sprint(config.Redis.Port)}, ":"),
 		Password: config.Redis.Password,

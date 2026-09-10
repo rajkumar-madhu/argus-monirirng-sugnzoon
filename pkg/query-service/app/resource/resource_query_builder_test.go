@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
 	"github.com/stretchr/testify/require"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 func Test_buildResourceFilter(t *testing.T) {

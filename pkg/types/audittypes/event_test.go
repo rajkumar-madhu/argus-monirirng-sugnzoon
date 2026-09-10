@@ -5,9 +5,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
 	oteltrace "go.opentelemetry.io/otel/trace"
 )
 
@@ -194,7 +194,7 @@ func TestNewPLogsFromAuditEvents(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			logs := NewPLogsFromAuditEvents(testCase.events, "signoz", "0.90.0", "signoz.audit")
+			logs := NewPLogsFromAuditEvents(testCase.events, "argus", "0.90.0", "signoz.audit")
 
 			assert.Equal(t, testCase.expectedResourceLogs, logs.ResourceLogs().Len())
 
@@ -204,7 +204,7 @@ func TestNewPLogsFromAuditEvents(t *testing.T) {
 
 				serviceName, exists := resourceAttrs.Get("service.name")
 				assert.True(t, exists)
-				assert.Equal(t, "signoz", serviceName.Str())
+				assert.Equal(t, "argus", serviceName.Str())
 
 				serviceVersion, exists := resourceAttrs.Get("service.version")
 				assert.True(t, exists)

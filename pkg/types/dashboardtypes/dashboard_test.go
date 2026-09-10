@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func makeTestWidgets(ids ...string) []interface{} {

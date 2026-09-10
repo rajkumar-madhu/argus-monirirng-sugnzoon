@@ -6,10 +6,10 @@ import (
 	"strings"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/SigNoz/signoz/pkg/alertmanager/nfmanager/nfroutingstore/sqlroutingstore"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/sqlstore/sqlstoretest"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/alertmanager/nfmanager/nfroutingstore/sqlroutingstore"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/sqlstore/sqlstoretest"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 type MockSQLRouteStore struct {

@@ -6,14 +6,14 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
 )
 
 type addDeploymentHostTuples struct {
@@ -38,7 +38,7 @@ func (migration *addDeploymentHostTuples) Up(ctx context.Context, db *bun.DB) er
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -58,10 +58,10 @@ func (migration *addDeploymentHostTuples) Up(ctx context.Context, db *bun.DB) er
 	// CheckResources, which on enterprise requires real tuples -- existing orgs
 	// never had these written, only new orgs get them from the registry at bootstrap.
 	tuples := []migrationTuple{
-		{authtypes.SigNozAdminRoleName, "metaresource", "deployment-host", "list"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "deployment-host", "update"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "deployment-host", "list"},
-		{authtypes.SigNozViewerRoleName, "metaresource", "deployment-host", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "deployment-host", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "deployment-host", "update"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "deployment-host", "list"},
+		{authtypes.ArgusViewerRoleName, "metaresource", "deployment-host", "list"},
 	}
 
 	for _, orgID := range orgIDs {

@@ -5,10 +5,10 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/modules/dashboard"
-	"github.com/SigNoz/signoz/pkg/modules/organization"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/modules/dashboard"
+	"github.com/your-org/argus/pkg/modules/organization"
 )
 
 const reconcileRetryInterval = 30 * time.Second
@@ -25,7 +25,7 @@ type service struct {
 // created later are reconciled by the organization setter instead.
 func NewService(providerSettings factory.ProviderSettings, module dashboard.Module, orgGetter organization.Getter) factory.Service {
 	return &service{
-		settings:  factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/modules/dashboard/impldashboard"),
+		settings:  factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/modules/dashboard/impldashboard"),
 		module:    module,
 		orgGetter: orgGetter,
 		stopC:     make(chan struct{}),

@@ -9,14 +9,14 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/SigNoz/signoz/pkg/instrumentation/instrumentationtest"
-	"github.com/SigNoz/signoz/pkg/queryparser"
-	"github.com/SigNoz/signoz/pkg/types/metrictypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes/telemetrytypestest"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/instrumentation/instrumentationtest"
+	"github.com/your-org/argus/pkg/queryparser"
+	"github.com/your-org/argus/pkg/types/metrictypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/ruletypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes/telemetrytypestest"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func mustParseURL(t *testing.T, raw string) *url.URL {
@@ -747,8 +747,8 @@ func TestBaseRule_ExternalURL(t *testing.T) {
 		want        string
 	}{
 		{name: "default value returned as-is", externalURL: mustParseURL(t, "http://localhost:8080"), want: "http://localhost:8080"},
-		{name: "configured https host", externalURL: mustParseURL(t, "https://signoz.example.com"), want: "https://signoz.example.com"},
-		{name: "configured host with port", externalURL: mustParseURL(t, "http://signoz.internal:3301"), want: "http://signoz.internal:3301"},
+		{name: "configured https host", externalURL: mustParseURL(t, "https://argus.example.com"), want: "https://argus.example.com"},
+		{name: "configured host with port", externalURL: mustParseURL(t, "http://argus.internal:3301"), want: "http://argus.internal:3301"},
 	}
 
 	for _, tc := range tests {
@@ -773,8 +773,8 @@ func TestBaseRule_GeneratorURL(t *testing.T) {
 		{
 			name:        "configured external URL",
 			ruleID:      "abc",
-			externalURL: mustParseURL(t, "https://signoz.example.com"),
-			want:        "https://signoz.example.com/alerts/overview?ruleId=abc",
+			externalURL: mustParseURL(t, "https://argus.example.com"),
+			want:        "https://argus.example.com/alerts/overview?ruleId=abc",
 		},
 		{
 			name:        "default external URL is used as-is",
@@ -785,8 +785,8 @@ func TestBaseRule_GeneratorURL(t *testing.T) {
 		{
 			name:        "external URL with base path is preserved",
 			ruleID:      "abc",
-			externalURL: mustParseURL(t, "https://signoz.example.com/signoz"),
-			want:        "https://signoz.example.com/signoz/alerts/overview?ruleId=abc",
+			externalURL: mustParseURL(t, "https://argus.example.com/signoz"),
+			want:        "https://argus.example.com/signoz/alerts/overview?ruleId=abc",
 		},
 	}
 

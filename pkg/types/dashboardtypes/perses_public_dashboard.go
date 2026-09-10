@@ -1,9 +1,9 @@
 package dashboardtypes
 
 import (
-	"github.com/SigNoz/signoz/pkg/errors"
-	qb "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/tagtypes"
+	"github.com/your-org/argus/pkg/errors"
+	qb "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/tagtypes"
 )
 
 // ════════════════════════════════════════════════════════════════════════

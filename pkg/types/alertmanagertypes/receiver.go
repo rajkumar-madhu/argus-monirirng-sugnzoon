@@ -9,9 +9,9 @@ import (
 
 	"github.com/prometheus/common/model"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/template"
+	"github.com/your-org/argus/pkg/errors"
 	"gopkg.in/yaml.v2"
 
 	"github.com/prometheus/alertmanager/config"

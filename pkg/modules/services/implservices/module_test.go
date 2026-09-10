@@ -3,10 +3,10 @@ package implservices
 import (
 	"testing"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/servicetypes/servicetypesv1"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/assert"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/servicetypes/servicetypesv1"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestBuildQueryRangeRequest(t *testing.T) {

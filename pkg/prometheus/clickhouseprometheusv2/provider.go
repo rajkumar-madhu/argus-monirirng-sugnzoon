@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
 	"github.com/prometheus/prometheus/promql"
 	"github.com/prometheus/prometheus/storage"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/telemetrystore"
 )
 
 type provider struct {
@@ -32,7 +32,7 @@ func NewFactory(telemetryStore telemetrystore.TelemetryStore) factory.ProviderFa
 }
 
 func New(_ context.Context, providerSettings factory.ProviderSettings, config prometheus.Config, telemetryStore telemetrystore.TelemetryStore) (prometheus.Prometheus, error) {
-	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/prometheus/clickhouseprometheusv2")
+	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/prometheus/clickhouseprometheusv2")
 
 	engine := prometheus.NewEngine(settings.Logger(), config)
 	parser := prometheus.NewParser()

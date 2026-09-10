@@ -4,9 +4,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/prometheus/alertmanager/config"
 	commoncfg "github.com/prometheus/common/config"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 type GoogleChatReceiverConfig struct {

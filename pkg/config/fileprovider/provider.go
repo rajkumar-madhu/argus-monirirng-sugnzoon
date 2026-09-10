@@ -3,9 +3,9 @@ package fileprovider
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/config"
 	koanfyaml "github.com/knadh/koanf/parsers/yaml"
 	koanffile "github.com/knadh/koanf/providers/file"
+	"github.com/your-org/argus/pkg/config"
 )
 
 const (

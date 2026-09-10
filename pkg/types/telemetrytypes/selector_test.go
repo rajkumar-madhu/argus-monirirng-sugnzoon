@@ -9,16 +9,16 @@ import (
 
 func TestNewTelemetryGrantSelector(t *testing.T) {
 	valid := map[string]string{
-		"*":               "*",
-		"builder_query":   "builder_query/*",
-		"builder_query/*": "builder_query/*",
-		"promql":          "promql/*",
-		"clickhouse_sql":  "clickhouse_sql/*",
-		"builder_query/signoz.workspace.key.id/*":              "builder_query/signoz.workspace.key.id/*",
-		"builder_query/signoz.workspace.key.id/key-a":          "builder_query/signoz.workspace.key.id/key-a",
-		"builder_query/resource.signoz.workspace.key.id/key-a": "builder_query/signoz.workspace.key.id/key-a",
-		"builder_query/signoz.workspace.key.id/key a":          "builder_query/signoz.workspace.key.id/key a",
-		"builder_query/signoz.workspace.key.id/a/b":            "builder_query/signoz.workspace.key.id/a/b",
+		"*":                                      "*",
+		"builder_query":                          "builder_query/*",
+		"builder_query/*":                        "builder_query/*",
+		"promql":                                 "promql/*",
+		"clickhouse_sql":                         "clickhouse_sql/*",
+		"builder_query/argus.workspace.key.id/*": "builder_query/argus.workspace.key.id/*",
+		"builder_query/argus.workspace.key.id/key-a":          "builder_query/argus.workspace.key.id/key-a",
+		"builder_query/resource.argus.workspace.key.id/key-a": "builder_query/argus.workspace.key.id/key-a",
+		"builder_query/argus.workspace.key.id/key a":          "builder_query/argus.workspace.key.id/key a",
+		"builder_query/argus.workspace.key.id/a/b":            "builder_query/argus.workspace.key.id/a/b",
 	}
 	for input, expected := range valid {
 		canonical, err := NewTelemetryGrantSelector(input)
@@ -29,16 +29,16 @@ func TestNewTelemetryGrantSelector(t *testing.T) {
 	invalid := []string{
 		"",
 		"key-a",
-		"signoz.workspace.key.id = 'key-a'",
-		"builder_trace_operator/signoz.workspace.key.id/key-a",
+		"argus.workspace.key.id = 'key-a'",
+		"builder_trace_operator/argus.workspace.key.id/key-a",
 		"builder_query/service.name/frontend",
-		"builder_query/signoz.workspace.key.id/",
-		"builder_query/signoz.workspace.key.id/$svc",
-		"*/signoz.workspace.key.id/key-a",
-		"builder_query/signoz.workspace.key.id",
-		"clickhouse_sql/signoz.workspace.key.id/key-a",
-		"clickhouse_sql/signoz.workspace.key.id/*",
-		"promql/signoz.workspace.key.id/key-a",
+		"builder_query/argus.workspace.key.id/",
+		"builder_query/argus.workspace.key.id/$svc",
+		"*/argus.workspace.key.id/key-a",
+		"builder_query/argus.workspace.key.id",
+		"clickhouse_sql/argus.workspace.key.id/key-a",
+		"clickhouse_sql/argus.workspace.key.id/*",
+		"promql/argus.workspace.key.id/key-a",
 	}
 	for _, input := range invalid {
 		_, err := NewTelemetryGrantSelector(input)
@@ -48,8 +48,8 @@ func TestNewTelemetryGrantSelector(t *testing.T) {
 
 func TestNewTelemetryGrantKey(t *testing.T) {
 	valid := map[string]string{
-		"signoz.workspace.key.id":          "signoz.workspace.key.id",
-		"resource.signoz.workspace.key.id": "signoz.workspace.key.id",
+		"argus.workspace.key.id":          "argus.workspace.key.id",
+		"resource.argus.workspace.key.id": "argus.workspace.key.id",
 	}
 	for keyText, expected := range valid {
 		key, ok := NewTelemetryGrantKey(keyText)
@@ -57,7 +57,7 @@ func TestNewTelemetryGrantKey(t *testing.T) {
 		assert.Equal(t, expected, key, keyText)
 	}
 
-	for _, keyText := range []string{"service.name", "attribute.signoz.workspace.key.id", "body.signoz.workspace.key.id"} {
+	for _, keyText := range []string{"service.name", "attribute.argus.workspace.key.id", "body.argus.workspace.key.id"} {
 		_, ok := NewTelemetryGrantKey(keyText)
 		assert.False(t, ok, keyText)
 	}
@@ -65,12 +65,12 @@ func TestNewTelemetryGrantKey(t *testing.T) {
 
 func TestNewTelemetryGrantSelectors(t *testing.T) {
 	ladders := map[string][]string{
-		"*":               {"*"},
-		"builder_query/*": {"builder_query/*", "*"},
-		"promql/*":        {"promql/*", "*"},
-		"builder_query/signoz.workspace.key.id/*":   {"builder_query/signoz.workspace.key.id/*", "builder_query/*", "*"},
-		"builder_query/signoz.workspace.key.id/a":   {"builder_query/signoz.workspace.key.id/a", "builder_query/signoz.workspace.key.id/*", "builder_query/*", "*"},
-		"builder_query/signoz.workspace.key.id/a/b": {"builder_query/signoz.workspace.key.id/a/b", "builder_query/signoz.workspace.key.id/*", "builder_query/*", "*"},
+		"*":                                      {"*"},
+		"builder_query/*":                        {"builder_query/*", "*"},
+		"promql/*":                               {"promql/*", "*"},
+		"builder_query/argus.workspace.key.id/*": {"builder_query/argus.workspace.key.id/*", "builder_query/*", "*"},
+		"builder_query/argus.workspace.key.id/a": {"builder_query/argus.workspace.key.id/a", "builder_query/argus.workspace.key.id/*", "builder_query/*", "*"},
+		"builder_query/argus.workspace.key.id/a/b": {"builder_query/argus.workspace.key.id/a/b", "builder_query/argus.workspace.key.id/*", "builder_query/*", "*"},
 	}
 	for selector, expected := range ladders {
 		assert.Equal(t, expected, NewTelemetryGrantSelectors(selector), "selector %q", selector)

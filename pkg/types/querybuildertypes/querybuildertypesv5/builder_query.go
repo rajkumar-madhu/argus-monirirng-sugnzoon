@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"slices"
 
-	"github.com/SigNoz/signoz/pkg/http/binding"
-	"github.com/SigNoz/signoz/pkg/types/metrictypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/swaggest/jsonschema-go"
+	"github.com/your-org/argus/pkg/http/binding"
+	"github.com/your-org/argus/pkg/types/metrictypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 type QueryBuilderQuery[T any] struct {

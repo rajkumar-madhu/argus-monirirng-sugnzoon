@@ -1,8 +1,8 @@
 package apdextypes
 
 import (
-	"github.com/SigNoz/signoz/pkg/types"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/types"
 )
 
 type Settings struct {

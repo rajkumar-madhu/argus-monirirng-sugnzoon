@@ -9,16 +9,16 @@ import (
 	"github.com/SigNoz/signoz-otel-collector/pkg/collectorsimulator"
 	_ "github.com/SigNoz/signoz-otel-collector/pkg/parser/grok"
 	"github.com/SigNoz/signoz-otel-collector/processor/signozlogspipelineprocessor"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	"github.com/SigNoz/signoz/pkg/types/pipelinetypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/query-service/model"
+	"github.com/your-org/argus/pkg/types/pipelinetypes"
 	"go.opentelemetry.io/collector/otelcol"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
 )
 
-func SimulatePipelinesProcessing(ctx context.Context, pipelines []pipelinetypes.GettablePipeline, logs []model.SignozLog) (
-	[]model.SignozLog, []string, error) {
+func SimulatePipelinesProcessing(ctx context.Context, pipelines []pipelinetypes.GettablePipeline, logs []model.ArgusLog) (
+	[]model.ArgusLog, []string, error) {
 	if len(pipelines) < 1 {
 		return logs, nil, nil
 	}
@@ -34,7 +34,7 @@ func SimulatePipelinesProcessing(ctx context.Context, pipelines []pipelinetypes.
 		}
 		logs[i].Attributes_int64[inputOrderAttribute] = int64(i)
 	}
-	simulatorInputPLogs := SignozLogsToPLogs(logs)
+	simulatorInputPLogs := ArgusLogsToPLogs(logs)
 
 	processorFactories, err := otelcol.MakeFactoryMap(signozlogspipelineprocessor.NewFactory())
 	if err != nil {
@@ -71,15 +71,15 @@ func SimulatePipelinesProcessing(ctx context.Context, pipelines []pipelinetypes.
 		return nil, nil, errors.WrapInternalf(simulationErr, errors.CodeInternal, "could not simulate log pipelines processing")
 	}
 
-	outputSignozLogs := PLogsToSignozLogs(outputPLogs)
+	outputArgusLogs := PLogsToArgusLogs(outputPLogs)
 
 	// Sort output logs by their order in the input and remove the temp ordering attribute
-	sort.Slice(outputSignozLogs, func(i, j int) bool {
-		iIdx := outputSignozLogs[i].Attributes_int64[inputOrderAttribute]
-		jIdx := outputSignozLogs[j].Attributes_int64[inputOrderAttribute]
+	sort.Slice(outputArgusLogs, func(i, j int) bool {
+		iIdx := outputArgusLogs[i].Attributes_int64[inputOrderAttribute]
+		jIdx := outputArgusLogs[j].Attributes_int64[inputOrderAttribute]
 		return iIdx < jIdx
 	})
-	for _, sigLog := range outputSignozLogs {
+	for _, sigLog := range outputArgusLogs {
 		delete(sigLog.Attributes_int64, inputOrderAttribute)
 	}
 
@@ -92,15 +92,15 @@ func SimulatePipelinesProcessing(ctx context.Context, pipelines []pipelinetypes.
 		collectorWarnAndErrorLogs = append(collectorWarnAndErrorLogs, log)
 	}
 
-	return outputSignozLogs, collectorWarnAndErrorLogs, nil
+	return outputArgusLogs, collectorWarnAndErrorLogs, nil
 }
 
 // plog doesn't contain an ID field.
-// SignozLog.ID is stored as a log attribute in plogs for processing
+// ArgusLog.ID is stored as a log attribute in plogs for processing
 // and gets hydrated back later.
-const SignozLogIdAttr = "__signoz_log_id__"
+const ArgusLogIdAttr = "__signoz_log_id__"
 
-func SignozLogsToPLogs(logs []model.SignozLog) []plog.Logs {
+func ArgusLogsToPLogs(logs []model.ArgusLog) []plog.Logs {
 	result := []plog.Logs{}
 
 	for _, log := range logs {
@@ -144,7 +144,7 @@ func SignozLogsToPLogs(logs []model.SignozLog) []plog.Logs {
 		for k, v := range log.Attributes_string {
 			slAttribs.PutStr(k, v)
 		}
-		slAttribs.PutStr(SignozLogIdAttr, log.ID)
+		slAttribs.PutStr(ArgusLogIdAttr, log.ID)
 
 		result = append(result, pl)
 	}
@@ -152,8 +152,8 @@ func SignozLogsToPLogs(logs []model.SignozLog) []plog.Logs {
 	return result
 }
 
-func PLogsToSignozLogs(plogs []plog.Logs) []model.SignozLog {
-	result := []model.SignozLog{}
+func PLogsToArgusLogs(plogs []plog.Logs) []model.ArgusLog {
+	result := []model.ArgusLog{}
 
 	for _, pl := range plogs {
 
@@ -171,13 +171,13 @@ func PLogsToSignozLogs(plogs []plog.Logs) []model.SignozLog {
 
 					// Recover ID for the log and remove temp attrib used for storing it
 					signozLogId := ""
-					logIdVal, exists := lr.Attributes().Get(SignozLogIdAttr)
+					logIdVal, exists := lr.Attributes().Get(ArgusLogIdAttr)
 					if exists {
 						signozLogId = logIdVal.Str()
 					}
-					lr.Attributes().Remove(SignozLogIdAttr)
+					lr.Attributes().Remove(ArgusLogIdAttr)
 
-					signozLog := model.SignozLog{
+					signozLog := model.ArgusLog{
 						Timestamp:          uint64(lr.Timestamp()),
 						ID:                 signozLogId,
 						TraceID:            lr.TraceID().String(),

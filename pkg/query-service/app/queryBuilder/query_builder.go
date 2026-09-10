@@ -7,10 +7,10 @@ import (
 	"log/slog"
 
 	"github.com/SigNoz/govaluate"
-	"github.com/SigNoz/signoz/pkg/cache"
-	metricsV3 "github.com/SigNoz/signoz/pkg/query-service/app/metrics/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/cache"
+	metricsV3 "github.com/your-org/argus/pkg/query-service/app/metrics/v3"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 var SupportedFunctions = []string{

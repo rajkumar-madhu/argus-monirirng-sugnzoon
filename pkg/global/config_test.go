@@ -120,17 +120,17 @@ func TestValidate(t *testing.T) {
 		},
 		{
 			name:   "NoLeadingSlash",
-			config: Config{ExternalURL: &url.URL{Path: "signoz"}},
+			config: Config{ExternalURL: &url.URL{Path: "argus"}},
 			fail:   true,
 		},
 		{
 			name:   "ValidAllowedOrigin",
-			config: Config{AllowedOrigins: []*url.URL{{Scheme: "https", Host: "signoz.example.com"}}},
+			config: Config{AllowedOrigins: []*url.URL{{Scheme: "https", Host: "argus.example.com"}}},
 			fail:   false,
 		},
 		{
 			name:   "AllowedOriginWithoutScheme",
-			config: Config{AllowedOrigins: []*url.URL{{Host: "signoz.example.com"}}},
+			config: Config{AllowedOrigins: []*url.URL{{Host: "argus.example.com"}}},
 			fail:   true,
 		},
 		{
@@ -140,7 +140,7 @@ func TestValidate(t *testing.T) {
 		},
 		{
 			name:   "AllowedOriginWithPath",
-			config: Config{AllowedOrigins: []*url.URL{{Scheme: "https", Host: "signoz.example.com", Path: "/login"}}},
+			config: Config{AllowedOrigins: []*url.URL{{Scheme: "https", Host: "argus.example.com", Path: "/login"}}},
 			fail:   true,
 		},
 	}
@@ -169,7 +169,7 @@ func TestIsOriginAllowedWhenUnconfigured(t *testing.T) {
 		},
 		{
 			name:   "ExternalURLDoesNotActivateValidation",
-			config: Config{ExternalURL: &url.URL{Scheme: "https", Host: "signoz.example.com"}},
+			config: Config{ExternalURL: &url.URL{Scheme: "https", Host: "argus.example.com"}},
 		},
 	}
 
@@ -185,7 +185,7 @@ func TestIsOriginAllowedWhenUnconfigured(t *testing.T) {
 func TestIsOriginAllowed(t *testing.T) {
 	config := Config{
 		AllowedOrigins: []*url.URL{
-			{Scheme: "https", Host: "signoz.example.com"},
+			{Scheme: "https", Host: "argus.example.com"},
 			{Scheme: "http", Host: "localhost:3301"},
 		},
 	}
@@ -197,7 +197,7 @@ func TestIsOriginAllowed(t *testing.T) {
 	}{
 		{
 			name:     "ConfiguredOrigin",
-			input:    "https://signoz.example.com/login",
+			input:    "https://argus.example.com/login",
 			expected: true,
 		},
 		{
@@ -207,7 +207,7 @@ func TestIsOriginAllowed(t *testing.T) {
 		},
 		{
 			name:     "CaseInsensitiveHost",
-			input:    "https://SigNoz.Example.Com/login",
+			input:    "https://Argus.Example.Com/login",
 			expected: true,
 		},
 		{
@@ -217,12 +217,12 @@ func TestIsOriginAllowed(t *testing.T) {
 		},
 		{
 			name:     "SchemeMismatch",
-			input:    "http://signoz.example.com/login",
+			input:    "http://argus.example.com/login",
 			expected: false,
 		},
 		{
 			name:     "PortMismatch",
-			input:    "https://signoz.example.com:8443/login",
+			input:    "https://argus.example.com:8443/login",
 			expected: false,
 		},
 		{
@@ -232,7 +232,7 @@ func TestIsOriginAllowed(t *testing.T) {
 		},
 		{
 			name:     "UserInfoConfusion",
-			input:    "https://signoz.example.com@attacker.example.com/login",
+			input:    "https://argus.example.com@attacker.example.com/login",
 			expected: false,
 		},
 		{

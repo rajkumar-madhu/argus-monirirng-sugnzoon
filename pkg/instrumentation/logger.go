@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/SigNoz/signoz/pkg/instrumentation/loghandler"
+	"github.com/your-org/argus/pkg/instrumentation/loghandler"
 	"go.uber.org/zap" //nolint:depguard
 )
 

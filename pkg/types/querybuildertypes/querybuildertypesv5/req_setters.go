@@ -1,6 +1,6 @@
 package querybuildertypesv5
 
-import "github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+import "github.com/your-org/argus/pkg/types/telemetrytypes"
 
 // SetExpression sets the expression string of the spec, if applicable.
 func (q *QueryEnvelope) SetExpression(expression string) {

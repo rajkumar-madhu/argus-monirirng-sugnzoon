@@ -3,7 +3,7 @@ package subscriptiontypes
 import (
 	"encoding/json"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 type PostableSubscription struct {

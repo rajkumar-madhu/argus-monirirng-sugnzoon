@@ -3,9 +3,9 @@ package noopauditor
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/auditor"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/types/audittypes"
+	"github.com/your-org/argus/pkg/auditor"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/types/audittypes"
 )
 
 type provider struct {

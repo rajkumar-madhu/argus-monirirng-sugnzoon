@@ -1,4 +1,4 @@
-// Copyright (c) 2026 SigNoz, Inc.
+// Copyright (c) 2026 Argus, Inc.
 // Copyright 2023 Prometheus Team
 // SPDX-License-Identifier: Apache-2.0
 
@@ -17,14 +17,14 @@ import (
 	"time"
 	"unicode/utf16"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/templating/markdownrenderer/adf"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/template"
 	"github.com/prometheus/alertmanager/types"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagertemplate"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/templating/markdownrenderer/adf"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 )
 
 const Integration = "jira"
@@ -212,7 +212,7 @@ func adfDocLen(node any) int {
 }
 
 // buildDescription assembles the ADF issue body: a firing/resolved status panel,
-// the rendered markdown body, and SigNoz deep-links.
+// the rendered markdown body, and Argus deep-links.
 func (n *Notifier) buildDescription(descText string, alerts []*types.Alert, firing bool) map[string]any {
 	content := []any{statusPanel(firing)}
 	content = append(content, adf.Render(descText)...)
@@ -237,7 +237,7 @@ func statusPanel(firing bool) map[string]any {
 	}
 }
 
-// deepLinks builds a paragraph of SigNoz links from the per-rule ruleSource label
+// deepLinks builds a paragraph of Argus links from the per-rule ruleSource label
 // and the related-logs/traces annotations. Returns nil when none are present.
 func deepLinks(alerts []*types.Alert) map[string]any {
 	if len(alerts) == 0 {
@@ -258,7 +258,7 @@ func deepLinks(alerts []*types.Alert) map[string]any {
 			"marks": []any{map[string]any{"type": "link", "attrs": map[string]any{"href": url}}},
 		})
 	}
-	add("Open in SigNoz", string(a.Labels[ruletypes.LabelRuleSource]))
+	add("Open in Argus", string(a.Labels[ruletypes.LabelRuleSource]))
 	add("View Related Logs", string(a.Annotations[ruletypes.AnnotationRelatedLogs]))
 	add("View Related Traces", string(a.Annotations[ruletypes.AnnotationRelatedTraces]))
 	if len(parts) == 0 {

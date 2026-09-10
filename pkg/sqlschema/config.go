@@ -1,6 +1,6 @@
 package sqlschema
 
-import "github.com/SigNoz/signoz/pkg/factory"
+import "github.com/your-org/argus/pkg/factory"
 
 type Config struct{}
 

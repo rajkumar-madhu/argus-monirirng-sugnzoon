@@ -1,8 +1,8 @@
 package aitelemetryschema
 
 import (
-	"github.com/SigNoz/signoz/pkg/types/aiobservabilitytypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/types/aiobservabilitytypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 var (
@@ -19,7 +19,7 @@ var (
 		aiobservabilitytypes.GenAIUsageOutputTokens:             genAIAttribute(aiobservabilitytypes.GenAIUsageOutputTokens, telemetrytypes.FieldDataTypeFloat64),
 		aiobservabilitytypes.GenAIUsageCacheReadInputTokens:     genAIAttribute(aiobservabilitytypes.GenAIUsageCacheReadInputTokens, telemetrytypes.FieldDataTypeFloat64),
 		aiobservabilitytypes.GenAIUsageCacheCreationInputTokens: genAIAttribute(aiobservabilitytypes.GenAIUsageCacheCreationInputTokens, telemetrytypes.FieldDataTypeFloat64),
-		aiobservabilitytypes.SignozGenAITotalCost:               genAIAttribute(aiobservabilitytypes.SignozGenAITotalCost, telemetrytypes.FieldDataTypeFloat64),
+		aiobservabilitytypes.ArgusGenAITotalCost:                genAIAttribute(aiobservabilitytypes.ArgusGenAITotalCost, telemetrytypes.FieldDataTypeFloat64),
 
 		aiobservabilitytypes.GenAIInputMessages:  genAIAttribute(aiobservabilitytypes.GenAIInputMessages, telemetrytypes.FieldDataTypeString),
 		aiobservabilitytypes.GenAIOutputMessages: genAIAttribute(aiobservabilitytypes.GenAIOutputMessages, telemetrytypes.FieldDataTypeString),

@@ -3,10 +3,10 @@ package audittypes
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func TestNewAuditAttributesFromHTTP_OutcomeBoundary(t *testing.T) {

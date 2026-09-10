@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/ClickHouse/clickhouse-go/v2"
-	"github.com/SigNoz/signoz/pkg/prometheus"
 	"github.com/prometheus/prometheus/model/labels"
 	"github.com/prometheus/prometheus/promql"
+	"github.com/your-org/argus/pkg/prometheus"
 )
 
 // shadowTimeout bounds a shadow evaluation; a shadow run must never outlive

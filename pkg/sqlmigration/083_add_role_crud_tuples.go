@@ -4,13 +4,13 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type addRoleCRUDTuples struct {
@@ -35,7 +35,7 @@ func (migration *addRoleCRUDTuples) Up(ctx context.Context, db *bun.DB) error {
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -60,9 +60,9 @@ func (migration *addRoleCRUDTuples) Up(ctx context.Context, db *bun.DB) error {
 	// only inserted create and list. The read, update, and delete tuples were
 	// lost in the migration. Re-add them here.
 	tuples := []migrationTuple{
-		{authtypes.SigNozAdminRoleName, "role", "role", "read"},
-		{authtypes.SigNozAdminRoleName, "role", "role", "update"},
-		{authtypes.SigNozAdminRoleName, "role", "role", "delete"},
+		{authtypes.ArgusAdminRoleName, "role", "role", "read"},
+		{authtypes.ArgusAdminRoleName, "role", "role", "update"},
+		{authtypes.ArgusAdminRoleName, "role", "role", "delete"},
 	}
 
 	for _, orgID := range orgIDs {

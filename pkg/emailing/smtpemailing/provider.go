@@ -4,12 +4,12 @@ import (
 	"context"
 	"net/mail"
 
-	"github.com/SigNoz/signoz/pkg/emailing"
-	"github.com/SigNoz/signoz/pkg/emailing/templatestore/filetemplatestore"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/smtp/client"
-	"github.com/SigNoz/signoz/pkg/types/emailtypes"
+	"github.com/your-org/argus/pkg/emailing"
+	"github.com/your-org/argus/pkg/emailing/templatestore/filetemplatestore"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/smtp/client"
+	"github.com/your-org/argus/pkg/types/emailtypes"
 )
 
 type provider struct {
@@ -24,7 +24,7 @@ func NewFactory() factory.ProviderFactory[emailing.Emailing, emailing.Config] {
 }
 
 func New(ctx context.Context, providerSettings factory.ProviderSettings, config emailing.Config) (emailing.Emailing, error) {
-	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/SigNoz/signoz/pkg/emailing/smtpemailing")
+	settings := factory.NewScopedProviderSettings(providerSettings, "github.com/your-org/argus/pkg/emailing/smtpemailing")
 
 	// Try to create a template store. If it fails, use an empty store.
 	store, err := filetemplatestore.NewStore(ctx, config.Templates.Directory, emailtypes.Templates, settings.Logger())

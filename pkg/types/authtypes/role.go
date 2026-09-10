@@ -7,11 +7,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/uptrace/bun"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
@@ -28,7 +28,7 @@ var (
 
 var (
 	roleNameRegex     = regexp.MustCompile("^[a-z-]{1,50}$")
-	managedRolePrefix = "signoz"
+	managedRolePrefix = "argus"
 )
 
 var (
@@ -37,21 +37,21 @@ var (
 )
 
 var (
-	SigNozAnonymousRoleName        = coretypes.SigNozAnonymousRoleName
-	SigNozAnonymousRoleDescription = "Role assigned to anonymous users for access to public resources."
-	SigNozAdminRoleName            = coretypes.SigNozAdminRoleName
-	SigNozAdminRoleDescription     = "Role assigned to users who have full administrative access to SigNoz resources."
-	SigNozEditorRoleName           = coretypes.SigNozEditorRoleName
-	SigNozEditorRoleDescription    = "Role assigned to users who can create, edit, and manage SigNoz resources but do not have full administrative privileges."
-	SigNozViewerRoleName           = coretypes.SigNozViewerRoleName
-	SigNozViewerRoleDescription    = "Role assigned to users who have read-only access to SigNoz resources."
+	ArgusAnonymousRoleName        = coretypes.ArgusAnonymousRoleName
+	ArgusAnonymousRoleDescription = "Role assigned to anonymous users for access to public resources."
+	ArgusAdminRoleName            = coretypes.ArgusAdminRoleName
+	ArgusAdminRoleDescription     = "Role assigned to users who have full administrative access to Argus resources."
+	ArgusEditorRoleName           = coretypes.ArgusEditorRoleName
+	ArgusEditorRoleDescription    = "Role assigned to users who can create, edit, and manage Argus resources but do not have full administrative privileges."
+	ArgusViewerRoleName           = coretypes.ArgusViewerRoleName
+	ArgusViewerRoleDescription    = "Role assigned to users who have read-only access to Argus resources."
 )
 
 var (
-	ExistingRoleToSigNozManagedRoleMap = map[types.Role]string{
-		types.RoleAdmin:  SigNozAdminRoleName,
-		types.RoleEditor: SigNozEditorRoleName,
-		types.RoleViewer: SigNozViewerRoleName,
+	ExistingRoleToArgusManagedRoleMap = map[types.Role]string{
+		types.RoleAdmin:  ArgusAdminRoleName,
+		types.RoleEditor: ArgusEditorRoleName,
+		types.RoleViewer: ArgusViewerRoleName,
 	}
 )
 
@@ -122,10 +122,10 @@ func NewGettableRolesFromRoles(roles []*Role) []*GettableRole {
 
 func NewManagedRoles(orgID valuer.UUID) []*Role {
 	return []*Role{
-		NewRole(SigNozAdminRoleName, SigNozAdminRoleDescription, RoleTypeManaged, orgID, NewTransactionGroupsFromTransactions(coretypes.ManagedRoleToTransactions[SigNozAdminRoleName])),
-		NewRole(SigNozEditorRoleName, SigNozEditorRoleDescription, RoleTypeManaged, orgID, NewTransactionGroupsFromTransactions(coretypes.ManagedRoleToTransactions[SigNozEditorRoleName])),
-		NewRole(SigNozViewerRoleName, SigNozViewerRoleDescription, RoleTypeManaged, orgID, NewTransactionGroupsFromTransactions(coretypes.ManagedRoleToTransactions[SigNozViewerRoleName])),
-		NewRole(SigNozAnonymousRoleName, SigNozAnonymousRoleDescription, RoleTypeManaged, orgID, NewTransactionGroupsFromTransactions(coretypes.ManagedRoleToTransactions[SigNozAnonymousRoleName])),
+		NewRole(ArgusAdminRoleName, ArgusAdminRoleDescription, RoleTypeManaged, orgID, NewTransactionGroupsFromTransactions(coretypes.ManagedRoleToTransactions[ArgusAdminRoleName])),
+		NewRole(ArgusEditorRoleName, ArgusEditorRoleDescription, RoleTypeManaged, orgID, NewTransactionGroupsFromTransactions(coretypes.ManagedRoleToTransactions[ArgusEditorRoleName])),
+		NewRole(ArgusViewerRoleName, ArgusViewerRoleDescription, RoleTypeManaged, orgID, NewTransactionGroupsFromTransactions(coretypes.ManagedRoleToTransactions[ArgusViewerRoleName])),
+		NewRole(ArgusAnonymousRoleName, ArgusAnonymousRoleDescription, RoleTypeManaged, orgID, NewTransactionGroupsFromTransactions(coretypes.ManagedRoleToTransactions[ArgusAnonymousRoleName])),
 	}
 }
 
@@ -183,7 +183,7 @@ func (role *PostableRole) UnmarshalJSON(data []byte) error {
 	}
 
 	if strings.HasPrefix(shadow.Name, managedRolePrefix) {
-		return errors.Newf(errors.TypeInvalidInput, ErrCodeRoleInvalidInput, "role name cannot start with %q as it is reserved for SigNoz managed roles.", managedRolePrefix)
+		return errors.Newf(errors.TypeInvalidInput, ErrCodeRoleInvalidInput, "role name cannot start with %q as it is reserved for Argus managed roles.", managedRolePrefix)
 	}
 
 	var transactionGroups TransactionGroups
@@ -229,8 +229,8 @@ func (role *UpdatableRole) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func MustGetSigNozManagedRoleFromExistingRole(role types.Role) string {
-	managedRole, ok := ExistingRoleToSigNozManagedRoleMap[role]
+func MustGetArgusManagedRoleFromExistingRole(role types.Role) string {
+	managedRole, ok := ExistingRoleToArgusManagedRoleMap[role]
 	if !ok {
 		panic(errors.Newf(errors.TypeInternal, errors.CodeInternal, "invalid role: %s", role.String()))
 	}
@@ -244,7 +244,7 @@ func NormalizeRoleName(role string) string {
 		return role
 	}
 
-	managedRole, ok := ExistingRoleToSigNozManagedRoleMap[legacyRole]
+	managedRole, ok := ExistingRoleToArgusManagedRoleMap[legacyRole]
 	if !ok {
 		return role
 	}

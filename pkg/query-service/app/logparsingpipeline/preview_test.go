@@ -6,15 +6,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/flagger/flaggertest"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/types/pipelinetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/google/uuid"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/flagger/flaggertest"
+	"github.com/your-org/argus/pkg/query-service/model"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/types/pipelinetypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func TestPipelinePreview(t *testing.T) {
@@ -65,13 +65,13 @@ func TestPipelinePreview(t *testing.T) {
 		},
 	}
 
-	matchingLog := makeTestSignozLog(
+	matchingLog := makeTestArgusLog(
 		"test log body",
 		map[string]interface{}{
 			"method": "GET",
 		},
 	)
-	nonMatchingLog := makeTestSignozLog(
+	nonMatchingLog := makeTestArgusLog(
 		"test log body",
 		map[string]interface{}{
 			"method": "POST",
@@ -81,7 +81,7 @@ func TestPipelinePreview(t *testing.T) {
 	result, collectorWarnAndErrorLogs, err := SimulatePipelinesProcessing(
 		context.Background(),
 		testPipelines,
-		[]model.SignozLog{
+		[]model.ArgusLog{
 			matchingLog,
 			nonMatchingLog,
 		},
@@ -127,9 +127,9 @@ func TestPipelinePreviewNormalizesBodyWithJSONBodyEnabled(t *testing.T) {
 		valuer.GenerateUUID(),
 		&PipelinesPreviewRequest{
 			Pipelines: []pipelinetypes.GettablePipeline{makeTestAddAttributePipeline()},
-			Logs: []model.SignozLog{
-				makeTestSignozLog("test log body", map[string]interface{}{"method": "GET"}),
-				makeTestSignozLog(
+			Logs: []model.ArgusLog{
+				makeTestArgusLog("test log body", map[string]interface{}{"method": "GET"}),
+				makeTestArgusLog(
 					`{"level":"error","msg":"json log body"}`,
 					map[string]interface{}{"method": "GET"},
 				),
@@ -157,8 +157,8 @@ func TestPipelinePreviewKeepsBodyAsIsWithJSONBodyDisabled(t *testing.T) {
 		valuer.GenerateUUID(),
 		&PipelinesPreviewRequest{
 			Pipelines: []pipelinetypes.GettablePipeline{makeTestAddAttributePipeline()},
-			Logs: []model.SignozLog{
-				makeTestSignozLog("test log body", map[string]interface{}{"method": "GET"}),
+			Logs: []model.ArgusLog{
+				makeTestArgusLog("test log body", map[string]interface{}{"method": "GET"}),
 			},
 		},
 	)
@@ -247,7 +247,7 @@ func TestGrokParsingProcessor(t *testing.T) {
 		},
 	}
 
-	testLog := makeTestSignozLog(
+	testLog := makeTestArgusLog(
 		"2023-10-26T04:38:00.602Z INFO route/server.go:71 HTTP request received",
 		map[string]interface{}{
 			"method": "GET",
@@ -256,7 +256,7 @@ func TestGrokParsingProcessor(t *testing.T) {
 	result, collectorWarnAndErrorLogs, err := SimulatePipelinesProcessing(
 		context.Background(),
 		testPipelines,
-		[]model.SignozLog{
+		[]model.ArgusLog{
 			testLog,
 		},
 	)
@@ -270,12 +270,12 @@ func TestGrokParsingProcessor(t *testing.T) {
 	require.Equal("route/server.go:71", processed.Attributes_string["location"])
 }
 
-func makeTestSignozLog(
+func makeTestArgusLog(
 	body string,
 	attributes map[string]interface{},
-) model.SignozLog {
+) model.ArgusLog {
 
-	testLog := model.SignozLog{
+	testLog := model.ArgusLog{
 		Timestamp:          uint64(time.Now().UnixNano()),
 		Body:               body,
 		Attributes_bool:    map[string]bool{},

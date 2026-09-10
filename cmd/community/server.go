@@ -6,53 +6,53 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/SigNoz/signoz/cmd"
-	"github.com/SigNoz/signoz/pkg/alertmanager"
-	"github.com/SigNoz/signoz/pkg/analytics"
-	"github.com/SigNoz/signoz/pkg/auditor"
-	"github.com/SigNoz/signoz/pkg/authn"
-	"github.com/SigNoz/signoz/pkg/authz"
-	"github.com/SigNoz/signoz/pkg/authz/openfgaauthz"
-	"github.com/SigNoz/signoz/pkg/authz/openfgaschema"
-	"github.com/SigNoz/signoz/pkg/authz/openfgaserver"
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/gateway"
-	"github.com/SigNoz/signoz/pkg/gateway/noopgateway"
-	"github.com/SigNoz/signoz/pkg/global"
-	"github.com/SigNoz/signoz/pkg/licensing"
-	"github.com/SigNoz/signoz/pkg/licensing/nooplicensing"
-	"github.com/SigNoz/signoz/pkg/meterreporter"
-	"github.com/SigNoz/signoz/pkg/modules/cloudintegration"
-	"github.com/SigNoz/signoz/pkg/modules/cloudintegration/implcloudintegration"
-	"github.com/SigNoz/signoz/pkg/modules/dashboard"
-	"github.com/SigNoz/signoz/pkg/modules/dashboard/impldashboard"
-	"github.com/SigNoz/signoz/pkg/modules/metricreductionrule"
-	"github.com/SigNoz/signoz/pkg/modules/metricreductionrule/implmetricreductionrule"
-	"github.com/SigNoz/signoz/pkg/modules/organization"
-	"github.com/SigNoz/signoz/pkg/modules/retention"
-	"github.com/SigNoz/signoz/pkg/modules/rulestatehistory"
-	"github.com/SigNoz/signoz/pkg/modules/serviceaccount"
-	"github.com/SigNoz/signoz/pkg/modules/tag"
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/querier"
-	"github.com/SigNoz/signoz/pkg/query-service/app"
-	"github.com/SigNoz/signoz/pkg/queryparser"
-	"github.com/SigNoz/signoz/pkg/ruler"
-	"github.com/SigNoz/signoz/pkg/ruler/signozruler"
-	"github.com/SigNoz/signoz/pkg/signoz"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/subscription"
-	"github.com/SigNoz/signoz/pkg/subscription/noopsubscription"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/dashboardtypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/version"
-	"github.com/SigNoz/signoz/pkg/zeus"
-	"github.com/SigNoz/signoz/pkg/zeus/noopzeus"
+	"github.com/your-org/argus/cmd"
+	"github.com/your-org/argus/pkg/alertmanager"
+	"github.com/your-org/argus/pkg/analytics"
+	"github.com/your-org/argus/pkg/argus"
+	"github.com/your-org/argus/pkg/auditor"
+	"github.com/your-org/argus/pkg/authn"
+	"github.com/your-org/argus/pkg/authz"
+	"github.com/your-org/argus/pkg/authz/openfgaauthz"
+	"github.com/your-org/argus/pkg/authz/openfgaschema"
+	"github.com/your-org/argus/pkg/authz/openfgaserver"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/gateway"
+	"github.com/your-org/argus/pkg/gateway/noopgateway"
+	"github.com/your-org/argus/pkg/global"
+	"github.com/your-org/argus/pkg/licensing"
+	"github.com/your-org/argus/pkg/licensing/nooplicensing"
+	"github.com/your-org/argus/pkg/meterreporter"
+	"github.com/your-org/argus/pkg/modules/cloudintegration"
+	"github.com/your-org/argus/pkg/modules/cloudintegration/implcloudintegration"
+	"github.com/your-org/argus/pkg/modules/dashboard"
+	"github.com/your-org/argus/pkg/modules/dashboard/impldashboard"
+	"github.com/your-org/argus/pkg/modules/metricreductionrule"
+	"github.com/your-org/argus/pkg/modules/metricreductionrule/implmetricreductionrule"
+	"github.com/your-org/argus/pkg/modules/organization"
+	"github.com/your-org/argus/pkg/modules/retention"
+	"github.com/your-org/argus/pkg/modules/rulestatehistory"
+	"github.com/your-org/argus/pkg/modules/serviceaccount"
+	"github.com/your-org/argus/pkg/modules/tag"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/querier"
+	"github.com/your-org/argus/pkg/query-service/app"
+	"github.com/your-org/argus/pkg/queryparser"
+	"github.com/your-org/argus/pkg/ruler"
+	"github.com/your-org/argus/pkg/ruler/argusruler"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/subscription"
+	"github.com/your-org/argus/pkg/subscription/noopsubscription"
+	"github.com/your-org/argus/pkg/telemetrystore"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/dashboardtypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/version"
+	"github.com/your-org/argus/pkg/zeus"
+	"github.com/your-org/argus/pkg/zeus/noopzeus"
 )
 
 func registerServer(parentCmd *cobra.Command, logger *slog.Logger) {
@@ -60,10 +60,10 @@ func registerServer(parentCmd *cobra.Command, logger *slog.Logger) {
 
 	serverCmd := &cobra.Command{
 		Use:                "server",
-		Short:              "Run the SigNoz server",
+		Short:              "Run the Argus server",
 		FParseErrWhitelist: cobra.FParseErrWhitelist{UnknownFlags: true},
 		RunE: func(currCmd *cobra.Command, args []string) error {
-			config, err := cmd.NewSigNozConfig(currCmd.Context(), logger, configFiles)
+			config, err := cmd.NewArgusConfig(currCmd.Context(), logger, configFiles)
 			if err != nil {
 				return err
 			}
@@ -76,11 +76,11 @@ func registerServer(parentCmd *cobra.Command, logger *slog.Logger) {
 	parentCmd.AddCommand(serverCmd)
 }
 
-func runServer(ctx context.Context, config signoz.Config, logger *slog.Logger) error {
+func runServer(ctx context.Context, config argus.Config, logger *slog.Logger) error {
 	// print the version
 	version.Info.PrettyPrint(config.Version)
 
-	signoz, err := signoz.New(
+	appInstance, err := argus.New(
 		ctx,
 		config,
 		zeus.Config{},
@@ -92,14 +92,14 @@ func runServer(ctx context.Context, config signoz.Config, logger *slog.Logger) e
 		func(_ zeus.Zeus, _ licensing.Licensing) subscription.Subscription {
 			return noopsubscription.New()
 		},
-		signoz.NewEmailingProviderFactories(),
-		signoz.NewCacheProviderFactories(),
-		signoz.NewWebProviderFactories(config.Global),
+		argus.NewEmailingProviderFactories(),
+		argus.NewCacheProviderFactories(),
+		argus.NewWebProviderFactories(config.Global),
 		sqlschemaProviderFactories,
 		sqlstoreProviderFactories(),
-		signoz.NewTelemetryStoreProviderFactories(),
+		argus.NewTelemetryStoreProviderFactories(),
 		func(ctx context.Context, providerSettings factory.ProviderSettings, store authtypes.AuthNStore, licensing licensing.Licensing) (map[authtypes.AuthNProvider]authn.AuthN, error) {
-			return signoz.NewAuthNs(ctx, providerSettings, store, licensing, config.Global)
+			return argus.NewAuthNs(ctx, providerSettings, store, licensing, config.Global)
 		},
 		func(ctx context.Context, sqlstore sqlstore.SQLStore, config authz.Config, _ licensing.Licensing, _ []authz.OnBeforeRoleDelete) (factory.ProviderFactory[authz.AuthZ, authz.Config], error) {
 			openfgaDataStore, err := openfgaserver.NewSQLStore(sqlstore, config)
@@ -116,10 +116,10 @@ func runServer(ctx context.Context, config signoz.Config, logger *slog.Logger) e
 			return noopgateway.NewProviderFactory()
 		},
 		func(_ licensing.Licensing) factory.NamedMap[factory.ProviderFactory[auditor.Auditor, auditor.Config]] {
-			return signoz.NewAuditorProviderFactories()
+			return argus.NewAuditorProviderFactories()
 		},
 		func(_ context.Context, _ factory.ProviderSettings, _ flagger.Flagger, _ licensing.Licensing, _ telemetrystore.TelemetryStore, _ retention.Getter, _ organization.Getter, _ zeus.Zeus) (factory.NamedMap[factory.ProviderFactory[meterreporter.Reporter, meterreporter.Config]], string) {
-			return signoz.NewMeterReporterProviderFactories(), "noop"
+			return argus.NewMeterReporterProviderFactories(), "noop"
 		},
 		func(ps factory.ProviderSettings, q querier.Querier, a analytics.Analytics) querier.Handler {
 			return querier.NewHandler(ps, q, a)
@@ -131,15 +131,15 @@ func runServer(ctx context.Context, config signoz.Config, logger *slog.Logger) e
 			return implmetricreductionrule.NewModule()
 		},
 		func(c cache.Cache, am alertmanager.Alertmanager, ss sqlstore.SQLStore, ts telemetrystore.TelemetryStore, ms telemetrytypes.MetadataStore, p prometheus.Prometheus, og organization.Getter, rsh rulestatehistory.Module, q querier.Querier, qp queryparser.QueryParser) factory.NamedMap[factory.ProviderFactory[ruler.Ruler, ruler.Config]] {
-			return factory.MustNewNamedMap(signozruler.NewFactory(c, am, ss, ts, ms, p, og, rsh, q, qp, nil, nil))
+			return factory.MustNewNamedMap(argusruler.NewFactory(c, am, ss, ts, ms, p, og, rsh, q, qp, nil, nil))
 		},
 	)
 	if err != nil {
-		logger.ErrorContext(ctx, "failed to create signoz", errors.Attr(err))
+		logger.ErrorContext(ctx, "failed to create Argus", errors.Attr(err))
 		return err
 	}
 
-	server, err := app.NewServer(config, signoz)
+	server, err := app.NewServer(config, appInstance)
 	if err != nil {
 		logger.ErrorContext(ctx, "failed to create server", errors.Attr(err))
 		return err
@@ -150,10 +150,10 @@ func runServer(ctx context.Context, config signoz.Config, logger *slog.Logger) e
 		return err
 	}
 
-	signoz.Start(ctx)
+	appInstance.Start(ctx)
 
-	if err := signoz.Wait(ctx); err != nil {
-		logger.ErrorContext(ctx, "failed to start signoz", errors.Attr(err))
+	if err := appInstance.Wait(ctx); err != nil {
+		logger.ErrorContext(ctx, "failed to start Argus", errors.Attr(err))
 		return err
 	}
 
@@ -163,9 +163,9 @@ func runServer(ctx context.Context, config signoz.Config, logger *slog.Logger) e
 		return err
 	}
 
-	err = signoz.Stop(ctx)
+	err = appInstance.Stop(ctx)
 	if err != nil {
-		logger.ErrorContext(ctx, "failed to stop signoz", errors.Attr(err))
+		logger.ErrorContext(ctx, "failed to stop Argus", errors.Attr(err))
 		return err
 	}
 

@@ -12,14 +12,14 @@ import (
 	"github.com/google/uuid"
 	yaml "gopkg.in/yaml.v3"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/query-service/app/opamp"
-	filterprocessor "github.com/SigNoz/signoz/pkg/query-service/app/opamp/otelconfig/filterprocessor"
-	tsp "github.com/SigNoz/signoz/pkg/query-service/app/opamp/otelconfig/tailsampler"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/opamptypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/query-service/app/opamp"
+	filterprocessor "github.com/your-org/argus/pkg/query-service/app/opamp/otelconfig/filterprocessor"
+	tsp "github.com/your-org/argus/pkg/query-service/app/opamp/otelconfig/tailsampler"
+	"github.com/your-org/argus/pkg/query-service/model"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/opamptypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var m *Manager

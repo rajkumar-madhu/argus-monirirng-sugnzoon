@@ -3,11 +3,11 @@ package thirdpartyapi
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/thirdpartyapitypes"
+	"github.com/your-org/argus/pkg/types/thirdpartyapitypes"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/assert"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestFilterResponse(t *testing.T) {

@@ -3,9 +3,9 @@ package querybuildertypesv5
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func createFormulaTestTimeSeriesData(queryName string, series []*TimeSeries) *TimeSeriesData {

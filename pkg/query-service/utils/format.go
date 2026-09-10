@@ -9,9 +9,9 @@ import (
 
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	"github.com/SigNoz/signoz/pkg/query-service/metrics"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	"github.com/your-org/argus/pkg/query-service/metrics"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 // ValidateAndCastValue validates and casts the value of a key to the corresponding data type of the key

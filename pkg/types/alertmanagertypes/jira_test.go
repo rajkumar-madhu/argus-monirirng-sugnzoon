@@ -83,7 +83,7 @@ func TestJiraIsServiceAccount(t *testing.T) {
 	}
 	assert.True(t, withUser("bot@serviceaccount.atlassian.com").IsServiceAccount())
 	assert.True(t, withUser("Bot@ServiceAccount.Atlassian.Com").IsServiceAccount())
-	assert.False(t, withUser("temp@signoz.io").IsServiceAccount())
+	assert.False(t, withUser("temp@argus.example.com").IsServiceAccount())
 	assert.False(t, (&JiraReceiverConfig{}).IsServiceAccount())
 }
 

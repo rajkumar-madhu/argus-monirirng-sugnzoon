@@ -3,10 +3,10 @@ package implretention
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/modules/retention"
-	"github.com/SigNoz/signoz/pkg/types/retentiontypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/modules/retention"
+	"github.com/your-org/argus/pkg/types/retentiontypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type getter struct {

@@ -4,10 +4,10 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/http/binding"
-	"github.com/SigNoz/signoz/pkg/types/exporttypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/http/binding"
+	"github.com/your-org/argus/pkg/types/exporttypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 func TestExportRawDataFormatQueryParam_BindingDefaults(t *testing.T) {

@@ -3,10 +3,10 @@ package dashboardtypes
 import (
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	qb "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/errors"
+	qb "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 func TestDashboardV2GetPanelQuery(t *testing.T) {

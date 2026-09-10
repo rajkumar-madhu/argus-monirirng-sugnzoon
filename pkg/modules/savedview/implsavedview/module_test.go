@@ -5,19 +5,19 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/modules/savedview"
-	"github.com/SigNoz/signoz/pkg/modules/savedview/implsavedview"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/sqlstore/sqlstoretest"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/savedviewtypes"
-	"github.com/SigNoz/signoz/pkg/types/savedviewtypes/savedviewtypestest"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/modules/savedview"
+	"github.com/your-org/argus/pkg/modules/savedview/implsavedview"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/sqlstore/sqlstoretest"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/savedviewtypes"
+	"github.com/your-org/argus/pkg/types/savedviewtypes/savedviewtypestest"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func newTestStore() (savedview.Module, *savedviewtypestest.StoreTest) {
@@ -59,7 +59,7 @@ func testUpdatableSavedView(displayName string, source savedviewtypes.Source) sa
 }
 
 func testSavedView(orgID string, id valuer.UUID, updatedBy string, view savedviewtypes.PostableSavedView) *savedviewtypes.SavedView {
-	savedView := view.ToSavedView(orgID, "creator@signoz.io")
+	savedView := view.ToSavedView(orgID, "creator@argus.example.com")
 	savedView.ID = id
 	savedView.UpdatedBy = updatedBy
 	return savedView
@@ -76,7 +76,7 @@ func TestModule_CreateAndGetView(t *testing.T) {
 	m, st := newTestStore()
 
 	orgID := valuer.GenerateUUID().StringValue()
-	ctx := contextWithClaims(orgID, "creator@signoz.io")
+	ctx := contextWithClaims(orgID, "creator@argus.example.com")
 	view := testPostableSavedView("my view", savedviewtypes.SourceLogs)
 
 	st.ExpectCreate()
@@ -84,15 +84,15 @@ func TestModule_CreateAndGetView(t *testing.T) {
 	require.NoError(t, err)
 	require.False(t, id.IsZero())
 
-	stored := testSavedView(orgID, id, "creator@signoz.io", view)
+	stored := testSavedView(orgID, id, "creator@argus.example.com", view)
 	st.ExpectGet(orgID, id, stored)
 	got, err := m.GetView(ctx, orgID, id)
 	require.NoError(t, err)
 	assert.Equal(t, id, got.ID)
 	assert.Equal(t, "my view", got.Name)
 	assert.Equal(t, savedviewtypes.SourceLogs, got.Source)
-	assert.Equal(t, "creator@signoz.io", got.CreatedBy)
-	assert.Equal(t, "creator@signoz.io", got.UpdatedBy)
+	assert.Equal(t, "creator@argus.example.com", got.CreatedBy)
+	assert.Equal(t, "creator@argus.example.com", got.UpdatedBy)
 	assert.Equal(t, savedviewtypes.PanelTypeGraph, got.Spec.PanelType)
 
 	require.NoError(t, st.AssertExpectations())
@@ -103,7 +103,7 @@ func TestModule_CreateView_DuplicateNameIsConflict(t *testing.T) {
 	m, st := newTestStore()
 
 	orgID := valuer.GenerateUUID().StringValue()
-	ctx := contextWithClaims(orgID, "creator@signoz.io")
+	ctx := contextWithClaims(orgID, "creator@argus.example.com")
 
 	st.ExpectCreateError(errors.Newf(errors.TypeInternal, errors.CodeInternal, "UNIQUE constraint failed: saved_view.org_id, saved_view.name"))
 	_, err := m.CreateView(ctx, orgID, testPostableSavedView("same-name", savedviewtypes.SourceLogs))
@@ -120,7 +120,7 @@ func TestModule_GetView_NotFound(t *testing.T) {
 	id := valuer.GenerateUUID()
 
 	st.ExpectGet(orgID, id, nil)
-	_, err := m.GetView(contextWithClaims(orgID, "someone@signoz.io"), orgID, id)
+	_, err := m.GetView(contextWithClaims(orgID, "someone@argus.example.com"), orgID, id)
 	require.Error(t, err)
 	assert.True(t, errors.Ast(err, errors.TypeNotFound), "expected a not-found error, got %v", err)
 
@@ -136,7 +136,7 @@ func TestModule_GetView_ScopedToOrg(t *testing.T) {
 	// The mock only has an expectation for orgB's WHERE clause; a lookup
 	// scoped to org A's real id must not accidentally match it.
 	st.ExpectGet(orgB, id, nil)
-	_, err := m.GetView(contextWithClaims(orgB, "b@signoz.io"), orgB, id)
+	_, err := m.GetView(contextWithClaims(orgB, "b@argus.example.com"), orgB, id)
 	require.Error(t, err, "a view created under org A must not be visible to org B")
 	assert.True(t, errors.Ast(err, errors.TypeNotFound), "expected a not-found error, got %v", err)
 
@@ -149,26 +149,26 @@ func TestModule_UpdateView(t *testing.T) {
 	orgID := valuer.GenerateUUID().StringValue()
 	id := valuer.GenerateUUID()
 
-	existing := testSavedView(orgID, id, "creator@signoz.io", testPostableSavedView("my-view", savedviewtypes.SourceLogs))
+	existing := testSavedView(orgID, id, "creator@argus.example.com", testPostableSavedView("my-view", savedviewtypes.SourceLogs))
 	existingName := existing.Name
 
 	updated := testUpdatableSavedView("renamed", savedviewtypes.SourceTraces)
 	updated.Spec.PanelType = savedviewtypes.PanelTypeTable
 
 	st.ExpectUpdate(orgID, id, 1)
-	require.NoError(t, m.UpdateView(contextWithClaims(orgID, "updater@signoz.io"), orgID, id, updated))
+	require.NoError(t, m.UpdateView(contextWithClaims(orgID, "updater@argus.example.com"), orgID, id, updated))
 
-	stored := testSavedView(orgID, id, "updater@signoz.io", testPostableSavedView("renamed", savedviewtypes.SourceTraces))
+	stored := testSavedView(orgID, id, "updater@argus.example.com", testPostableSavedView("renamed", savedviewtypes.SourceTraces))
 	stored.Name = existingName
 	stored.Spec.PanelType = savedviewtypes.PanelTypeTable
 	st.ExpectGet(orgID, id, stored)
-	got, err := m.GetView(contextWithClaims(orgID, "creator@signoz.io"), orgID, id)
+	got, err := m.GetView(contextWithClaims(orgID, "creator@argus.example.com"), orgID, id)
 	require.NoError(t, err)
 	assert.Equal(t, existingName, got.Name, "name must not change on update")
 	assert.Equal(t, "renamed", got.Spec.DisplayName)
 	assert.Equal(t, savedviewtypes.SourceTraces, got.Source)
 	assert.Equal(t, savedviewtypes.PanelTypeTable, got.Spec.PanelType)
-	assert.Equal(t, "updater@signoz.io", got.UpdatedBy)
+	assert.Equal(t, "updater@argus.example.com", got.UpdatedBy)
 
 	require.NoError(t, st.AssertExpectations())
 }
@@ -177,7 +177,7 @@ func TestModule_UpdateView_NotFound(t *testing.T) {
 	m, st := newTestStore()
 
 	orgID := valuer.GenerateUUID().StringValue()
-	ctx := contextWithClaims(orgID, "someone@signoz.io")
+	ctx := contextWithClaims(orgID, "someone@argus.example.com")
 	id := valuer.GenerateUUID()
 
 	st.ExpectUpdate(orgID, id, 0)
@@ -197,7 +197,7 @@ func TestModule_UpdateView_ScopedToOrg(t *testing.T) {
 	// Only an Update scoped to orgB's WHERE clause is registered; updating org
 	// A's view while authenticated as org B must not match it.
 	st.ExpectUpdate(orgB, id, 0)
-	err := m.UpdateView(contextWithClaims(orgB, "b@signoz.io"), orgB, id, testUpdatableSavedView("hijacked", savedviewtypes.SourceLogs))
+	err := m.UpdateView(contextWithClaims(orgB, "b@argus.example.com"), orgB, id, testUpdatableSavedView("hijacked", savedviewtypes.SourceLogs))
 	require.Error(t, err, "org B must not be able to update org A's view")
 	assert.True(t, errors.Ast(err, errors.TypeNotFound))
 
@@ -208,7 +208,7 @@ func TestModule_DeleteView(t *testing.T) {
 	m, st := newTestStore()
 
 	orgID := valuer.GenerateUUID().StringValue()
-	ctx := contextWithClaims(orgID, "creator@signoz.io")
+	ctx := contextWithClaims(orgID, "creator@argus.example.com")
 	id := valuer.GenerateUUID()
 
 	st.ExpectDelete(orgID, id, 1)
@@ -221,7 +221,7 @@ func TestModule_DeleteView_NotFound(t *testing.T) {
 	m, st := newTestStore()
 
 	orgID := valuer.GenerateUUID().StringValue()
-	ctx := contextWithClaims(orgID, "someone@signoz.io")
+	ctx := contextWithClaims(orgID, "someone@argus.example.com")
 	id := valuer.GenerateUUID()
 
 	st.ExpectDelete(orgID, id, 0)
@@ -239,7 +239,7 @@ func TestModule_DeleteView_ScopedToOrg(t *testing.T) {
 	id := valuer.GenerateUUID()
 
 	st.ExpectDelete(orgB, id, 0)
-	err := m.DeleteView(contextWithClaims(orgB, "b@signoz.io"), orgB, id)
+	err := m.DeleteView(contextWithClaims(orgB, "b@argus.example.com"), orgB, id)
 	require.Error(t, err, "org B must not be able to delete org A's view")
 	assert.True(t, errors.Ast(err, errors.TypeNotFound))
 
@@ -250,11 +250,11 @@ func TestModule_GetViewsForFilters(t *testing.T) {
 	m, st := newTestStore()
 
 	orgID := valuer.GenerateUUID().StringValue()
-	ctx := contextWithClaims(orgID, "creator@signoz.io")
+	ctx := contextWithClaims(orgID, "creator@argus.example.com")
 
-	logsOverview := testSavedView(orgID, valuer.GenerateUUID(), "creator@signoz.io", testPostableSavedView("logs overview", savedviewtypes.SourceLogs))
-	logsErrors := testSavedView(orgID, valuer.GenerateUUID(), "creator@signoz.io", testPostableSavedView("logs errors", savedviewtypes.SourceLogs))
-	tracesOverview := testSavedView(orgID, valuer.GenerateUUID(), "creator@signoz.io", testPostableSavedView("traces overview", savedviewtypes.SourceTraces))
+	logsOverview := testSavedView(orgID, valuer.GenerateUUID(), "creator@argus.example.com", testPostableSavedView("logs overview", savedviewtypes.SourceLogs))
+	logsErrors := testSavedView(orgID, valuer.GenerateUUID(), "creator@argus.example.com", testPostableSavedView("logs errors", savedviewtypes.SourceLogs))
+	tracesOverview := testSavedView(orgID, valuer.GenerateUUID(), "creator@argus.example.com", testPostableSavedView("traces overview", savedviewtypes.SourceTraces))
 
 	t.Run("filters by source page", func(t *testing.T) {
 		st.ExpectList(orgID, []*savedviewtypes.SavedView{logsOverview, logsErrors})
@@ -299,9 +299,9 @@ func TestModule_Collect(t *testing.T) {
 
 	orgID := valuer.GenerateUUID()
 
-	logsA := testSavedView(orgID.StringValue(), valuer.GenerateUUID(), "creator@signoz.io", testPostableSavedView("logs a", savedviewtypes.SourceLogs))
-	logsB := testSavedView(orgID.StringValue(), valuer.GenerateUUID(), "creator@signoz.io", testPostableSavedView("logs b", savedviewtypes.SourceLogs))
-	tracesA := testSavedView(orgID.StringValue(), valuer.GenerateUUID(), "creator@signoz.io", testPostableSavedView("traces a", savedviewtypes.SourceTraces))
+	logsA := testSavedView(orgID.StringValue(), valuer.GenerateUUID(), "creator@argus.example.com", testPostableSavedView("logs a", savedviewtypes.SourceLogs))
+	logsB := testSavedView(orgID.StringValue(), valuer.GenerateUUID(), "creator@argus.example.com", testPostableSavedView("logs b", savedviewtypes.SourceLogs))
+	tracesA := testSavedView(orgID.StringValue(), valuer.GenerateUUID(), "creator@argus.example.com", testPostableSavedView("traces a", savedviewtypes.SourceTraces))
 
 	st.ExpectList(orgID.StringValue(), []*savedviewtypes.SavedView{logsA, logsB, tracesA})
 	stats, err := m.Collect(context.Background(), orgID)

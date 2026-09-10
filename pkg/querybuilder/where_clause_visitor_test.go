@@ -6,14 +6,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	grammar "github.com/SigNoz/signoz/pkg/parser/filterquery/grammar"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/antlr4-go/antlr/v4"
 	sqlbuilder "github.com/huandu/go-sqlbuilder"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/errors"
+	grammar "github.com/your-org/argus/pkg/parser/filterquery/grammar"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // TestPrepareWhereClause_EmptyVariableList ensures PrepareWhereClause errors when a variable has an empty list value.
@@ -170,7 +170,7 @@ func TestVisitKey(t *testing.T) {
 			},
 			expectedKeys:       []telemetrytypes.TelemetryFieldKey{},
 			expectedErrors:     []string{"key `unknown_key` not found"},
-			expectedMainErrURL: "https://signoz.io/docs/userguide/search-troubleshooting/#q-im-getting-key-fieldname-not-found--why-cant-it-find-my-field",
+			expectedMainErrURL: "https://argus.example.com/docs/userguide/search-troubleshooting/#q-im-getting-key-fieldname-not-found--why-cant-it-find-my-field",
 			expectedWarnings:   nil,
 			expectedMainWrnURL: "",
 		},
@@ -201,7 +201,7 @@ func TestVisitKey(t *testing.T) {
 			expectedErrors:     nil,
 			expectedMainErrURL: "",
 			expectedWarnings:   []string{"ambiguous"},
-			expectedMainWrnURL: "https://signoz.io/docs/userguide/field-context-data-types/",
+			expectedMainWrnURL: "https://argus.example.com/docs/userguide/field-context-data-types/",
 		},
 		// Context prefixed keys tests
 		{
@@ -352,7 +352,7 @@ func TestVisitKey(t *testing.T) {
 			ignoreNotFoundKeys: false,
 			expectedKeys:       []telemetrytypes.TelemetryFieldKey{},
 			expectedErrors:     []string{"key `unknown_key` not found"},
-			expectedMainErrURL: "https://signoz.io/docs/userguide/search-troubleshooting/#q-im-getting-key-fieldname-not-found--why-cant-it-find-my-field",
+			expectedMainErrURL: "https://argus.example.com/docs/userguide/search-troubleshooting/#q-im-getting-key-fieldname-not-found--why-cant-it-find-my-field",
 			expectedWarnings:   nil,
 			expectedMainWrnURL: "",
 		},
@@ -404,7 +404,7 @@ func TestVisitKey(t *testing.T) {
 			expectedErrors:     nil,
 			expectedMainErrURL: "",
 			expectedWarnings:   []string{"ambiguous"},
-			expectedMainWrnURL: "https://signoz.io/docs/userguide/field-context-data-types/",
+			expectedMainWrnURL: "https://argus.example.com/docs/userguide/field-context-data-types/",
 		},
 		{
 			name:    "Ambiguous key with different data types",
@@ -438,7 +438,7 @@ func TestVisitKey(t *testing.T) {
 			expectedErrors:     nil,
 			expectedMainErrURL: "",
 			expectedWarnings:   []string{"ambiguous"},
-			expectedMainWrnURL: "https://signoz.io/docs/userguide/field-context-data-types/",
+			expectedMainWrnURL: "https://argus.example.com/docs/userguide/field-context-data-types/",
 		},
 		// These 3 unit tests have both attibute.custom_field and custom_field in the map
 		{
@@ -537,7 +537,7 @@ func TestVisitKey(t *testing.T) {
 			expectedErrors:     nil,
 			expectedMainErrURL: "",
 			expectedWarnings:   []string{"ambiguous"},
-			expectedMainWrnURL: "https://signoz.io/docs/userguide/field-context-data-types/",
+			expectedMainWrnURL: "https://argus.example.com/docs/userguide/field-context-data-types/",
 		},
 		// Resource attribute ambiguity - resource context is preferred
 		{
@@ -567,7 +567,7 @@ func TestVisitKey(t *testing.T) {
 			expectedErrors:     nil,
 			expectedMainErrURL: "",
 			expectedWarnings:   []string{"ambiguous", "attribute.deployment.environment"},
-			expectedMainWrnURL: "https://signoz.io/docs/userguide/field-context-data-types/",
+			expectedMainWrnURL: "https://argus.example.com/docs/userguide/field-context-data-types/",
 		},
 	}
 

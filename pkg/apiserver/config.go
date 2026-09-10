@@ -3,9 +3,9 @@ package apiserver
 import (
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
-	httpserver "github.com/SigNoz/signoz/pkg/http/server"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
+	httpserver "github.com/your-org/argus/pkg/http/server"
 )
 
 // Config holds the configuration for config.

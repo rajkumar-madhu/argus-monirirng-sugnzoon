@@ -7,9 +7,9 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	"github.com/SigNoz/signoz/pkg/types/pipelinetypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	"github.com/your-org/argus/pkg/types/pipelinetypes"
 )
 
 var lockLogsPipelineSpec sync.RWMutex
@@ -50,7 +50,7 @@ func updateProcessorConfigsInCollectorConf(
 	// remove the old unwanted pipeline processors
 	for k := range agentProcessors {
 		_, isInDesiredPipelineProcs := exists[k]
-		if hasSignozPipelineProcessorPrefix(k) && !isInDesiredPipelineProcs {
+		if hasArgusPipelineProcessorPrefix(k) && !isInDesiredPipelineProcs {
 			delete(agentProcessors, k)
 		}
 	}
@@ -113,7 +113,7 @@ func buildCollectorPipelineProcessorsList(
 			batchIdx = idx
 		case p == memoryLimiterProcessor || strings.HasPrefix(p, memoryLimiterProcessorPrefix):
 			memoryLimiters = append(memoryLimiters, p)
-		case hasSignozPipelineProcessorPrefix(p):
+		case hasArgusPipelineProcessorPrefix(p):
 			// stale signoz pipeline processor — dropped; signozPipelineProcessorNames is authoritative
 		default:
 			if _, inUserPipelines := userPipelineSet[p]; !inUserPipelines {
@@ -194,6 +194,6 @@ func GenerateCollectorConfigWithPipelines(config []byte, pipelines []pipelinetyp
 	return updatedConf, nil
 }
 
-func hasSignozPipelineProcessorPrefix(procName string) bool {
+func hasArgusPipelineProcessorPrefix(procName string) bool {
 	return strings.HasPrefix(procName, constants.LogsPPLPfx) || strings.HasPrefix(procName, constants.OldLogsPPLPfx)
 }

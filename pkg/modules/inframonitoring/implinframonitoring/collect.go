@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/telemetryschema/metricstelemetryschema"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/telemetryschema/metricstelemetryschema"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func (m *module) Collect(ctx context.Context, _ valuer.UUID) (map[string]any, error) {

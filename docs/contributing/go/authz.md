@@ -5,7 +5,7 @@ SigNoz uses [OpenFGA](https://openfga.dev/), a relationship-based access control
 As a feature author, you will rarely touch OpenFGA directly. You interact with two layers:
 
 1. **The registries** in [pkg/types/coretypes](/pkg/types/coretypes) — where every resource, verb, and managed-role permission is declared in code.
-2. **The route wiring** in [pkg/apiserver/signozapiserver](/pkg/apiserver/signozapiserver) — where each route declares what resource it touches and which verb it needs, and the middleware turns that into a check.
+2. **The route wiring** in [pkg/apiserver/argusapiserver](/pkg/apiserver/argusapiserver) — where each route declares what resource it touches and which verb it needs, and the middleware turns that into a check.
 
 ## What are the building blocks?
 
@@ -50,7 +50,7 @@ A `Selector` identifies *which* instance(s) of a resource a check is about — a
 - `WildcardSelector` — the check is against all instances of the resource (`create`, `list`).
 - `IDSelector` — the check is against the specific instance *or* the wildcard (`read`, `update`, `delete` of one object). A subject authorized on `*` is authorized on every instance.
 
-When the ID in the request is not what FGA needs (e.g. routes receive a role UUID but FGA objects use role names), write a custom `SelectorFunc` — see `roleSelector` in [pkg/apiserver/signozapiserver/serviceaccount.go](/pkg/apiserver/signozapiserver/serviceaccount.go).
+When the ID in the request is not what FGA needs (e.g. routes receive a role UUID but FGA objects use role names), write a custom `SelectorFunc` — see `roleSelector` in [pkg/apiserver/argusapiserver/serviceaccount.go](/pkg/apiserver/argusapiserver/serviceaccount.go).
 
 ### Roles, transactions, and tuples
 
@@ -95,7 +95,7 @@ The convention so far: admin gets everything, editor gets CRUD on day-to-day obs
 
 ### 4. Wire the route
 
-Register the route in [pkg/apiserver/signozapiserver](/pkg/apiserver/signozapiserver), wrapping your handler with `CheckResources` and declaring what the route touches via a `ResourceDef` ([pkg/http/handler/resourcedef.go](/pkg/http/handler/resourcedef.go)). A complete example from [pkg/apiserver/signozapiserver/serviceaccount.go](/pkg/apiserver/signozapiserver/serviceaccount.go):
+Register the route in [pkg/apiserver/argusapiserver](/pkg/apiserver/argusapiserver), wrapping your handler with `CheckResources` and declaring what the route touches via a `ResourceDef` ([pkg/http/handler/resourcedef.go](/pkg/http/handler/resourcedef.go)). A complete example from [pkg/apiserver/argusapiserver/serviceaccount.go](/pkg/apiserver/argusapiserver/serviceaccount.go):
 
 ```go
 router.Handle("/api/v1/service_accounts", handler.New(
@@ -121,7 +121,7 @@ The pieces:
 - **`ResourceDef`** — declares the resource, verb, audit category, how to extract the instance ID, and how to turn that ID into selectors. ID extractors live in [pkg/types/coretypes/extractor.go](/pkg/types/coretypes/extractor.go): `PathParam("id")`, `BodyJSONPath("data.id")`, `BodyJSONArray("ids")`, and `ResponseJSONPath("data.id")` for IDs only known after the handler runs (e.g. `create`).
 - **`SecuritySchemes`** — advertises the required scope (`resource.Scope(verb)`, e.g. `serviceaccount:create`) in the OpenAPI spec.
 
-For routes that link two resources, use `AttachDetachSiblingResourceDef` (both sides are authz-checked, e.g. attaching a role to a service account requires `attach` on **both** the service account and the role). For parent-child routes (e.g. creating an API key under a service account), both sides are checked too, but with different verbs: declare a `BasicResourceDef` checking the child with `create`/`delete`, alongside an `AttachDetachParentChildResourceDef` checking the parent with `attach`/`detach` (within that def the child is only recorded for audit) — see the `/api/v1/service_accounts/{id}/keys` route in [pkg/apiserver/signozapiserver/serviceaccount.go](/pkg/apiserver/signozapiserver/serviceaccount.go).
+For routes that link two resources, use `AttachDetachSiblingResourceDef` (both sides are authz-checked, e.g. attaching a role to a service account requires `attach` on **both** the service account and the role). For parent-child routes (e.g. creating an API key under a service account), both sides are checked too, but with different verbs: declare a `BasicResourceDef` checking the child with `create`/`delete`, alongside an `AttachDetachParentChildResourceDef` checking the parent with `attach`/`detach` (within that def the child is only recorded for audit) — see the `/api/v1/service_accounts/{id}/keys` route in [pkg/apiserver/argusapiserver/serviceaccount.go](/pkg/apiserver/argusapiserver/serviceaccount.go).
 
 Prefer `CheckResources` with a `ResourceDef` for anything resource-shaped. The older coarse gates `ViewAccess`/`EditAccess`/`AdminAccess` only check "does the caller hold one of these roles" and give up per-resource granularity; `OpenAccess` performs no authorization (authentication still applies); `CheckWithoutClaims` serves anonymous routes such as public dashboards.
 

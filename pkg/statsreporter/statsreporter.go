@@ -3,8 +3,8 @@ package statsreporter
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type StatsReporter interface {

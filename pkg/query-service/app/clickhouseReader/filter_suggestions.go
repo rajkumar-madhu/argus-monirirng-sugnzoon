@@ -9,9 +9,9 @@ import (
 	"strings"
 
 	"github.com/SigNoz/signoz-otel-collector/utils/fingerprint"
-	errorsV2 "github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
+	errorsV2 "github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/query-service/model"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 func (r *ClickHouseReader) GetQBFilterSuggestionsForLogs(

@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/coretypes"
 )
 
 type ResourceDef interface {

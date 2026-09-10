@@ -7,14 +7,14 @@ import (
 	"math"
 	"slices"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/prometheus"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
-	"github.com/SigNoz/signoz/pkg/types/ctxtypes"
-	"github.com/SigNoz/signoz/pkg/types/instrumentationtypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/prometheus/prometheus/model/labels"
 	promValue "github.com/prometheus/prometheus/model/value"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/prometheus"
+	"github.com/your-org/argus/pkg/telemetrystore"
+	"github.com/your-org/argus/pkg/types/ctxtypes"
+	"github.com/your-org/argus/pkg/types/instrumentationtypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 // seriesLookup holds a series lookup's result: matched fingerprints with

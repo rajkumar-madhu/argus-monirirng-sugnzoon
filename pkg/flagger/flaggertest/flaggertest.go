@@ -5,10 +5,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/flagger/configflagger"
-	"github.com/SigNoz/signoz/pkg/instrumentation/instrumentationtest"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/flagger/configflagger"
+	"github.com/your-org/argus/pkg/instrumentation/instrumentationtest"
 )
 
 // New returns a Flagger with all flags at their registry defaults (all disabled).

@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	"github.com/ClickHouse/clickhouse-go/v2"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	"github.com/SigNoz/signoz/pkg/semconv"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/query-service/model"
+	"github.com/your-org/argus/pkg/semconv"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func BuildServiceMapQuery(tags []model.TagQuery, resolveSemconvFamilies bool) (string, []interface{}) {

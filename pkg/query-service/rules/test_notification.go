@@ -9,8 +9,8 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	ruletypes "github.com/SigNoz/signoz/pkg/types/ruletypes"
+	"github.com/your-org/argus/pkg/errors"
+	ruletypes "github.com/your-org/argus/pkg/types/ruletypes"
 )
 
 // TestNotification prepares a dummy rule for given rule parameters and

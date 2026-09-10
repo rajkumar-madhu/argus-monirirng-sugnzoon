@@ -15,33 +15,33 @@ import (
 	"text/template"
 	"time"
 
-	signozerrors "github.com/SigNoz/signoz/pkg/errors"
+	signozerrors "github.com/your-org/argus/pkg/errors"
 
-	"github.com/SigNoz/signoz/pkg/types/thirdpartyapitypes"
+	"github.com/your-org/argus/pkg/types/thirdpartyapitypes"
 
 	"log/slog"
 
 	"github.com/SigNoz/govaluate"
 
-	"github.com/SigNoz/signoz/pkg/query-service/app/integrations/messagingQueues/kafka"
-	queues2 "github.com/SigNoz/signoz/pkg/query-service/app/integrations/messagingQueues/queues"
+	"github.com/your-org/argus/pkg/query-service/app/integrations/messagingQueues/kafka"
+	queues2 "github.com/your-org/argus/pkg/query-service/app/integrations/messagingQueues/queues"
 
 	"github.com/gorilla/mux"
 	promModel "github.com/prometheus/common/model"
 	"go.uber.org/multierr"
 
-	errorsV2 "github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/query-service/app/metrics"
-	"github.com/SigNoz/signoz/pkg/query-service/app/queryBuilder"
-	"github.com/SigNoz/signoz/pkg/query-service/common"
-	baseconstants "github.com/SigNoz/signoz/pkg/query-service/constants"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/postprocess"
-	"github.com/SigNoz/signoz/pkg/query-service/utils"
-	querytemplate "github.com/SigNoz/signoz/pkg/query-service/utils/queryTemplate"
-	"github.com/SigNoz/signoz/pkg/types/retentiontypes"
-	chVariables "github.com/SigNoz/signoz/pkg/variables/clickhouse"
+	errorsV2 "github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/query-service/app/metrics"
+	"github.com/your-org/argus/pkg/query-service/app/queryBuilder"
+	"github.com/your-org/argus/pkg/query-service/common"
+	baseconstants "github.com/your-org/argus/pkg/query-service/constants"
+	"github.com/your-org/argus/pkg/query-service/model"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/postprocess"
+	"github.com/your-org/argus/pkg/query-service/utils"
+	querytemplate "github.com/your-org/argus/pkg/query-service/utils/queryTemplate"
+	"github.com/your-org/argus/pkg/types/retentiontypes"
+	chVariables "github.com/your-org/argus/pkg/variables/clickhouse"
 )
 
 var allowedFunctions = []string{"count", "ratePerSec", "sum", "avg", "min", "max", "p50", "p90", "p95", "p99"}

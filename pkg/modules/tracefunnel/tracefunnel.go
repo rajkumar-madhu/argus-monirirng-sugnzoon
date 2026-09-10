@@ -4,9 +4,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 
-	traceFunnels "github.com/SigNoz/signoz/pkg/types/tracefunneltypes"
+	traceFunnels "github.com/your-org/argus/pkg/types/tracefunneltypes"
 )
 
 // Module defines the interface for trace funnel operations.

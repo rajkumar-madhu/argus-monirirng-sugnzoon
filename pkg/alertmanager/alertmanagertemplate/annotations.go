@@ -1,8 +1,8 @@
 package alertmanagertemplate
 
 import (
-	"github.com/SigNoz/signoz/pkg/types/ruletypes"
 	"github.com/prometheus/alertmanager/types"
+	"github.com/your-org/argus/pkg/types/ruletypes"
 )
 
 // ExtractTemplatesFromAnnotations pulls the user-authored title and body

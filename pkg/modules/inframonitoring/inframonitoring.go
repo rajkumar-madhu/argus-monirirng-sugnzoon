@@ -4,9 +4,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/statsreporter"
-	"github.com/SigNoz/signoz/pkg/types/inframonitoringtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/statsreporter"
+	"github.com/your-org/argus/pkg/types/inframonitoringtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type Handler interface {

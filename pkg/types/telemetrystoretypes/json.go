@@ -1,8 +1,8 @@
 package telemetrystoretypes
 
 import (
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/bytedance/sonic"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 var ErrCodeUnmarshalJSONColumn = errors.MustNewCode("fail_unmarshal_json_column")

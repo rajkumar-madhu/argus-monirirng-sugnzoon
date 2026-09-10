@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"text/template"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var (
@@ -18,16 +18,16 @@ var (
 	armDefaultDeploymentEnv    = "production"
 
 	// ARM template parameter key names used in both CLI and PowerShell deployment commands.
-	armParamLocation           = "location"
-	armParamSignozAPIKey       = "signozApiKey"
-	armParamSignozAPIUrl       = "signozApiUrl"
-	armParamSignozIngestionURL = "signozIngestionUrl"
-	armParamSignozIngestionKey = "signozIngestionKey"
-	armParamAccountID          = "signozIntegrationAccountId"
-	armParamAgentVersion       = "signozIntegrationAgentVersion"
-	armParamRgName             = "rgName"
-	armParamContainerEnvName   = "containerEnvName"
-	armParamDeploymentEnv      = "deploymentEnv"
+	armParamLocation          = "location"
+	armParamArgusAPIKey       = "signozApiKey"
+	armParamArgusAPIUrl       = "signozApiUrl"
+	armParamArgusIngestionURL = "signozIngestionUrl"
+	armParamArgusIngestionKey = "signozIngestionKey"
+	armParamAccountID         = "signozIntegrationAccountId"
+	armParamAgentVersion      = "signozIntegrationAgentVersion"
+	armParamRgName            = "rgName"
+	armParamContainerEnvName  = "containerEnvName"
+	armParamDeploymentEnv     = "deploymentEnv"
 
 	// command templates.
 	azureCLITemplate        = template.Must(template.New("azureCLI").Parse(azureCLITemplateStr()))
@@ -89,26 +89,26 @@ type AzureIntegrationConfig struct {
 // All fields are exported so text/template can access them.
 type azureTemplateData struct {
 	// Deploy parameter values.
-	TemplateURL        string
-	Location           string
-	SignozAPIKey       string
-	SignozAPIUrl       string
-	SignozIngestionURL string
-	SignozIngestionKey string
-	AccountID          string
-	AgentVersion       string
+	TemplateURL       string
+	Location          string
+	ArgusAPIKey       string
+	ArgusAPIUrl       string
+	ArgusIngestionURL string
+	ArgusIngestionKey string
+	AccountID         string
+	AgentVersion      string
 	// ARM parameter key names (from package-level vars).
-	StackName               string
-	ParamLocation           string
-	ParamSignozAPIKey       string
-	ParamSignozAPIUrl       string
-	ParamSignozIngestionURL string
-	ParamSignozIngestionKey string
-	ParamAccountID          string
-	ParamAgentVersion       string
-	ParamRgName             string
-	ParamContainerEnvName   string
-	ParamDeploymentEnv      string
+	StackName              string
+	ParamLocation          string
+	ParamArgusAPIKey       string
+	ParamArgusAPIUrl       string
+	ParamArgusIngestionURL string
+	ParamArgusIngestionKey string
+	ParamAccountID         string
+	ParamAgentVersion      string
+	ParamRgName            string
+	ParamContainerEnvName  string
+	ParamDeploymentEnv     string
 	// Fixed default values.
 	DefaultRgName           string
 	DefaultContainerEnvName string
@@ -136,18 +136,18 @@ func NewAzureConnectionArtifact(
 	data := azureTemplateData{
 		TemplateURL:             fmt.Sprintf(AgentArmTemplateStorePath, agentVersion),
 		Location:                cfg.DeploymentRegion,
-		SignozAPIKey:            creds.SigNozAPIKey,
-		SignozAPIUrl:            creds.SigNozAPIURL,
-		SignozIngestionURL:      creds.IngestionURL,
-		SignozIngestionKey:      creds.IngestionKey,
+		ArgusAPIKey:             creds.ArgusAPIKey,
+		ArgusAPIUrl:             creds.ArgusAPIURL,
+		ArgusIngestionURL:       creds.IngestionURL,
+		ArgusIngestionKey:       creds.IngestionKey,
 		AccountID:               accountID.StringValue(),
 		AgentVersion:            agentVersion,
 		StackName:               AgentDeploymentStackName,
 		ParamLocation:           armParamLocation,
-		ParamSignozAPIKey:       armParamSignozAPIKey,
-		ParamSignozAPIUrl:       armParamSignozAPIUrl,
-		ParamSignozIngestionURL: armParamSignozIngestionURL,
-		ParamSignozIngestionKey: armParamSignozIngestionKey,
+		ParamArgusAPIKey:        armParamArgusAPIKey,
+		ParamArgusAPIUrl:        armParamArgusAPIUrl,
+		ParamArgusIngestionURL:  armParamArgusIngestionURL,
+		ParamArgusIngestionKey:  armParamArgusIngestionKey,
 		ParamAccountID:          armParamAccountID,
 		ParamAgentVersion:       armParamAgentVersion,
 		ParamRgName:             armParamRgName,
@@ -198,10 +198,10 @@ func azureCLITemplateStr() string {
   --template-uri {{.TemplateURL}} \
   --parameters \
     {{.ParamLocation}}='{{.Location}}' \
-    {{.ParamSignozAPIKey}}='{{.SignozAPIKey}}' \
-    {{.ParamSignozAPIUrl}}='{{.SignozAPIUrl}}' \
-    {{.ParamSignozIngestionURL}}='{{.SignozIngestionURL}}' \
-    {{.ParamSignozIngestionKey}}='{{.SignozIngestionKey}}' \
+    {{.ParamArgusAPIKey}}='{{.ArgusAPIKey}}' \
+    {{.ParamArgusAPIUrl}}='{{.ArgusAPIUrl}}' \
+    {{.ParamArgusIngestionURL}}='{{.ArgusIngestionURL}}' \
+    {{.ParamArgusIngestionKey}}='{{.ArgusIngestionKey}}' \
     {{.ParamAccountID}}='{{.AccountID}}' \
     {{.ParamAgentVersion}}='{{.AgentVersion}}' \
   --action-on-unmanage deleteAll \
@@ -215,10 +215,10 @@ func azurePowerShellTemplateStr() string {
 		"  -TemplateUri \"{{.TemplateURL}}\" `\n" +
 		"  -TemplateParameterObject @{\n" +
 		"    {{.ParamLocation}} = \"{{.Location}}\"\n" +
-		"    {{.ParamSignozAPIKey}} = \"{{.SignozAPIKey}}\"\n" +
-		"    {{.ParamSignozAPIUrl}} = \"{{.SignozAPIUrl}}\"\n" +
-		"    {{.ParamSignozIngestionURL}} = \"{{.SignozIngestionURL}}\"\n" +
-		"    {{.ParamSignozIngestionKey}} = \"{{.SignozIngestionKey}}\"\n" +
+		"    {{.ParamArgusAPIKey}} = \"{{.ArgusAPIKey}}\"\n" +
+		"    {{.ParamArgusAPIUrl}} = \"{{.ArgusAPIUrl}}\"\n" +
+		"    {{.ParamArgusIngestionURL}} = \"{{.ArgusIngestionURL}}\"\n" +
+		"    {{.ParamArgusIngestionKey}} = \"{{.ArgusIngestionKey}}\"\n" +
 		"    {{.ParamAccountID}} = \"{{.AccountID}}\"\n" +
 		"    {{.ParamAgentVersion}} = \"{{.AgentVersion}}\"\n" +
 		"    {{.ParamRgName}} = \"{{.DefaultRgName}}\"\n" +

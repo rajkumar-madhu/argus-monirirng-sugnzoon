@@ -3,7 +3,7 @@ package emailing
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/types/emailtypes"
+	"github.com/your-org/argus/pkg/types/emailtypes"
 )
 
 type Emailing interface {

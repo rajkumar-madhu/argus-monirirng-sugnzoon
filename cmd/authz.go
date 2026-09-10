@@ -8,8 +8,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
 	"github.com/spf13/cobra"
+	"github.com/your-org/argus/pkg/types/coretypes"
 )
 
 const permissionsTypePath = "frontend/src/lib/authz/hooks/useAuthZ/permissions.type.ts"

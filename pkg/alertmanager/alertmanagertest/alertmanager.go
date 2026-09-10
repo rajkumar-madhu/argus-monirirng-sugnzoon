@@ -8,11 +8,11 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagerserver"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/prometheus/alertmanager/config"
 	mock "github.com/stretchr/testify/mock"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagerserver"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // NewMockAlertmanager creates a new instance of MockAlertmanager. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.

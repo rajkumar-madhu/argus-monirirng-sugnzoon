@@ -8,17 +8,17 @@ import (
 	"unicode/utf8"
 
 	chparser "github.com/AfterShip/clickhouse-sql-parser/parser"
-	"github.com/SigNoz/signoz/pkg/errors"
-	qb "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
 	"github.com/perses/spec/go/common"
 	"github.com/perses/spec/go/dashboard"
+	"github.com/your-org/argus/pkg/errors"
+	qb "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
-// DashboardSpec is the SigNoz dashboard v2 spec shape. It mirrors
+// DashboardSpec is the Argus dashboard v2 spec shape. It mirrors
 // dashboard.Spec (Perses) field-for-field, except every common.Plugin
-// occurrence is replaced with a typed SigNoz plugin whose OpenAPI schema is a
+// occurrence is replaced with a typed Argus plugin whose OpenAPI schema is a
 // per-site discriminated oneOf. Perses's datasources field is deliberately
-// dropped: SigNoz never reads it (queries carry their own signal/source), so
+// dropped: Argus never reads it (queries carry their own signal/source), so
 // the drift test allowlists it as an intentional omission.
 type DashboardSpec struct {
 	Display         Display               `json:"display" required:"true"`

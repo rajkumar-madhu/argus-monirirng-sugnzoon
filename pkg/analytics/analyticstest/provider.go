@@ -3,8 +3,8 @@ package analyticstest
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/analytics"
-	"github.com/SigNoz/signoz/pkg/types/analyticstypes"
+	"github.com/your-org/argus/pkg/analytics"
+	"github.com/your-org/argus/pkg/types/analyticstypes"
 )
 
 var _ analytics.Analytics = (*Provider)(nil)

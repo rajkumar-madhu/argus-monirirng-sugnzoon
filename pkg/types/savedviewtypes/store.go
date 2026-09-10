@@ -3,7 +3,7 @@ package savedviewtypes
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type Store interface {

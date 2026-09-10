@@ -3,9 +3,9 @@ package queriertest
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/querier"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/querier"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // MockQuerier implements querier.Querier for testing. Each behavior can be

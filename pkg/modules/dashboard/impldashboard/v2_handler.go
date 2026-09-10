@@ -8,16 +8,16 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/http/binding"
-	"github.com/SigNoz/signoz/pkg/http/render"
-	"github.com/SigNoz/signoz/pkg/transition"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/types/dashboardtypes"
-	"github.com/SigNoz/signoz/pkg/types/tagtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/gorilla/mux"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/http/binding"
+	"github.com/your-org/argus/pkg/http/render"
+	"github.com/your-org/argus/pkg/transition"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/types/dashboardtypes"
+	"github.com/your-org/argus/pkg/types/tagtypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func (handler *handler) CreateV2(rw http.ResponseWriter, r *http.Request) {
@@ -272,7 +272,7 @@ func (handler *handler) lockUnlockV2(rw http.ResponseWriter, r *http.Request, lo
 
 	isAdmin := false
 	selectors := []coretypes.Selector{
-		coretypes.TypeRole.MustSelector(authtypes.SigNozAdminRoleName),
+		coretypes.TypeRole.MustSelector(authtypes.ArgusAdminRoleName),
 	}
 	err = handler.authz.CheckWithTupleCreation(
 		ctx,

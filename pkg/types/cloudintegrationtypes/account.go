@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/zeustypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/zeustypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type Account struct {
@@ -54,8 +54,8 @@ type PostableAccountConfig struct {
 }
 
 type Credentials struct {
-	SigNozAPIURL string `json:"sigNozApiUrl" required:"true"`
-	SigNozAPIKey string `json:"sigNozApiKey" required:"true"` // PAT
+	ArgusAPIURL  string `json:"sigNozApiUrl" required:"true"`
+	ArgusAPIKey  string `json:"sigNozApiKey" required:"true"` // PAT
 	IngestionURL string `json:"ingestionUrl" required:"true"`
 	IngestionKey string `json:"ingestionKey" required:"true"`
 }
@@ -99,8 +99,8 @@ func NewAccount(orgID valuer.UUID, provider CloudProviderType, config *AccountCo
 
 func NewCredentials(sigNozAPIURL, sigNozAPIKey, ingestionURL, ingestionKey string) *Credentials {
 	return &Credentials{
-		SigNozAPIURL: sigNozAPIURL,
-		SigNozAPIKey: sigNozAPIKey,
+		ArgusAPIURL:  sigNozAPIURL,
+		ArgusAPIKey:  sigNozAPIKey,
 		IngestionURL: ingestionURL,
 		IngestionKey: ingestionKey,
 	}
@@ -315,7 +315,7 @@ func NewAgentReport(data map[string]any) *AgentReport {
 	}
 }
 
-func GetSigNozAPIURLFromDeployment(deployment *zeustypes.GettableDeployment) (string, error) {
+func GetArgusAPIURLFromDeployment(deployment *zeustypes.GettableDeployment) (string, error) {
 	if deployment.Name == "" || deployment.Cluster.Region.DNS == "" {
 		return "", errors.New(errors.TypeInvalidInput, ErrCodeInvalidInput, "invalid deployment: missing name or DNS")
 	}
@@ -347,11 +347,11 @@ func (postableAccount *PostableAccount) UnmarshalJSON(data []byte) error {
 		return errors.NewInvalidInputf(ErrCodeInvalidInput, "config and credentials are required")
 	}
 
-	if temp.Credentials.SigNozAPIURL == "" {
+	if temp.Credentials.ArgusAPIURL == "" {
 		return errors.NewInvalidInputf(ErrCodeInvalidInput, "sigNozApiURL can not be empty")
 	}
 
-	if temp.Credentials.SigNozAPIKey == "" {
+	if temp.Credentials.ArgusAPIKey == "" {
 		return errors.NewInvalidInputf(ErrCodeInvalidInput, "sigNozApiKey can not be empty")
 	}
 

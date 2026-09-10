@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/types"
 )
 
 func TestBuildRetentionPolicySegmentsFromRows(t *testing.T) {

@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestTimeSeriesValue_MarshalJSON(t *testing.T) {

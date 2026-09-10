@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
 	"github.com/pkg/errors"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
 )
 
 // AlertState denotes the state of an active alert.

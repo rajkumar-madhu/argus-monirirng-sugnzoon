@@ -5,13 +5,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/parser/filterquery"
-	grammar "github.com/SigNoz/signoz/pkg/parser/filterquery/grammar"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/dashboardtypes"
-	qbtypesv5 "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
 	"github.com/antlr4-go/antlr/v4"
 	sqlbuilder "github.com/huandu/go-sqlbuilder"
+	"github.com/your-org/argus/pkg/parser/filterquery"
+	grammar "github.com/your-org/argus/pkg/parser/filterquery/grammar"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/dashboardtypes"
+	qbtypesv5 "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 )
 
 // bunPlaceholderFlavor is any flavor that renders `?` placeholders, which bun
@@ -427,7 +427,7 @@ func (v *visitor) buildFreeTextTerm(value string) string {
 }
 
 // buildFreeTextContains emits a case-insensitive contains as
-// LOWER(COALESCE(col, '')) LIKE LOWER(?), identical on SQLite and Postgres.
+// LOWER(COALESCE(col, ”)) LIKE LOWER(?), identical on SQLite and Postgres.
 // COALESCE keeps a NULL column (an absent description) false rather than NULL —
 // otherwise `NOT (…)` goes NULL and drops every description-less dashboard. The
 // value's % and _ are escaped, and ESCAPE pins backslash as the escape char.

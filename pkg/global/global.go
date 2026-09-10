@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/types/globaltypes"
+	"github.com/your-org/argus/pkg/types/globaltypes"
 )
 
 type Global interface {

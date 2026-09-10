@@ -6,10 +6,10 @@ import (
 	"sort"
 	"testing"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/spanpercentiletypes"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
 	"github.com/stretchr/testify/require"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/spanpercentiletypes"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 func TestBuildSpanPercentileQuery(t *testing.T) {

@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 func TestQueryRangeRequest_UnmarshalJSON_ErrorMessages(t *testing.T) {

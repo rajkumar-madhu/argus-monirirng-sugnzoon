@@ -11,11 +11,11 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/types/tagtypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/types/tagtypes"
+	"github.com/your-org/argus/pkg/valuer"
 	"k8s.io/apimachinery/pkg/util/validation"
 )
 
@@ -25,7 +25,7 @@ const (
 	dashboardNameSuffixLen = 8
 )
 
-// SystemDashboardNamePrefix is reserved for dashboards SigNoz ships and owns. Generated
+// SystemDashboardNamePrefix is reserved for dashboards Argus ships and owns. Generated
 // names never contain consecutive hyphens, so only a typed name can carry it — create rejects that.
 const SystemDashboardNamePrefix = "signoz---"
 

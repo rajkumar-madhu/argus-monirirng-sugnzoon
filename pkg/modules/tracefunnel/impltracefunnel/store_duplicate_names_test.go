@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	traceFunnels "github.com/SigNoz/signoz/pkg/types/tracefunneltypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"github.com/your-org/argus/pkg/errors"
+	traceFunnels "github.com/your-org/argus/pkg/types/tracefunneltypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 // Test that Create method properly validates duplicate names.

@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/modules/tracefunnel"
-	"github.com/SigNoz/signoz/pkg/types"
-	traceFunnels "github.com/SigNoz/signoz/pkg/types/tracefunneltypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/modules/tracefunnel"
+	"github.com/your-org/argus/pkg/types"
+	traceFunnels "github.com/your-org/argus/pkg/types/tracefunneltypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type module struct {

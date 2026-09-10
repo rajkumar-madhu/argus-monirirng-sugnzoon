@@ -58,10 +58,10 @@ func TestRenderBlockquote(t *testing.T) {
 }
 
 func TestRenderAutoLink(t *testing.T) {
-	js := toJSON(t, Render("see <https://signoz.io>"))
+	js := toJSON(t, Render("see <https://argus.example.com>"))
 	assert.Contains(t, js, `"type":"link"`)
-	assert.Contains(t, js, `"href":"https://signoz.io"`)
-	assert.Contains(t, js, `"text":"https://signoz.io"`)
+	assert.Contains(t, js, `"href":"https://argus.example.com"`)
+	assert.Contains(t, js, `"text":"https://argus.example.com"`)
 }
 
 func TestRenderLineBreaks(t *testing.T) {

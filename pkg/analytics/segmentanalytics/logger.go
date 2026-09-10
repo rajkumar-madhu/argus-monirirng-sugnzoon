@@ -3,8 +3,8 @@ package segmentanalytics
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/factory"
 	segment "github.com/segmentio/analytics-go/v3"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 type logger struct {

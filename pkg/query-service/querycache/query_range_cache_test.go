@@ -4,13 +4,13 @@ import (
 	"context"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/cache"
-	"github.com/SigNoz/signoz/pkg/cache/cachetest"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/querycache"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/cache"
+	"github.com/your-org/argus/pkg/cache/cachetest"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/querycache"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 func TestFindMissingTimeRanges(t *testing.T) {

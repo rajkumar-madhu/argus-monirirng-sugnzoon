@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/types/pipelinetypes"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	"github.com/your-org/argus/pkg/query-service/model"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/types/pipelinetypes"
 	"gopkg.in/yaml.v3"
 )
 
@@ -352,8 +352,8 @@ func TestPipelineRouterWorksEvenIfFirstOpIsDisabled(t *testing.T) {
 	result, collectorWarnAndErrorLogs, err := SimulatePipelinesProcessing(
 		context.Background(),
 		testPipelines,
-		[]model.SignozLog{
-			makeTestSignozLog(
+		[]model.ArgusLog{
+			makeTestArgusLog(
 				"test log body",
 				map[string]any{
 					"method": "GET",
@@ -416,8 +416,8 @@ func TestPipeCharInAliasDoesntBreakCollectorConfig(t *testing.T) {
 	result, collectorWarnAndErrorLogs, err := SimulatePipelinesProcessing(
 		context.Background(),
 		testPipelines,
-		[]model.SignozLog{
-			makeTestSignozLog(
+		[]model.ArgusLog{
+			makeTestArgusLog(
 				"test log body",
 				map[string]any{
 					"method": "GET",

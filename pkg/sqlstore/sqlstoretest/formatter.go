@@ -3,8 +3,8 @@ package sqlstoretest
 import (
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/sqlstore"
 	"github.com/uptrace/bun/schema"
+	"github.com/your-org/argus/pkg/sqlstore"
 )
 
 type formatter struct {

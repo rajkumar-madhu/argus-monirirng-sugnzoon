@@ -7,11 +7,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/perses/spec/go/dashboard"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/valuer"
 	"k8s.io/apimachinery/pkg/util/validation"
 )
 
@@ -1953,7 +1953,7 @@ func TestNewDashboardV2RejectsReservedName(t *testing.T) {
 	for _, testCase := range testCases {
 		t.Run(testCase.description, func(t *testing.T) {
 			postable := PostableDashboardV2{Name: testCase.name}
-			_, err := postable.NewDashboardV2(valuer.GenerateUUID(), "user@signoz.io", testCase.source)
+			_, err := postable.NewDashboardV2(valuer.GenerateUUID(), "user@argus.example.com", testCase.source)
 			if testCase.errContains != "" {
 				require.Error(t, err)
 				assert.Contains(t, err.Error(), testCase.errContains)

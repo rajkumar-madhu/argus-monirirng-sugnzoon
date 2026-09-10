@@ -4,16 +4,16 @@ import (
 	"context"
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/instrumentation"
-	"github.com/SigNoz/signoz/pkg/signoz"
-	"github.com/SigNoz/signoz/pkg/version"
 	"github.com/spf13/cobra"
+	"github.com/your-org/argus/pkg/argus"
+	"github.com/your-org/argus/pkg/instrumentation"
+	"github.com/your-org/argus/pkg/version"
 )
 
 func registerGenerateOpenAPI(parentCmd *cobra.Command) {
 	openapiCmd := &cobra.Command{
 		Use:   "openapi",
-		Short: "Generate OpenAPI schema for SigNoz",
+		Short: "Generate OpenAPI schema for Argus",
 		RunE: func(currCmd *cobra.Command, args []string) error {
 			return runGenerateOpenAPI(currCmd.Context())
 		},
@@ -23,12 +23,12 @@ func registerGenerateOpenAPI(parentCmd *cobra.Command) {
 }
 
 func runGenerateOpenAPI(ctx context.Context) error {
-	instrumentation, err := instrumentation.New(ctx, instrumentation.Config{Logs: instrumentation.LogsConfig{Level: slog.LevelInfo}}, version.Info, "signoz")
+	instrumentation, err := instrumentation.New(ctx, instrumentation.Config{Logs: instrumentation.LogsConfig{Level: slog.LevelInfo}}, version.Info, "argus")
 	if err != nil {
 		return err
 	}
 
-	openapi, err := signoz.NewOpenAPI(ctx, instrumentation)
+	openapi, err := argus.NewOpenAPI(ctx, instrumentation)
 	if err != nil {
 		return err
 	}

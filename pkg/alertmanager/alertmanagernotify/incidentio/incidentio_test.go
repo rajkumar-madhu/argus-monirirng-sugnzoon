@@ -11,8 +11,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagertemplate"
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
 	"github.com/prometheus/alertmanager/notify"
 	"github.com/prometheus/alertmanager/notify/test"
 	"github.com/prometheus/alertmanager/types"
@@ -20,6 +18,8 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagertemplate"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 type mockIncidentIO struct {
@@ -79,10 +79,10 @@ func alert(firing bool) *types.Alert {
 		Labels: model.LabelSet{
 			"alertname":  "HighCPU",
 			"severity":   "critical",
-			"ruleSource": "https://signoz.example/alerts/edit?ruleId=1",
+			"ruleSource": "https://argus.example/alerts/edit?ruleId=1",
 		},
-		Annotations:  model.LabelSet{"summary": "cpu high", "related_logs": "https://signoz.example/logs?q=1"},
-		GeneratorURL: "https://signoz.example/alerts/edit?ruleId=1",
+		Annotations:  model.LabelSet{"summary": "cpu high", "related_logs": "https://argus.example/logs?q=1"},
+		GeneratorURL: "https://argus.example/alerts/edit?ruleId=1",
 		StartsAt:     time.Now().Add(-time.Minute),
 	}}
 	if firing {
@@ -107,15 +107,15 @@ func TestNotifyFiringEvent(t *testing.T) {
 	assert.Equal(t, "[FIRING:1] HighCPU", ev.Title)
 	assert.Equal(t, "firing", ev.Status)
 	assert.NotEmpty(t, ev.DeduplicationKey)
-	assert.Equal(t, "https://signoz.example/alerts/edit?ruleId=1", ev.SourceURL)
+	assert.Equal(t, "https://argus.example/alerts/edit?ruleId=1", ev.SourceURL)
 	assert.Contains(t, ev.Description, "**Alert:** HighCPU (critical)")
 	assert.Contains(t, ev.Description, "**Summary:** cpu high")
-	assert.Contains(t, ev.Description, "[View in SigNoz](https://signoz.example/alerts/edit?ruleId=1)")
-	assert.Contains(t, ev.Description, "[View related logs](https://signoz.example/logs?q=1)")
+	assert.Contains(t, ev.Description, "[View in Argus](https://argus.example/alerts/edit?ruleId=1)")
+	assert.Contains(t, ev.Description, "[View related logs](https://argus.example/logs?q=1)")
 	assert.Equal(t, map[string]string{
 		"alertname":  "HighCPU",
 		"severity":   "critical",
-		"ruleSource": "https://signoz.example/alerts/edit?ruleId=1",
+		"ruleSource": "https://argus.example/alerts/edit?ruleId=1",
 	}, ev.Metadata)
 	assert.Equal(t, "Bearer tok-1", m.auths[0])
 }

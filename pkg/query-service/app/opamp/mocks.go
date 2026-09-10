@@ -5,14 +5,14 @@ import (
 	"log"
 	"net"
 
-	"github.com/SigNoz/signoz/pkg/types/opamptypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/google/uuid"
 	"github.com/knadh/koanf"
 	"github.com/knadh/koanf/parsers/yaml"
 	"github.com/knadh/koanf/providers/rawbytes"
 	"github.com/open-telemetry/opamp-go/protobufs"
 	"github.com/pkg/errors"
+	"github.com/your-org/argus/pkg/types/opamptypes"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 type MockOpAmpConnection struct {

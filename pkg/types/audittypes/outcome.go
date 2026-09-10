@@ -1,7 +1,7 @@
 package audittypes
 
 import (
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 	"go.opentelemetry.io/collector/pdata/plog"
 )
 

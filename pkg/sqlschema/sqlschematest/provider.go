@@ -3,10 +3,10 @@ package sqlschematest
 import (
 	"context"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/sqlschema"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/schema"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/sqlschema"
 )
 
 var _ sqlschema.SQLSchema = (*Provider)(nil)

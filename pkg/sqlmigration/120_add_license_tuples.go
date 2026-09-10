@@ -5,13 +5,13 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type addLicenseTuples struct {
@@ -36,7 +36,7 @@ func (migration *addLicenseTuples) Up(ctx context.Context, db *bun.DB) error {
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -53,11 +53,11 @@ func (migration *addLicenseTuples) Up(ctx context.Context, db *bun.DB) error {
 	isPG := migration.sqlstore.BunDB().Dialect().Name() == dialect.PG
 
 	tuples := []migrationTuple{
-		{authtypes.SigNozAdminRoleName, "metaresource", "license", "create"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "license", "read"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "license", "update"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "license", "delete"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "license", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "license", "create"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "license", "read"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "license", "update"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "license", "delete"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "license", "list"},
 	}
 
 	for _, orgID := range orgIDs {

@@ -4,9 +4,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/alertmanager/alertmanagerserver"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/factory"
+	"github.com/your-org/argus/pkg/alertmanager/alertmanagerserver"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 type Config struct {
@@ -14,10 +14,10 @@ type Config struct {
 	Provider string `mapstructure:"provider"`
 
 	// Internal is the internal alertmanager configuration.
-	Signoz Signoz `mapstructure:"signoz" yaml:"signoz"`
+	Argus Argus `mapstructure:"argus" yaml:"argus"`
 }
 
-type Signoz struct {
+type Argus struct {
 	// PollInterval is the interval at which the alertmanager is synced.
 	PollInterval time.Duration `mapstructure:"poll_interval"`
 
@@ -31,8 +31,8 @@ func NewConfigFactory() factory.ConfigFactory {
 
 func newConfig() factory.Config {
 	return Config{
-		Provider: "signoz",
-		Signoz: Signoz{
+		Provider: "argus",
+		Argus: Argus{
 			PollInterval: 1 * time.Minute,
 			Config:       alertmanagerserver.NewConfig(),
 		},
@@ -40,8 +40,8 @@ func newConfig() factory.Config {
 }
 
 func (c Config) Validate() error {
-	if c.Provider != "signoz" {
-		return errors.Newf(errors.TypeInvalidInput, errors.CodeInvalidInput, "provider must be one of [%s], got %s", strings.Join([]string{"signoz"}, ", "), c.Provider)
+	if c.Provider != "argus" {
+		return errors.Newf(errors.TypeInvalidInput, errors.CodeInvalidInput, "provider must be one of [%s], got %s", strings.Join([]string{"argus"}, ", "), c.Provider)
 	}
 
 	return nil

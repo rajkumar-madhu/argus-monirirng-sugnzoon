@@ -5,8 +5,8 @@ import (
 	"log/slog"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/types/alertmanagertypes"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/types/alertmanagertypes"
 )
 
 func TestBatcherWithOneAlertAndDefaultConfigs(t *testing.T) {

@@ -3,7 +3,7 @@ package coretypes
 import (
 	"regexp"
 
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/valuer"
 )
 
 var Types = []Type{

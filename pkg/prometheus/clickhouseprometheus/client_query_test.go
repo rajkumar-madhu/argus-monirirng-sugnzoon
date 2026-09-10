@@ -6,14 +6,14 @@ import (
 	"testing"
 
 	cmock "github.com/SigNoz/clickhouse-go-mock"
-	"github.com/SigNoz/signoz/pkg/telemetrystore/telemetrystoretest"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/telemetrystore/telemetrystoretest"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/SigNoz/signoz/pkg/telemetrystore"
 	"github.com/huandu/go-sqlbuilder"
 	"github.com/prometheus/prometheus/prompb"
 	"github.com/stretchr/testify/assert"
+	"github.com/your-org/argus/pkg/telemetrystore"
 )
 
 // Test for querySamples method.

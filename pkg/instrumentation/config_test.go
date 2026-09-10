@@ -5,17 +5,17 @@ import (
 	"log/slog"
 	"testing"
 
-	"github.com/SigNoz/signoz/pkg/config"
-	"github.com/SigNoz/signoz/pkg/config/envprovider"
-	"github.com/SigNoz/signoz/pkg/factory"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/your-org/argus/pkg/config"
+	"github.com/your-org/argus/pkg/config/envprovider"
+	"github.com/your-org/argus/pkg/factory"
 )
 
 func TestNewWithEnvProvider(t *testing.T) {
-	t.Setenv("SIGNOZ_INSTRUMENTATION_LOGS_LEVEL", "debug")
-	t.Setenv("SIGNOZ_INSTRUMENTATION_METRICS_READERS_PULL_EXPORTER_PROMETHEUS_PORT", "1111")
-	t.Setenv("SIGNOZ_INSTRUMENTATION_TRACES_ENABLED", "true")
+	t.Setenv("ARGUS_INSTRUMENTATION_LOGS_LEVEL", "debug")
+	t.Setenv("ARGUS_INSTRUMENTATION_METRICS_READERS_PULL_EXPORTER_PROMETHEUS_PORT", "1111")
+	t.Setenv("ARGUS_INSTRUMENTATION_TRACES_ENABLED", "true")
 
 	conf, err := config.New(
 		context.Background(),

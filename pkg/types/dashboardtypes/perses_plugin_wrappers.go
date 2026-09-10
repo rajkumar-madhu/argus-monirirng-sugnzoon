@@ -7,8 +7,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	qb "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/errors"
+	qb "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/swaggest/jsonschema-go"
@@ -24,17 +24,17 @@ type PanelPlugin struct {
 }
 
 // PrepareJSONSchema marks the envelope with x-signoz-discriminator;
-// signoz.attachDiscriminators promotes it to a real OpenAPI 3 discriminator
+// argus.attachDiscriminators promotes it to a real OpenAPI 3 discriminator
 // (and strips the duplicate parent properties) after reflection.
 func (PanelPlugin) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "kind", map[string]string{
-		string(PanelKindTimeSeries): schemaRef("DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesTimeSeriesPanelSpec"),
-		string(PanelKindBarChart):   schemaRef("DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesBarChartPanelSpec"),
-		string(PanelKindNumber):     schemaRef("DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesNumberPanelSpec"),
-		string(PanelKindPieChart):   schemaRef("DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesPieChartPanelSpec"),
-		string(PanelKindTable):      schemaRef("DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesTablePanelSpec"),
-		string(PanelKindHistogram):  schemaRef("DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesHistogramPanelSpec"),
-		string(PanelKindList):       schemaRef("DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesListPanelSpec"),
+		string(PanelKindTimeSeries): schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesTimeSeriesPanelSpec"),
+		string(PanelKindBarChart):   schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesBarChartPanelSpec"),
+		string(PanelKindNumber):     schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesNumberPanelSpec"),
+		string(PanelKindPieChart):   schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesPieChartPanelSpec"),
+		string(PanelKindTable):      schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesTablePanelSpec"),
+		string(PanelKindHistogram):  schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesHistogramPanelSpec"),
+		string(PanelKindList):       schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesListPanelSpec"),
 	})
 }
 
@@ -88,12 +88,12 @@ type QueryPlugin struct {
 
 func (QueryPlugin) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "kind", map[string]string{
-		string(QueryKindBuilder):       schemaRef("DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesBuilderQuerySpec"),
-		string(QueryKindComposite):     schemaRef("DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery"),
-		string(QueryKindFormula):       schemaRef("DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula"),
-		string(QueryKindPromQL):        schemaRef("DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery"),
-		string(QueryKindClickHouseSQL): schemaRef("DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery"),
-		string(QueryKindTraceOperator): schemaRef("DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator"),
+		string(QueryKindBuilder):       schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesDashboardtypesBuilderQuerySpec"),
+		string(QueryKindComposite):     schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery"),
+		string(QueryKindFormula):       schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula"),
+		string(QueryKindPromQL):        schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery"),
+		string(QueryKindClickHouseSQL): schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery"),
+		string(QueryKindTraceOperator): schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator"),
 	})
 }
 
@@ -174,9 +174,9 @@ type VariablePlugin struct {
 
 func (VariablePlugin) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "kind", map[string]string{
-		string(VariableKindDynamic): schemaRef("DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesDynamicVariableSpec"),
-		string(VariableKindQuery):   schemaRef("DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesQueryVariableSpec"),
-		string(VariableKindCustom):  schemaRef("DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesCustomVariableSpec"),
+		string(VariableKindDynamic): schemaRef("DashboardtypesVariablePluginVariantGithubComArgusArgusPkgTypesDashboardtypesDynamicVariableSpec"),
+		string(VariableKindQuery):   schemaRef("DashboardtypesVariablePluginVariantGithubComArgusArgusPkgTypesDashboardtypesQueryVariableSpec"),
+		string(VariableKindCustom):  schemaRef("DashboardtypesVariablePluginVariantGithubComArgusArgusPkgTypesDashboardtypesCustomVariableSpec"),
 	})
 }
 
@@ -294,7 +294,7 @@ func decodeSpec[T any](specJSON []byte, target T, kind string) (*T, error) {
 	return &target, nil
 }
 
-// signozDiscriminatorKey is the extension key that signoz.attachDiscriminators
+// signozDiscriminatorKey is the extension key that argus.attachDiscriminators
 // promotes into a native OpenAPI 3 discriminator after reflection.
 const signozDiscriminatorKey = "x-signoz-discriminator"
 
@@ -304,7 +304,7 @@ func schemaRef(name string) string {
 }
 
 // markDiscriminator tags a oneOf envelope schema with x-signoz-discriminator so
-// signoz.attachDiscriminators promotes it to a real OpenAPI 3 discriminator,
+// argus.attachDiscriminators promotes it to a real OpenAPI 3 discriminator,
 // keyed on propertyName, with the given value -> schema-ref mapping. This turns
 // the union into a discriminated DTO (instead of an intersection) for generated
 // clients.

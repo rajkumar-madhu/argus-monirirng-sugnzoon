@@ -1,4 +1,4 @@
-module github.com/SigNoz/signoz/scripts/promqltestcorpus
+module github.com/your-org/argus/scripts/promqltestcorpus
 
 go 1.25.7
 

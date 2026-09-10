@@ -4,20 +4,20 @@ import (
 	"context"
 	"log/slog"
 
-	"github.com/SigNoz/signoz/pkg/config"
-	"github.com/SigNoz/signoz/pkg/config/envprovider"
-	"github.com/SigNoz/signoz/pkg/config/fileprovider"
-	"github.com/SigNoz/signoz/pkg/signoz"
+	"github.com/your-org/argus/pkg/argus"
+	"github.com/your-org/argus/pkg/config"
+	"github.com/your-org/argus/pkg/config/envprovider"
+	"github.com/your-org/argus/pkg/config/fileprovider"
 )
 
-func NewSigNozConfig(ctx context.Context, logger *slog.Logger, configFiles []string) (signoz.Config, error) {
+func NewArgusConfig(ctx context.Context, logger *slog.Logger, configFiles []string) (argus.Config, error) {
 	uris := make([]string, 0, len(configFiles)+1)
 	for _, f := range configFiles {
 		uris = append(uris, "file:"+f)
 	}
 	uris = append(uris, "env:")
 
-	config, err := signoz.NewConfig(
+	config, err := argus.NewConfig(
 		ctx,
 		logger,
 		config.ResolverConfig{
@@ -29,7 +29,7 @@ func NewSigNozConfig(ctx context.Context, logger *slog.Logger, configFiles []str
 		},
 	)
 	if err != nil {
-		return signoz.Config{}, err
+		return argus.Config{}, err
 	}
 
 	return config, nil

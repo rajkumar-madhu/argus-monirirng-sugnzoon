@@ -5,19 +5,19 @@ import (
 	"strconv"
 	"sync"
 
-	authz "github.com/SigNoz/signoz/pkg/authz"
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	authz "github.com/your-org/argus/pkg/authz"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/types/authtypes"
+	"github.com/your-org/argus/pkg/types/coretypes"
+	"github.com/your-org/argus/pkg/valuer"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
 	openfgav1 "github.com/openfga/api/proto/openfga/v1"
 	openfgapkgtransformer "github.com/openfga/language/pkg/go/transformer"
 	openfgapkgserver "github.com/openfga/openfga/pkg/server"
 	openfgaerrors "github.com/openfga/openfga/pkg/server/errors"
 	"github.com/openfga/openfga/pkg/storage"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
@@ -27,7 +27,7 @@ const (
 )
 
 var (
-	openfgaDefaultStore = valuer.NewString("signoz")
+	openfgaDefaultStore = valuer.NewString("argus")
 )
 
 type Server struct {
@@ -43,7 +43,7 @@ type Server struct {
 }
 
 func NewOpenfgaServer(ctx context.Context, settings factory.ProviderSettings, config authz.Config, sqlstore sqlstore.SQLStore, openfgaSchema []openfgapkgtransformer.ModuleFile, openfgaDataStore storage.OpenFGADatastore) (*Server, error) {
-	scopedProviderSettings := factory.NewScopedProviderSettings(settings, "github.com/SigNoz/signoz/pkg/authz/openfgaauthz")
+	scopedProviderSettings := factory.NewScopedProviderSettings(settings, "github.com/your-org/argus/pkg/authz/openfgaauthz")
 
 	// setup the openfga server
 	opts := []openfgapkgserver.OpenFGAServiceV1Option{

@@ -4,10 +4,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	grammar "github.com/SigNoz/signoz/pkg/parser/havingexpression/grammar"
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/huandu/go-sqlbuilder"
+	"github.com/your-org/argus/pkg/errors"
+	grammar "github.com/your-org/argus/pkg/parser/havingexpression/grammar"
 )
 
 // havingExpressionRewriteVisitor walks the parse tree of a HavingExpression in a single

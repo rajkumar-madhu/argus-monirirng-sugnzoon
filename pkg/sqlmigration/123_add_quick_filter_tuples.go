@@ -5,13 +5,13 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/factory"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types/authtypes"
 	"github.com/oklog/ulid/v2"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect"
 	"github.com/uptrace/bun/migrate"
+	"github.com/your-org/argus/pkg/factory"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types/authtypes"
 )
 
 type addQuickFilterTuples struct {
@@ -36,7 +36,7 @@ func (migration *addQuickFilterTuples) Up(ctx context.Context, db *bun.DB) error
 	defer func() { _ = tx.Rollback() }()
 
 	var storeID string
-	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "signoz").Scan(&storeID)
+	err = tx.QueryRowContext(ctx, `SELECT id FROM store WHERE name = ? LIMIT 1`, "argus").Scan(&storeID)
 	if err != nil {
 		return err
 	}
@@ -56,13 +56,13 @@ func (migration *addQuickFilterTuples) Up(ctx context.Context, db *bun.DB) error
 	// CheckResources, which on enterprise requires real tuples -- existing orgs
 	// never had these written, only new orgs get them from the registry at bootstrap.
 	tuples := []migrationTuple{
-		{authtypes.SigNozAdminRoleName, "metaresource", "quick-filter", "read"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "quick-filter", "update"},
-		{authtypes.SigNozAdminRoleName, "metaresource", "quick-filter", "list"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "quick-filter", "read"},
-		{authtypes.SigNozEditorRoleName, "metaresource", "quick-filter", "list"},
-		{authtypes.SigNozViewerRoleName, "metaresource", "quick-filter", "read"},
-		{authtypes.SigNozViewerRoleName, "metaresource", "quick-filter", "list"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "quick-filter", "read"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "quick-filter", "update"},
+		{authtypes.ArgusAdminRoleName, "metaresource", "quick-filter", "list"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "quick-filter", "read"},
+		{authtypes.ArgusEditorRoleName, "metaresource", "quick-filter", "list"},
+		{authtypes.ArgusViewerRoleName, "metaresource", "quick-filter", "read"},
+		{authtypes.ArgusViewerRoleName, "metaresource", "quick-filter", "list"},
 	}
 
 	for _, orgID := range orgIDs {

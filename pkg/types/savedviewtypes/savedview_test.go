@@ -4,11 +4,11 @@ import (
 	"strings"
 	"testing"
 
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
+	"github.com/your-org/argus/pkg/valuer"
 	"k8s.io/apimachinery/pkg/util/validation"
 )
 
@@ -157,12 +157,12 @@ func TestNewSavedView(t *testing.T) {
 	orgID := valuer.GenerateUUID().StringValue()
 	view := validPostableSavedView()
 
-	savedView := view.ToSavedView(orgID, "creator@signoz.io")
+	savedView := view.ToSavedView(orgID, "creator@argus.example.com")
 
 	assert.False(t, savedView.ID.IsZero())
 	assert.Equal(t, orgID, savedView.OrgID)
-	assert.Equal(t, "creator@signoz.io", savedView.CreatedBy)
-	assert.Equal(t, "creator@signoz.io", savedView.UpdatedBy)
+	assert.Equal(t, "creator@argus.example.com", savedView.CreatedBy)
+	assert.Equal(t, "creator@argus.example.com", savedView.UpdatedBy)
 	assert.Equal(t, view.Name, savedView.Name)
 	assert.Equal(t, view.Source, savedView.Source)
 	assert.Equal(t, view.SchemaVersion, savedView.SchemaVersion)
@@ -178,7 +178,7 @@ func TestNewSavedView_GeneratesNameWhenEmpty(t *testing.T) {
 	view.GenerateName = true
 	view.Spec.DisplayName = "My View!"
 
-	savedView := view.ToSavedView(orgID, "creator@signoz.io")
+	savedView := view.ToSavedView(orgID, "creator@argus.example.com")
 
 	assert.NotEmpty(t, savedView.Name)
 	assert.Empty(t, validation.IsDNS1123Label(savedView.Name), "generated name must be a valid DNS-1123 label")

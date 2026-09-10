@@ -4,9 +4,9 @@ import (
 	"context"
 	"slices"
 
-	"github.com/SigNoz/signoz/pkg/types/inframonitoringtypes"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/types/inframonitoringtypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/valuer"
 	"golang.org/x/sync/errgroup"
 )
 

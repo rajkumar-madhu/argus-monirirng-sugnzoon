@@ -10,20 +10,20 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/SigNoz/signoz/pkg/errors"
-	"github.com/SigNoz/signoz/pkg/flagger"
-	"github.com/SigNoz/signoz/pkg/query-service/agentConf"
-	"github.com/SigNoz/signoz/pkg/query-service/constants"
-	"github.com/SigNoz/signoz/pkg/query-service/interfaces"
-	"github.com/SigNoz/signoz/pkg/query-service/model"
-	v3 "github.com/SigNoz/signoz/pkg/query-service/model/v3"
-	"github.com/SigNoz/signoz/pkg/query-service/utils"
-	"github.com/SigNoz/signoz/pkg/sqlstore"
-	"github.com/SigNoz/signoz/pkg/types"
-	"github.com/SigNoz/signoz/pkg/types/featuretypes"
-	"github.com/SigNoz/signoz/pkg/types/opamptypes"
-	"github.com/SigNoz/signoz/pkg/types/pipelinetypes"
-	"github.com/SigNoz/signoz/pkg/valuer"
+	"github.com/your-org/argus/pkg/errors"
+	"github.com/your-org/argus/pkg/flagger"
+	"github.com/your-org/argus/pkg/query-service/agentConf"
+	"github.com/your-org/argus/pkg/query-service/constants"
+	"github.com/your-org/argus/pkg/query-service/interfaces"
+	"github.com/your-org/argus/pkg/query-service/model"
+	v3 "github.com/your-org/argus/pkg/query-service/model/v3"
+	"github.com/your-org/argus/pkg/query-service/utils"
+	"github.com/your-org/argus/pkg/sqlstore"
+	"github.com/your-org/argus/pkg/types"
+	"github.com/your-org/argus/pkg/types/featuretypes"
+	"github.com/your-org/argus/pkg/types/opamptypes"
+	"github.com/your-org/argus/pkg/types/pipelinetypes"
+	"github.com/your-org/argus/pkg/valuer"
 
 	"log/slog"
 )
@@ -215,7 +215,7 @@ func (ic *LogParsingPipelineController) ValidatePipelines(ctx context.Context,
 		})
 	}
 
-	sampleLogs := []model.SignozLog{{Body: ""}}
+	sampleLogs := []model.ArgusLog{{Body: ""}}
 	_, _, err := SimulatePipelinesProcessing(ctx, gettablePipelines, sampleLogs)
 	return err
 }
@@ -332,12 +332,12 @@ func (ic *LogParsingPipelineController) GetPipelinesByVersion(
 
 type PipelinesPreviewRequest struct {
 	Pipelines []pipelinetypes.GettablePipeline `json:"pipelines"`
-	Logs      []model.SignozLog                `json:"logs"`
+	Logs      []model.ArgusLog                 `json:"logs"`
 }
 
 type PipelinesPreviewResponse struct {
-	OutputLogs    []model.SignozLog `json:"logs"`
-	CollectorLogs []string          `json:"collectorLogs"`
+	OutputLogs    []model.ArgusLog `json:"logs"`
+	CollectorLogs []string         `json:"collectorLogs"`
 }
 
 func (ic *LogParsingPipelineController) PreviewLogsPipelines(

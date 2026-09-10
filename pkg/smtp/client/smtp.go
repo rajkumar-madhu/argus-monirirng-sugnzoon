@@ -20,7 +20,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/SigNoz/signoz/pkg/errors"
+	"github.com/your-org/argus/pkg/errors"
 )
 
 type Client struct {
@@ -38,7 +38,7 @@ type Client struct {
 
 func New(address string, logger *slog.Logger, opts ...Option) (*Client, error) {
 	clientOpts := options{
-		from:    "signoz@signoz.localhost",
+		from:    "signoz@argus.localhost",
 		headers: make(map[string]string),
 		auth:    Auth{},
 		tls: TLS{

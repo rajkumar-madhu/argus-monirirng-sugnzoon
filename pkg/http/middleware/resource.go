@@ -6,9 +6,9 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/SigNoz/signoz/pkg/http/handler"
-	"github.com/SigNoz/signoz/pkg/types/coretypes"
 	"github.com/gorilla/mux"
+	"github.com/your-org/argus/pkg/http/handler"
+	"github.com/your-org/argus/pkg/types/coretypes"
 )
 
 // Resource resolves a route's declared ResourceDefs and stashes the result in

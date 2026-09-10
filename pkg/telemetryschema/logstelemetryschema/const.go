@@ -2,8 +2,8 @@ package logstelemetryschema
 
 import (
 	"github.com/SigNoz/signoz-otel-collector/constants"
-	qbtypes "github.com/SigNoz/signoz/pkg/types/querybuildertypes/querybuildertypesv5"
-	"github.com/SigNoz/signoz/pkg/types/telemetrytypes"
+	qbtypes "github.com/your-org/argus/pkg/types/querybuildertypes/querybuildertypesv5"
+	"github.com/your-org/argus/pkg/types/telemetrytypes"
 )
 
 const (
@@ -49,8 +49,8 @@ const (
 
 	// Documentation URLs attached to function-call errors so the visitor can
 	// surface them to the user without knowing function-specific details.
-	hasTokenFunctionDocURL       = "https://signoz.io/docs/userguide/functions-reference/#hastoken-function"
-	functionBodyJSONSearchDocURL = "https://signoz.io/docs/userguide/search-troubleshooting/#q-im-getting-function-supports-only-body-json-search--can-i-use-functions-on-other-fields"
+	hasTokenFunctionDocURL       = "https://argus.example.com/docs/userguide/functions-reference/#hastoken-function"
+	functionBodyJSONSearchDocURL = "https://argus.example.com/docs/userguide/search-troubleshooting/#q-im-getting-function-supports-only-body-json-search--can-i-use-functions-on-other-fields"
 )
 
 var (
