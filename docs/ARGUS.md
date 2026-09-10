@@ -71,3 +71,4 @@ Do not remove SigNoz attribution. Do not imply official SigNoz endorsement.
 - [Development setup](contributing/development.md)
 - [Deploy README](../deploy/README.md)
 - [Migration notes](../deploy/MIGRATION.md)
+- [Self-hosted AWS VM (CDK)](../infra/aws-vm/README.md)
