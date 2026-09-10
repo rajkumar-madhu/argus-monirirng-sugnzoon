@@ -1,11 +1,12 @@
 # Minimal Argus community config for the self-hosted VM.
 # Override ARGUS_* env vars in docker-compose for DSN / external URL.
 
-version: "0.0.1"
-
 global:
   # Set via ARGUS_GLOBAL_EXTERNAL_URL or edit after first boot.
-  # external_url: http://YOUR_PUBLIC_IP
+
+version:
+  banner:
+    enabled: false
 
 sqlstore:
   provider: sqlite
@@ -26,3 +27,14 @@ web:
   enabled: true
   directory: /etc/argus/web
   index: index.html
+
+instrumentation:
+  logs:
+    level: info
+  metrics:
+    enabled: false
+  traces:
+    enabled: false
+
+pprof:
+  enabled: false

@@ -19,7 +19,8 @@ Ersetzen Sie Platzhalter vor dem Produktionseinsatz:
 
 | Platzhalter | Beispiel |
 |-------------|----------|
-| GitHub Org/Repo | `github.com/rajkumar-madhu/argus-monirirng-sugnzoon` |
+| Go-Modul (`go.mod` / Imports) | `github.com/your-org/argus` |
+| GitHub Clone / Issues | `github.com/rajkumar-madhu/argus-monirirng-sugnzoon` |
 | Container-Registry | `ghcr.io/rajkumar-madhu/argus` |
 | Öffentliche URL | `https://argus.example.com` |
 

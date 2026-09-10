@@ -38,16 +38,13 @@ If available RAM drops below ~6 GiB before `compose up`, **abort** rather than O
 
 ## Build image (local) and load on VPS
 
-GHCR (`ghcr.io/rajkumar-madhu/argus`) may return `401` without a token. Prefer local build:
+GHCR (`ghcr.io/rajkumar-madhu/argus`) may return `401` without a token. Prefer local build via `Dockerfile.hostinger` (multi-stage frontend + Go):
 
 ```bash
 # from repo root (Apple Silicon → linux/amd64)
-make go-build-community-amd64 OS=linux
-make js-build
 docker build --platform linux/amd64 \
   -t argus-monitoring:hostinger \
-  --build-arg TARGETARCH=amd64 \
-  -f cmd/community/Dockerfile .
+  -f infra/hostinger-vm/Dockerfile.hostinger .
 
 docker save argus-monitoring:hostinger | ssh root@213.210.36.154 'docker load'
 ```
@@ -62,11 +59,14 @@ ssh root@213.210.36.154 '
   cd /opt/argus-monitoring
   export ARGUS_IMAGE=argus-monitoring:hostinger
   export ARGUS_EXTERNAL_URL=http://213.210.36.154:8089
+  avail_mb=$(awk "/MemAvailable/ {print int(\$2/1024)}" /proc/meminfo)
+  if [ "$avail_mb" -lt 6000 ]; then echo "abort: only ${avail_mb}MiB MemAvailable"; exit 1; fi
   docker compose up -d
   docker compose ps
 '
 ```
 
+Compose mounts `clickhouse-cluster.xml` (ZooKeeper + `cluster` remote_servers) so schema migrator with `REPLICATION=true` can succeed.
 ## Verify
 
 ```bash

@@ -20,7 +20,7 @@ services:
       retries: 5
 
   clickhouse:
-    image: clickhouse/clickhouse-server:25.5
+    image: clickhouse/clickhouse-server:25.12.5
     restart: unless-stopped
     depends_on:
       zookeeper:
@@ -28,6 +28,7 @@ services:
     # Intentionally no host ports — keep CH internal (host :9000 is taken by uvicorn).
     volumes:
       - clickhouse-data:/var/lib/clickhouse
+      - ./clickhouse-cluster.xml:/etc/clickhouse-server/config.d/cluster.xml:ro
       - ./clickhouse-users-override.xml:/etc/clickhouse-server/users.d/argus-limits.xml:ro
     ulimits:
       nofile:
@@ -80,10 +81,12 @@ services:
     command: ["--config=/etc/otel-collector-config.yaml"]
     mem_limit: 1g
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "localhost:13133"]
+      # Collector image has neither wget nor curl — probe the health port with bash.
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/13133'"]
       interval: 30s
       timeout: 5s
       retries: 5
+      start_period: 20s
 
   argus:
     image: ${ARGUS_IMAGE:-argus-monitoring:hostinger}
@@ -106,7 +109,8 @@ services:
     volumes:
       - argus-data:/var/lib/argus
       - ./argus.yaml:/etc/argus/config.yaml:ro
-    command: ["server", "--config=/etc/argus/config.yaml"]
+    # ENTRYPOINT is ["./argus", "server"] — only pass config here.
+    command: ["--config=/etc/argus/config.yaml"]
     mem_limit: 1g
 
 volumes:
