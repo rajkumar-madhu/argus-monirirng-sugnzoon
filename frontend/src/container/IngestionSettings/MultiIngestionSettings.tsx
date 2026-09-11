@@ -457,9 +457,7 @@ function MultiIngestionSettings(): JSX.Element {
 					);
 				}
 			})
-			.catch((errorInfo) => {
-				console.error('error info', errorInfo);
-			});
+			.catch(() => undefined);
 	};
 
 	const onCreateIngestionKey = (): void => {
@@ -494,9 +492,7 @@ function MultiIngestionSettings(): JSX.Element {
 					);
 				}
 			})
-			.catch((errorInfo) => {
-				console.error('error info', errorInfo);
-			});
+			.catch(() => undefined);
 	};
 
 	const handleCopyKey = useCallback(
