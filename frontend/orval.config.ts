@@ -1,9 +1,3 @@
-/**
- * When making changes to this file, remove this the file name from .eslintignore and tsconfig.json
- * The reason this is required because of the moduleResolution being "node". Changing this is a more detailed effort.
- * So, until then, we will keep this file ignored for eslint and typescript.
- */
-
 import { defineConfig } from 'orval';
 
 export default defineConfig({
@@ -19,11 +13,11 @@ export default defineConfig({
 			unsafeDisableValidation: true,
 		},
 		output: {
-			target: './src/api/generated/services',
+			// Preserve the schema import path when the OpenAPI product title changes.
+			target: './src/api/generated/services/sigNoz.ts',
 			client: 'react-query',
 			httpClient: 'axios',
 			mode: 'tags-split',
-			prettier: true,
 			headers: true,
 			clean: true,
 			override: {
@@ -60,9 +54,9 @@ export default defineConfig({
 						];
 						return Object.entries(schema || {})
 							.filter(([key]) => allowlist.includes(key))
-							.map(([key, value]: [string, any]) => ({
+							.map(([key, value]) => ({
 								key,
-								value,
+								value: String(value),
 							}))
 							.sort((a, b) => a.key.length - b.key.length);
 					},
@@ -83,8 +77,7 @@ export default defineConfig({
 					},
 				},
 
-				// info is of type InfoObject from openapi spec
-				header: (info: { title: string; version: string }): string[] => [
+				header: (info): string[] => [
 					`! Do not edit manually`,
 					`* The file has been auto-generated using Orval for Argus`,
 					`* regenerate with 'pnpm generate:api'`,
@@ -92,11 +85,6 @@ export default defineConfig({
 					...(info.version ? [`OpenAPI spec version: ${info.version}`] : []),
 				],
 
-				// @ts-expect-error
-				// propertySortOrder, urlEncodeParameters, aliasCombinedTypes
-				// are valid options in the document without types
-				propertySortOrder: 'Alphabetical',
-				urlEncodeParameters: true,
 				aliasCombinedTypes: true,
 			},
 		},

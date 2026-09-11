@@ -28,30 +28,30 @@ components:
     AlertmanagertypesChannelConfig:
       discriminator:
         mapping:
-          email: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelEmailConfig'
-          googlechat: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelGoogleChatConfig'
-          incidentio: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelIncidentIOConfig'
-          jira: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelJiraConfig'
-          jsmops: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelJSMOpsConfig'
-          msteams: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelMSTeamsConfig'
-          opsgenie: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelOpsgenieConfig'
-          pagerduty: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelPagerdutyConfig'
-          slack: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelSlackConfig'
-          webhook: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelWebhookConfig'
+          email: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelEmailConfig'
+          googlechat: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelGoogleChatConfig'
+          incidentio: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelIncidentIOConfig'
+          jira: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelJiraConfig'
+          jsmops: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelJSMOpsConfig'
+          msteams: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelMSTeamsConfig'
+          opsgenie: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelOpsgenieConfig'
+          pagerduty: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelPagerdutyConfig'
+          slack: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelSlackConfig'
+          webhook: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelWebhookConfig'
         propertyName: kind
       oneOf:
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelSlackConfig'
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelEmailConfig'
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelWebhookConfig'
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelPagerdutyConfig'
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelOpsgenieConfig'
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelMSTeamsConfig'
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelGoogleChatConfig'
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelJiraConfig'
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelJSMOpsConfig'
-      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelIncidentIOConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelSlackConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelEmailConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelWebhookConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelPagerdutyConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelOpsgenieConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelMSTeamsConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelGoogleChatConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelJiraConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelJSMOpsConfig'
+      - $ref: '#/components/schemas/AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelIncidentIOConfig'
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelEmailConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelEmailConfig:
       properties:
         kind:
           enum:
@@ -63,7 +63,7 @@ components:
       - kind
       - spec
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelGoogleChatConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelGoogleChatConfig:
       properties:
         kind:
           enum:
@@ -75,7 +75,7 @@ components:
       - kind
       - spec
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelIncidentIOConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelIncidentIOConfig:
       properties:
         kind:
           enum:
@@ -87,7 +87,7 @@ components:
       - kind
       - spec
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelJSMOpsConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelJSMOpsConfig:
       properties:
         kind:
           enum:
@@ -99,7 +99,7 @@ components:
       - kind
       - spec
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelJiraConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelJiraConfig:
       properties:
         kind:
           enum:
@@ -111,7 +111,7 @@ components:
       - kind
       - spec
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelMSTeamsConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelMSTeamsConfig:
       properties:
         kind:
           enum:
@@ -123,7 +123,7 @@ components:
       - kind
       - spec
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelOpsgenieConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelOpsgenieConfig:
       properties:
         kind:
           enum:
@@ -135,7 +135,7 @@ components:
       - kind
       - spec
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelPagerdutyConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelPagerdutyConfig:
       properties:
         kind:
           enum:
@@ -147,7 +147,7 @@ components:
       - kind
       - spec
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelSlackConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelSlackConfig:
       properties:
         kind:
           enum:
@@ -159,7 +159,7 @@ components:
       - kind
       - spec
       type: object
-    AlertmanagertypesChannelConfigVariantGithubComSigNozSignozPkgTypesAlertmanagertypesChannelWebhookConfig:
+    AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypesChannelWebhookConfig:
       properties:
         kind:
           enum:
@@ -3181,14 +3181,14 @@ components:
     DashboardtypesBuilderQuerySpec:
       discriminator:
         mapping:
-          logs: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation'
-          metrics: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation'
-          traces: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
+          logs: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation'
+          metrics: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation'
+          traces: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
         propertyName: signal
       oneOf:
-      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation'
-      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation'
-      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
+      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation'
+      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation'
+      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
       type: object
     DashboardtypesComparisonOperator:
       enum:
@@ -3825,22 +3825,22 @@ components:
     DashboardtypesPanelPlugin:
       discriminator:
         mapping:
-          signoz/BarChartPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesBarChartPanelSpec'
-          signoz/HistogramPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesHistogramPanelSpec'
-          signoz/ListPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesListPanelSpec'
-          signoz/NumberPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesNumberPanelSpec'
-          signoz/PieChartPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesPieChartPanelSpec'
-          signoz/TablePanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesTablePanelSpec'
-          signoz/TimeSeriesPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesTimeSeriesPanelSpec'
+          signoz/BarChartPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesBarChartPanelSpec'
+          signoz/HistogramPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesHistogramPanelSpec'
+          signoz/ListPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesListPanelSpec'
+          signoz/NumberPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesNumberPanelSpec'
+          signoz/PieChartPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesPieChartPanelSpec'
+          signoz/TablePanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesTablePanelSpec'
+          signoz/TimeSeriesPanel: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesTimeSeriesPanelSpec'
         propertyName: kind
       oneOf:
-      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesTimeSeriesPanelSpec'
-      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesBarChartPanelSpec'
-      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesNumberPanelSpec'
-      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesPieChartPanelSpec'
-      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesTablePanelSpec'
-      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesHistogramPanelSpec'
-      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesListPanelSpec'
+      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesTimeSeriesPanelSpec'
+      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesBarChartPanelSpec'
+      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesNumberPanelSpec'
+      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesPieChartPanelSpec'
+      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesTablePanelSpec'
+      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesHistogramPanelSpec'
+      - $ref: '#/components/schemas/DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesListPanelSpec'
       type: object
     DashboardtypesPanelPluginKind:
       enum:
@@ -3852,7 +3852,7 @@ components:
       - signoz/HistogramPanel
       - signoz/ListPanel
       type: string
-    DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesBarChartPanelSpec:
+    DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesBarChartPanelSpec:
       properties:
         kind:
           enum:
@@ -3864,7 +3864,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesHistogramPanelSpec:
+    DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesHistogramPanelSpec:
       properties:
         kind:
           enum:
@@ -3876,7 +3876,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesListPanelSpec:
+    DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesListPanelSpec:
       properties:
         kind:
           enum:
@@ -3888,7 +3888,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesNumberPanelSpec:
+    DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesNumberPanelSpec:
       properties:
         kind:
           enum:
@@ -3900,7 +3900,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesPieChartPanelSpec:
+    DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesPieChartPanelSpec:
       properties:
         kind:
           enum:
@@ -3912,7 +3912,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesTablePanelSpec:
+    DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesTablePanelSpec:
       properties:
         kind:
           enum:
@@ -3924,7 +3924,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesPanelPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesTimeSeriesPanelSpec:
+    DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesTimeSeriesPanelSpec:
       properties:
         kind:
           enum:
@@ -4040,20 +4040,20 @@ components:
     DashboardtypesQueryPlugin:
       discriminator:
         mapping:
-          signoz/BuilderQuery: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesBuilderQuerySpec'
-          signoz/ClickHouseSQL: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery'
-          signoz/CompositeQuery: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery'
-          signoz/Formula: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula'
-          signoz/PromQLQuery: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery'
-          signoz/TraceOperator: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator'
+          signoz/BuilderQuery: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesBuilderQuerySpec'
+          signoz/ClickHouseSQL: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery'
+          signoz/CompositeQuery: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery'
+          signoz/Formula: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula'
+          signoz/PromQLQuery: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery'
+          signoz/TraceOperator: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator'
         propertyName: kind
       oneOf:
-      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesBuilderQuerySpec'
-      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery'
-      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula'
-      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery'
-      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery'
-      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator'
+      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesBuilderQuerySpec'
+      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery'
+      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula'
+      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery'
+      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery'
+      - $ref: '#/components/schemas/DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator'
       type: object
     DashboardtypesQueryPluginKind:
       enum:
@@ -4064,7 +4064,7 @@ components:
       - signoz/ClickHouseSQL
       - signoz/TraceOperator
       type: string
-    DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesDashboardtypesBuilderQuerySpec:
+    DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesBuilderQuerySpec:
       properties:
         kind:
           enum:
@@ -4076,7 +4076,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery:
+    DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery:
       properties:
         kind:
           enum:
@@ -4088,7 +4088,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery:
+    DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery:
       properties:
         kind:
           enum:
@@ -4100,7 +4100,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery:
+    DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery:
       properties:
         kind:
           enum:
@@ -4112,7 +4112,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula:
+    DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula:
       properties:
         kind:
           enum:
@@ -4124,7 +4124,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesQueryPluginVariantGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator:
+    DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator:
       properties:
         kind:
           enum:
@@ -4333,12 +4333,12 @@ components:
     DashboardtypesVariable:
       discriminator:
         mapping:
-          ListVariable: '#/components/schemas/DashboardtypesVariableEnvelopeGithubComSigNozSignozPkgTypesDashboardtypesListVariableSpec'
-          TextVariable: '#/components/schemas/DashboardtypesVariableEnvelopeGithubComSigNozSignozPkgTypesDashboardtypesTextVariableSpec'
+          ListVariable: '#/components/schemas/DashboardtypesVariableEnvelopeGithubComYourOrgArgusPkgTypesDashboardtypesListVariableSpec'
+          TextVariable: '#/components/schemas/DashboardtypesVariableEnvelopeGithubComYourOrgArgusPkgTypesDashboardtypesTextVariableSpec'
         propertyName: kind
       oneOf:
-      - $ref: '#/components/schemas/DashboardtypesVariableEnvelopeGithubComSigNozSignozPkgTypesDashboardtypesListVariableSpec'
-      - $ref: '#/components/schemas/DashboardtypesVariableEnvelopeGithubComSigNozSignozPkgTypesDashboardtypesTextVariableSpec'
+      - $ref: '#/components/schemas/DashboardtypesVariableEnvelopeGithubComYourOrgArgusPkgTypesDashboardtypesListVariableSpec'
+      - $ref: '#/components/schemas/DashboardtypesVariableEnvelopeGithubComYourOrgArgusPkgTypesDashboardtypesTextVariableSpec'
       type: object
     DashboardtypesVariableDefaultValue:
       oneOf:
@@ -4346,7 +4346,7 @@ components:
       - items:
           type: string
         type: array
-    DashboardtypesVariableEnvelopeGithubComSigNozSignozPkgTypesDashboardtypesListVariableSpec:
+    DashboardtypesVariableEnvelopeGithubComYourOrgArgusPkgTypesDashboardtypesListVariableSpec:
       properties:
         kind:
           enum:
@@ -4358,7 +4358,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesVariableEnvelopeGithubComSigNozSignozPkgTypesDashboardtypesTextVariableSpec:
+    DashboardtypesVariableEnvelopeGithubComYourOrgArgusPkgTypesDashboardtypesTextVariableSpec:
       properties:
         kind:
           enum:
@@ -4373,14 +4373,14 @@ components:
     DashboardtypesVariablePlugin:
       discriminator:
         mapping:
-          signoz/CustomVariable: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesCustomVariableSpec'
-          signoz/DynamicVariable: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesDynamicVariableSpec'
-          signoz/QueryVariable: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesQueryVariableSpec'
+          signoz/CustomVariable: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesCustomVariableSpec'
+          signoz/DynamicVariable: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesDynamicVariableSpec'
+          signoz/QueryVariable: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesQueryVariableSpec'
         propertyName: kind
       oneOf:
-      - $ref: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesDynamicVariableSpec'
-      - $ref: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesQueryVariableSpec'
-      - $ref: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesCustomVariableSpec'
+      - $ref: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesDynamicVariableSpec'
+      - $ref: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesQueryVariableSpec'
+      - $ref: '#/components/schemas/DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesCustomVariableSpec'
       type: object
     DashboardtypesVariablePluginKind:
       enum:
@@ -4388,7 +4388,7 @@ components:
       - signoz/QueryVariable
       - signoz/CustomVariable
       type: string
-    DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesCustomVariableSpec:
+    DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesCustomVariableSpec:
       properties:
         kind:
           enum:
@@ -4400,7 +4400,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesDynamicVariableSpec:
+    DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesDynamicVariableSpec:
       properties:
         kind:
           enum:
@@ -4412,7 +4412,7 @@ components:
       - kind
       - spec
       type: object
-    DashboardtypesVariablePluginVariantGithubComSigNozSignozPkgTypesDashboardtypesQueryVariableSpec:
+    DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesQueryVariableSpec:
       properties:
         kind:
           enum:
@@ -7422,14 +7422,14 @@ components:
     Querybuildertypesv5BuilderQuerySpec:
       discriminator:
         mapping:
-          logs: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation'
-          metrics: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation'
-          traces: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
+          logs: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation'
+          metrics: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation'
+          traces: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
         propertyName: signal
       oneOf:
-      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
-      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation'
-      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation'
+      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
+      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation'
+      - $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation'
       type: object
     Querybuildertypesv5ClickHouseQuery:
       properties:
@@ -7709,7 +7709,7 @@ components:
           nullable: true
           type: array
       type: object
-    Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation:
+    Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation:
       properties:
         aggregations:
           items:
@@ -7770,7 +7770,7 @@ components:
       required:
       - signal
       type: object
-    Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation:
+    Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation:
       properties:
         aggregations:
           items:
@@ -7831,7 +7831,7 @@ components:
       required:
       - signal
       type: object
-    Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation:
+    Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation:
       properties:
         aggregations:
           items:
@@ -7983,7 +7983,7 @@ components:
     Querybuildertypesv5QueryEnvelopeBuilderAI:
       properties:
         spec:
-          $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComSigNozSignozPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
+          $ref: '#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation'
         type:
           $ref: '#/components/schemas/Querybuildertypesv5QueryType'
       required:
@@ -10146,7 +10146,7 @@ components:
     api_key:
       description: API Keys
       in: header
-      name: SigNoz-Api-Key
+      name: Argus-Api-Key
       type: apiKey
     tokenizer:
       bearerFormat: Tokenizer
@@ -10155,12 +10155,12 @@ components:
       type: http
 info:
   contact:
-    email: support@signoz.io
-    name: SigNoz Support
-    url: https://signoz.io
+    email: support@argus.example.com
+    name: Argus Support
+    url: https://argus.example.com
   description: OpenTelemetry-Native Logs, Metrics and Traces in a single pane
-  termsOfService: https://signoz.io/terms-of-service/
-  title: SigNoz
+  termsOfService: https://argus.example.com/terms-of-service/
+  title: Argus
   version: ""
 openapi: 3.0.3
 paths:
@@ -16609,7 +16609,7 @@ paths:
   /api/v2/dashboards/system/{name}:
     get:
       deprecated: false
-      description: Returns a dashboard SigNoz ships and owns, addressed by its stable
+      description: Returns a dashboard Argus ships and owns, addressed by its stable
         definition name (e.g. `ai-o11y-overview`) rather than its id. System dashboards
         are read-only and upgraded through releases. The dashboard's own `name` field
         carries a reserved prefix that the path segment must not include.
@@ -19559,7 +19559,7 @@ paths:
   /api/v2/metrics/onboarding:
     get:
       deprecated: false
-      description: Lightweight endpoint that checks if any non-SigNoz metrics have
+      description: Lightweight endpoint that checks if any non-Argus metrics have
         been ingested, used for onboarding status detection
       operationId: GetMetricsOnboardingStatus
       responses:
@@ -19600,7 +19600,7 @@ paths:
         - VIEWER
       - tokenizer:
         - VIEWER
-      summary: Check if non-SigNoz metrics have been received
+      summary: Check if non-Argus metrics have been received
       tags:
       - metrics
   /api/v2/metrics/stats:
@@ -20523,7 +20523,7 @@ paths:
               metric_anomaly:
                 description: Anomaly rules are not yet supported under schemaVersion
                   v2alpha1, so this example uses the v1 shape. Wraps a builder query
-                  in the `anomaly` function with daily seasonality SigNoz compares
+                  in the `anomaly` function with daily seasonality Argus compares
                   each point against the forecast for that time of day. Fires when
                   the anomaly score stays below the threshold for the entire window;
                   `requireMinPoints` guards against noisy intervals.
@@ -21088,7 +21088,7 @@ paths:
               traces_threshold_latency:
                 description: Builder query against the traces signal with p99(duration_nano).
                   The series unit is ns (compositeQuery.unit), the target is in seconds
-                  (threshold.targetUnit) SigNoz converts before comparing. Canonical
+                  (threshold.targetUnit) Argus converts before comparing. Canonical
                   shape when series and target live in different units.
                 summary: Traces threshold p99 latency (ns → s conversion)
                 value:
@@ -21472,7 +21472,7 @@ paths:
               metric_anomaly:
                 description: Anomaly rules are not yet supported under schemaVersion
                   v2alpha1, so this example uses the v1 shape. Wraps a builder query
-                  in the `anomaly` function with daily seasonality SigNoz compares
+                  in the `anomaly` function with daily seasonality Argus compares
                   each point against the forecast for that time of day. Fires when
                   the anomaly score stays below the threshold for the entire window;
                   `requireMinPoints` guards against noisy intervals.
@@ -22037,7 +22037,7 @@ paths:
               traces_threshold_latency:
                 description: Builder query against the traces signal with p99(duration_nano).
                   The series unit is ns (compositeQuery.unit), the target is in seconds
-                  (threshold.targetUnit) SigNoz converts before comparing. Canonical
+                  (threshold.targetUnit) Argus converts before comparing. Canonical
                   shape when series and target live in different units.
                 summary: Traces threshold p99 latency (ns → s conversion)
                 value:
@@ -22324,7 +22324,7 @@ paths:
               metric_anomaly:
                 description: Anomaly rules are not yet supported under schemaVersion
                   v2alpha1, so this example uses the v1 shape. Wraps a builder query
-                  in the `anomaly` function with daily seasonality SigNoz compares
+                  in the `anomaly` function with daily seasonality Argus compares
                   each point against the forecast for that time of day. Fires when
                   the anomaly score stays below the threshold for the entire window;
                   `requireMinPoints` guards against noisy intervals.
@@ -22889,7 +22889,7 @@ paths:
               traces_threshold_latency:
                 description: Builder query against the traces signal with p99(duration_nano).
                   The series unit is ns (compositeQuery.unit), the target is in seconds
-                  (threshold.targetUnit) SigNoz converts before comparing. Canonical
+                  (threshold.targetUnit) Argus converts before comparing. Canonical
                   shape when series and target live in different units.
                 summary: Traces threshold p99 latency (ns → s conversion)
                 value:
@@ -23679,7 +23679,7 @@ paths:
               metric_anomaly:
                 description: Anomaly rules are not yet supported under schemaVersion
                   v2alpha1, so this example uses the v1 shape. Wraps a builder query
-                  in the `anomaly` function with daily seasonality SigNoz compares
+                  in the `anomaly` function with daily seasonality Argus compares
                   each point against the forecast for that time of day. Fires when
                   the anomaly score stays below the threshold for the entire window;
                   `requireMinPoints` guards against noisy intervals.
@@ -24244,7 +24244,7 @@ paths:
               traces_threshold_latency:
                 description: Builder query against the traces signal with p99(duration_nano).
                   The series unit is ns (compositeQuery.unit), the target is in seconds
-                  (threshold.targetUnit) SigNoz converts before comparing. Canonical
+                  (threshold.targetUnit) Argus converts before comparing. Canonical
                   shape when series and target live in different units.
                 summary: Traces threshold p99 latency (ns → s conversion)
                 value:
@@ -26295,7 +26295,7 @@ paths:
   /api/v4/licenses/{id}:
     delete:
       deprecated: false
-      description: This endpoint deletes the license by id. Licenses managed by SigNoz
+      description: This endpoint deletes the license by id. Licenses managed by Argus
         Cloud cannot be deleted.
       operationId: DeleteLicense
       parameters:
@@ -27502,15 +27502,15 @@ paths:
       tags:
       - prometheus
 servers:
-- description: The fully qualified URL to the SigNoz APIServer.
+- description: The fully qualified URL to the Argus APIServer.
   url: https://{host}:{port}{base_path}
   variables:
     base_path:
       default: /
-      description: The base path of the SigNoz APIServer
+      description: The base path of the Argus APIServer
     host:
       default: localhost
-      description: The host of the SigNoz APIServer
+      description: The host of the Argus APIServer
     port:
       default: "8080"
-      description: The port of the SigNoz APIServer
+      description: The port of the Argus APIServer

@@ -71,8 +71,7 @@
 	"exclude": [
 		"node_modules",
 		"src/parser/*.ts",
-		"src/parser/TraceOperatorParser/*.ts",
-		"orval.config.ts"
+		"src/parser/TraceOperatorParser/*.ts"
 	],
 	"include": [
 		"./src",
@@ -81,6 +80,7 @@
 		"./jest.config.ts",
 		"./jest.setup.ts",
 		"./vite.config.ts",
-		"./commitlint.config.ts"
+		"./commitlint.config.ts",
+		"./orval.config.ts"
 	]
 }

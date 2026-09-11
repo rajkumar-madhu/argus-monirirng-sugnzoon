@@ -1,8 +1,8 @@
 /**
  * ! Do not edit manually
- * * The file has been auto-generated using Orval for SigNoz
+ * * The file has been auto-generated using Orval for Argus
  * * regenerate with 'pnpm generate:api'
- * SigNoz
+ * Argus
  */
 import { useMutation, useQuery } from 'react-query';
 import type {
@@ -1538,8 +1538,8 @@ export const useUpdateMetricMetadata = <
 	return useMutation(getUpdateMetricMetadataMutationOptions(options));
 };
 /**
- * Lightweight endpoint that checks if any non-SigNoz metrics have been ingested, used for onboarding status detection
- * @summary Check if non-SigNoz metrics have been received
+ * Lightweight endpoint that checks if any non-Argus metrics have been ingested, used for onboarding status detection
+ * @summary Check if non-Argus metrics have been received
  */
 export const getMetricsOnboardingStatus = (signal?: AbortSignal) => {
 	return GeneratedAPIInstance<GetMetricsOnboardingStatus200>({
@@ -1586,7 +1586,7 @@ export type GetMetricsOnboardingStatusQueryError =
 	ErrorType<RenderErrorResponseDTO>;
 
 /**
- * @summary Check if non-SigNoz metrics have been received
+ * @summary Check if non-Argus metrics have been received
  */
 
 export function useGetMetricsOnboardingStatus<
@@ -1609,7 +1609,7 @@ export function useGetMetricsOnboardingStatus<
 }
 
 /**
- * @summary Check if non-SigNoz metrics have been received
+ * @summary Check if non-Argus metrics have been received
  */
 export const invalidateGetMetricsOnboardingStatus = async (
 	queryClient: QueryClient,

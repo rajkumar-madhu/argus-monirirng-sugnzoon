@@ -1,8 +1,8 @@
 /**
  * ! Do not edit manually
- * * The file has been auto-generated using Orval for SigNoz
+ * * The file has been auto-generated using Orval for Argus
  * * regenerate with 'pnpm generate:api'
- * SigNoz
+ * Argus
  */
 import { useMutation, useQuery } from 'react-query';
 import type {
@@ -363,7 +363,7 @@ export const useActivateLicense = <
 	return useMutation(getActivateLicenseMutationOptions(options));
 };
 /**
- * This endpoint deletes the license by id. Licenses managed by SigNoz Cloud cannot be deleted.
+ * This endpoint deletes the license by id. Licenses managed by Argus Cloud cannot be deleted.
  * @summary Delete a license.
  */
 export const deleteLicense = (

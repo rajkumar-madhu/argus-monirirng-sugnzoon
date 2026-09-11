@@ -46,9 +46,9 @@ func (builderQuerySpec) PrepareJSONSchema(s *jsonschema.Schema) error {
 	s.ExtraProperties["x-signoz-discriminator"] = map[string]any{
 		"propertyName": "signal",
 		"mapping": map[string]string{
-			telemetrytypes.SignalTraces.StringValue():  "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation",
-			telemetrytypes.SignalLogs.StringValue():    "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation",
-			telemetrytypes.SignalMetrics.StringValue(): "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation",
+			telemetrytypes.SignalTraces.StringValue():  "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation",
+			telemetrytypes.SignalLogs.StringValue():    "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation",
+			telemetrytypes.SignalMetrics.StringValue(): "#/components/schemas/Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation",
 		},
 	}
 	return nil

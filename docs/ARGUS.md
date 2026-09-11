@@ -82,7 +82,9 @@ That writes `docs/api/openapi.yml`. Then regenerate Orval clients (requires **pn
 cd frontend && pnpm generate:api
 ```
 
-**Skip note (2026-09-11):** Orval v8.9.1 failed on the regenerated spec with `Cannot read properties of undefined (reading 'properties')` after cleaning the output folder. Existing `frontend/src/api/generated/` clients were restored from git and left unchanged. Re-run `pnpm generate:api` once the Orval/spec issue is fixed (or after upgrading Orval); do not hand-edit generated files.
+**Generation fix (2026-09-11):** The regenerated spec contained 34 discriminator mappings to nonexistent `GithubComArgusArgus...` schemas. Go reflection generates `GithubComYourOrgArgus...` names from the actual module path. Correcting the source mappings resolves Orval v8.9.1's `Cannot read properties of undefined (reading 'properties')` crash. `TestOpenAPIDiscriminatorReferences` checks that each mapping resolves to a real `oneOf` variant. The complete client-generation command, type checks, affected dashboard adapter tests, and frontend build passed locally.
+
+The Orval output target explicitly preserves `services/sigNoz.schemas.ts` so changing the product title does not break existing import paths. The configuration is included in TypeScript and lint checks. Generation still cleans the output directory before writing; unrelated generation failures do not automatically restore the previous clients.
 
 Do not hand-edit `frontend/src/api/generated/`. Schema names that still contain historical `SigNoz`/`GithubComSigNoz…` fragments come from Go type/package reflection and upstream libraries; treat them as generated artifacts, not product branding.
 
@@ -94,7 +96,7 @@ Production-ish single-node compose for the existing Hostinger KVM (`213.210.36.1
 
 ## Fork verification notes
 
-- OpenAPI product metadata is Argus (`docs/api/openapi.yml` title/contact). Orval regen skipped (v8.9.1 crash on regenerated spec) — keep existing `frontend/src/api/generated/`.
+- OpenAPI product metadata is Argus (`docs/api/openapi.yml` title/contact). The specification and Orval clients were regenerated successfully after correcting the discriminator mappings; do not hand-edit `frontend/src/api/generated/`.
 - Focused Go checks with `GOTOOLCHAIN=go1.25.7`: `pkg/config`, `pkg/instrumentation`, `cmd/community`, `pkg/factory` passed.
 - Residual `SigNoz` strings remain largely in allowlisted upstream contracts, golden fixtures, attribution, and historical `docs/otel-demo-docs.md` (still SigNoz-flavored; treat as backlog).
 
