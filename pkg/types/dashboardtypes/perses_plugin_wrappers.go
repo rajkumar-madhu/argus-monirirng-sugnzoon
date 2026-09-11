@@ -28,13 +28,13 @@ type PanelPlugin struct {
 // (and strips the duplicate parent properties) after reflection.
 func (PanelPlugin) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "kind", map[string]string{
-		string(PanelKindTimeSeries): schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesTimeSeriesPanelSpec"),
-		string(PanelKindBarChart):   schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesBarChartPanelSpec"),
-		string(PanelKindNumber):     schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesNumberPanelSpec"),
-		string(PanelKindPieChart):   schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesPieChartPanelSpec"),
-		string(PanelKindTable):      schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesTablePanelSpec"),
-		string(PanelKindHistogram):  schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesHistogramPanelSpec"),
-		string(PanelKindList):       schemaRef("DashboardtypesPanelPluginVariantGithubComArgusArgusPkgTypesDashboardtypesListPanelSpec"),
+		string(PanelKindTimeSeries): schemaRef("DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesTimeSeriesPanelSpec"),
+		string(PanelKindBarChart):   schemaRef("DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesBarChartPanelSpec"),
+		string(PanelKindNumber):     schemaRef("DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesNumberPanelSpec"),
+		string(PanelKindPieChart):   schemaRef("DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesPieChartPanelSpec"),
+		string(PanelKindTable):      schemaRef("DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesTablePanelSpec"),
+		string(PanelKindHistogram):  schemaRef("DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesHistogramPanelSpec"),
+		string(PanelKindList):       schemaRef("DashboardtypesPanelPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesListPanelSpec"),
 	})
 }
 
@@ -88,12 +88,12 @@ type QueryPlugin struct {
 
 func (QueryPlugin) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "kind", map[string]string{
-		string(QueryKindBuilder):       schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesDashboardtypesBuilderQuerySpec"),
-		string(QueryKindComposite):     schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery"),
-		string(QueryKindFormula):       schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula"),
-		string(QueryKindPromQL):        schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery"),
-		string(QueryKindClickHouseSQL): schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery"),
-		string(QueryKindTraceOperator): schemaRef("DashboardtypesQueryPluginVariantGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator"),
+		string(QueryKindBuilder):       schemaRef("DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesBuilderQuerySpec"),
+		string(QueryKindComposite):     schemaRef("DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5CompositeQuery"),
+		string(QueryKindFormula):       schemaRef("DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderFormula"),
+		string(QueryKindPromQL):        schemaRef("DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5PromQuery"),
+		string(QueryKindClickHouseSQL): schemaRef("DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5ClickHouseQuery"),
+		string(QueryKindTraceOperator): schemaRef("DashboardtypesQueryPluginVariantGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5QueryBuilderTraceOperator"),
 	})
 }
 
@@ -174,9 +174,9 @@ type VariablePlugin struct {
 
 func (VariablePlugin) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "kind", map[string]string{
-		string(VariableKindDynamic): schemaRef("DashboardtypesVariablePluginVariantGithubComArgusArgusPkgTypesDashboardtypesDynamicVariableSpec"),
-		string(VariableKindQuery):   schemaRef("DashboardtypesVariablePluginVariantGithubComArgusArgusPkgTypesDashboardtypesQueryVariableSpec"),
-		string(VariableKindCustom):  schemaRef("DashboardtypesVariablePluginVariantGithubComArgusArgusPkgTypesDashboardtypesCustomVariableSpec"),
+		string(VariableKindDynamic): schemaRef("DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesDynamicVariableSpec"),
+		string(VariableKindQuery):   schemaRef("DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesQueryVariableSpec"),
+		string(VariableKindCustom):  schemaRef("DashboardtypesVariablePluginVariantGithubComYourOrgArgusPkgTypesDashboardtypesCustomVariableSpec"),
 	})
 }
 

@@ -1,0 +1,40 @@
+# Minimal Argus community config for Hostinger (beside WeCrew).
+# Prefer ARGUS_* env overrides in docker-compose for DSN / external URL.
+
+global:
+  external_url: https://monitoring.wecrew.in
+
+version:
+  banner:
+    enabled: false
+
+sqlstore:
+  provider: sqlite
+  sqlite:
+    path: /var/lib/argus/argus.db
+    mode: wal
+
+telemetrystore:
+  provider: clickhouse
+  clickhouse:
+    dsn: tcp://clickhouse:9000
+    cluster: cluster
+
+apiserver:
+  address: 0.0.0.0:8080
+
+web:
+  enabled: true
+  directory: /etc/argus/web
+  index: index.html
+
+instrumentation:
+  logs:
+    level: info
+  metrics:
+    enabled: false
+  traces:
+    enabled: false
+
+pprof:
+  enabled: false

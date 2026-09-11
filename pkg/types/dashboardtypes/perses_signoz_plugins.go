@@ -142,9 +142,9 @@ func (b BuilderQuerySpec) MarshalJSON() ([]byte, error) {
 // cleanly even though it doesn't carry a `kind`.
 func (BuilderQuerySpec) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "signal", map[string]string{
-		telemetrytypes.SignalLogs.StringValue():    schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation"),
-		telemetrytypes.SignalMetrics.StringValue(): schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation"),
-		telemetrytypes.SignalTraces.StringValue():  schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComArgusArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation"),
+		telemetrytypes.SignalLogs.StringValue():    schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5LogAggregation"),
+		telemetrytypes.SignalMetrics.StringValue(): schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5MetricAggregation"),
+		telemetrytypes.SignalTraces.StringValue():  schemaRef("Querybuildertypesv5QueryBuilderQueryGithubComYourOrgArgusPkgTypesQuerybuildertypesQuerybuildertypesv5TraceAggregation"),
 	})
 }
 

@@ -115,8 +115,8 @@ type Variable struct {
 
 func (Variable) PrepareJSONSchema(s *jsonschema.Schema) error {
 	return markDiscriminator(s, "kind", map[string]string{
-		string(variable.KindList): schemaRef("DashboardtypesVariableEnvelopeGithubComArgusArgusPkgTypesDashboardtypesListVariableSpec"),
-		string(variable.KindText): schemaRef("DashboardtypesVariableEnvelopeGithubComArgusArgusPkgTypesDashboardtypesTextVariableSpec"),
+		string(variable.KindList): schemaRef("DashboardtypesVariableEnvelopeGithubComYourOrgArgusPkgTypesDashboardtypesListVariableSpec"),
+		string(variable.KindText): schemaRef("DashboardtypesVariableEnvelopeGithubComYourOrgArgusPkgTypesDashboardtypesTextVariableSpec"),
 	})
 }
 

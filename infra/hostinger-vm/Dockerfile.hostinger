@@ -1,0 +1,35 @@
+# Multi-stage build for Hostinger (linux/amd64). Avoids Mac ARM→amd64 sonic/CGO issues.
+# Usage:
+#   docker build --platform linux/amd64 -t argus-monitoring:hostinger -f infra/hostinger-vm/Dockerfile.hostinger .
+
+FROM node:22-bookworm AS frontend
+WORKDIR /frontend
+RUN corepack enable && corepack prepare pnpm@10.12.1 --activate
+COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml ./
+# pnpm ≥9 requires packages[] when pnpm-workspace.yaml exists
+RUN printf '%s\n' "packages:" "  - '.'" | cat - pnpm-workspace.yaml > /tmp/ws.yaml && mv /tmp/ws.yaml pnpm-workspace.yaml
+COPY frontend/ ./
+RUN CI=1 pnpm install --frozen-lockfile || CI=1 pnpm install
+RUN CI=1 pnpm build
+
+FROM golang:1.25.7-bookworm AS backend
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+COPY --from=frontend /frontend/build ./frontend/build
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build -C cmd/community -tags timetzdata \
+    -ldflags "-s -w" \
+    -o /out/argus-community .
+
+FROM alpine:3.20.3
+LABEL org.opencontainers.image.title="Argus"
+LABEL org.opencontainers.image.source="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon"
+WORKDIR /root
+RUN apk add --no-cache ca-certificates
+COPY --from=backend /out/argus-community /root/argus
+COPY templates /root/templates
+COPY --from=frontend /frontend/build /etc/argus/web/
+RUN chmod 755 /root /root/argus
+ENTRYPOINT ["./argus", "server"]

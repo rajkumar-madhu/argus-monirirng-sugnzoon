@@ -1163,7 +1163,7 @@ func schemaRef(name string) string {
 // ChannelConfigVariant instantiation: the generic's name followed by the fully
 // qualified type argument.
 func channelVariantRef(spec string) string {
-	return schemaRef("AlertmanagertypesChannelConfigVariantGithubComArgusArgusPkgTypesAlertmanagertypes" + spec)
+	return schemaRef("AlertmanagertypesChannelConfigVariantGithubComYourOrgArgusPkgTypesAlertmanagertypes" + spec)
 }
 
 // markDiscriminator tags a oneOf schema with x-signoz-discriminator, keyed on

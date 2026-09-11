@@ -19,7 +19,8 @@ Substitua os placeholders antes de implantar em produção:
 
 | Placeholder | Exemplo |
 |-------------|---------|
-| Org/repo GitHub | `github.com/rajkumar-madhu/argus-monirirng-sugnzoon` |
+| Módulo Go (`go.mod` / imports) | `github.com/your-org/argus` |
+| Clone / issues no GitHub | `github.com/rajkumar-madhu/argus-monirirng-sugnzoon` |
 | Registry de containers | `ghcr.io/rajkumar-madhu/argus` |
 | URL pública | `https://argus.example.com` |
 
