@@ -11,7 +11,8 @@ Self-hosted **Argus monitoring** (SigNoz fork) via Docker Compose on an existing
 | Host | `srv1754783.hstgr.cloud` / `213.210.36.154` |
 | Coexists with | WeCrew kind node, Traefik `:80`, LinkedEye Argus UI `:8088` |
 | Install dir | `/opt/argus-monitoring` |
-| UI | http://213.210.36.154:8089/ |
+| UI hostname | https://monitoring.wecrew.in/ (requires successful certificate issuance) |
+| Direct UI | http://213.210.36.154:8089/ |
 | OTLP gRPC | `213.210.36.154:4317` |
 | OTLP HTTP | `http://213.210.36.154:4318` |
 | Collector health | http://213.210.36.154:13133/ |
@@ -56,7 +57,7 @@ rsync -av infra/hostinger-vm/vm/ root@213.210.36.154:/opt/argus-monitoring/
 ssh root@213.210.36.154 '
   cd /opt/argus-monitoring
   export ARGUS_IMAGE=argus-monitoring:hostinger
-  export ARGUS_EXTERNAL_URL=http://213.210.36.154:8089
+  export ARGUS_EXTERNAL_URL=https://monitoring.wecrew.in
   # REQUIRED for anything beyond lab: set JWT secret
   # echo ARGUS_TOKENIZER_JWT_SECRET=$(openssl rand -hex 32) >> .env
   docker compose --env-file .env up -d
@@ -110,3 +111,30 @@ ssh root@213.210.36.154 'cd /opt/argus-monitoring && docker compose down'
 |------|-----|
 | `infra/aws-vm/` | EC2 + CDK |
 | `infra/hostinger-vm/` | Bare Hostinger KVM next to WeCrew |
+
+## Monitoring hostname and Traefik
+
+Create the Hostinger DNS A record `monitoring` pointing to `213.210.36.154`,
+with TTL 300 seconds. The checked-in `traefik/argus-monitoring.yml` routes
+`monitoring.wecrew.in` to `http://127.0.0.1:8089`. This configuration requires
+the existing Traefik host network, `websecure` entry point, `letsencrypt`
+resolver, and watched `/docker/traefik/dynamic` directory. The existing
+Traefik configuration redirects HTTP to HTTPS.
+
+Install this file as `/docker/traefik/dynamic/argus-monitoring.yml` on the VPS.
+Use a temporary filename without a `.yml` or `.yaml` suffix and an atomic
+rename so the watcher sees a complete file. No Traefik restart is required.
+The Compose default and `argus.yaml` both use `https://monitoring.wecrew.in`;
+any explicit `ARGUS_EXTERNAL_URL` override must match.
+
+Verify DNS and certificate issuance before advertising HTTPS as ready:
+
+```bash
+dig @1.1.1.1 monitoring.wecrew.in A +short
+curl --fail --show-error --head https://monitoring.wecrew.in/
+curl --fail --show-error https://monitoring.wecrew.in/api/v1/version
+```
+
+A DNS record or HTTP redirect alone does not prove certificate issuance.
+If ACME secondary validation reports a DNS lookup error, allow DNS caches
+to expire before retrying; do not bypass TLS verification.

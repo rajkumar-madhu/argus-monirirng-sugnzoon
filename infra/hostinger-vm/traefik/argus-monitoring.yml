@@ -1,0 +1,15 @@
+http:
+  routers:
+    argus-monitoring-public:
+      entryPoints:
+        - websecure
+      rule: Host(`monitoring.wecrew.in`)
+      tls:
+        certResolver: letsencrypt
+      service: argus-monitoring
+      priority: 100
+  services:
+    argus-monitoring:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:8089"

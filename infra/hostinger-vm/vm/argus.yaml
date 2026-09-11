@@ -2,7 +2,7 @@
 # Prefer ARGUS_* env overrides in docker-compose for DSN / external URL.
 
 global:
-  external_url: http://213.210.36.154:8089
+  external_url: https://monitoring.wecrew.in
 
 version:
   banner:
