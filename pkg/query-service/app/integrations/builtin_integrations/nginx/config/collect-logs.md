@@ -95,9 +95,9 @@ exporters:
     headers:
       "signoz-access-token": "${env:SIGNOZ_INGESTION_KEY}"
 
-  # export to local collector
+  # export to self-hosted Argus collector (Hostinger example)
   # otlp/nginx-logs:
-  #   endpoint: "localhost:4317"
+  #   endpoint: "213.210.36.154:4317"
   #   tls:
   #     insecure: true
 
@@ -141,8 +141,8 @@ export SIGNOZ_INGESTION_KEY="signoz-ingestion-key"
 
 #### Use collector config file
 
-Make the collector config file available to your otel collector and use it by adding the following flag to the command for running your collector  
+Make the collector config file available to your otel collector and use it by adding the following flag to the command for running your collector
 ```bash
 --config nginx-logs-collection-config.yaml
-```  
+```
 Note: the collector can use multiple config files, specified by multiple occurrences of the --config flag.

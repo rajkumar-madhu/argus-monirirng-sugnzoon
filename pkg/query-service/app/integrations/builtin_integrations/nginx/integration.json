@@ -3,9 +3,9 @@
   "title": "Nginx",
   "description": "Monitor nginx using logs and metrics.",
   "author": {
-    "name": "SigNoz",
-    "email": "integrations@signoz.io",
-    "homepage": "https://signoz.io"
+    "name": "Argus",
+    "email": "dev@your-org.example",
+    "homepage": "https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon"
   },
   "icon": "file://icon.svg",
   "categories": [
@@ -27,8 +27,13 @@
     "logs": {
       "pipelines": []
     },
-    "dashboards": null,
-    "alerts": null
+    "dashboards": [
+      {
+        "id": "overview",
+        "definition": "file://assets/dashboards/overview.json"
+      }
+    ],
+    "alerts": []
   },
   "connection_tests": {
     "logs": {

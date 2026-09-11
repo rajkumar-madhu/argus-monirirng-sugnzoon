@@ -90,6 +90,19 @@ curl -sS http://213.210.36.154:13133/
 
 First visit completes onboarding (`setupCompleted: false` until you finish the wizard).
 
+## Customer HTTP dashboard (Grafana-style Nginx)
+
+Argus ships a **Nginx customer overview** dashboard (same KPI + traffic + acquisition layout as the [Grafana Loki Nginx dashboard](https://grafana.com/grafana/dashboards/12559-nginx/)):
+
+1. Sign in at http://213.210.36.154:8089/
+2. **Integrations → Nginx → Enable**
+3. Point a collector at access/error logs (`NGINX_ACCESS_LOG_FILE`) and export OTLP to `213.210.36.154:4317`
+4. Open the integration’s **Nginx customer overview** dashboard
+
+Definition (also importable): [`pkg/query-service/app/integrations/builtin_integrations/nginx/assets/dashboards/overview.json`](../../pkg/query-service/app/integrations/builtin_integrations/nginx/assets/dashboards/overview.json)
+
+Geo map and p95 latency need extra Nginx `log_format` fields (`$request_time`, GeoIP). Combined logs cover everything else.
+
 ## Safety rules
 
 - Never tear down WeCrew / kind / Traefik
