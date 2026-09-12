@@ -4,7 +4,7 @@ import { LifeBuoy } from '@signozhq/icons';
 import { DOCS_BASE_URL } from 'constants/app';
 import { openInNewTab } from 'utils/navigation';
 
-import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
+import argusMarkUrl from '@/assets/Logos/argus-mark.svg';
 
 import './AuthHeader.styles.scss';
 
@@ -16,11 +16,8 @@ function AuthHeader(): JSX.Element {
 	return (
 		<header className="auth-header">
 			<a className="auth-header-logo" href="/login" aria-label="Argus home">
-				<img
-					src={argusBrandLogoUrl}
-					alt="Argus"
-					className="auth-header-logo-icon"
-				/>
+				<img src={argusMarkUrl} alt="" className="auth-header-logo-icon" />
+				<span className="auth-header-logo-name">Argus</span>
 			</a>
 			<Button
 				className="auth-header-help-button"

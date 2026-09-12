@@ -16,8 +16,6 @@ import { ErrorV2 } from 'types/api';
 import APIError from 'types/api/error';
 import { SessionsContext } from 'types/api/v2/sessions/context/get';
 
-import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
-
 import { FormContainer, Label, ParentContainer } from './styles';
 
 import './Login.styles.scss';
@@ -306,18 +304,11 @@ function Login(): JSX.Element {
 		<div className="login-form-container">
 			<FormContainer form={form} onFinish={onSubmitHandler}>
 				<div className="login-form-header">
-					<div className="login-form-emoji">
-						<img
-							src={argusBrandLogoUrl}
-							alt="Argus"
-							className="login-form-brand-logo"
-						/>
-					</div>
 					<Typography.Title level={4} className="login-form-title">
-						Sign in to your workspace
+						Sign in
 					</Typography.Title>
 					<Typography.Text className="login-form-description">
-						Monitor, trace, and troubleshoot your applications with Argus.
+						Monitor traces, metrics, and logs from one workspace.
 					</Typography.Text>
 				</div>
 

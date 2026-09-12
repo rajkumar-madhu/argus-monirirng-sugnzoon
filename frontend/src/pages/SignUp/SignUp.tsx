@@ -15,8 +15,6 @@ import { useNotifications } from 'hooks/useNotifications';
 import { ArrowRight } from '@signozhq/icons';
 import APIError from 'types/api/error';
 
-import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
-
 import { FormContainer, Label } from './styles';
 
 import './SignUp.styles.scss';
@@ -106,11 +104,8 @@ function SignUp(): JSX.Element {
 		<AuthPageContainer>
 			<div className="signup-card">
 				<div className="signup-form-header">
-					<div className="signup-header-icon">
-						<img src={argusBrandLogoUrl} alt="Argus" className="signup-brand-logo" />
-					</div>
 					<Typography.Title level={4} className="signup-header-title">
-						Create your Argus account
+						Create your account
 					</Typography.Title>
 					<Typography.Text className="signup-header-subtitle">
 						Set a password to start monitoring traces, metrics, and logs.

@@ -12,8 +12,6 @@ import APIError from 'types/api/error';
 import { OrgSessionContext } from 'types/api/v2/sessions/context/get';
 import { getBaseUrl } from 'utils/basePath';
 
-import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
-
 import SuccessScreen from './SuccessScreen';
 
 import './ForgotPassword.styles.scss';
@@ -133,13 +131,6 @@ function ForgotPassword({
 				}}
 			>
 				<div className="login-form-header">
-					<div className="login-form-emoji">
-						<img
-							src={argusBrandLogoUrl}
-							alt="Argus"
-							className="login-form-brand-logo"
-						/>
-					</div>
 					<h4 className="forgot-password-title">Forgot your password?</h4>
 					<p className="forgot-password-description">
 						Send a reset link to your inbox and get back to monitoring.
