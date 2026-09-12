@@ -1,0 +1,10 @@
+[Unit]
+Description=WeCrew monitoring collector health edge socket
+
+[Socket]
+ListenStream=127.0.0.1:13133
+Service=wecrew-monitoring-edge@30133.service
+NoDelay=true
+
+[Install]
+WantedBy=sockets.target

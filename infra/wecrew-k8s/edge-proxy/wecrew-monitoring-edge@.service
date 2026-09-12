@@ -1,0 +1,13 @@
+[Unit]
+Description=WeCrew monitoring edge proxy to Kubernetes NodePort %i
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+ExecStart=/lib/systemd/systemd-socket-proxyd 172.16.2.2:%i
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+Restart=on-failure
+RestartSec=2s

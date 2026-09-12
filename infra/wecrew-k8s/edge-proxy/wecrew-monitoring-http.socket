@@ -1,0 +1,10 @@
+[Unit]
+Description=WeCrew monitoring HTTP edge socket
+
+[Socket]
+ListenStream=127.0.0.1:8089
+Service=wecrew-monitoring-edge@30089.service
+NoDelay=true
+
+[Install]
+WantedBy=sockets.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=WeCrew monitoring OTLP HTTP edge socket
+
+[Socket]
+ListenStream=0.0.0.0:4318
+Service=wecrew-monitoring-edge@30318.service
+NoDelay=true
+
+[Install]
+WantedBy=sockets.target
