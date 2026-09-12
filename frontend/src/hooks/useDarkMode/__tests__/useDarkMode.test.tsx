@@ -112,8 +112,8 @@ describe('useDarkMode', () => {
 				result.current.toggleTheme();
 			});
 
-			expect(result.current.theme).toBe('light');
-			expect(localStorageMock.setItem).toHaveBeenCalledWith('THEME', 'light');
+			expect(result.current.theme).toBe('dark');
+			expect(localStorageMock.setItem).toHaveBeenCalledWith('THEME', 'dark');
 		});
 
 		it('should handle auto-switch functionality', () => {

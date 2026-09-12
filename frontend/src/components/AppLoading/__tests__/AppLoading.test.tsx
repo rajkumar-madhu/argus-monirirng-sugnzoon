@@ -21,25 +21,21 @@ describe('AppLoading', () => {
 		jest.clearAllMocks();
 	});
 
-	it('should render loading screen with dark theme by default', () => {
-		// Mock localStorage to return dark theme (or undefined for default)
+	it('should render loading screen with light theme by default', () => {
 		mockGet.mockReturnValue(undefined);
 
 		render(<AppLoading />);
 
-		// Check if main elements are rendered
 		expect(screen.getByAltText(SIGNOZ_TEXT)).toBeInTheDocument();
 		expect(screen.getByText(SIGNOZ_TEXT)).toBeInTheDocument();
 		expect(screen.getByText(TAGLINE_TEXT)).toBeInTheDocument();
 
-		// Check if dark theme class is applied
 		const container = screen.getByText(SIGNOZ_TEXT).closest(CONTAINER_SELECTOR);
-		expect(container).toHaveClass('dark');
-		expect(container).not.toHaveClass('lightMode');
+		expect(container).toHaveClass('lightMode');
+		expect(container).not.toHaveClass('dark');
 	});
 
 	it('should have proper structure and content', () => {
-		// Mock localStorage to return dark theme
 		mockGet.mockReturnValue(undefined);
 
 		render(<AppLoading />);
@@ -62,6 +58,16 @@ describe('AppLoading', () => {
 		expect(loader).toBeInTheDocument();
 	});
 
+	it('should render dark theme when the stored preference is dark', () => {
+		mockGet.mockReturnValue('dark');
+
+		render(<AppLoading />);
+
+		const container = screen.getByText(SIGNOZ_TEXT).closest(CONTAINER_SELECTOR);
+		expect(container).toHaveClass('dark');
+		expect(container).not.toHaveClass('lightMode');
+	});
+
 	it('should handle localStorage errors gracefully', () => {
 		// Mock localStorage to throw an error
 		mockGet.mockImplementation(() => {
@@ -70,9 +76,9 @@ describe('AppLoading', () => {
 
 		render(<AppLoading />);
 
-		// Should still render with dark theme as fallback
 		expect(screen.getByText(SIGNOZ_TEXT)).toBeInTheDocument();
 		const container = screen.getByText(SIGNOZ_TEXT).closest(CONTAINER_SELECTOR);
-		expect(container).toHaveClass('dark');
+		expect(container).toHaveClass('lightMode');
+		expect(container).not.toHaveClass('dark');
 	});
 });

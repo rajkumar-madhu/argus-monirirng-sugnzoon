@@ -12,10 +12,10 @@ function AppLoading(): JSX.Element {
 	const getThemeFromStorage = (): boolean => {
 		try {
 			const theme = get(LOCALSTORAGE.THEME);
-			return theme !== THEME_MODE.LIGHT; // Return true for dark, false for light
+			// Only dark when the user explicitly chose dark. Missing/unset = light.
+			return theme === THEME_MODE.DARK;
 		} catch (error) {
-			// If localStorage is not available, default to dark theme
-			return true;
+			return false;
 		}
 	};
 
