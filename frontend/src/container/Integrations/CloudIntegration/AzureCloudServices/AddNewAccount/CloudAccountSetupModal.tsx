@@ -232,14 +232,14 @@ function CloudAccountSetupModal({
 					{isHowItWorksOpen && (
 						<div className="cloud-account-setup-how-it-works-accordion__description">
 							<div className="cloud-account-setup-how-it-works-accordion__description-item">
-								Argus will create new resource-group to manage the resources required
-								for this integration. The following steps will create a User-Assigned
-								Managed Identity with the necessary permissions and follows the
-								Principle of Least Privilege.
+								WeCrew creates a new resource group to manage the resources required for
+								this integration. The setup creates a user-assigned managed identity
+								with the required permissions and follows the principle of least
+								privilege.
 							</div>
 							<div className="cloud-account-setup-how-it-works__description-item">
-								Once the Integration template is deployed, you can enable the services
-								you want to monitor right here in Signoz dashboard.
+								Once the integration template is deployed, you can enable the services
+								you want to monitor in the WeCrew dashboard.
 							</div>
 						</div>
 					)}
@@ -254,7 +254,7 @@ function CloudAccountSetupModal({
 					<div className="cloud-account-setup-form__content">
 						<div className="cloud-account-setup-form__form-group">
 							<div className="cloud-account-setup-form__title">
-								Where should we deploy the Argus collector resources?
+								Where should we deploy the WeCrew collector resources?
 							</div>
 							<div className="cloud-account-setup-form__description">
 								Choose the Azure region for deployment.

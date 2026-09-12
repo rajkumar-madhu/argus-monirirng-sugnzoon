@@ -1,6 +1,6 @@
 import { MemoryRouter } from 'react-router-dom';
 // eslint-disable-next-line no-restricted-imports
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MessageContext } from 'api/ai-assistant/chat';
 import { useAIAssistantStore } from 'container/AIAssistant/store/useAIAssistantStore';
 import { VariantContext } from 'container/AIAssistant/VariantContext';
@@ -115,6 +115,24 @@ describe('ConversationView — empty-state chip context', () => {
 			isLoadingThread: false,
 			sendMessage,
 		} as unknown as Partial<ReturnType<typeof useAIAssistantStore.getState>>);
+	});
+
+	it('shows the WeCrew disclaimer when a conversation contains messages', () => {
+		useAIAssistantStore.setState((state) => ({
+			conversations: {
+				...state.conversations,
+				[CONVERSATION_ID]: {
+					...state.conversations[CONVERSATION_ID],
+					messages: [
+						{ id: 'message-1', role: 'user', content: 'Hello', createdAt: 1 },
+					],
+				},
+			},
+		}));
+		renderView('page');
+		expect(screen.getByRole('note')).toHaveTextContent(
+			'WeCrew AI can make mistakes. Please double-check responses.',
+		);
 	});
 
 	it('forwards the page auto-contexts when a chip is clicked (embedded variant)', () => {

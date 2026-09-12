@@ -44,19 +44,22 @@ function RenderConnectionFields({
 			{!connectionParams?.sigNozApiUrl && (
 				<Form.Item
 					name="sigNozApiUrl"
-					label="Argus API URL"
-					rules={[{ required: true, message: 'Please enter Argus API URL' }]}
+					label="WeCrew API URL"
+					rules={[{ required: true, message: 'Please enter WeCrew API URL' }]}
 				>
-					<Input placeholder="Enter Argus API URL" disabled={isFormDisabled} />
+					<Input
+						placeholder="https://monitoring.wecrew.in"
+						disabled={isFormDisabled}
+					/>
 				</Form.Item>
 			)}
 			{!connectionParams?.sigNozApiKey && (
 				<Form.Item
 					name="sigNozApiKey"
-					label="Argus API KEY"
-					rules={[{ required: true, message: 'Please enter Argus API Key' }]}
+					label="WeCrew API Key"
+					rules={[{ required: true, message: 'Please enter WeCrew API Key' }]}
 				>
-					<Input placeholder="Enter Argus API Key" disabled={isFormDisabled} />
+					<Input placeholder="Enter WeCrew API key" disabled={isFormDisabled} />
 				</Form.Item>
 			)}
 		</Form.Item>

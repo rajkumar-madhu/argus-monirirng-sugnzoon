@@ -63,7 +63,7 @@ function RoutingPolicyList({
 					<Typography.Text>
 						No routing policies yet,{' '}
 						<a
-							href="https://argus.example.com/docs/alerts-management/routing-policy"
+							href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md"
 							target="_blank"
 							rel="noopener noreferrer"
 						>

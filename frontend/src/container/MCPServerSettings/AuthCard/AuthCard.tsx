@@ -30,19 +30,19 @@ function AuthCard({
 				Authenticate from your client
 			</h3>
 			<p className="mcp-auth-card__description">
-				On first connect, your client opens a Argus authorization page asking for
+				On first connect, your client opens a WeCrew authorization page asking for
 				two values:
 			</p>
 
 			<div className="mcp-auth-card__field">
-				<span className="mcp-auth-card__field-label">Argus Instance URL</span>
+				<span className="mcp-auth-card__field-label">WeCrew Instance URL</span>
 				{isLoadingInstanceUrl ? (
 					<Skeleton.Input active size="small" />
 				) : (
 					<div className="mcp-auth-card__endpoint-value">
 						<span data-testid="mcp-instance-url">{instanceUrl}</span>
 						<CopyIconButton
-							ariaLabel="Copy Argus instance URL"
+							ariaLabel="Copy WeCrew instance URL"
 							onCopy={onCopyInstanceUrl}
 							disabled={isLoadingInstanceUrl}
 						/>

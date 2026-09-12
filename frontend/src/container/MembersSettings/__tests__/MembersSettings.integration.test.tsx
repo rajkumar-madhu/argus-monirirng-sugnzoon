@@ -102,7 +102,9 @@ describe('MembersSettings (integration)', () => {
 
 		await screen.findByText('Bob Jones');
 		expect(screen.queryByText('Alice Smith')).not.toBeInTheDocument();
-		expect(screen.queryByText('charlie@argus.example.com')).not.toBeInTheDocument();
+		expect(
+			screen.queryByText('charlie@argus.example.com'),
+		).not.toBeInTheDocument();
 	});
 
 	it('opens EditMemberDrawer when an active member row is clicked', async () => {
@@ -129,7 +131,7 @@ describe('MembersSettings (integration)', () => {
 		fireEvent.click(screen.getByRole('button', { name: /invite member/i }));
 
 		await expect(
-			screen.findAllByPlaceholderText('e.g. john@argus.example.com'),
+			screen.findAllByPlaceholderText('e.g. engineer@wecrew.in'),
 		).resolves.toHaveLength(3);
 	});
 
@@ -139,7 +141,7 @@ describe('MembersSettings (integration)', () => {
 		});
 
 		await expect(
-			screen.findAllByPlaceholderText('e.g. john@argus.example.com'),
+			screen.findAllByPlaceholderText('e.g. engineer@wecrew.in'),
 		).resolves.toHaveLength(3);
 	});
 });

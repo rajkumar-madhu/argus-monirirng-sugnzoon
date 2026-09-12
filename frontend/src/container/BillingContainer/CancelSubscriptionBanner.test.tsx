@@ -11,8 +11,9 @@ import CancelSubscriptionBanner from './CancelSubscriptionBanner';
 jest.mock('utils/basePath', () => ({
 	getBasePath: (): string => '/',
 	withBasePath: (path: string): string => path,
-	getAbsoluteUrl: (path: string): string => `https://test.argus.example.com${path}`,
-	getBaseUrl: (): string => 'https://test.argus.example.com',
+	getAbsoluteUrl: (path: string): string =>
+		`https://test.monitoring.wecrew.in${path}`,
+	getBaseUrl: (): string => 'https://test.monitoring.wecrew.in',
 }));
 
 function mockMailto(): {
@@ -67,7 +68,7 @@ describe('CancelSubscriptionBanner', () => {
 		).toBeInTheDocument();
 		expect(
 			screen.getByText(
-				/When you cancel your Argus subscription, all your data will be deleted/i,
+				/When you cancel your WeCrew subscription, all your data will be deleted/i,
 			),
 		).toBeInTheDocument();
 	});
@@ -165,7 +166,7 @@ describe('CancelSubscriptionBanner', () => {
 		expect(
 			screen.getByText(/An email draft has been opened/i),
 		).toBeInTheDocument();
-		expect(screen.getByText('cloud-support@argus.example.com')).toBeInTheDocument();
+		expect(screen.getByText('support@wecrew.in')).toBeInTheDocument();
 		expect(screen.getByTestId('copy-email-template-btn')).toBeInTheDocument();
 		expect(screen.getByTestId('retry-mailto-btn')).toBeInTheDocument();
 	});
@@ -209,7 +210,7 @@ describe('CancelSubscriptionBanner', () => {
 		expect(retryLink.tagName).toBe('A');
 		expect(retryLink).toHaveAttribute(
 			'href',
-			expect.stringContaining('mailto:cloud-support@argus.example.com'),
+			expect.stringContaining('mailto:support@wecrew.in'),
 		);
 	});
 

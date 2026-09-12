@@ -1,0 +1,140 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wecrew-monitoring-config
+  namespace: wecrew-monitoring
+data:
+  argus.yaml: |
+    # Minimal Argus community config for Hostinger (beside WeCrew).
+    # Prefer ARGUS_* env overrides in docker-compose for DSN / external URL.
+    
+    global:
+      external_url: https://monitoring.wecrew.in
+    
+    version:
+      banner:
+        enabled: false
+    
+    sqlstore:
+      provider: sqlite
+      sqlite:
+        path: /var/lib/argus/argus.db
+        mode: wal
+    
+    telemetrystore:
+      provider: clickhouse
+      clickhouse:
+        dsn: tcp://clickhouse:9000
+        cluster: cluster
+    
+    apiserver:
+      address: 0.0.0.0:8080
+    
+    web:
+      enabled: true
+      directory: /etc/argus/web
+      index: index.html
+    
+    instrumentation:
+      logs:
+        level: info
+      metrics:
+        enabled: false
+      traces:
+        enabled: false
+    
+    pprof:
+      enabled: false
+  clickhouse-cluster.xml: |
+    <!-- Cluster + ZooKeeper macros required by SigNoz schema migrator (REPLICATION=true). -->
+    <clickhouse replace="true">
+        <logger>
+            <level>information</level>
+            <log>/var/log/clickhouse-server/clickhouse-server.log</log>
+            <errorlog>/var/log/clickhouse-server/clickhouse-server.err.log</errorlog>
+            <size>1000M</size>
+            <count>3</count>
+        </logger>
+        <display_name>cluster</display_name>
+        <listen_host>0.0.0.0</listen_host>
+        <http_port>8123</http_port>
+        <tcp_port>9000</tcp_port>
+        <distributed_ddl>
+            <path>/clickhouse/task_queue/ddl</path>
+        </distributed_ddl>
+        <remote_servers>
+            <cluster>
+                <shard>
+                    <replica>
+                        <host>clickhouse</host>
+                        <port>9000</port>
+                    </replica>
+                </shard>
+            </cluster>
+        </remote_servers>
+        <zookeeper>
+            <node>
+                <host>zookeeper</host>
+                <port>2181</port>
+            </node>
+        </zookeeper>
+        <macros>
+            <shard>01</shard>
+            <replica>01</replica>
+        </macros>
+    </clickhouse>
+  clickhouse-users-override.xml: |
+    <!-- Cap ClickHouse memory so it can coexist with kind/WeCrew on a 32GiB Hostinger KVM. -->
+    <clickhouse>
+      <profiles>
+        <default>
+          <max_memory_usage>2000000000</max_memory_usage>
+          <max_bytes_before_external_group_by>500000000</max_bytes_before_external_group_by>
+          <max_bytes_before_external_sort>500000000</max_bytes_before_external_sort>
+        </default>
+      </profiles>
+    </clickhouse>
+  otel-collector-config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+    
+    processors:
+      batch:
+        send_batch_size: 10000
+        send_batch_max_size: 11000
+        timeout: 10s
+    
+    exporters:
+      clickhousetraces:
+        datasource: tcp://clickhouse:9000/?database=signoz_traces
+      clickhouselogsexporter:
+        dsn: tcp://clickhouse:9000
+        timeout: 10s
+        use_new_schema: true
+      signozclickhousemetrics:
+        dsn: tcp://clickhouse:9000/signoz_metrics
+    
+    extensions:
+      health_check:
+        endpoint: 0.0.0.0:13133
+    
+    service:
+      extensions: [health_check]
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [clickhousetraces]
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [signozclickhousemetrics]
+        logs:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [clickhouselogsexporter]

@@ -1,8 +1,7 @@
 .code-snippet-container {
 	position: relative;
-	// background-color: rgb(43, 43, 43);
-	background-color: var(--bg-ink-400);
-	border-color: var(--bg-ink-400);
+	background-color: var(--l2-background);
+	border-color: var(--l2-background);
 }
 
 .code-copy-btn {
@@ -16,7 +15,7 @@
 	button {
 		cursor: pointer;
 
-		background-color: color-mix(in srgb, var(--bg-ink-300) 70%, transparent);
+		background-color: color-mix(in srgb, var(--l3-background) 70%, transparent);
 		color: var(--l1-foreground);
 		border: none;
 		padding: 8px;
@@ -24,7 +23,7 @@
 		transition: all 0.1s;
 
 		&:hover {
-			background-color: var(--bg-ink-300);
+			background-color: var(--l3-background);
 		}
 	}
 

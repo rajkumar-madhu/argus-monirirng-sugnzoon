@@ -35,7 +35,9 @@ export default function SavedViews({
 }): JSX.Element {
 	const { user } = useAppContext();
 	const [selectedEntity, setSelectedEntity] = useState<string>('logs');
-	const [selectedEntityViews, setSelectedEntityViews] = useState<any[]>([]);
+	const [selectedEntityViews, setSelectedEntityViews] = useState<ViewProps[]>(
+		[],
+	);
 
 	const {
 		data: logsViewsData,
@@ -89,7 +91,7 @@ export default function SavedViews({
 	const { handleExplorerTabChange } = useHandleExplorerTabChange();
 
 	const handleRedirectQuery = (view: ViewProps): void => {
-		logEvent('Homepage: Saved view clicked', {
+		void logEvent('Homepage: Saved view clicked', {
 			viewId: view.id,
 			viewName: view.name,
 			entity: selectedEntity,
@@ -181,7 +183,7 @@ export default function SavedViews({
 								type="default"
 								className="periscope-btn secondary"
 								onClick={(): void => {
-									logEvent('Homepage: Get Started clicked', {
+									void logEvent('Homepage: Get Started clicked', {
 										source: 'Saved Views',
 										entity: selectedEntity,
 									});
@@ -195,13 +197,13 @@ export default function SavedViews({
 							type="link"
 							className="learn-more-link"
 							onClick={(): void => {
-								logEvent('Homepage: Learn more clicked', {
+								void logEvent('Homepage: Learn more clicked', {
 									source: 'Saved Views',
 									entity: selectedEntity,
 								});
 
 								window.open(
-									'https://argus.example.com/docs/metrics-management/metrics-explorer/#saved-views-in-metrics-explorer',
+									'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#saved-views',
 									'_blank',
 									'noopener noreferrer',
 								);
@@ -218,32 +220,38 @@ export default function SavedViews({
 	const renderSavedViews = (): JSX.Element => (
 		<div className="saved-views-list-container home-data-item-container">
 			<div className="saved-views-list">
-				{selectedEntityViews.slice(0, 5).map((view) => (
-					<div
-						role="button"
-						tabIndex={0}
+				{selectedEntityViews.slice(0, 5).map((view, index) => (
+					<button
+						type="button"
+						data-testid="home-saved-view"
+						style={{
+							border: 0,
+							font: 'inherit',
+							color: 'inherit',
+							textAlign: 'left',
+							width: '100%',
+							background:
+								index % 2 === 0
+									? 'color-mix(in srgb, var(--l1-foreground) 1%, transparent)'
+									: 'transparent',
+						}}
 						className="saved-view-item home-data-item"
 						key={view.id}
 						onClick={(): void => handleRedirectQuery(view)}
-						onKeyDown={(e): void => {
-							if (e.key === 'Enter') {
-								handleRedirectQuery(view);
-							}
-						}}
 					>
-						<div className="saved-view-item-name-container home-data-item-name-container">
+						<span className="saved-view-item-name-container home-data-item-name-container">
 							<img
 								src={getItemIcon(String(view.id))}
 								alt="alert-rules"
 								className="alert-rules-img"
 							/>
 
-							<div className="saved-view-item-name home-data-item-name">
+							<span className="saved-view-item-name home-data-item-name">
 								{view.name}
-							</div>
-						</div>
+							</span>
+						</span>
 
-						<div className="saved-view-item-description home-data-item-tag">
+						<span className="saved-view-item-description home-data-item-tag">
 							{view.tags?.map((tag: string) => {
 								if (tag === '') {
 									return null;
@@ -255,17 +263,12 @@ export default function SavedViews({
 									</Badge>
 								);
 							})}
-						</div>
+						</span>
 
-						<Button
-							type="link"
-							size="small"
-							className="periscope-btn link"
-							onClick={(): void => handleRedirectQuery(view)}
-						>
+						<span className="periscope-btn link" aria-hidden="true">
 							<Compass size={16} />
-						</Button>
-					</div>
+						</span>
+					</button>
 				))}
 
 				{selectedEntityViews.length === 0 && (
@@ -304,7 +307,7 @@ export default function SavedViews({
 	);
 
 	const handleTabChange = (tab: string): void => {
-		logEvent('Homepage: Saved views switched', {
+		void logEvent('Homepage: Saved views switched', {
 			tab,
 		});
 		let currentViews: ViewProps[] = [];
@@ -387,7 +390,7 @@ export default function SavedViews({
 								type="link"
 								className="periscope-btn link learn-more-link"
 								onClick={(): void => {
-									logEvent('Homepage: All saved views clicked', {
+									void logEvent('Homepage: All saved views clicked', {
 										entity: selectedEntity,
 									});
 								}}

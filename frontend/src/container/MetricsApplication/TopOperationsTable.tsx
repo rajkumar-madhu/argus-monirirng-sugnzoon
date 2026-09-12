@@ -197,7 +197,7 @@ function TopOperationsTable({
 
 	const entryPointSpanInfo = {
 		text: 'Shows the spans where requests enter new services for the first time',
-		url: 'https://argus.example.com/docs/apm-and-distributed-tracing/application-details/',
+		url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces',
 		urlText: 'Learn more about Entrypoint Spans.',
 	};
 

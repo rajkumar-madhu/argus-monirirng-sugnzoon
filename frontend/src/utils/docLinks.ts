@@ -1,21 +1,22 @@
 const DOCLINKS = {
 	TRACES_EXPLORER_EMPTY_STATE:
-		'https://argus.example.com/docs/instrumentation/overview/?utm_source=product&utm_medium=traces-explorer-empty-state',
-	USER_GUIDE: 'https://argus.example.com/docs/introduction/',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces',
+	USER_GUIDE:
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md',
 	TRACES_DETAILS_LINK:
-		'https://argus.example.com/docs/userguide/traces/?utm_source=product&utm_medium=traces-explorer-trace-tab#traces-view',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces',
 	METRICS_EXPLORER_EMPTY_STATE:
-		'https://argus.example.com/docs/metrics-management/send-metrics/',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics',
 	EXTERNAL_API_MONITORING:
-		'https://argus.example.com/docs/external-api-monitoring/overview/',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces',
 	QUERY_CLICKHOUSE_TRACES:
-		'https://argus.example.com/docs/userguide/writing-clickhouse-traces-query/#timestamp-bucketing',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces',
 	QUERY_CLICKHOUSE_LOGS:
-		'https://argus.example.com/docs/userguide/logs_clickhouse_queries/',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#logs',
 	QUERY_CLICKHOUSE_METRICS:
-		'https://argus.example.com/docs/userguide/write-a-metrics-clickhouse-query/',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics',
 	AGENT_SKILL_INSTALL:
-		'https://argus.example.com/docs/ai/agent-skills/#install-the-plugin',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon',
 };
 
 export default DOCLINKS;

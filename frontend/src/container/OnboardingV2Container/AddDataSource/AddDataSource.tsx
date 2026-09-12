@@ -33,6 +33,7 @@ import InviteMembers from 'components/InviteMembers/InviteMembers';
 import onboardingConfigWithLinks from '../onboarding-configs/onboarding-config-with-links';
 
 import '../OnboardingV2.styles.scss';
+import CategoryFilter from './CategoryFilter';
 
 const { Header } = Layout;
 
@@ -54,6 +55,7 @@ export interface Question {
 }
 
 interface Option {
+	key?: string;
 	imgUrl?: string;
 	label: string;
 	link?: string;
@@ -194,11 +196,11 @@ function OnboardingAddDataSource(): JSX.Element {
 		null,
 	);
 
-	const [selectedFramework, setSelectedFramework] = useState<Entity | null>(
+	const [selectedFramework, setSelectedFramework] = useState<Option | null>(
 		null,
 	);
 
-	const [selectedEnvironment, setSelectedEnvironment] = useState<Entity | null>(
+	const [selectedEnvironment, setSelectedEnvironment] = useState<Option | null>(
 		null,
 	);
 
@@ -334,7 +336,7 @@ function OnboardingAddDataSource(): JSX.Element {
 		}
 	};
 
-	const handleSelectFramework = (option: any): void => {
+	const handleSelectFramework = (option: Option): void => {
 		void logEvent(
 			`${ONBOARDING_V3_ANALYTICS_EVENTS_MAP?.BASE}: ${ONBOARDING_V3_ANALYTICS_EVENTS_MAP?.FRAMEWORK_SELECTED}`,
 			{
@@ -348,13 +350,13 @@ function OnboardingAddDataSource(): JSX.Element {
 		if (option.question) {
 			setHasMoreQuestions(true);
 
-			updateUrl(option?.link, null);
+			updateUrl(option.link || '', null);
 
 			setTimeout(() => {
 				handleScrollToStep(question3Ref);
 			}, 100);
 		} else {
-			updateUrl(option.link, null);
+			updateUrl(option.link || '', null);
 			setHasMoreQuestions(false);
 
 			setShowConfigureProduct(true);
@@ -365,7 +367,7 @@ function OnboardingAddDataSource(): JSX.Element {
 	// Environment is the last question in the onboarding flow and no more question will be shown regarless of the configuration
 	// We will have to handle this in the future
 	const handleSelectEnvironment = (
-		selectedEnvironment: any,
+		selectedEnvironment: Option,
 		baseURL?: string,
 	): void => {
 		void logEvent(
@@ -380,7 +382,7 @@ function OnboardingAddDataSource(): JSX.Element {
 		setSelectedEnvironment(selectedEnvironment);
 		setHasMoreQuestions(false);
 
-		updateUrl(baseURL || docsUrl, selectedEnvironment?.key);
+		updateUrl(baseURL || docsUrl, selectedEnvironment.key ?? null);
 
 		setShowConfigureProduct(true);
 	};
@@ -764,7 +766,7 @@ function OnboardingAddDataSource(): JSX.Element {
 												Select your data source
 											</Typography.Title>
 											<Typography.Text className="question-sub-title">
-												Select from a host of services to start sending data to Argus
+												Select a service to start sending telemetry data to WeCrew.
 											</Typography.Text>
 										</div>
 									</div>
@@ -831,62 +833,21 @@ function OnboardingAddDataSource(): JSX.Element {
 														Filters{' '}
 													</Typography.Title>
 
-													<div
-														key="all"
-														className="onboarding-data-source-category-item"
-														onClick={(): void => handleFilterByCategory('All')}
-														role="button"
-														tabIndex={0}
-														onKeyDown={(e): void => {
-															if (e.key === 'Enter' || e.key === ' ') {
-																handleFilterByCategory('All');
-															}
-														}}
-													>
-														<Typography.Title
-															level={5}
-															className={`onboarding-filters-item-title ${
-																selectedCategory === 'All' ? 'selected' : ''
-															}`}
-														>
-															All
-														</Typography.Title>
-
-														<div className="line-divider" />
-
-														<Typography.Text className="onboarding-filters-item-count">
-															{onboardingConfigWithLinks.length}
-														</Typography.Text>
-													</div>
+													<CategoryFilter
+														label="All"
+														count={onboardingConfigWithLinks.length}
+														selected={selectedCategory === 'All'}
+														onSelect={(): void => handleFilterByCategory('All')}
+													/>
 
 													{Object.keys(allGroupedDataSources).map((tag) => (
-														<div
+														<CategoryFilter
 															key={tag}
-															className="onboarding-data-source-category-item"
-															onClick={(): void => handleFilterByCategory(tag)}
-															role="button"
-															tabIndex={0}
-															onKeyDown={(e): void => {
-																if (e.key === 'Enter' || e.key === ' ') {
-																	handleFilterByCategory(tag);
-																}
-															}}
-														>
-															<Typography.Title
-																level={5}
-																className={`onboarding-filters-item-title ${
-																	selectedCategory === tag ? 'selected' : ''
-																}`}
-															>
-																{tag}
-															</Typography.Title>
-
-															<div className="line-divider" />
-
-															<Typography.Text className="onboarding-filters-item-count">
-																{allGroupedDataSources[tag].length}
-															</Typography.Text>
-														</div>
+															label={tag}
+															count={allGroupedDataSources[tag].length}
+															selected={selectedCategory === tag}
+															onSelect={(): void => handleFilterByCategory(tag)}
+														/>
 													))}
 												</div>
 											</div>

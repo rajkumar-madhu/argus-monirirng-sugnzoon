@@ -52,7 +52,7 @@ describe('AuthDomain', () => {
 			render(<AuthDomain />);
 
 			await waitFor(() => {
-				expect(screen.getByText('signoz.io')).toBeInTheDocument();
+				expect(screen.getByText('argus.example.com')).toBeInTheDocument();
 				expect(screen.getByText('example.com')).toBeInTheDocument();
 				expect(screen.getByText('corp.io')).toBeInTheDocument();
 			});
@@ -68,7 +68,7 @@ describe('AuthDomain', () => {
 			render(<AuthDomain />);
 
 			// mockDomainsListResponse rows:
-			//   [0] signoz.io   → enabled: true
+			//   [0] argus.example.com → enabled: true
 			//   [1] example.com → enabled: false
 			//   [2] corp.io     → enabled: true
 			const switches = await screen.findAllByRole('switch');
@@ -145,7 +145,7 @@ describe('AuthDomain', () => {
 			render(<AuthDomain />);
 
 			await waitFor(() => {
-				expect(screen.getByText('signoz.io')).toBeInTheDocument();
+				expect(screen.getByText('argus.example.com')).toBeInTheDocument();
 			});
 
 			const configureLinks = await screen.findAllByText(/configure google auth/i);

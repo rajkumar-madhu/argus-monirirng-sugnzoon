@@ -147,11 +147,11 @@ export default function ServiceTraces({
 								type="link"
 								className="learn-more-link"
 								onClick={(): void => {
-									logEvent('Homepage: Learn more clicked', {
+									void logEvent('Homepage: Learn more clicked', {
 										source: 'Service Traces',
 									});
 									window.open(
-										'https://argus.example.com/docs/instrumentation/overview/',
+										'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces',
 										'_blank',
 									);
 								}}

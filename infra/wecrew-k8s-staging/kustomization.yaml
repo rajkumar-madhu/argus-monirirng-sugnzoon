@@ -1,0 +1,11 @@
+# First-activation overlay. It inherits the reviewed image digest and verified
+# edge source CIDR from production while keeping every workload stopped.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../wecrew-k8s-production
+replicas:
+  - {name: zookeeper, count: 0}
+  - {name: clickhouse, count: 0}
+  - {name: argus, count: 0}
+  - {name: otel-collector, count: 0}

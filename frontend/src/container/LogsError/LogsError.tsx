@@ -14,7 +14,11 @@ export default function LogsError(): JSX.Element {
 		if (isCloudUserVal) {
 			history.push('/support');
 		} else {
-			window.open('https://argus.example.com/slack', '_blank');
+			window.open(
+				'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues',
+				'_blank',
+				'noreferrer',
+			);
 		}
 	};
 

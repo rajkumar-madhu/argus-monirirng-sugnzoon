@@ -182,32 +182,12 @@ const getTooltipOperatorSymbol = (op: AlertThresholdOperator): string => {
 	return symbolMap[op] || '>';
 };
 
-const handleTooltipClick = (
-	e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
-): void => {
-	e.stopPropagation();
-};
-
 function TooltipContent({
 	children,
 }: {
 	children: React.ReactNode;
 }): JSX.Element {
-	return (
-		<div
-			role="button"
-			tabIndex={0}
-			onClick={handleTooltipClick}
-			onKeyDown={(e): void => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					handleTooltipClick(e);
-				}
-			}}
-			className="tooltip-content"
-		>
-			{children}
-		</div>
-	);
+	return <div className="tooltip-content">{children}</div>;
 }
 
 function TooltipExample({
@@ -223,17 +203,24 @@ function TooltipExample({
 	thresholdValue: number;
 	matchType: AlertThresholdMatchType;
 }): JSX.Element {
+	const pointLabel =
+		matchType === AlertThresholdMatchType.IN_TOTAL
+			? 'error counts'
+			: 'data points';
+	const exampleSummary = `Say, For a 5-minute window (configured in Evaluation settings), 1 min aggregation interval (set up in query) → 5 ${pointLabel}: [${dataPoints.join(
+		', ',
+	)}]`;
+	const thresholdSummary = `With threshold ${operatorSymbol} ${thresholdValue}:`;
+
 	return (
 		<div className="tooltip-example">
 			<strong>Example:</strong>
 			<br />
-			Say, For a 5-minute window (configured in Evaluation settings), 1 min
-			aggregation interval (set up in query) → 5{' '}
-			{matchType === AlertThresholdMatchType.IN_TOTAL
-				? 'error counts'
-				: 'data points'}
-			: [{dataPoints.join(', ')}]<br />
-			With threshold {operatorSymbol} {thresholdValue}: {children}
+			<span className="translate-safe">{exampleSummary}</span>
+			<br />
+			<span className="translate-safe">
+				{thresholdSummary} {children}
+			</span>
 		</div>
 	);
 }
@@ -242,7 +229,7 @@ function TooltipLink(): JSX.Element {
 	return (
 		<div className="tooltip-link">
 			<a
-				href="https://argus.example.com/docs"
+				href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md"
 				target="_blank"
 				rel="noopener noreferrer"
 				className="tooltip-link-text"

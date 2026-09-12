@@ -59,14 +59,11 @@ function DataSourceInfo({
 
 	const renderNotSendingData = (): JSX.Element => (
 		<>
-			<h2 className="welcome-title">
-				Hello there, Welcome to your Argus workspace
-			</h2>
+			<h2 className="welcome-title">Welcome to your WeCrew workspace</h2>
 
 			<p className="welcome-description">
 				You’re not sending any data yet. <br />
-				Argus is so much better with your data ⎯ start by sending your telemetry
-				data to Argus.
+				Start by sending your traces, metrics, and logs to WeCrew.
 			</p>
 
 			<Card className="welcome-card">
@@ -108,9 +105,7 @@ function DataSourceInfo({
 
 	const renderDataReceived = (): JSX.Element => (
 		<>
-			<h2 className="welcome-title">
-				Hello there, Welcome to your Argus workspace
-			</h2>
+			<h2 className="welcome-title">Welcome to your WeCrew workspace</h2>
 
 			{!isError && hostsData && (
 				<Card className="welcome-card">

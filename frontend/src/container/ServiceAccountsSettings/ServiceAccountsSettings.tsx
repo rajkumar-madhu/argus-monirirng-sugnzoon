@@ -4,8 +4,10 @@ import { Check, ChevronDown, Plus } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { DropdownMenuSimple, type MenuItem } from '@signozhq/ui/dropdown-menu';
 import { Input } from '@signozhq/ui/input';
-import { useListServiceAccounts } from 'api/generated/services/serviceaccount';
-import { invalidateListServiceAccounts } from 'api/generated/services/serviceaccount';
+import {
+	invalidateListServiceAccounts,
+	useListServiceAccounts,
+} from 'api/generated/services/serviceaccount';
 import AuthZButton from 'lib/authz/components/AuthZButton/AuthZButton';
 import { AuthZGuardContent } from 'lib/authz/components/AuthZGuard/AuthZGuardContent';
 import AuthZTooltip from 'lib/authz/components/AuthZTooltip/AuthZTooltip';
@@ -215,7 +217,7 @@ function ServiceAccountsSettings(): JSX.Element {
 					<p className="sa-settings__subtitle">
 						Overview of service accounts added to this workspace.{' '}
 						<a
-							href="https://argus.example.com/docs/manage/administrator-guide/iam/service-accounts"
+							href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#account-help"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="sa-settings__learn-more"

@@ -24,14 +24,23 @@ describe('WorkspaceLocked', () => {
 		});
 
 		const workspaceLocked = await screen.findByRole('heading', {
-			name: /upgrade to continue/i,
+			name: 'upgradeToContinue',
 		});
 		expect(workspaceLocked).toBeInTheDocument();
 
-		const contactUsBtn = await screen.findByRole('button', {
-			name: /Contact Us/i,
-		});
-		expect(contactUsBtn).toBeInTheDocument();
+		const reportIssue = await screen.findByTestId(
+			'workspace-locked-report-issue',
+		);
+		expect(reportIssue).toHaveAttribute(
+			'href',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues',
+		);
+		expect(screen.queryByRole('tab', { name: /good company/i })).toBeNull();
+		expect(
+			screen.getByRole('tab', { name: 'whyChooseSignoz' }),
+		).toBeInTheDocument();
+		expect(screen.queryByText(/SOC 2|10TB|all 5 continents/i)).toBeNull();
+		expect(document.querySelector('a[href*="argus.example.com"]')).toBeNull();
 	});
 
 	it('enables the upgrade action when subscription create is granted', async () => {

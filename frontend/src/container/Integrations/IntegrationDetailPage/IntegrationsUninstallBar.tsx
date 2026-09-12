@@ -28,7 +28,7 @@ function IntergrationsUninstallBar(
 		integrationId,
 		onUnInstallSuccess,
 		connectionStatus,
-		removeIntegrationTitle = 'Remove from Argus',
+		removeIntegrationTitle = 'Remove from WeCrew',
 	} = props;
 	const { notifications } = useNotifications();
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,7 +51,7 @@ function IntergrationsUninstallBar(
 	};
 
 	const handleOk = (): void => {
-		logEvent(
+		void logEvent(
 			INTEGRATION_TELEMETRY_EVENTS.INTEGRATIONS_DETAIL_REMOVE_INTEGRATION,
 			{
 				integration: integrationId,
@@ -95,7 +95,7 @@ function IntergrationsUninstallBar(
 				}}
 			>
 				<Typography.Text className="remove-integration-text">
-					Removing this integration makes Argus stop listening for data from{' '}
+					Removing this integration makes WeCrew stop listening for data from{' '}
 					{integrationTitle} instances. You would still have to manually remove the
 					configuration in your code to stop sending data.
 				</Typography.Text>
@@ -105,7 +105,7 @@ function IntergrationsUninstallBar(
 }
 
 IntergrationsUninstallBar.defaultProps = {
-	removeIntegrationTitle: 'Remove from Argus',
+	removeIntegrationTitle: 'Remove from WeCrew',
 };
 
 export default IntergrationsUninstallBar;

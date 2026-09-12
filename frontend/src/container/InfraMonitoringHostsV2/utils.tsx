@@ -12,7 +12,7 @@ import { INFRA_MONITORING_ATTR_KEYS } from 'container/InfraMonitoringK8sV2/const
 import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { DataSource } from 'types/common/queryBuilder';
 const HOSTNAME_DOCS_URL =
-	'https://argus.example.com/docs/infrastructure-monitoring/hostmetrics/#host-name-is-blankempty';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics';
 
 export function HostnameCell({
 	hostName,

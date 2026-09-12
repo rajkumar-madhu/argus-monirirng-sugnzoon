@@ -51,10 +51,10 @@ export default function ServiceTopLevelOperations(): JSX.Element {
 
 	const alertDesc = (): ReactNode => (
 		<div className="">
-			Argus calculates the RED metrics for a service using the entry-point spans.
+			WeCrew calculates the RED metrics for a service using the entry-point spans.
 			For more details, you can check out our
 			<a
-				href="https://argus.example.com/docs/userguide/metrics/"
+				href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics"
 				target="_blank"
 				rel="noreferrer"
 			>
@@ -124,7 +124,7 @@ export default function ServiceTopLevelOperations(): JSX.Element {
 						columns={columns}
 						bordered
 						title={(): string => 'Top Level Operations'}
-						// @ts-expect-error
+						// @ts-expect-error -- Ant Design's table row type does not accept raw strings.
 						dataSource={topLevelOperations}
 						loading={isLoading}
 						showHeader={false}

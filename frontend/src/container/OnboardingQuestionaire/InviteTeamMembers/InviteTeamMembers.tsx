@@ -55,7 +55,7 @@ function InviteTeamMembers({
 		_results: InviteResult[],
 		rows: InviteMemberRow[],
 	): void => {
-		logEvent('Org Onboarding: Invite Team Members Success', {
+		void logEvent('Org Onboarding: Invite Team Members Success', {
 			teamMembers: toTeamMembers(rows),
 		});
 		notifications.success({
@@ -70,7 +70,7 @@ function InviteTeamMembers({
 		_results: InviteResult[],
 		rows: InviteMemberRow[],
 	): void => {
-		logEvent('Org Onboarding: Invite Team Members Partial Success', {
+		void logEvent('Org Onboarding: Invite Team Members Partial Success', {
 			teamMembers: toTeamMembers(rows),
 		});
 		notifications.warning({
@@ -82,13 +82,13 @@ function InviteTeamMembers({
 		_results: InviteResult[],
 		rows: InviteMemberRow[],
 	): void => {
-		logEvent('Org Onboarding: Invite Team Members Failed', {
+		void logEvent('Org Onboarding: Invite Team Members Failed', {
 			teamMembers: toTeamMembers(rows),
 		});
 	};
 
 	const handleDoLater = (): void => {
-		logEvent('Org Onboarding: Clicked Do Later', {
+		void logEvent('Org Onboarding: Clicked Do Later', {
 			currentPageID: 4,
 		});
 		onNext();
@@ -98,14 +98,14 @@ function InviteTeamMembers({
 		<div className="questions-container">
 			<OnboardingQuestionHeader
 				title="Invite your team"
-				subtitle="Argus is a lot more useful with collaborators on board."
+				subtitle="WeCrew is more useful with collaborators on board."
 			/>
 
 			<div className="questions-form-container">
 				<div className="questions-form invite-team-members-form">
 					<div className="form-group">
 						<div className="question-label">
-							Invite your team to the Argus workspace
+							Invite your team to the WeCrew workspace
 						</div>
 
 						<InviteMembers

@@ -17,14 +17,14 @@ describe('InviteMembers - Rendering', () => {
 	it('renders default initial row count of 3', () => {
 		render(<InviteMembers />);
 
-		const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+		const emailInputs = screen.getAllByPlaceholderText('e.g. engineer@wecrew.in');
 		expect(emailInputs).toHaveLength(3);
 	});
 
 	it('renders custom initial row count', () => {
 		render(<InviteMembers initialRowCount={5} />);
 
-		const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+		const emailInputs = screen.getAllByPlaceholderText('e.g. engineer@wecrew.in');
 		expect(emailInputs).toHaveLength(5);
 	});
 

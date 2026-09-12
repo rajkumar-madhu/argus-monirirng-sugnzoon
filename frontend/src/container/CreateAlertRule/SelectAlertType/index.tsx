@@ -29,29 +29,30 @@ function SelectAlertType({ onSelect }: SelectAlertTypeProps): JSX.Element {
 		let url = '';
 		switch (option) {
 			case AlertTypes.ANOMALY_BASED_ALERT:
-				url = 'https://argus.example.com/docs/alerts-management/anomaly-based-alerts/';
+				url =
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#anomaly';
 				break;
 			case AlertTypes.METRICS_BASED_ALERT:
 				url =
-					'https://argus.example.com/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#metrics';
 				break;
 			case AlertTypes.LOGS_BASED_ALERT:
 				url =
-					'https://argus.example.com/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#logs';
 				break;
 			case AlertTypes.TRACES_BASED_ALERT:
 				url =
-					'https://argus.example.com/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#traces';
 				break;
 			case AlertTypes.EXCEPTIONS_BASED_ALERT:
 				url =
-					'https://argus.example.com/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#exceptions';
 				break;
 			default:
 				break;
 		}
 
-		logEvent('Alert: Sample alert link clicked', {
+		void logEvent('Alert: Sample alert link clicked', {
 			dataSource: ALERTS_DATA_SOURCE_MAP[option],
 			link: url,
 			page: 'New alert data source selection page',

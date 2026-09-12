@@ -1,0 +1,26 @@
+.control {
+	appearance: none;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	text-align: inherit;
+	text-decoration: none;
+	cursor: pointer;
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-background);
+		outline-offset: 3px;
+		border-radius: var(--spacing-1);
+	}
+
+	&:disabled {
+		cursor: default;
+	}
+}
+
+.fullWidthControl {
+	width: 100%;
+}

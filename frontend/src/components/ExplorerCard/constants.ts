@@ -1,5 +1,5 @@
 export const ExploreHeaderToolTip = {
-	url: 'https://argus.example.com/docs/querying/overview/?utm_source=product&utm_medium=new-query-builder',
+	url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md',
 	text: 'More details on how to use query builder',
 };
 

@@ -1441,7 +1441,7 @@ function QuerySearch({
 			Need help with search syntax?
 			<br />
 			<a
-				href="https://argus.example.com/docs/userguide/search-syntax/"
+				href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md"
 				target="_blank"
 				rel="noopener noreferrer"
 				style={{ color: '#1890ff', textDecoration: 'underline' }}
@@ -1513,7 +1513,7 @@ function QuerySearch({
 					placement="left"
 				>
 					<a
-						href="https://argus.example.com/docs/userguide/search-syntax/"
+						href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md"
 						target="_blank"
 						rel="noopener noreferrer"
 						style={{

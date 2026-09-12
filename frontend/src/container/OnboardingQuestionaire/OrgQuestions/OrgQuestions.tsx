@@ -65,7 +65,7 @@ function OrgQuestions({ orgDetails, onNext }: OrgQuestionsProps): JSX.Element {
 		const usesObservability =
 			!observabilityTool?.includes('None') && observabilityTool !== null;
 
-		logEvent('Org Onboarding: Answered', {
+		void logEvent('Org Onboarding: Answered', {
 			usesObservability,
 			observabilityTool,
 			otherTool,
@@ -131,7 +131,7 @@ function OrgQuestions({ orgDetails, onNext }: OrgQuestionsProps): JSX.Element {
 			<div className="onboarding-header-section">
 				<div className="onboarding-header-icon">🎉</div>
 				<Typography.Title level={4} className="onboarding-header-title">
-					Welcome to Argus Cloud
+					Welcome to WeCrew
 				</Typography.Title>
 				<Typography.Text className="onboarding-header-subtitle">
 					Let&apos;s get you started
@@ -185,7 +185,7 @@ function OrgQuestions({ orgDetails, onNext }: OrgQuestionsProps): JSX.Element {
 					{showMigrationQuestion && (
 						<div className="form-group">
 							<div className="question">
-								What is your timeline for migrating to Argus?
+								What is your timeline for migrating to WeCrew?
 							</div>
 							<RadioGroup
 								value={migrationTimeline || ''}

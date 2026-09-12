@@ -1,12 +1,12 @@
 <p align="center">
-  <strong>Argus Frontend</strong>
+  <strong>WeCrew Frontend</strong>
 </p>
 
-# Argus Frontend
+# WeCrew Frontend
 
-React-based web interface for Argus, a community observability fork of MIT-licensed SigNoz. Original SigNoz copyright is retained in the root `LICENSE`. This UI is not affiliated with SigNoz Inc.
+React-based web interface for WeCrew, a community observability fork of MIT-licensed SigNoz. Original SigNoz copyright is retained in the root `LICENSE`. This UI is not affiliated with SigNoz Inc.
 
-Placeholders: `github.com/rajkumar-madhu/argus-monirirng-sugnzoon`, `https://argus.example.com`. The UI still depends on upstream `@signozhq/*` design-system packages.
+Repository: `github.com/rajkumar-madhu/argus-monirirng-sugnzoon`. Public URL: `https://monitoring.wecrew.in`. The UI still depends on upstream `@signozhq/*` design-system packages.
 
 ## Tech Stack
 
@@ -19,7 +19,7 @@ Placeholders: `github.com/rajkumar-madhu/argus-monirirng-sugnzoon`, `https://arg
 
 ## Local Development Setup
 
-1. Run the Argus backend locally — see [docs/contributing/development.md](../docs/contributing/development.md)
+1. Run the WeCrew backend locally — see [docs/contributing/development.md](../docs/contributing/development.md)
 
 2. Configure environment:
    ```bash

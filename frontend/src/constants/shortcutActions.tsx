@@ -1,14 +1,12 @@
 import React from 'react';
 import ROUTES from 'constants/routes';
 import { GlobalShortcutsName } from 'constants/shortcuts/globalShortcuts';
-import { THEME_MODE } from 'hooks/useDarkMode/constant';
 import {
 	BarChart,
 	BellDot,
 	Bug,
 	Compass,
 	DraftingCompass,
-	Expand,
 	HardDrive,
 	Home,
 	LayoutGrid,
@@ -53,7 +51,7 @@ type ActionDeps = {
 };
 
 export function createShortcutActions(deps: ActionDeps): CmdAction[] {
-	const { navigate, handleThemeChange, aiAssistant, authzDevTools } = deps;
+	const { navigate, aiAssistant, authzDevTools } = deps;
 
 	const actions: CmdAction[] = [
 		{
@@ -204,33 +202,6 @@ export function createShortcutActions(deps: ActionDeps): CmdAction[] {
 		},
 
 		// Common actions
-		{
-			id: 'dark-mode',
-			name: 'Switch to Dark Mode',
-			keywords: 'theme dark mode appearance',
-			section: 'Common',
-			icon: <Expand size={14} />,
-			roles: ['ADMIN', 'EDITOR', 'VIEWER'],
-			perform: (): void => handleThemeChange(THEME_MODE.DARK),
-		},
-		{
-			id: 'light-mode',
-			name: 'Switch to Light Mode [Beta]',
-			keywords: 'theme light mode appearance',
-			section: 'Common',
-			icon: <Expand size={14} />,
-			roles: ['ADMIN', 'EDITOR', 'VIEWER'],
-			perform: (): void => handleThemeChange(THEME_MODE.LIGHT),
-		},
-		{
-			id: 'system-theme',
-			name: 'Switch to System Theme',
-			keywords: 'system theme appearance',
-			section: 'Common',
-			icon: <Expand size={14} />,
-			roles: ['ADMIN', 'EDITOR', 'VIEWER'],
-			perform: (): void => handleThemeChange(THEME_MODE.SYSTEM),
-		},
 
 		// settings sub-pages
 		{

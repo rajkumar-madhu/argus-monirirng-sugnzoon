@@ -13,7 +13,9 @@ import { RoleListPermission } from 'lib/authz/hooks/useAuthZ/permissions/role.pe
 import LineClampedText from 'periscope/components/LineClampedText/LineClampedText';
 import { useTimezone } from 'providers/Timezone';
 import { RoleType } from 'types/roles';
+import { withBasePath } from 'utils/basePath';
 import { toAPIError } from 'utils/errorUtils';
+import { getRolePresentation } from 'utils/rolePresentation';
 
 import styles from './RolesListingTable.module.scss';
 
@@ -54,8 +56,8 @@ function RolesListContent({ searchQuery }: RolesListContentProps): JSX.Element {
 		const query = searchQuery.toLowerCase();
 		return roles.filter(
 			(role) =>
-				role.name?.toLowerCase().includes(query) ||
-				role.description?.toLowerCase().includes(query),
+				getRolePresentation(role).name.toLowerCase().includes(query) ||
+				getRolePresentation(role).description.toLowerCase().includes(query),
 		);
 	}, [roles, searchQuery]);
 
@@ -176,50 +178,58 @@ function RolesListContent({ searchQuery }: RolesListContentProps): JSX.Element {
 		);
 	}
 
-	const renderRow = (role: AuthtypesGettableRoleDTO): JSX.Element => (
-		<div
-			key={role.id}
-			className={cx(styles.tableRow, {
-				[styles.tableRowClickable]: isRolesEnabled,
-			})}
-			role={isRolesEnabled ? 'button' : undefined}
-			tabIndex={isRolesEnabled ? 0 : undefined}
-			onClick={
-				isRolesEnabled
-					? (): void => {
-							if (role.id && role.name) {
-								handleRowClick(role.id, role.name);
-							}
-						}
-					: undefined
-			}
-			onKeyDown={
-				isRolesEnabled
-					? (e): void => {
-							if ((e.key === 'Enter' || e.key === ' ') && role.id && role.name) {
-								handleRowClick(role.id, role.name);
-							}
-						}
-					: undefined
-			}
-		>
-			<div className={cx(styles.tableCell, styles.tableCellName)}>
-				{role.name ?? '—'}
-			</div>
-			<div className={cx(styles.tableCell, styles.tableCellDescription)}>
-				<LineClampedText
-					text={role.description ?? '—'}
-					tooltipProps={{ overlayClassName: styles.descriptionTooltip }}
-				/>
-			</div>
-			<div className={cx(styles.tableCell, styles.tableCellUpdatedAt)}>
-				{formatTimezoneAdjustedTimestampOptional(role.updatedAt)}
-			</div>
-			<div className={cx(styles.tableCell, styles.tableCellCreatedAt)}>
-				{formatTimezoneAdjustedTimestampOptional(role.createdAt)}
-			</div>
-		</div>
-	);
+	const renderRow = (role: AuthtypesGettableRoleDTO): JSX.Element => {
+		const cells = (
+			<>
+				<div className={cx(styles.tableCell, styles.tableCellName)}>
+					{getRolePresentation(role).name || '—'}
+				</div>
+				<div className={cx(styles.tableCell, styles.tableCellDescription)}>
+					<LineClampedText
+						text={getRolePresentation(role).description || '—'}
+						tooltipProps={{ overlayClassName: styles.descriptionTooltip }}
+					/>
+				</div>
+				<div className={cx(styles.tableCell, styles.tableCellUpdatedAt)}>
+					{formatTimezoneAdjustedTimestampOptional(role.updatedAt)}
+				</div>
+				<div className={cx(styles.tableCell, styles.tableCellCreatedAt)}>
+					{formatTimezoneAdjustedTimestampOptional(role.createdAt)}
+				</div>
+			</>
+		);
+
+		if (!isRolesEnabled || !role.id || !role.name) {
+			return (
+				<div key={role.id} className={styles.tableRow}>
+					{cells}
+				</div>
+			);
+		}
+
+		return (
+			<a
+				key={role.id}
+				className={cx(styles.tableRow, styles.tableRowClickable)}
+				href={withBasePath(
+					`${ROUTES.ROLE_DETAILS.replace(':roleId', role.id)}?name=${encodeURIComponent(role.name)}`,
+				)}
+				style={{ textDecoration: 'none' }}
+				data-testid={`role-row-${role.id}`}
+				onClick={(event): void => {
+					if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+						return;
+					}
+					event.preventDefault();
+					if (role.id && role.name) {
+						handleRowClick(role.id, role.name);
+					}
+				}}
+			>
+				{cells}
+			</a>
+		);
+	};
 
 	return (
 		<div className={styles.rolesListingTable}>

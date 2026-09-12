@@ -100,7 +100,7 @@ function Version(): JSX.Element {
 					{!isError && !isLatestVersion && (
 						<div className="version-page-upgrade-container">
 							<Button
-								href="https://argus.example.com/docs/opentelemetry-collection-agents/docker/overview/"
+								href={githubReleaseURL}
 								target="_blank"
 								type="primary"
 								className="periscope-btn primary"

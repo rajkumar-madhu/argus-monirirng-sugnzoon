@@ -5,7 +5,7 @@ import PanelStyles from '../../panel.module.scss';
 
 /**
  * Body for a panel whose kind this build has no renderer for — a spec written by a newer
- * Argus names a visualization that didn't exist when this client shipped. Says so in
+ * WeCrew names a visualization that didn't exist when this client shipped. Says so in
  * place of the chart, so the panel keeps its slot in the layout instead of leaving a hole.
  */
 function UnsupportedPanelRenderer(): JSX.Element {
@@ -17,7 +17,7 @@ function UnsupportedPanelRenderer(): JSX.Element {
 			<PanelMessage
 				icon={<CircleHelp size={18} />}
 				title="Unsupported panel type"
-				description="This panel was built with a newer version of Argus. Upgrade to view it."
+				description="This panel was built with a newer version of WeCrew. Upgrade to view it."
 			/>
 		</div>
 	);

@@ -75,16 +75,18 @@ function WorkspaceSuspended(): JSX.Element {
 						</span>
 						<span className="workspace-suspended__modal__header__actions">
 							<Typography.Text className="workspace-suspended__modal__title">
-								Got Questions?
+								For account help, contact your workspace administrator.
 							</Typography.Text>
 							<Button
 								type="default"
 								shape="round"
 								size="middle"
-								href="mailto:cloud-support@argus.example.com"
-								role="button"
+								href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues"
+								target="_blank"
+								rel="noopener noreferrer"
+								data-testid="suspended-report-issue"
 							>
-								Contact Us
+								Report an issue
 							</Button>
 						</span>
 					</div>

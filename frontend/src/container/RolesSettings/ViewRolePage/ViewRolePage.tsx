@@ -18,6 +18,7 @@ import { useTimezone } from 'providers/Timezone';
 import APIError from 'types/api/error';
 import { RoleType } from 'types/roles';
 import { toAPIError } from 'utils/errorUtils';
+import { getRolePresentation } from 'utils/rolePresentation';
 
 import DeleteRoleModal from '../DeleteRoleModal/DeleteRoleModal';
 import PermissionOverview from './components/PermissionOverview';
@@ -147,7 +148,9 @@ function ViewRoleContentInner({
 					<label htmlFor="role-description" className={styles.formLabel}>
 						Description
 					</label>
-					<Typography>{role.description}</Typography>
+					<Typography data-testid="role-display-description">
+						{getRolePresentation(role).description}
+					</Typography>
 				</div>
 				<div className={styles.formRow}>
 					<div className={styles.formField}>
@@ -284,8 +287,8 @@ function ViewRolePage(): JSX.Element {
 					>
 						<ArrowLeft size={16} />
 					</Button>
-					<Typography.Title level={3}>
-						{'Role - ' + (roleName || 'Loading role...')}
+					<Typography.Title level={3} data-testid="role-display-name">
+						{'Role - ' + (role ? getRolePresentation(role).name : 'Loading role...')}
 					</Typography.Title>
 				</div>
 

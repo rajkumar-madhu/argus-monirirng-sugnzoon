@@ -65,7 +65,7 @@ function QueryAggregationOptions({
 									Set the time interval for aggregation
 									<br />
 									<a
-										href="https://argus.example.com/docs/userguide/query-builder-v5/#temporal-aggregation-within-each-time-series"
+										href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics"
 										target="_blank"
 										rel="noopener noreferrer"
 										style={{ color: '#1890ff', textDecoration: 'underline' }}

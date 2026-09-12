@@ -68,7 +68,7 @@ function AttributeMappingSection({
 								</h4>
 								<p className="attribute-mapping-section__section-description">
 									Configure how SAML assertion attributes from your Identity Provider map
-									to Argus user attributes. Leave empty to use default values.
+									to WeCrew user attributes. Leave empty to use default values.
 								</p>
 							</div>
 							{!expanded && hasErrors && (

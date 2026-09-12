@@ -27,32 +27,32 @@ interface FieldConfig {
 const FIELDS: FieldConfig[] = [
 	{
 		name: 'sigNozApiUrl',
-		label: 'Argus API URL',
-		tooltip: 'Base URL of your Argus instance the collector reports to',
-		placeholder: 'https://<tenant>.signoz.cloud',
+		label: 'WeCrew API URL',
+		tooltip: 'Base URL of your WeCrew workspace or self-hosted instance',
+		placeholder: 'https://monitoring.wecrew.in',
 		testId: 'gcp-signoz-api-url-input',
 		type: 'url',
 	},
 	{
 		name: 'sigNozApiKey',
-		label: 'Argus API Key',
-		tooltip: 'API key used to authenticate with your Argus instance',
-		placeholder: 'Enter Argus API key',
+		label: 'WeCrew API Key',
+		tooltip: 'API key used to authenticate with your WeCrew instance',
+		placeholder: 'Enter WeCrew API key',
 		testId: 'gcp-signoz-api-key-input',
 		type: 'text',
 	},
 	{
 		name: 'ingestionUrl',
 		label: 'Ingestion URL',
-		tooltip: 'OTLP ingestion endpoint your OTel Collector sends telemetry to',
-		placeholder: 'https://ingest.<region>.signoz.cloud',
+		tooltip: 'OTLP ingestion endpoint for your WeCrew or self-hosted deployment',
+		placeholder: 'https://monitoring.wecrew.in',
 		testId: 'gcp-ingestion-url-input',
 		type: 'url',
 	},
 	{
 		name: 'ingestionKey',
 		label: 'Ingestion Key',
-		tooltip: 'Ingestion key that authorizes telemetry sent to Argus',
+		tooltip: 'Ingestion key that authorizes telemetry sent to WeCrew',
 		placeholder: 'Enter ingestion key',
 		testId: 'gcp-ingestion-key-input',
 		type: 'text',
@@ -84,7 +84,7 @@ function ConnectionSecretsFields({
 					<div className={styles.headLabel}>
 						<Lock size={12} />
 						<Typography.Text as="span" size="small" className={styles.headLabel}>
-							Auto-filled by Argus
+							Auto-filled by WeCrew
 						</Typography.Text>
 					</div>
 				)}

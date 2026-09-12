@@ -47,7 +47,7 @@ function LicenseSectionContent(): JSX.Element | null {
 				</div>
 
 				<div className="license-section-content-item-description">
-					Your Argus license key.
+					Your WeCrew license key.
 				</div>
 			</div>
 		</div>

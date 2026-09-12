@@ -1,5 +1,5 @@
 export const apDexToolTipText =
 	"Apdex is a way to measure your users' satisfaction with the response time of your web service. It's represented as a score from 0-1.";
 export const apDexToolTipUrl =
-	'https://argus.example.com/docs/alerts-management/apdex-alerts/?utm_source=product&utm_medium=frontend&utm_campaign=apdex';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md';
 export const apDexToolTipUrlText = 'Learn more about Apdex.';

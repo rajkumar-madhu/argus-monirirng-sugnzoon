@@ -210,7 +210,7 @@ const onboardingConfigWithLinks = [
 	},
 	{
 		dataSource: 'signoz-mcp-server',
-		label: 'Argus MCP Server',
+		label: 'WeCrew MCP Server',
 		tags: ['quickstart'],
 		module: 'home',
 		relatedSearchKeywords: [
@@ -232,7 +232,7 @@ const onboardingConfigWithLinks = [
 	{
 		dataSource: 'migrate-from-datadog',
 		label: 'From Datadog',
-		tags: ['migrate to Argus'],
+		tags: ['migrate to WeCrew'],
 		module: 'home',
 		relatedSearchKeywords: [
 			'datadog',
@@ -280,7 +280,7 @@ const onboardingConfigWithLinks = [
 	{
 		dataSource: 'migrate-from-grafana',
 		label: 'From Grafana',
-		tags: ['migrate to Argus'],
+		tags: ['migrate to WeCrew'],
 		module: 'home',
 		relatedSearchKeywords: [
 			'alloy',
@@ -327,7 +327,7 @@ const onboardingConfigWithLinks = [
 	{
 		dataSource: 'migrate-from-elk',
 		label: 'From ELK',
-		tags: ['migrate to Argus'],
+		tags: ['migrate to WeCrew'],
 		module: 'home',
 		relatedSearchKeywords: [
 			'elastic',
@@ -375,7 +375,7 @@ const onboardingConfigWithLinks = [
 	{
 		dataSource: 'migrate-from-newrelic',
 		label: 'From New Relic',
-		tags: ['migrate to Argus'],
+		tags: ['migrate to WeCrew'],
 		module: 'home',
 		relatedSearchKeywords: [
 			'apm migration',
@@ -423,7 +423,7 @@ const onboardingConfigWithLinks = [
 	{
 		dataSource: 'migrate-from-honeycomb',
 		label: 'From Honeycomb',
-		tags: ['migrate to Argus'],
+		tags: ['migrate to WeCrew'],
 		module: 'home',
 		relatedSearchKeywords: [
 			'apm migration',
@@ -444,8 +444,8 @@ const onboardingConfigWithLinks = [
 	},
 	{
 		dataSource: 'migrate-signoz-self-host-to-cloud',
-		label: 'From Argus Self-Host',
-		tags: ['migrate to Argus'],
+		label: 'From WeCrew Self-Hosted',
+		tags: ['migrate to WeCrew'],
 		module: 'home',
 		relatedSearchKeywords: [
 			'cloud',
@@ -471,7 +471,7 @@ const onboardingConfigWithLinks = [
 	{
 		dataSource: 'migrate-from-existing-opentelemetry',
 		label: 'From Existing OpenTelemetry',
-		tags: ['migrate to Argus'],
+		tags: ['migrate to WeCrew'],
 		module: 'home',
 		relatedSearchKeywords: [
 			'apm migration',

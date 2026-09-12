@@ -7,7 +7,7 @@ import emptyStateUrl from '@/assets/Icons/emptyState.svg';
 import styles from './EventsNotConfigured.module.scss';
 
 const K8S_EVENTS_DOCS_URL =
-	'https://argus.example.com/docs/infrastructure-monitoring/k8s-metrics/';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics';
 
 export default function EventsNotConfigured(): JSX.Element {
 	const handleLearnMore = (): void => {
@@ -24,22 +24,23 @@ export default function EventsNotConfigured(): JSX.Element {
 					Collector.
 				</Typography.Text>
 
-				<div
+				<button
+					type="button"
+					data-testid="k8s-events-learn-more"
 					className={styles.learnMore}
 					onClick={handleLearnMore}
-					role="button"
-					tabIndex={0}
-					onKeyDown={(e): void => {
-						if (e.key === 'Enter') {
-							handleLearnMore();
-						}
+					style={{
+						background: 'none',
+						border: 0,
+						padding: 0,
+						font: 'inherit',
 					}}
 				>
 					<Typography.Link className={styles.learnMoreText}>
 						Learn how to configure
 					</Typography.Link>
 					<ArrowRight size={14} />
-				</div>
+				</button>
 			</div>
 		</div>
 	);

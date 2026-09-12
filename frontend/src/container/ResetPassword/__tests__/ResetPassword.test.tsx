@@ -1,15 +1,16 @@
 import ROUTES from 'constants/routes';
-import history from 'lib/history';
 import { rest, server } from 'mocks-server/server';
 import { render, screen, userEvent, waitFor } from 'tests/test-utils';
 
 import ResetPassword from '../index';
 
+const mockHistoryPush = jest.fn();
+
 // Mock dependencies
 jest.mock('lib/history', () => ({
 	__esModule: true,
 	default: {
-		push: jest.fn(),
+		push: mockHistoryPush,
 		location: {
 			search: '?token=reset-token-123',
 		},
@@ -35,10 +36,6 @@ jest.mock('hooks/useNotifications', () => ({
 
 const RESET_PASSWORD_ENDPOINT = '*/api/v2/factor_password/reset';
 
-const mockHistoryPush = history.push as jest.MockedFunction<
-	typeof history.push
->;
-
 describe('ResetPassword Component', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -63,7 +60,8 @@ describe('ResetPassword Component', () => {
 			expect(
 				screen.getByRole('button', { name: /reset password/i }),
 			).toBeInTheDocument();
-			expect(screen.getByText(/signoz 1\.0\.0/i)).toBeInTheDocument();
+			expect(screen.getByText(/wecrew 1\.0\.0/i)).toBeInTheDocument();
+			expect(screen.queryByText(/argus 1\.0\.0/i)).not.toBeInTheDocument();
 		});
 	});
 

@@ -65,6 +65,10 @@ describe('SignUp Component - Regular Signup', () => {
 			expect(
 				screen.getByRole('button', { name: /access my workspace/i }),
 			).toBeInTheDocument();
+			expect(screen.getByText(/applications with wecrew/i)).toBeInTheDocument();
+			expect(
+				screen.queryByText(/applications with argus/i),
+			).not.toBeInTheDocument();
 		});
 
 		it('shows info callout for admin account creation', () => {

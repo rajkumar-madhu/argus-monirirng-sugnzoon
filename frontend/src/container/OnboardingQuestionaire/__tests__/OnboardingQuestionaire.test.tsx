@@ -72,7 +72,7 @@ describe('OnboardingQuestionaire Component', () => {
 		it('renders organization questions on initial load', () => {
 			render(<OnboardingQuestionaire />);
 
-			expect(screen.getByText(/welcome to signoz cloud/i)).toBeInTheDocument();
+			expect(screen.getByText(/welcome to WeCrew/i)).toBeInTheDocument();
 
 			expect(
 				screen.getByText(/which observability tool do you currently use/i),
@@ -119,14 +119,14 @@ describe('OnboardingQuestionaire Component', () => {
 
 			// Initially not visible
 			expect(
-				screen.queryByText(/What is your timeline for migrating to Argus/i),
+				screen.queryByText(/What is your timeline for migrating to WeCrew/i),
 			).not.toBeInTheDocument();
 
 			const datadogCheckbox = screen.getByLabelText(/datadog/i);
 			await user.click(datadogCheckbox);
 
 			await expect(
-				screen.findByText(/What is your timeline for migrating to Argus/i),
+				screen.findByText(/What is your timeline for migrating to WeCrew/i),
 			).resolves.toBeInTheDocument();
 
 			// Not visible when None is selected
@@ -134,7 +134,7 @@ describe('OnboardingQuestionaire Component', () => {
 			await user.click(noneCheckbox);
 
 			expect(
-				screen.queryByText(/What is your timeline for migrating to Argus/i),
+				screen.queryByText(/What is your timeline for migrating to WeCrew/i),
 			).not.toBeInTheDocument();
 		});
 
@@ -150,7 +150,7 @@ describe('OnboardingQuestionaire Component', () => {
 			await user.click(nextButton);
 
 			await expect(
-				screen.findByText(/how did you first come across signoz/i, {}),
+				screen.findByText(/how did you first come across WeCrew/i, {}),
 			).resolves.toBeInTheDocument();
 		});
 	});
@@ -171,7 +171,7 @@ describe('OnboardingQuestionaire Component', () => {
 				screen.findByText(/set up your workspace/i, {}),
 			).resolves.toBeInTheDocument();
 			await expect(
-				screen.findByText(/how did you first come across signoz/i, {}),
+				screen.findByText(/how did you first come across WeCrew/i, {}),
 			).resolves.toBeInTheDocument();
 		});
 
@@ -231,14 +231,14 @@ describe('OnboardingQuestionaire Component', () => {
 			await user.click(screen.getByRole('button', { name: /next/i }));
 
 			await expect(
-				screen.findByText(/what got you interested in signoz/i, {}),
+				screen.findByText(/what got you interested in WeCrew/i, {}),
 			).resolves.toBeInTheDocument();
 
 			const othersCheckbox = screen.getByLabelText(/^others$/i);
 			await user.click(othersCheckbox);
 
 			await expect(
-				screen.findByPlaceholderText(/what got you interested in signoz/i, {}),
+				screen.findByPlaceholderText(/what got you interested in WeCrew/i, {}),
 			).resolves.toBeInTheDocument();
 		});
 	});

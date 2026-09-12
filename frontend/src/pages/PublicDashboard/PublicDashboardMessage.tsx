@@ -27,11 +27,12 @@ function PublicDashboardMessage({
 
 			<div className="public-dashboard-error-content-header">
 				<div className="brand">
-					<img src={argusBrandLogoUrl} alt="Argus" className="brand-logo" />
-
-					<Typography.Title level={2} className="brand-title">
-						Argus
-					</Typography.Title>
+					<img
+						src={argusBrandLogoUrl}
+						alt="WeCrew"
+						className="brand-logo"
+						style={{ width: 150, height: 40 }}
+					/>
 				</div>
 
 				<div className="brand-tagline">

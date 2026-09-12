@@ -82,7 +82,7 @@ function ChangelogModal({ changelog, onClose }: Props): JSX.Element {
 
 	const onClickUpdateWorkspace = (): void => {
 		window.open(
-			'https://argus.example.com/upgrade-path',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/infra/wecrew-k8s/README.md',
 			'_blank',
 			'noopener,noreferrer',
 		);

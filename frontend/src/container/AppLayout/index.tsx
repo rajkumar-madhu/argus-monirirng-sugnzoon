@@ -95,6 +95,7 @@ import './AppLayout.styles.scss';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function AppLayout(props: AppLayoutProps): JSX.Element {
+	const appContext = useAppContext();
 	const {
 		isLoggedIn,
 		user,
@@ -106,11 +107,9 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 		featureFlagsFetchError,
 		userPreferences,
 		isFetchingUserPreferences,
-		updateChangelog,
-		toggleChangelogModal,
 		showChangelogModal,
 		changelog,
-	} = useAppContext();
+	} = appContext;
 
 	const isAIAssistantEnabled = useIsAIAssistantEnabled();
 	const fetchAIThreads = useAIAssistantStore((s) => s.fetchThreads);
@@ -242,7 +241,7 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 			isLoggedIn &&
 			Boolean(currentVersion)
 		) {
-			getChangelogByVersionResponse.refetch();
+			void getChangelogByVersionResponse.refetch();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isVisible]);
@@ -259,35 +258,35 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 		) {
 			// Automatically open the changelog modal for cloud users after 1s, if they've not seen this version before.
 			timer = setTimeout(() => {
-				toggleChangelogModal();
+				appContext.toggleChangelogModal();
 			}, 1000);
 		}
 
 		return (): void => {
 			clearTimeout(timer);
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
 		isCloudUserVal,
 		currentVersion,
 		seenChangelogVersion,
-		toggleChangelogModal,
+		daysSinceAccountCreation,
+		appContext,
 		isWorkspaceAccessRestricted,
 	]);
 
 	useEffect(() => {
 		if (getUserLatestVersionResponse.status === 'idle' && isLoggedIn) {
-			getUserLatestVersionResponse.refetch();
+			void getUserLatestVersionResponse.refetch();
 		}
 
 		if (getUserVersionResponse.status === 'idle' && isLoggedIn) {
-			getUserVersionResponse.refetch();
+			void getUserVersionResponse.refetch();
 		}
 	}, [getUserLatestVersionResponse, getUserVersionResponse, isLoggedIn]);
 
 	const { children } = props;
 
-	const dispatch = useDispatch<Dispatch<AppActions | any>>();
+	const dispatch = useDispatch<Dispatch<AppActions>>();
 
 	const latestCurrentCounter = useRef(0);
 	const latestVersionCounter = useRef(0);
@@ -383,10 +382,10 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 			getChangelogByVersionResponse.data &&
 			getChangelogByVersionResponse.data.payload
 		) {
-			updateChangelog(getChangelogByVersionResponse.data.payload);
+			appContext.updateChangelog(getChangelogByVersionResponse.data.payload);
 		}
 	}, [
-		updateChangelog,
+		appContext,
 		getChangelogByVersionResponse.isFetched,
 		getChangelogByVersionResponse.isLoading,
 		getChangelogByVersionResponse.isError,
@@ -535,7 +534,7 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 			LOCALSTORAGE.DONT_SHOW_SLOW_API_WARNING,
 		);
 
-		logEvent(
+		void logEvent(
 			`Slow API Warning`,
 			{
 				durationMs: data.duration,
@@ -584,18 +583,25 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 						Our systems are taking longer than expected for your trial workspace.
 						Please{' '}
 						<span>
-							<a
+							<button
+								type="button"
+								style={{
+									border: 0,
+									background: 'transparent',
+									font: 'inherit',
+									cursor: 'pointer',
+								}}
 								className="upgrade-link"
 								onClick={(): void => {
 									notifications.destroy('slow-api-warning');
 
-									logEvent(`Slow API Banner: Upgrade clicked`, {});
+									void logEvent(`Slow API Banner: Upgrade clicked`, {});
 
 									handleUpgrade();
 								}}
 							>
 								upgrade
-							</a>
+							</button>
 							your workspace for a smoother experience.
 						</span>
 					</div>
@@ -621,70 +627,36 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 	const renderWorkspaceRestrictedBanner = (): JSX.Element => (
 		<div className="workspace-restricted-banner">
 			{activeLicense?.state === LicenseState.TERMINATED && (
-				<>
-					Your Argus license is terminated, enterprise features have been disabled.
-					Please contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for new license
-				</>
+				<span className="translate-safe">
+					Your WeCrew license has been terminated. Enterprise features have been
+					disabled. Contact your workspace administrator to review the license.
+				</span>
 			)}
 			{activeLicense?.state === LicenseState.EXPIRED && (
-				<>
-					Your Argus license has expired. Please contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for renewal to
-					avoid termination of license as per our{' '}
-					<a
-						href="https://argus.example.com/terms-of-service"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						terms of service
-					</a>
-				</>
+				<span className="translate-safe">
+					Your WeCrew license has expired. Contact your workspace administrator to
+					review renewal options.
+				</span>
 			)}
 			{activeLicense?.state === LicenseState.CANCELLED && (
-				<>
-					Your Argus license is cancelled. Please contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for reactivation
-					to avoid termination of license as per our{' '}
-					<a
-						href="https://argus.example.com/terms-of-service"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						terms of service
-					</a>
-				</>
+				<span className="translate-safe">
+					Your WeCrew license has been cancelled. Contact your workspace
+					administrator to review reactivation options.
+				</span>
 			)}
 
 			{activeLicense?.state === LicenseState.DEFAULTED && (
-				<>
-					Your Argus license is defaulted. Please clear the bill to continue using
-					the enterprise features. Contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> to avoid
-					termination of license as per our{' '}
-					<a
-						href="https://argus.example.com/terms-of-service"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						terms of service
-					</a>
-				</>
+				<span className="translate-safe">
+					Your WeCrew license has an outstanding payment. Contact your workspace
+					administrator to review billing and restore enterprise features.
+				</span>
 			)}
 
 			{activeLicense?.state === LicenseState.EVALUATION_EXPIRED && (
-				<>
-					Your Argus trial has ended. Please contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for next steps to
-					avoid termination of license as per our{' '}
-					<a
-						href="https://argus.example.com/terms-of-service"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						terms of service
-					</a>
-				</>
+				<span className="translate-safe">
+					Your WeCrew trial has ended. Contact your workspace administrator to review
+					the next steps.
+				</span>
 			)}
 		</div>
 	);
@@ -733,7 +705,7 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 	const handleToggleSidebar = useCallback((): void => {
 		const newState = !isSideNavPinned;
 
-		logEvent('Global Shortcut: Sidebar Toggle', {
+		void logEvent('Global Shortcut: Sidebar Toggle', {
 			previousState: isSideNavPinned,
 			newState,
 		});
@@ -790,10 +762,20 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 								<span>
 									{' '}
 									Please{' '}
-									<a className="upgrade-link" onClick={handleUpgrade}>
+									<button
+										type="button"
+										style={{
+											border: 0,
+											background: 'transparent',
+											font: 'inherit',
+											cursor: 'pointer',
+										}}
+										className="upgrade-link"
+										onClick={handleUpgrade}
+									>
 										upgrade
-									</a>
-									to continue using Argus features.
+									</button>
+									to continue using WeCrew features.
 									<span className="refresh-payment-status">
 										{' '}
 										| Already upgraded? <RefreshPaymentStatus type="text" />
@@ -819,11 +801,21 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 									{' '}
 									Please{' '}
 									<AuthZTooltip checks={SubscriptionManagePermissions}>
-										<a className="upgrade-link" onClick={handleFailedPayment}>
+										<button
+											type="button"
+											style={{
+												border: 0,
+												background: 'transparent',
+												font: 'inherit',
+												cursor: 'pointer',
+											}}
+											className="upgrade-link"
+											onClick={handleFailedPayment}
+										>
 											pay the bill
-										</a>
+										</button>
 									</AuthZTooltip>
-									to continue using Argus features.
+									to continue using WeCrew features.
 									<span className="refresh-payment-status">
 										{' '}
 										| Already paid? <RefreshPaymentStatus type="text" />
@@ -880,7 +872,10 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 
 				{showAddCreditCardModal && <ChatSupportGateway />}
 				{showChangelogModal && changelog && (
-					<ChangelogModal changelog={changelog} onClose={toggleChangelogModal} />
+					<ChangelogModal
+						changelog={changelog}
+						onClose={() => appContext.toggleChangelogModal()}
+					/>
 				)}
 
 				<Toaster />

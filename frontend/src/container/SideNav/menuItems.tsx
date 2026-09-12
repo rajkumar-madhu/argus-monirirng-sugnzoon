@@ -10,7 +10,6 @@ import {
 	Bug,
 	Building2,
 	ChartArea,
-	Cloudy,
 	DraftingCompass,
 	FileKey2,
 	Github,
@@ -106,12 +105,6 @@ export const slackSupportMenuItem = {
 	key: SecondaryMenuItemKey.Slack,
 	label: 'Slack Support',
 	icon: <Slack size={16} />,
-};
-
-export const trySignozCloudMenuItem: SidebarItem = {
-	key: 'trySignozCloud',
-	label: 'Try Signoz Cloud',
-	icon: <Cloudy size={16} />,
 };
 
 const menuItems: SidebarItem[] = [
@@ -448,7 +441,7 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 		),
 		icon: <Book size={14} />,
 		isExternal: true,
-		url: 'https://argus.example.com/docs',
+		url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/infra/hostinger-vm/README.md',
 		itemKey: 'documentation',
 	},
 	{
@@ -462,20 +455,20 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 
 		icon: <Github size={14} />,
 		isExternal: true,
-		url: 'https://github.com/signoz/signoz',
+		url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon',
 		itemKey: 'github',
 	},
 	{
 		key: 'slack',
 		label: (
 			<div className="nav-item-label-container">
-				<span>Community Slack</span>
+				<span>Report an issue</span>
 				<ArrowUpRight size={14} />
 			</div>
 		),
-		icon: <Slack size={14} />,
+		icon: <Bug size={14} />,
 		isExternal: true,
-		url: 'https://argus.example.com/slack',
+		url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues',
 		itemKey: 'community-slack',
 	},
 	{

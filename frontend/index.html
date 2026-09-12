@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<base href="[[.BaseHref]]" />
 		<meta
 			http-equiv="Cache-Control"
@@ -20,37 +21,37 @@
 		/>
 
 		<title data-react-helmet="true">
-			Open source Observability platform | Argus
+			Open source Observability platform | WeCrew
 		</title>
 		<meta
 			data-react-helmet="true"
 			property="og:title"
-			content="Open source Observability platform | Argus"
+			content="Open source Observability platform | WeCrew"
 		/>
 		<meta
 			data-react-helmet="true"
 			name="description"
-			content="Argus is an open source observability platform to help you find issues in your deployed applications & solve them quickly. It provides a single pane of glass for metrics, traces and logs with deep filtering and aggregation to pin down specific issues very quickly."
+			content="WeCrew is an open source observability platform to help you find issues in your deployed applications & solve them quickly. It provides a single pane of glass for metrics, traces and logs with deep filtering and aggregation to pin down specific issues very quickly."
 		/>
 		<meta
 			data-react-helmet="true"
 			property="og:description"
-			content="Argus is an open source observability platform to help you find issues in your deployed applications & solve them quickly. It provides a single pane of glass for metrics, traces and logs with deep filtering and aggregation to pin down specific issues very quickly."
+			content="WeCrew is an open source observability platform to help you find issues in your deployed applications & solve them quickly. It provides a single pane of glass for metrics, traces and logs with deep filtering and aggregation to pin down specific issues very quickly."
 		/>
 		<meta
 			data-react-helmet="true"
 			property="og:image"
-			content="[[.BaseHref]]images/signoz-hero-image.webp"
+			content="[[.BaseHref]]wecrew-social.png"
 		/>
 		<meta
 			data-react-helmet="true"
 			name="twitter:image"
-			content="[[.BaseHref]]images/signoz-hero-image.webp"
+			content="[[.BaseHref]]wecrew-social.png"
 		/>
 		<meta
 			data-react-helmet="true"
 			name="twitter:image:alt"
-			content="Image for Open source Observability platform | Argus"
+			content="Illustrative WeCrew telemetry flow connecting traces, metrics, and logs"
 		/>
 		<meta
 			data-react-helmet="true"
@@ -60,39 +61,17 @@
 		<meta data-react-helmet="true" name="docusaurus_locale" content="en" />
 		<meta data-react-helmet="true" name="docusaurus_tag" content="default" />
 		<meta name="robots" content="noindex" />
-		<link data-react-helmet="true" rel="shortcut icon" href="favicon.ico" />
+		<meta name="theme-color" content="#faf8f3" />
+		<meta name="color-scheme" content="light" />
+		<link rel="manifest" href="manifest.json" />
+		<link data-react-helmet="true" rel="icon" type="image/svg+xml" href="wecrew-mark.svg" />
 	</head>
 	<body data-theme="default">
 		<script>
-			// Apply theme class synchronously before React renders to prevent flash.
-			// Mirrors the logic in ThemeProvider (hooks/useDarkMode/index.tsx).
-			(function () {
-				try {
-					// When served under a URL prefix (e.g. /argus/), storage keys are scoped
-					// to that prefix by the React app (see utils/storage.ts getScopedKey).
-					// Read the <base> tag — already populated by the Go template — to derive
-					// the same prefix here, before any JS module has loaded.
-					var basePath =
-						(document.querySelector('base') || {}).getAttribute('href') || '/';
-					var prefix = basePath === '/' ? '' : basePath;
-					var theme = localStorage.getItem(prefix + 'THEME');
-					var autoSwitch =
-						localStorage.getItem(prefix + 'THEME_AUTO_SWITCH') === 'true';
-					if (autoSwitch) {
-						theme = window.matchMedia('(prefers-color-scheme: dark)').matches
-							? 'dark'
-							: 'light';
-					}
-					if (theme === 'light') {
-						document.body.classList.add('lightMode');
-					} else {
-						// Default to dark when no preference is stored
-						document.body.classList.add('dark', 'darkMode');
-					}
-				} catch (e) {
-					document.body.classList.add('dark', 'darkMode');
-				}
-			})();
+			// Apply the product's light-only theme before React renders.
+			document.body.classList.remove('dark', 'darkMode');
+			document.body.classList.add('lightMode');
+			document.documentElement.style.colorScheme = 'light';
 		</script>
 		<script type="application/json" id="argus-boot-settings">
 			[[.Settings]]
@@ -162,7 +141,6 @@
 				})(document, 'script');
 			}
 		</script>
-		<link rel="stylesheet" href="css/uPlot.min.css" />
 		<script type="module" src="./src/index.tsx"></script>
 	</body>
 </html>

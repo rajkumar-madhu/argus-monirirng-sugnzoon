@@ -11,16 +11,13 @@ import {
 	Collapse,
 	DatePicker,
 	Form,
-	InputNumber,
 	Modal,
 	Row,
-	Select,
 	Table,
 	TablePaginationConfig,
 	TableProps as AntDTableProps,
 	Tooltip,
 } from 'antd';
-import { Switch } from '@signozhq/ui/switch';
 import { Typography } from '@signozhq/ui/typography';
 import type { NotificationInstance } from 'antd/es/notification/interface';
 import type { CollapseProps } from 'antd/lib';
@@ -39,7 +36,6 @@ import {
 	RenderErrorResponseDTO,
 } from 'api/generated/services/sigNoz.schemas';
 import { AxiosError } from 'axios';
-import { getYAxisFormattedValue } from 'components/Graph/yAxisConfig';
 import Badges from 'components/Badges/Badges';
 import { UniversalYAxisUnit } from 'components/YAxisUnitSelector/types';
 import { SOMETHING_WENT_WRONG } from 'constants/api';
@@ -58,11 +54,9 @@ import { useNotifications } from 'hooks/useNotifications';
 import { cloneDeep, isNil, isUndefined } from 'lodash-es';
 import {
 	ArrowUpRight,
-	BellPlus,
 	CalendarClock,
 	Check,
 	Copy,
-	Infinity as InfinityIcon,
 	Minus,
 	PenLine,
 	Plus,
@@ -84,8 +78,7 @@ import { USER_ROLES } from 'types/roles';
 import { getDaysUntilExpiry } from 'utils/timeUtils';
 
 import './IngestionSettings.styles.scss';
-
-const { Option } = Select;
+import SignalLimitItem from './SignalLimitItem';
 
 const BYTES = 1073741824;
 
@@ -126,12 +119,11 @@ const SIGNALS_CONFIG = [
 	},
 ];
 
-// Using any type here because antd's DatePicker expects its own internal Dayjs type
-// which conflicts with our project's Dayjs type that has additional plugins (tz, utc etc).
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const disabledDate = (current: any): boolean =>
-	// Disable all dates before today
-	current && current < dayjs().endOf('day');
+// A structural valueOf type accepts either Dayjs instance without coupling plugins.
+export const disabledDate = (
+	current: { valueOf: () => number } | null,
+): boolean =>
+	current !== null && current.valueOf() < dayjs().endOf('day').valueOf();
 
 export const showErrorNotification = (
 	notifications: NotificationInstance,
@@ -456,6 +448,7 @@ function MultiIngestionSettings(): JSX.Element {
 						},
 					);
 				}
+				return undefined;
 			})
 			.catch(() => undefined);
 	};
@@ -491,6 +484,7 @@ function MultiIngestionSettings(): JSX.Element {
 						},
 					);
 				}
+				return undefined;
 			})
 			.catch(() => undefined);
 	};
@@ -1071,467 +1065,38 @@ function MultiIngestionSettings(): JSX.Element {
 
 									<div className="limits-data">
 										<div className="signals">
-											{SIGNALS_CONFIG.map((signalCfg) => {
-												const signalName = signalCfg.name;
-												const limit = limitsDict[signalName];
-
-												const hasValidDayLimit =
-													limit?.config?.day?.size !== undefined ||
-													limit?.config?.day?.count !== undefined;
-												const hasValidSecondLimit =
-													limit?.config?.second?.size !== undefined ||
-													limit?.config?.second?.count !== undefined;
-
-												const onEditSignalLimit = (e: React.MouseEvent): void => {
-													e.stopPropagation();
-													e.preventDefault();
-													enableEditLimitMode(APIKey, limit);
-												};
-
-												const onDeleteSignalLimit = (e: React.MouseEvent): void => {
-													e.stopPropagation();
-													e.preventDefault();
-													showDeleteLimitModal(APIKey, limit);
-												};
-
-												const onAddSignalLimit = (e: React.MouseEvent): void => {
-													e.stopPropagation();
-													e.preventDefault();
-													enableEditLimitMode(APIKey, {
-														id: signalName,
-														signal: signalName,
-														config: {},
-													});
-												};
-
-												const onSaveSignalLimit = (): void => {
-													if (!hasLimits(signalName)) {
-														handleAddLimit(APIKey, signalName);
-													} else {
-														handleUpdateLimit(APIKey, limitsDict[signalName]);
+											{SIGNALS_CONFIG.map((signalCfg) => (
+												<SignalLimitItem
+													key={signalCfg.name}
+													APIKey={APIKey}
+													signalCfg={signalCfg}
+													limit={limitsDict[signalCfg.name]}
+													activeAPIKey={activeAPIKey}
+													activeSignal={activeSignal}
+													isEditAddLimitOpen={isEditAddLimitOpen}
+													addEditLimitForm={addEditLimitForm}
+													setActiveSignal={setActiveSignal}
+													isLoadingLimitForKey={isLoadingLimitForKey}
+													isLoadingUpdatedLimitForKey={isLoadingUpdatedLimitForKey}
+													hasCreateLimitForIngestionKeyError={
+														hasCreateLimitForIngestionKeyError
 													}
-												};
-
-												const onCreateSignalAlert = (): void =>
-													handleCreateAlert(APIKey, limitsDict[signalName]);
-
-												return (
-													<div className="signal" key={signalName}>
-														<div className="header">
-															<div className="signal-name">{signalName}</div>
-															<div className="actions">
-																{hasLimits(signalName) ? (
-																	<>
-																		<Button
-																			variant="link"
-																			size="icon"
-																			color="secondary"
-																			prefix={<PenLine size={14} />}
-																			aria-label={`Edit ${signalName} limit`}
-																			disabled={
-																				!!(activeAPIKey?.id === APIKey?.id && activeSignal)
-																			}
-																			onClick={onEditSignalLimit}
-																		/>
-																		<Button
-																			variant="link"
-																			size="icon"
-																			color="destructive"
-																			prefix={<Trash2 color={Color.BG_CHERRY_500} size={14} />}
-																			aria-label={`Delete ${signalName} limit`}
-																			disabled={
-																				!!(activeAPIKey?.id === APIKey?.id && activeSignal)
-																			}
-																			onClick={onDeleteSignalLimit}
-																		/>
-																	</>
-																) : (
-																	<Button
-																		variant="outlined"
-																		size="sm"
-																		color="secondary"
-																		prefix={<Plus size={12} />}
-																		disabled={!!(activeAPIKey?.id === APIKey?.id && activeSignal)}
-																		onClick={onAddSignalLimit}
-																	>
-																		Limits
-																	</Button>
-																)}
-															</div>
-														</div>
-
-														<div className="signal-limit-values">
-															{activeAPIKey?.id === APIKey?.id &&
-															activeSignal?.signal === signalName &&
-															isEditAddLimitOpen ? (
-																<Form
-																	name="edit-ingestion-key-limit-form"
-																	key="addEditLimitForm"
-																	form={addEditLimitForm}
-																	autoComplete="off"
-																	initialValues={{
-																		dailyLimit: bytesToGb(limit?.config?.day?.size || 0),
-																		secondsLimit: bytesToGb(limit?.config?.second?.size || 0),
-																	}}
-																	className="edit-ingestion-key-limit-form"
-																>
-																	<div className="signal-limit-edit-mode">
-																		<div className="daily-limit">
-																			<div className="heading">
-																				<div className="title">
-																					Daily limit
-																					<div className="limit-enable-disable-toggle">
-																						<Form.Item name="enableDailyLimit">
-																							<Switch
-																								value={activeSignal?.config?.day?.enabled}
-																								onChange={(value): void => {
-																									setActiveSignal((prev) =>
-																										prev
-																											? {
-																													...prev,
-																													config: {
-																														...prev.config,
-																														day: {
-																															...prev.config?.day,
-																															enabled: value,
-																														},
-																													},
-																												}
-																											: null,
-																									);
-																								}}
-																							/>
-																						</Form.Item>
-																					</div>
-																				</div>
-																				<div className="subtitle">
-																					Add a limit for data ingested daily
-																				</div>
-																			</div>
-																			{signalCfg.usesSize && (
-																				<div className="size">
-																					{activeSignal?.config?.day?.enabled ? (
-																						<Form.Item name="dailyLimit" key="dailyLimit">
-																							<InputNumber
-																								disabled={!activeSignal?.config?.day?.enabled}
-																								addonAfter={
-																									<Select defaultValue="GiB" disabled>
-																										<Option value="TiB">TiB</Option>
-																										<Option value="GiB">GiB</Option>
-																										<Option value="MiB">MiB</Option>
-																										<Option value="KiB">KiB</Option>
-																									</Select>
-																								}
-																							/>
-																						</Form.Item>
-																					) : (
-																						<div className="no-limit">
-																							<InfinityIcon size={16} /> NO LIMIT
-																						</div>
-																					)}
-																				</div>
-																			)}
-																			{signalCfg.usesCount && (
-																				<div className="count">
-																					{activeSignal?.config?.day?.enabled ? (
-																						<Form.Item name="dailyCount" key="dailyCount">
-																							<InputNumber
-																								placeholder="Enter max # of samples/day"
-																								addonAfter={
-																									<Form.Item
-																										name="dailyCountUnit"
-																										noStyle
-																										initialValue="million"
-																									>
-																										<Select
-																											style={{
-																												width: 90,
-																											}}
-																										>
-																											<Option value="thousand">Thousand</Option>
-																											<Option value="million">Million</Option>
-																											<Option value="billion">Billion</Option>
-																										</Select>
-																									</Form.Item>
-																								}
-																							/>
-																						</Form.Item>
-																					) : (
-																						<div className="no-limit">
-																							<InfinityIcon size={16} /> NO LIMIT
-																						</div>
-																					)}
-																				</div>
-																			)}
-																		</div>
-
-																		<div className="second-limit">
-																			<div className="heading">
-																				<div className="title">
-																					Per Second limit
-																					<div className="limit-enable-disable-toggle">
-																						<Form.Item name="enableSecondLimit">
-																							<Switch
-																								value={activeSignal?.config?.second?.enabled}
-																								onChange={(value): void => {
-																									setActiveSignal((prev) =>
-																										prev
-																											? {
-																													...prev,
-																													config: {
-																														...prev.config,
-																														second: {
-																															...prev.config?.second,
-																															enabled: value,
-																														},
-																													},
-																												}
-																											: null,
-																									);
-																								}}
-																							/>
-																						</Form.Item>
-																					</div>
-																				</div>
-																				<div className="subtitle">
-																					Add a limit for data ingested every second
-																				</div>
-																			</div>
-																			{signalCfg.usesSize && (
-																				<div className="size">
-																					{activeSignal?.config?.second?.enabled ? (
-																						<Form.Item name="secondsLimit" key="secondsLimit">
-																							<InputNumber
-																								disabled={!activeSignal?.config?.second?.enabled}
-																								addonAfter={
-																									<Select defaultValue="GiB" disabled>
-																										<Option value="TiB">TiB</Option>
-																										<Option value="GiB">GiB</Option>
-																										<Option value="MiB">MiB</Option>
-																										<Option value="KiB">KiB</Option>
-																									</Select>
-																								}
-																							/>
-																						</Form.Item>
-																					) : (
-																						<div className="no-limit">
-																							<InfinityIcon size={16} /> NO LIMIT
-																						</div>
-																					)}
-																				</div>
-																			)}
-																			{signalCfg.usesCount && (
-																				<div className="count">
-																					{activeSignal?.config?.second?.enabled ? (
-																						<Form.Item name="secondsCount" key="secondsCount">
-																							<InputNumber
-																								placeholder="Enter max # of samples/s"
-																								addonAfter={
-																									<Form.Item
-																										name="secondsCountUnit"
-																										noStyle
-																										initialValue="million"
-																									>
-																										<Select
-																											style={{
-																												width: 90,
-																											}}
-																										>
-																											<Option value="thousand">Thousand</Option>
-																											<Option value="million">Million</Option>
-																											<Option value="billion">Billion</Option>
-																										</Select>
-																									</Form.Item>
-																								}
-																							/>
-																						</Form.Item>
-																					) : (
-																						<div className="no-limit">
-																							<InfinityIcon size={16} /> NO LIMIT
-																						</div>
-																					)}
-																				</div>
-																			)}
-																		</div>
-																	</div>
-
-																	{activeAPIKey?.id === APIKey?.id &&
-																		activeSignal.signal === signalName &&
-																		!isLoadingLimitForKey &&
-																		hasCreateLimitForIngestionKeyError &&
-																		createLimitForIngestionKeyError && (
-																			<div className="error">
-																				{createLimitForIngestionKeyError}
-																			</div>
-																		)}
-
-																	{activeAPIKey?.id === APIKey?.id &&
-																		activeSignal.signal === signalName &&
-																		!isLoadingLimitForKey &&
-																		hasUpdateLimitForIngestionKeyError &&
-																		updateLimitForIngestionKeyError && (
-																			<div className="error">
-																				{updateLimitForIngestionKeyError}
-																			</div>
-																		)}
-
-																	{activeAPIKey?.id === APIKey?.id &&
-																		activeSignal.signal === signalName &&
-																		isEditAddLimitOpen && (
-																			<div className="signal-limit-save-discard">
-																				<div className="signal-limit-save-discard-actions">
-																					<Button
-																						variant="solid"
-																						size="sm"
-																						disabled={
-																							isLoadingLimitForKey || isLoadingUpdatedLimitForKey
-																						}
-																						loading={
-																							isLoadingLimitForKey || isLoadingUpdatedLimitForKey
-																						}
-																						onClick={onSaveSignalLimit}
-																					>
-																						Save
-																					</Button>
-																					<Button
-																						variant="outlined"
-																						color="secondary"
-																						size="sm"
-																						disabled={
-																							isLoadingLimitForKey || isLoadingUpdatedLimitForKey
-																						}
-																						onClick={handleDiscardSaveLimit}
-																					>
-																						Discard
-																					</Button>
-																					<span className="signal-limit-alert-helper">
-																						You can set up an alert after saving
-																					</span>
-																				</div>
-																			</div>
-																		)}
-																</Form>
-															) : (
-																<div className="signal-limit-view-mode">
-																	{/* DAILY limit usage/limit */}
-																	<div className="signal-limit-value">
-																		<div className="limit-type">
-																			Daily <Minus size={16} />
-																		</div>
-																		<div className="limit-value">
-																			{/* Size (if usesSize) */}
-																			{signalCfg.usesSize &&
-																				(hasValidDayLimit &&
-																				limit?.config?.day?.size !== undefined ? (
-																					<>
-																						{getYAxisFormattedValue(
-																							(limit?.metric?.day?.size || 0).toString(),
-																							'bytes',
-																						)}{' '}
-																						/{' '}
-																						{getYAxisFormattedValue(
-																							(limit?.config?.day?.size || 0).toString(),
-																							'bytes',
-																						)}
-																					</>
-																				) : (
-																					<>
-																						<InfinityIcon size={16} /> NO LIMIT
-																					</>
-																				))}
-
-																			{/* Count (if usesCount) */}
-																			{signalCfg.usesCount &&
-																				(limit?.config?.day?.count !== undefined ? (
-																					<div style={{ marginTop: 4 }}>
-																						{countToUnit(
-																							limit?.metric?.day?.count || 0,
-																						).value.toFixed(2)}{' '}
-																						{countToUnit(limit?.metric?.day?.count || 0).unit} /{' '}
-																						{countToUnit(
-																							limit?.config?.day?.count || 0,
-																						).value.toFixed(2)}{' '}
-																						{countToUnit(limit?.config?.day?.count || 0).unit}
-																					</div>
-																				) : (
-																					<>
-																						<InfinityIcon size={16} /> NO LIMIT
-																					</>
-																				))}
-																		</div>
-
-																		{((signalCfg.usesSize &&
-																			limit?.config?.day?.size !== undefined) ||
-																			(signalCfg.usesCount &&
-																				limit?.config?.day?.count !== undefined)) && (
-																			<Badge
-																				asChild
-																				color="cherry"
-																				variant="outline"
-																				testId={`set-alert-btn-${signalName}`}
-																				className="set-alert-btn"
-																			>
-																				<Button onClick={onCreateSignalAlert} size="sm">
-																					<BellPlus size={12} />
-																					Set alert
-																				</Button>
-																			</Badge>
-																		)}
-																	</div>
-
-																	{/* SECOND limit usage/limit */}
-																	<div className="signal-limit-value">
-																		<div className="limit-type">
-																			Seconds <Minus size={16} />
-																		</div>
-																		<div className="limit-value">
-																			{/* Size (if usesSize) */}
-																			{signalCfg.usesSize &&
-																				(hasValidSecondLimit &&
-																				limit?.config?.second?.size !== undefined ? (
-																					<>
-																						{getYAxisFormattedValue(
-																							(limit?.metric?.second?.size || 0).toString(),
-																							'bytes',
-																						)}{' '}
-																						/{' '}
-																						{getYAxisFormattedValue(
-																							(limit?.config?.second?.size || 0).toString(),
-																							'bytes',
-																						)}
-																					</>
-																				) : (
-																					<>
-																						<InfinityIcon size={16} /> NO LIMIT
-																					</>
-																				))}
-
-																			{/* Count (if usesCount) */}
-																			{signalCfg.usesCount &&
-																				(limit?.config?.second?.count !== undefined ? (
-																					<div style={{ marginTop: 4 }}>
-																						{countToUnit(
-																							limit?.metric?.second?.count || 0,
-																						).value.toFixed(2)}{' '}
-																						{countToUnit(limit?.metric?.second?.count || 0).unit} /{' '}
-																						{countToUnit(
-																							limit?.config?.second?.count || 0,
-																						).value.toFixed(2)}{' '}
-																						{countToUnit(limit?.config?.second?.count || 0).unit}
-																					</div>
-																				) : (
-																					<>
-																						<InfinityIcon size={16} /> NO LIMIT
-																					</>
-																				))}
-																		</div>
-																	</div>
-																</div>
-															)}
-														</div>
-													</div>
-												);
-											})}
+													hasUpdateLimitForIngestionKeyError={
+														hasUpdateLimitForIngestionKeyError
+													}
+													createLimitForIngestionKeyError={createLimitForIngestionKeyError}
+													updateLimitForIngestionKeyError={updateLimitForIngestionKeyError}
+													hasLimits={hasLimits}
+													enableEditLimitMode={enableEditLimitMode}
+													showDeleteLimitModal={showDeleteLimitModal}
+													handleAddLimit={handleAddLimit}
+													handleUpdateLimit={handleUpdateLimit}
+													handleCreateAlert={handleCreateAlert}
+													handleDiscardSaveLimit={handleDiscardSaveLimit}
+													bytesToGb={bytesToGb}
+													countToUnit={countToUnit}
+												/>
+											))}
 										</div>
 									</div>
 								</div>
@@ -1593,7 +1158,7 @@ function MultiIngestionSettings(): JSX.Element {
 	};
 
 	const handleCopyIngestionURL = useCallback(
-		(e: React.MouseEvent<HTMLDivElement>): void => {
+		(e: React.MouseEvent<HTMLButtonElement>): void => {
 			e.stopPropagation();
 			e.preventDefault();
 
@@ -1611,9 +1176,9 @@ function MultiIngestionSettings(): JSX.Element {
 				<header>
 					<Typography.Title className="title"> Ingestion Keys </Typography.Title>
 					<Typography.Text className="subtitle">
-						Create and manage ingestion keys for Argus{' '}
+						Create and manage ingestion keys for WeCrew{' '}
 						<a
-							href="https://argus.example.com/docs/ingestion/signoz-cloud/keys/"
+							href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#ingestion-keys"
 							target="_blank"
 							className="learn-more"
 							rel="noreferrer"
@@ -1629,13 +1194,17 @@ function MultiIngestionSettings(): JSX.Element {
 							<div className="ingestion-key-url-label">Ingestion URL</div>
 
 							{!isErrorGlobalConfig && (
-								<div
+								<Button
+									variant="link"
+									color="secondary"
+									data-testid="copy-ingestion-url"
+									aria-label="Copy ingestion URL"
 									className="ingestion-key-url-value"
 									onClick={handleCopyIngestionURL}
 								>
 									{globalConfig?.data.ingestion_url}
 									<Copy className="copy-key-btn" size={12} />
-								</div>
+								</Button>
 							)}
 
 							{isErrorGlobalConfig && (

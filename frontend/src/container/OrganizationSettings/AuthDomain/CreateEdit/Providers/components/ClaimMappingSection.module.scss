@@ -1,0 +1,21 @@
+.toggle {
+	appearance: none;
+	width: 100%;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+
+	&:focus-visible {
+		outline: 2px solid var(--primary-background);
+		outline-offset: 3px;
+	}
+
+	:global(.claim-mapping-section__section-title),
+	:global(.claim-mapping-section__section-description) {
+		display: block;
+	}
+}

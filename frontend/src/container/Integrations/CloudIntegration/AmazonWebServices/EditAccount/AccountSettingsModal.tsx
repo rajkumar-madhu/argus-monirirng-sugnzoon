@@ -52,7 +52,7 @@ function AccountSettingsModal({
 		handleClose();
 		history.replace({ search: urlQuery.toString() });
 
-		logEvent('AWS Integration: Account removed', {
+		void logEvent('AWS Integration: Account removed', {
 			id: account?.id,
 			cloudAccountId: account?.cloud_account_id,
 		});
@@ -95,7 +95,7 @@ function AccountSettingsModal({
 							Which regions do you want to monitor?
 						</div>
 						<div className="account-settings-modal__body-region-selector-description">
-							Choose only the regions you want Argus to monitor.
+							Choose only the regions you want WeCrew to monitor.
 						</div>
 
 						<RegionSelector

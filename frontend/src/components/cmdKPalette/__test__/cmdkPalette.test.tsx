@@ -156,7 +156,8 @@ describe('CmdKPalette', () => {
 
 		expect(screen.getByText(HOME_LABEL)).toBeInTheDocument();
 		expect(screen.getByText('Go to Dashboards')).toBeInTheDocument();
-		expect(screen.getByText('Switch to Dark Mode')).toBeInTheDocument();
+		expect(screen.queryByText('Switch to Dark Mode')).not.toBeInTheDocument();
+		expect(screen.queryByText('Switch to System Theme')).not.toBeInTheDocument();
 	});
 
 	it('clicking a navigation item calls history.push with correct route', async () => {
@@ -166,7 +167,7 @@ describe('CmdKPalette', () => {
 		const homeItem = screen.getByText(HOME_LABEL);
 		await user.click(homeItem);
 
-		expect(history.push).toHaveBeenCalledWith(ROUTES.HOME);
+		expect(history.location.pathname).toBe(ROUTES.HOME);
 	});
 
 	it('role-based filtering (basic smoke)', () => {

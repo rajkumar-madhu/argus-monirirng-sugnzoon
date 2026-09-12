@@ -12,7 +12,7 @@ jest.mock('../../../api/browser/localstorage/get', () => ({
 const mockGet = getLocal as unknown as jest.Mock;
 
 describe('AppLoading', () => {
-	const SIGNOZ_TEXT = 'Argus';
+	const SIGNOZ_TEXT = 'WeCrew';
 	const TAGLINE_TEXT =
 		'OpenTelemetry-Native Logs, Metrics and Traces in a single pane';
 	const CONTAINER_SELECTOR = '.app-loading-container';
@@ -21,7 +21,7 @@ describe('AppLoading', () => {
 		jest.clearAllMocks();
 	});
 
-	it('should render loading screen with dark theme by default', () => {
+	it('should render loading screen with light theme by default', () => {
 		// Mock localStorage to return dark theme (or undefined for default)
 		mockGet.mockReturnValue(undefined);
 
@@ -32,10 +32,10 @@ describe('AppLoading', () => {
 		expect(screen.getByText(SIGNOZ_TEXT)).toBeInTheDocument();
 		expect(screen.getByText(TAGLINE_TEXT)).toBeInTheDocument();
 
-		// Check if dark theme class is applied
+		// Check that the loading screen is always light
 		const container = screen.getByText(SIGNOZ_TEXT).closest(CONTAINER_SELECTOR);
-		expect(container).toHaveClass('dark');
-		expect(container).not.toHaveClass('lightMode');
+		expect(container).toHaveClass('lightMode');
+		expect(container).not.toHaveClass('dark');
 	});
 
 	it('should have proper structure and content', () => {
@@ -70,9 +70,9 @@ describe('AppLoading', () => {
 
 		render(<AppLoading />);
 
-		// Should still render with dark theme as fallback
+		// Should remain light even when storage is unavailable
 		expect(screen.getByText(SIGNOZ_TEXT)).toBeInTheDocument();
 		const container = screen.getByText(SIGNOZ_TEXT).closest(CONTAINER_SELECTOR);
-		expect(container).toHaveClass('dark');
+		expect(container).toHaveClass('lightMode');
 	});
 });

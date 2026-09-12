@@ -376,7 +376,7 @@ export default function BillingContainer(): JSX.Element {
 				</Typography.Link>
 			</AuthZTooltip>
 			{` if your payment information has changed. Email us at `}
-			<Typography.Text color="muted">cloud-support@argus.example.com</Typography.Text>
+			<Typography.Text color="muted">support@wecrew.in</Typography.Text>
 			{` otherwise. Be sure to provide this information immediately to avoid interruption to your service.`}
 		</Typography>
 	);
@@ -614,7 +614,7 @@ export default function BillingContainer(): JSX.Element {
 								<span>
 									{t('checkout_plans')} &nbsp;
 									<a
-										href="https://argus.example.com/pricing/"
+										href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md"
 										style={{
 											color: 'var(--bg-cherry-300)',
 										}}

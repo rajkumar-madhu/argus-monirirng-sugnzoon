@@ -200,10 +200,10 @@ describe('Create Alert Channel (Normal User)', () => {
 					helpText: 'help_pager_client',
 				});
 			});
-			it('Should check if Client input contains the default value "Argus Alert Manager"', () => {
+			it('Should check if Client input contains the default value "WeCrew Alert Manager"', () => {
 				const clientTextArea = screen.getByTestId('pager-client-textarea');
 
-				expect(clientTextArea).toHaveValue('Argus Alert Manager');
+				expect(clientTextArea).toHaveValue('WeCrew Alert Manager');
 			});
 			it('Should check if Client URL label, text area, and info (Shows up as event source link in Pagerduty) are displayed properly', () => {
 				testLabelInputAndHelpValue({
@@ -212,11 +212,11 @@ describe('Create Alert Channel (Normal User)', () => {
 					helpText: 'help_pager_client_url',
 				});
 			});
-			it('Should check if Client URL contains the default value "https://enter-signoz-host-n-port-here/alerts"', () => {
+			it('Should check if Client URL contains the default WeCrew value', () => {
 				const clientUrlTextArea = screen.getByTestId('pager-client-url-textarea');
 
 				expect(clientUrlTextArea).toHaveValue(
-					'https://enter-signoz-host-n-port-here/alerts',
+					'https://monitoring.wecrew.in/alerts',
 				);
 			});
 		});

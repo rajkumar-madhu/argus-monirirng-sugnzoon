@@ -716,13 +716,13 @@ function ExplorerOptions({
 
 	const infoIconLink = useMemo(() => {
 		if (isLogsExplorer) {
-			return 'https://argus.example.com/docs/userguide/logs_query_builder/?utm_source=product&utm_medium=logs-explorer-toolbar';
+			return 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#logs';
 		}
 		// TODO: Add metrics explorer info icon link
 		if (isMetricsExplorer) {
 			return '';
 		}
-		return 'https://argus.example.com/docs/userguide/traces/?utm_source=product&utm_medium=trace-explorer-toolbar';
+		return 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces';
 	}, [isLogsExplorer, isMetricsExplorer]);
 
 	const getQueryName = (query: Query): string => {

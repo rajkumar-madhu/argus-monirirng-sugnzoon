@@ -94,7 +94,7 @@ export default function AlertRules({
 								className="periscope-btn secondary"
 								icon={<Plus size={16} />}
 								onClick={(): void => {
-									logEvent('Homepage: Create alert rule clicked', {});
+									void logEvent('Homepage: Create alert rule clicked', {});
 								}}
 							>
 								Create Alert Rule
@@ -105,12 +105,12 @@ export default function AlertRules({
 							type="link"
 							className="learn-more-link"
 							onClick={(): void => {
-								logEvent('Homepage: Learn more clicked', {
+								void logEvent('Homepage: Learn more clicked', {
 									source: 'Alert Rules',
 								});
 
 								window.open(
-									'https://argus.example.com/docs/alerts/',
+									'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#alerts',
 									'_blank',
 									'noreferrer noopener',
 								);
@@ -125,7 +125,7 @@ export default function AlertRules({
 	);
 
 	const onEditHandler = (record: RuletypesRuleDTO) => (): void => {
-		logEvent('Homepage: Alert clicked', {
+		void logEvent('Homepage: Alert clicked', {
 			ruleId: record.id,
 			ruleName: record.alert,
 			ruleState: record.state,
@@ -152,32 +152,38 @@ export default function AlertRules({
 	const renderAlertRules = (): JSX.Element => (
 		<div className="alert-rules-container home-data-item-container">
 			<div className="alert-rules-list">
-				{sortedAlertRules.map((rule) => (
-					<div
-						role="button"
-						tabIndex={0}
+				{sortedAlertRules.map((rule, index) => (
+					<button
+						type="button"
+						data-testid="home-alert-rule"
+						style={{
+							border: 0,
+							font: 'inherit',
+							color: 'inherit',
+							textAlign: 'left',
+							width: '100%',
+							background:
+								index % 2 === 0
+									? 'color-mix(in srgb, var(--l1-foreground) 1%, transparent)'
+									: 'transparent',
+						}}
 						className="alert-rule-item home-data-item"
 						key={rule.id}
 						onClick={onEditHandler(rule)}
-						onKeyDown={(e): void => {
-							if (e.key === 'Enter') {
-								onEditHandler(rule);
-							}
-						}}
 					>
-						<div className="alert-rule-item-name-container home-data-item-name-container">
+						<span className="alert-rule-item-name-container home-data-item-name-container">
 							<img
 								src={getItemIcon(rule.id)}
 								alt="alert-rules"
 								className="alert-rules-img"
 							/>
 
-							<div className="alert-rule-item-name home-data-item-name">
+							<span className="alert-rule-item-name home-data-item-name">
 								{rule.alert}
-							</div>
-						</div>
+							</span>
+						</span>
 
-						<div className="alert-rule-item-description home-data-item-tag">
+						<span className="alert-rule-item-description home-data-item-tag">
 							<Badge color="sienna" variant="outline">
 								{rule?.labels?.severity}
 							</Badge>
@@ -187,8 +193,8 @@ export default function AlertRules({
 									{rule.state}
 								</Badge>
 							)}
-						</div>
-					</div>
+						</span>
+					</button>
 				))}
 			</div>
 		</div>
@@ -233,7 +239,7 @@ export default function AlertRules({
 								type="link"
 								className="periscope-btn link learn-more-link"
 								onClick={(): void => {
-									logEvent('Homepage: All alert rules clicked', {});
+									void logEvent('Homepage: All alert rules clicked', {});
 								}}
 							>
 								All Alert Rules <ArrowRight size={12} />

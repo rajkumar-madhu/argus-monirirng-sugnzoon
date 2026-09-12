@@ -33,10 +33,8 @@ import { isModifierKeyPressed } from 'utils/app';
 import { getBaseUrl } from 'utils/basePath';
 import { getFormattedDate } from 'utils/timeUtils';
 
-import CustomerStoryCard from './CustomerStoryCard';
 import InfoBlocks from './InfoBlocks';
 import {
-	customerStoriesData,
 	enterpriseGradeValuesData,
 	faqData,
 	infoData,
@@ -123,9 +121,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 			duration: 0,
 			description: (
 				<Typography>
-					{t('extendTrialMsgPart1')}{' '}
-					<a href="mailto:cloud-support@argus.example.com">cloud-support@argus.example.com</a>{' '}
-					{t('extendTrialMsgPart2')}
+					{t('extendTrialMsgPart1')} {t('extendTrialMsgPart2')}
 				</Typography>
 			),
 		});
@@ -136,22 +132,6 @@ export default function WorkspaceBlocked(): JSX.Element {
 
 		safeNavigate(ROUTES.BILLING, { newTab: !!e && isModifierKeyPressed(e) });
 	};
-
-	const renderCustomerStories = (
-		filterCondition: (index: number) => boolean,
-	): JSX.Element[] =>
-		customerStoriesData
-			.filter((_, index) => filterCondition(index))
-			.map((story) => (
-				<CustomerStoryCard
-					avatar={story.avatar}
-					personName={story.personName}
-					role={story.role}
-					message={story.message}
-					link={story.link}
-					key={story.key}
-				/>
-			));
 
 	const tabItems: TabsProps['items'] = [
 		{
@@ -205,48 +185,6 @@ export default function WorkspaceBlocked(): JSX.Element {
 			),
 		},
 		{
-			key: 'youAreInGoodCompany',
-			label: t('youAreInGoodCompany'),
-			children: (
-				<Row gutter={[24, 16]} justify="center">
-					{/* #FIXME: please suggest if there is any better way to loop in different columns to get the masonry layout */}
-					<Col
-						span={10}
-						className="workspace-locked__customer-stories__left-container"
-					>
-						{renderCustomerStories((index) => index % 2 === 0)}
-					</Col>
-					<Col
-						span={10}
-						className="workspace-locked__customer-stories__right-container"
-					>
-						{renderCustomerStories((index) => index % 2 !== 0)}
-					</Col>
-					<Col span={24}>
-						<Flex justify="center">
-							<AuthZTooltip checks={[SubscriptionCreatePermission]} withPortal={false}>
-								<Button
-									type="primary"
-									shape="round"
-									size="middle"
-									loading={isLoading}
-									onClick={handleUpdateCreditCard}
-								>
-									{t('continueToUpgrade')}
-								</Button>
-							</AuthZTooltip>
-						</Flex>
-					</Col>
-				</Row>
-			),
-		},
-		// #TODO: comming soon
-		// {
-		// 	key: '3',
-		// 	label: 'Our Pricing',
-		// 	children: 'Our Pricing',
-		// },
-		{
 			key: 'faqs',
 			label: t('faqs'),
 			children: (
@@ -259,7 +197,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 						>
 							<Collapse
 								items={faqData}
-								defaultActiveKey={['signoz-cloud-vs-community']}
+								defaultActiveKey={['self-hosted-observability']}
 								onChange={handleCollapseChange}
 							/>
 							<AuthZTooltip checks={[SubscriptionCreatePermission]} withPortal={false}>
@@ -295,7 +233,6 @@ export default function WorkspaceBlocked(): JSX.Element {
 									className="workspace-locked__modal__header__actions__billing"
 									type="link"
 									size="small"
-									role="button"
 									onClick={(e): void => handleViewBilling(e)}
 								>
 									View Billing
@@ -308,12 +245,14 @@ export default function WorkspaceBlocked(): JSX.Element {
 								type="default"
 								shape="round"
 								size="middle"
-								href="mailto:cloud-support@argus.example.com"
-								role="button"
+								href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues"
+								target="_blank"
+								rel="noopener noreferrer"
+								data-testid="workspace-locked-report-issue"
 								className="periscope-btn"
 								onClick={handleContactUsClick}
 							>
-								Contact Us
+								Report an issue
 							</Button>
 						</span>
 					</div>
@@ -332,16 +271,22 @@ export default function WorkspaceBlocked(): JSX.Element {
 								<Col>
 									<Space direction="vertical" align="center">
 										<Typography.Title level={2}>
-											<div className="workspace-locked__title">Upgrade to Continue</div>
+											<div className="workspace-locked__title">
+												{t('upgradeToContinue')}
+											</div>
 										</Typography.Title>
 										<Typography.Text className="workspace-locked__details">
 											{t('upgradeNow')}
 											<br />
-											{t('yourDataIsSafe')}{' '}
-											<span className="workspace-locked__details__highlight">
-												{getFormattedDate(trialInfo?.gracePeriodEnd || Date.now())}
-											</span>{' '}
-											{t('actNow')}
+											{trialInfo.gracePeriodEnd > 0 && (
+												<>
+													{t('yourDataIsSafe')}{' '}
+													<span className="workspace-locked__details__highlight">
+														{getFormattedDate(trialInfo.gracePeriodEnd)}
+													</span>{' '}
+												</>
+											)}
+											<span className="translate-safe">{t('actNow')}</span>
 										</Typography.Text>
 									</Space>
 								</Col>
@@ -386,7 +331,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 							<div className="workspace-locked__tabs">
 								<Tabs
 									items={tabItems}
-									defaultActiveKey="youAreInGoodCompany"
+									defaultActiveKey="whyChooseSignoz"
 									onTabClick={handleTabClick}
 								/>
 							</div>

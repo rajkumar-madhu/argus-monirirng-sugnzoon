@@ -164,7 +164,7 @@ function BreakDown(): JSX.Element {
 								Meter metrics data is aggregated over 1 hour period. Please select time
 								range accordingly.&nbsp;
 								<a
-									href="https://argus.example.com/docs/cost-meter/overview/#get-started"
+									href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics"
 									rel="noopener noreferrer"
 									target="_blank"
 									style={{ textDecoration: 'underline' }}

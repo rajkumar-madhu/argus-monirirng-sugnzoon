@@ -1,0 +1,170 @@
+# Requires an enforcing CNI. Placeholder edge address intentionally denies real traffic.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: wecrew-monitoring
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: wecrew-monitoring
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/part-of: wecrew-monitoring
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - {protocol: UDP, port: 53}
+        - {protocol: TCP, port: 53}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: database-clients
+  namespace: wecrew-monitoring
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/part-of: wecrew-monitoring
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values: [argus, otel-collector]
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: clickhouse
+              app.kubernetes.io/part-of: wecrew-monitoring
+      ports:
+        - {protocol: TCP, port: 8123}
+        - {protocol: TCP, port: 9000}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: clickhouse-peers
+  namespace: wecrew-monitoring
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: clickhouse
+      app.kubernetes.io/part-of: wecrew-monitoring
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/part-of: wecrew-monitoring
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values: [argus, otel-collector, clickhouse]
+      ports:
+        - {protocol: TCP, port: 8123}
+        - {protocol: TCP, port: 9000}
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: clickhouse
+              app.kubernetes.io/part-of: wecrew-monitoring
+      ports:
+        - {protocol: TCP, port: 9009}
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: zookeeper
+              app.kubernetes.io/part-of: wecrew-monitoring
+      ports:
+        - {protocol: TCP, port: 2181}
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: clickhouse
+              app.kubernetes.io/part-of: wecrew-monitoring
+      ports:
+        - {protocol: TCP, port: 9000}
+        - {protocol: TCP, port: 9009}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: zookeeper-client
+  namespace: wecrew-monitoring
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: zookeeper
+      app.kubernetes.io/part-of: wecrew-monitoring
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: clickhouse
+              app.kubernetes.io/part-of: wecrew-monitoring
+      ports:
+        - {protocol: TCP, port: 2181}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: app-edge
+  namespace: wecrew-monitoring
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: argus
+      app.kubernetes.io/part-of: wecrew-monitoring
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - ipBlock:
+            cidr: 192.0.2.1/32
+      ports:
+        - {protocol: TCP, port: 8080}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: collector-edge
+  namespace: wecrew-monitoring
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: otel-collector
+      app.kubernetes.io/part-of: wecrew-monitoring
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - ipBlock:
+            cidr: 192.0.2.1/32
+      ports:
+        - {protocol: TCP, port: 4317}
+        - {protocol: TCP, port: 4318}
+        - {protocol: TCP, port: 13133}
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              wecrew.in/monitoring-otlp-client: "true"
+          podSelector:
+            matchLabels:
+              wecrew.in/monitoring-otlp-client: "true"
+      ports:
+        - {protocol: TCP, port: 4317}
+        - {protocol: TCP, port: 4318}

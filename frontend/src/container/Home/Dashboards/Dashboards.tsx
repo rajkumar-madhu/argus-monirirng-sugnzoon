@@ -85,7 +85,7 @@ export default function Dashboards({
 								className="periscope-btn secondary"
 								icon={<Plus size={16} />}
 								onClick={(): void => {
-									logEvent('Homepage: Create dashboard clicked', {});
+									void logEvent('Homepage: Create dashboard clicked', {});
 								}}
 							>
 								New Dashboard
@@ -96,11 +96,11 @@ export default function Dashboards({
 							type="link"
 							className="learn-more-link"
 							onClick={(): void => {
-								logEvent('Homepage: Learn more clicked', {
+								void logEvent('Homepage: Learn more clicked', {
 									source: 'Dashboards',
 								});
 								window.open(
-									'https://argus.example.com/docs/userguide/manage-dashboards/',
+									'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#dashboards',
 									'_blank',
 								);
 							}}
@@ -116,12 +116,12 @@ export default function Dashboards({
 	const renderDashboardsList = (): JSX.Element => (
 		<div className="home-dashboards-list-container home-data-item-container">
 			<div className="dashboards-list">
-				{sortedDashboards.slice(0, 5).map((dashboard) => {
+				{sortedDashboards.slice(0, 5).map((dashboard, index) => {
 					const getLink = (): string => `${ROUTES.ALL_DASHBOARD}/${dashboard.id}`;
 
 					const onClickHandler = (event: React.MouseEvent<HTMLElement>): void => {
 						event.stopPropagation();
-						logEvent('Homepage: Dashboard clicked', {
+						void logEvent('Homepage: Dashboard clicked', {
 							dashboardId: dashboard.id,
 							dashboardName: dashboard.title,
 						});
@@ -133,38 +133,44 @@ export default function Dashboards({
 					};
 
 					return (
-						<div
-							role="button"
-							tabIndex={0}
+						<button
+							type="button"
+							data-testid="home-dashboard"
+							style={{
+								border: 0,
+								font: 'inherit',
+								color: 'inherit',
+								textAlign: 'left',
+								width: '100%',
+								background:
+									index % 2 === 0
+										? 'color-mix(in srgb, var(--l1-foreground) 1%, transparent)'
+										: 'transparent',
+							}}
 							className="dashboard-item home-data-item"
 							key={dashboard.id}
 							onClick={onClickHandler}
-							onKeyDown={(e): void => {
-								if (e.key === 'Enter') {
-									onClickHandler(e as unknown as React.MouseEvent<HTMLElement>);
-								}
-							}}
 						>
-							<div className="dashboard-item-name-container home-data-item-name-container">
+							<span className="dashboard-item-name-container home-data-item-name-container">
 								<img
 									src={getItemIcon(dashboard.id)}
 									alt="alert-rules"
 									className="alert-rules-img"
 								/>
 
-								<div className="alert-rule-item-name home-data-item-name">
+								<span className="alert-rule-item-name home-data-item-name">
 									{dashboard.title}
-								</div>
-							</div>
+								</span>
+							</span>
 
-							<div className="alert-rule-item-description home-data-item-tag">
+							<span className="alert-rule-item-description home-data-item-tag">
 								{dashboard.tags.map((tag) => (
 									<Badge color="sienna" variant="outline" key={tag}>
 										{tag}
 									</Badge>
 								))}
-							</div>
-						</div>
+							</span>
+						</button>
 					);
 				})}
 			</div>
@@ -212,7 +218,7 @@ export default function Dashboards({
 								type="link"
 								className="periscope-btn link learn-more-link"
 								onClick={(): void => {
-									logEvent('Homepage: All dashboards clicked', {});
+									void logEvent('Homepage: All dashboards clicked', {});
 								}}
 							>
 								All Dashboards <ArrowRight size={12} />

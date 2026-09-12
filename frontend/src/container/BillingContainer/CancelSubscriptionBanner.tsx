@@ -21,20 +21,20 @@ import { Color } from '@signozhq/design-tokens';
 
 import styles from './CancelSubscriptionBanner.module.scss';
 
-const SUPPORT_EMAIL = 'cloud-support@argus.example.com';
+const SUPPORT_EMAIL = 'support@wecrew.in';
 const MAX_MAILTO_URI_LENGTH = 1800;
 
 type DialogView = 'confirm' | 'fallback';
 
 function buildEmailBody(orgName: string, userEmail: string): string {
 	return [
-		'Hi Argus Team,',
+		'Hi WeCrew Team,',
 		'',
-		'I would like to cancel my Argus Cloud subscription.',
+		'I would like to cancel my WeCrew subscription.',
 		'Please find my account details below.',
 		'',
 		'Account Details:',
-		`  • Argus URL: ${getBaseUrl()}`,
+		`  • WeCrew URL: ${getBaseUrl()}`,
 		...(orgName ? [`  • Organization: ${orgName}`] : []),
 		`  • Account Email: ${userEmail}`,
 		'',
@@ -50,14 +50,14 @@ function buildEmailBody(orgName: string, userEmail: string): string {
 }
 
 function buildMailtoUri(orgName: string, userEmail: string): string {
-	const subject = encodeURIComponent('Cancel My Argus Subscription');
+	const subject = encodeURIComponent('Cancel My WeCrew Subscription');
 	const body = encodeURIComponent(buildEmailBody(orgName, userEmail));
 	const full = `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
 	if (full.length <= MAX_MAILTO_URI_LENGTH) {
 		return full;
 	}
 	const shortBody = encodeURIComponent(
-		'Hi Argus Team,\n\nI would like to cancel my Argus Cloud subscription.\nPlease find my account details and reason for cancellation below.\n\n[Your details here]\n\nRegards,',
+		'Hi WeCrew Team,\n\nI would like to cancel my WeCrew subscription.\nPlease find my account details and reason for cancellation below.\n\n[Your details here]\n\nRegards,',
 	);
 	return `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${shortBody}`;
 }
@@ -176,7 +176,7 @@ function CancelSubscriptionBanner(): JSX.Element {
 						<span className={styles.title}>Cancel your subscription</span>
 					</div>
 					<span className={styles.subtitle}>
-						When you cancel your Argus subscription, all your data will be deleted
+						When you cancel your WeCrew subscription, all your data will be deleted
 						immediately and removed from our servers.
 					</span>
 				</div>
@@ -204,7 +204,7 @@ function CancelSubscriptionBanner(): JSX.Element {
 					<div className={styles.dialogBody}>
 						<p className={styles.dialogDescription}>
 							Cancelling your subscription would stop your data from being ingested to
-							Argus. All the data that has been already sent will also be deleted.
+							WeCrew. All the data that has been already sent will also be deleted.
 						</p>
 						<p className={styles.dialogConfirmLabel}>
 							Type <code>cancel</code> to confirm the cancellation.

@@ -77,9 +77,9 @@ export const INITIAL_INSPECT_METRICS_OPTIONS: MetricInspectionState = {
 };
 
 export const TEMPORAL_AGGREGATION_LINK =
-	'https://argus.example.com/docs/metrics-management/types-and-aggregation/#step-2-temporal-aggregation';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics';
 
 export const SPACE_AGGREGATION_LINK =
-	'https://argus.example.com/docs/metrics-management/types-and-aggregation/#step-3-spatial-aggregation';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics';
 
 export const GRAPH_CLICK_PIXEL_TOLERANCE = 10;

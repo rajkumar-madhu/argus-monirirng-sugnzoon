@@ -60,45 +60,20 @@ function WorkspaceAccessRestricted(): JSX.Element {
 										>
 											{activeLicense.state === LicenseState.TERMINATED && (
 												<>
-													Your Argus license is terminated, please contact support at{' '}
-													<a href="mailto:cloud-support@argus.example.com">
-														cloud-support@argus.example.com
-													</a>{' '}
-													for a new deployment
+													Your WeCrew license is terminated. Contact your workspace
+													administrator to review access and licensing options.
 												</>
 											)}
 											{activeLicense.state === LicenseState.EXPIRED && (
 												<>
-													Your Argus license is expired, please contact support at{' '}
-													<a href="mailto:cloud-support@argus.example.com">
-														cloud-support@argus.example.com
-													</a>{' '}
-													for renewal to avoid termination of license as per our{' '}
-													<a
-														href="https://argus.example.com/terms-of-service"
-														target="_blank"
-														rel="noopener noreferrer"
-													>
-														terms of service
-													</a>
-													.
+													Your WeCrew license is expired. Contact your workspace
+													administrator to review access and licensing options.
 												</>
 											)}
 											{activeLicense.state === LicenseState.CANCELLED && (
 												<>
-													Your Argus license is cancelled, please contact support at{' '}
-													<a href="mailto:cloud-support@argus.example.com">
-														cloud-support@argus.example.com
-													</a>{' '}
-													for reactivation to avoid termination of license as per our{' '}
-													<a
-														href="https://argus.example.com/terms-of-service"
-														target="_blank"
-														rel="noopener noreferrer"
-													>
-														terms of service
-													</a>
-													.
+													Your WeCrew license is cancelled. Contact your workspace
+													administrator to review access and licensing options.
 												</>
 											)}
 										</Typography.Title>
@@ -107,10 +82,12 @@ function WorkspaceAccessRestricted(): JSX.Element {
 											type="default"
 											shape="round"
 											size="middle"
-											href="mailto:cloud-support@argus.example.com"
-											role="button"
+											href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues"
+											target="_blank"
+											rel="noopener noreferrer"
+											data-testid="restricted-report-issue"
 										>
-											Contact Us
+											Report an issue
 										</Button>
 									</Space>
 								</Col>

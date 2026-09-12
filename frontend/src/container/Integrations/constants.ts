@@ -28,11 +28,11 @@ export const INTEGRATION_TYPES = {
 export const AWS_INTEGRATION = {
 	id: INTEGRATION_TYPES.AWS,
 	title: 'Amazon Web Services',
-	description: 'One click setup for AWS monitoring with Argus',
+	description: 'One-click setup for AWS monitoring with WeCrew',
 	author: {
-		name: 'Argus',
-		email: 'integrations@argus.example.com',
-		homepage: 'https://argus.example.com',
+		name: 'WeCrew',
+		email: 'integrations@wecrew.in',
+		homepage: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon',
 	},
 	icon: awsDarkLogo,
 	icon_alt: 'aws-logo',
@@ -43,11 +43,11 @@ export const AWS_INTEGRATION = {
 export const AZURE_INTEGRATION = {
 	id: INTEGRATION_TYPES.AZURE,
 	title: 'Microsoft Azure',
-	description: 'One click setup for Azure monitoring with Argus',
+	description: 'One-click setup for Azure monitoring with WeCrew',
 	author: {
-		name: 'Argus',
-		email: 'integrations@argus.example.com',
-		homepage: 'https://argus.example.com',
+		name: 'WeCrew',
+		email: 'integrations@wecrew.in',
+		homepage: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon',
 	},
 	icon: azureOpenaiLogo,
 	icon_alt: 'azure-logo',
@@ -58,11 +58,11 @@ export const AZURE_INTEGRATION = {
 export const GCP_INTEGRATION = {
 	id: INTEGRATION_TYPES.GCP,
 	title: 'Google Cloud Platform',
-	description: 'Setup for GCP monitoring with Argus',
+	description: 'Setup for GCP monitoring with WeCrew',
 	author: {
-		name: 'Argus',
-		email: 'integrations@argus.example.com',
-		homepage: 'https://argus.example.com',
+		name: 'WeCrew',
+		email: 'integrations@wecrew.in',
+		homepage: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon',
 	},
 	icon: gcpLogo,
 	icon_alt: 'gcp-logo',

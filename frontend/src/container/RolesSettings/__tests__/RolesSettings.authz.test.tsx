@@ -45,16 +45,16 @@ describe('RolesSettings', () => {
 	it('displays roles grouped by managed and custom sections', async () => {
 		render(<RolesSettings />);
 
-		await expect(screen.findByText('signoz-admin')).resolves.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Admin')).resolves.toBeInTheDocument();
 
 		// Section headers
 		await expect(screen.findByText('Managed roles')).resolves.toBeInTheDocument();
 		await expect(screen.findByText('Custom roles')).resolves.toBeInTheDocument();
 
 		// Managed roles
-		await expect(screen.findByText('signoz-admin')).resolves.toBeInTheDocument();
-		await expect(screen.findByText('signoz-editor')).resolves.toBeInTheDocument();
-		await expect(screen.findByText('signoz-viewer')).resolves.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Admin')).resolves.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Editor')).resolves.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Viewer')).resolves.toBeInTheDocument();
 
 		// Custom roles
 		await expect(
@@ -78,7 +78,7 @@ describe('RolesSettings', () => {
 		const user = userEvent.setup();
 		render(<RolesSettings />);
 
-		await expect(screen.findByText('signoz-admin')).resolves.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Admin')).resolves.toBeInTheDocument();
 
 		const searchInput = screen.getByPlaceholderText('Search for roles...');
 		await user.clear(searchInput);
@@ -87,8 +87,8 @@ describe('RolesSettings', () => {
 		await expect(
 			screen.findByText('billing-manager'),
 		).resolves.toBeInTheDocument();
-		expect(screen.queryByText('signoz-admin')).not.toBeInTheDocument();
-		expect(screen.queryByText('signoz-editor')).not.toBeInTheDocument();
+		expect(screen.queryByText('WeCrew Admin')).not.toBeInTheDocument();
+		expect(screen.queryByText('WeCrew Editor')).not.toBeInTheDocument();
 		expect(screen.queryByText('dashboard-creator')).not.toBeInTheDocument();
 	});
 
@@ -96,14 +96,14 @@ describe('RolesSettings', () => {
 		const user = userEvent.setup();
 		render(<RolesSettings />);
 
-		await expect(screen.findByText('signoz-admin')).resolves.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Admin')).resolves.toBeInTheDocument();
 
 		const searchInput = screen.getByPlaceholderText('Search for roles...');
 		await user.clear(searchInput);
 		await user.type(searchInput, 'read-only');
 
-		await expect(screen.findByText('signoz-viewer')).resolves.toBeInTheDocument();
-		expect(screen.queryByText('signoz-admin')).not.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Viewer')).resolves.toBeInTheDocument();
+		expect(screen.queryByText('WeCrew Admin')).not.toBeInTheDocument();
 		expect(screen.queryByText('billing-manager')).not.toBeInTheDocument();
 	});
 
@@ -111,7 +111,7 @@ describe('RolesSettings', () => {
 		const user = userEvent.setup();
 		render(<RolesSettings />);
 
-		await expect(screen.findByText('signoz-admin')).resolves.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Admin')).resolves.toBeInTheDocument();
 
 		const searchInput = screen.getByPlaceholderText('Search for roles...');
 		await user.clear(searchInput);
@@ -174,14 +174,17 @@ describe('RolesSettings', () => {
 	it('renders descriptions for all roles', async () => {
 		render(<RolesSettings />);
 
-		await expect(screen.findByText('signoz-admin')).resolves.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Admin')).resolves.toBeInTheDocument();
 
-		for (const role of allRoles) {
-			if (role.description) {
-				await expect(
-					screen.findByText(role.description),
-				).resolves.toBeInTheDocument();
-			}
+		for (const role of allRoles.filter((item) => item.description)) {
+			const description = role.description ?? '';
+			const expectedDescription =
+				role.type === 'managed'
+					? description.replace(/Argus/g, 'WeCrew')
+					: description;
+			await expect(
+				screen.findByText(expectedDescription),
+			).resolves.toBeInTheDocument();
 		}
 	});
 
@@ -190,7 +193,7 @@ describe('RolesSettings', () => {
 			appContextOverrides: { activeLicense: invalidLicense },
 		});
 
-		await expect(screen.findByText('signoz-admin')).resolves.toBeInTheDocument();
+		await expect(screen.findByText('WeCrew Admin')).resolves.toBeInTheDocument();
 
 		// Create button must be absent
 		expect(

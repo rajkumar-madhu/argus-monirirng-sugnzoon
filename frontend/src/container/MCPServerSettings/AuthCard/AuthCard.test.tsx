@@ -52,7 +52,7 @@ describe('AuthCard', () => {
 		render(<AuthCard {...defaultProps} isAdmin />);
 
 		await user.click(
-			screen.getByRole('button', { name: 'Copy Argus instance URL' }),
+			screen.getByRole('button', { name: 'Copy WeCrew instance URL' }),
 		);
 
 		expect(mockOnCopyInstanceUrl).toHaveBeenCalledTimes(1);
@@ -88,7 +88,7 @@ describe('AuthCard', () => {
 			render(<AuthCard {...defaultProps} isAdmin isLoadingInstanceUrl />);
 
 			expect(
-				screen.queryByRole('button', { name: 'Copy Argus instance URL' }),
+				screen.queryByRole('button', { name: 'Copy WeCrew instance URL' }),
 			).not.toBeInTheDocument();
 		});
 
@@ -99,7 +99,7 @@ describe('AuthCard', () => {
 				'http://localhost',
 			);
 			expect(
-				screen.getByRole('button', { name: 'Copy Argus instance URL' }),
+				screen.getByRole('button', { name: 'Copy WeCrew instance URL' }),
 			).toBeInTheDocument();
 		});
 	});

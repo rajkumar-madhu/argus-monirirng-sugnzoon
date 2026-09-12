@@ -24,7 +24,7 @@ function LicenseKeyRow(): JSX.Element | null {
 		<div className="license-key-row">
 			<span className="license-key-row__left">
 				<KeyRound size={14} />
-				<span className="license-key-row__label">Argus License Key</span>
+				<span className="license-key-row__label">WeCrew License Key</span>
 			</span>
 			<span className="license-key-row__value">
 				<code className="license-key-row__code">{getMaskedKey(licenseKey)}</code>

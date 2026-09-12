@@ -108,7 +108,7 @@ export function AboutArgusQuestions({
 			otherInterestInSignoz,
 		});
 
-		logEvent('Org Onboarding: Answered', {
+		void logEvent('Org Onboarding: Answered', {
 			discoverSignoz,
 			interestInSignoz,
 			otherInterestInSignoz,
@@ -121,13 +121,13 @@ export function AboutArgusQuestions({
 		<div className="questions-container">
 			<OnboardingQuestionHeader
 				title="Set up your workspace"
-				subtitle="Tailor Argus to suit your observability needs."
+				subtitle="Tailor WeCrew to suit your observability needs."
 			/>
 
 			<div className="questions-form-container">
 				<div className="questions-form">
 					<div className="form-group">
-						<div className="question">How did you first come across Argus?</div>
+						<div className="question">How did you first come across WeCrew?</div>
 
 						<AntdInput.TextArea
 							className="discover-signoz-input"
@@ -140,7 +140,7 @@ export function AboutArgusQuestions({
 					</div>
 
 					<div className="form-group">
-						<div className="question">What got you interested in Argus?</div>
+						<div className="question">What got you interested in WeCrew?</div>
 						<div className="checkbox-grid">
 							{shuffledOptionKeys.map((option: string) => (
 								<div key={option} className="checkbox-item">
@@ -166,7 +166,7 @@ export function AboutArgusQuestions({
 									<Input
 										type="text"
 										className="onboarding-questionaire-other-input"
-										placeholder="What got you interested in Argus?"
+										placeholder="What got you interested in WeCrew?"
 										value={otherInterestInSignoz}
 										autoFocus
 										onChange={(e): void => setOtherInterestInSignoz(e.target.value)}

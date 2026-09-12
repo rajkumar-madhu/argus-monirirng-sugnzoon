@@ -144,7 +144,9 @@ export function PlannedDowntimeForm(
 
 	const requiredFieldRule = [{ required: true }];
 
-	const datePickerFooter = (mode: any): any =>
+	const datePickerFooter: NonNullable<
+		React.ComponentProps<typeof DatePicker>['renderExtraFooter']
+	> = (mode) =>
 		mode === 'time' ? (
 			<span style={{ color: 'gray' }}>Please select the time</span>
 		) : null;
@@ -543,7 +545,7 @@ export function PlannedDowntimeForm(
 									<span>
 										Scope the planned downtime by alert labels.{' '}
 										<a
-											href="https://argus.example.com/docs/alerts-management/planned-maintenance/#scoping-with-label-expressions"
+											href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#alerts"
 											target="_blank"
 											rel="noopener noreferrer"
 										>
@@ -575,7 +577,9 @@ export function PlannedDowntimeForm(
 						>
 							<Flex align="center" gap={4}>
 								<Check size={16} />
-								{isEditMode ? 'Update downtime schedule' : 'Add downtime schedule'}
+								<span className="translate-safe">
+									{isEditMode ? 'Update downtime schedule' : 'Add downtime schedule'}
+								</span>
 							</Flex>
 						</Button>
 					</ModalButtonWrapper>

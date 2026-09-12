@@ -1,16 +1,17 @@
-//@ts-nocheck
-
 import { useEffect, useState } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { connect, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Select, Space } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import Graph from 'components/Graph';
-import { GetService, getUsageData, UsageDataItem } from 'store/actions';
+import {
+	GetService,
+	GetServiceProps,
+	getUsageData,
+	UsageDataItem,
+} from 'store/actions';
 import { AppState } from 'store/reducers';
 import { GlobalTime } from 'types/actions/globalTime';
-import { GlobalReducer } from 'types/reducer/globalTime';
 import MetricReducer from 'types/reducer/metrics';
 import { isOnboardingSkipped } from 'utils/app';
 
@@ -26,13 +27,8 @@ interface UsageExplorerProps {
 		selectedInterval: number,
 		selectedService: string,
 	) => void;
-	getServicesList: ({
-		selectedTimeInterval,
-	}: {
-		selectedTimeInterval: GlobalReducer['selectedTime'];
-	}) => void;
+	getServicesList: (props: GetServiceProps) => void;
 	globalTime: GlobalTime;
-	servicesList: servicesListItem[];
 	totalCount: number;
 }
 const timeDaysOptions = [
@@ -62,14 +58,10 @@ const interval = [
 	},
 ];
 
-function _UsageExplorer(props: UsageExplorerProps): JSX.Element {
+function UsageExplorerContent(props: UsageExplorerProps): JSX.Element {
 	const [selectedTime, setSelectedTime] = useState(timeDaysOptions[1]);
 	const [selectedInterval, setSelectedInterval] = useState(interval[2]);
 	const [selectedService, setSelectedService] = useState<string>('');
-	const { selectedTime: globalSelectedTime } = useSelector<
-		AppState,
-		GlobalReducer
-	>((state) => state.globalTime);
 	const { getServicesList, getUsageData, globalTime, totalCount, usageData } =
 		props;
 	const { services } = useSelector<AppState, MetricReducer>(
@@ -87,9 +79,11 @@ function _UsageExplorer(props: UsageExplorerProps): JSX.Element {
 
 	useEffect(() => {
 		getServicesList({
-			selectedTimeInterval: globalSelectedTime,
+			minTime: globalTime.minTime,
+			maxTime: globalTime.maxTime,
+			selectedTags: [],
 		});
-	}, [globalTime, getServicesList, globalSelectedTime]);
+	}, [globalTime, getServicesList]);
 
 	const data = {
 		labels: usageData.map((s) => new Date(s.timestamp / 1000000)),
@@ -171,7 +165,7 @@ function _UsageExplorer(props: UsageExplorerProps): JSX.Element {
 						<Typography>
 							No spans found. Please add instrumentation (follow this
 							<a
-								href="https://argus.example.com/docs/instrumentation/overview"
+								href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces"
 								target="_blank"
 								style={{ marginLeft: 3 }}
 								rel="noreferrer"
@@ -213,9 +207,7 @@ const mapStateToProps = (
 	};
 };
 
-export const UsageExplorer = withRouter(
-	connect(mapStateToProps, {
-		getUsageData,
-		getServicesList: GetService,
-	})(_UsageExplorer),
-);
+export const UsageExplorer = connect(mapStateToProps, {
+	getUsageData,
+	getServicesList: GetService,
+})(UsageExplorerContent);

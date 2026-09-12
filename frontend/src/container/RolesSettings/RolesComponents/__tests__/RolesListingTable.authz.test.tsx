@@ -8,6 +8,7 @@ import {
 } from 'lib/authz/utils/authz-test-utils';
 import { render, screen } from 'tests/test-utils';
 
+import { getRoleOptions } from 'components/RolesSelect/RolesSelect';
 import RolesListingTable from '../RolesListingTable';
 
 const rolesApiBase = '*/api/v1/roles';
@@ -31,6 +32,37 @@ function renderTable(): ReturnType<typeof render> {
 }
 
 describe('RolesListingTable - AuthZ', () => {
+	it('keeps API identifiers when presenting branded role options', () => {
+		const roles = [
+			{
+				id: 'admin-id',
+				name: 'signoz-admin',
+				type: 'managed',
+				orgId: 'org-id',
+				description: 'Admin access',
+			},
+		];
+		expect(getRoleOptions(roles, 'name')).toStrictEqual([
+			{ label: 'WeCrew Admin', value: 'signoz-admin' },
+		]);
+		expect(getRoleOptions(roles, 'id')).toStrictEqual([
+			{ label: 'WeCrew Admin', value: 'admin-id' },
+		]);
+	});
+	it('supports searching for the visible WeCrew role name', async () => {
+		server.use(setupAuthzAdmin());
+		render(<RolesListingTable searchQuery="WeCrew Admin" />, undefined, {
+			initialRoute: '/settings/roles',
+		});
+		await expect(screen.findByText('WeCrew Admin')).resolves.toBeInTheDocument();
+		expect(
+			screen.getByText(
+				'Role assigned to users who have full administrative access to WeCrew resources.',
+			),
+		).toBeInTheDocument();
+		expect(screen.queryByText('signoz-admin')).not.toBeInTheDocument();
+		expect(screen.queryByText('billing-manager')).not.toBeInTheDocument();
+	});
 	describe('permission granted', () => {
 		it('renders the roles table when list permission granted', async () => {
 			server.use(setupAuthzAdmin());

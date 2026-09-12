@@ -59,13 +59,13 @@ function DomainList(): JSX.Element {
 	const [isCancelled, setIsCancelled] = useState(false);
 
 	const handleCancelQuery = useCallback(() => {
-		queryClient.cancelQueries([REACT_QUERY_KEY.GET_DOMAINS_LIST]);
+		void queryClient.cancelQueries([REACT_QUERY_KEY.GET_DOMAINS_LIST]);
 		setIsCancelled(true);
 	}, [queryClient]);
 
 	const handleStageAndRunQuery = useCallback(() => {
 		setIsCancelled(false);
-		queryClient.invalidateQueries([REACT_QUERY_KEY.GET_DOMAINS_LIST]);
+		void queryClient.invalidateQueries([REACT_QUERY_KEY.GET_DOMAINS_LIST]);
 		handleRunQuery();
 	}, [queryClient, handleRunQuery]);
 
@@ -190,7 +190,7 @@ function DomainList(): JSX.Element {
 									rel="noreferrer"
 									className="external-api-doc-link"
 								>
-									Learn how External API monitoring works in Argus{' '}
+									Learn how External API monitoring works in WeCrew{' '}
 									<MoveUpRight size={14} />
 								</a>
 							</div>
@@ -218,7 +218,7 @@ function DomainList(): JSX.Element {
 								);
 								setSelectedDomainIndex(dataIndex);
 								setParams({ selectedDomain: record.domainName });
-								logEvent('API Monitoring: Domain name row clicked', {});
+								void logEvent('API Monitoring: Domain name row clicked', {});
 							}
 						},
 						className: 'expanded-clickable-row',

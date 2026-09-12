@@ -1,6 +1,6 @@
 import ROUTES from './routes';
 
-export const DOCS_BASE_URL = process.env.DOCS_BASE_URL || 'https://argus.example.com';
+export const DOCS_BASE_URL = process.env.DOCS_BASE_URL || 'https://signoz.io';
 
 export const WITHOUT_SESSION_PATH = ['/redirect'];
 

@@ -1611,7 +1611,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 									{isDynamicVariable && (
 										<TextToolTip
 											text="ALL in dynamic variable = No filter applied (unlike other variable types where ALL sends all selected values). Learn more"
-											url="https://argus.example.com/docs/userguide/manage-variables/#note-about-all"
+											url="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#dashboards"
 											urlText="here"
 											useFilledIcon={false}
 											outlinedIcon={
@@ -1661,7 +1661,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 									{isDynamicVariable && (
 										<TextToolTip
 											text="Related values: Filtered by other variable selections. All values: Unfiltered complete list. Learn more"
-											url="https://argus.example.com/docs/userguide/manage-variables/#dynamic-variable-dropdowns-display-values-in-two-sections"
+											url="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#dashboards"
 											urlText="here"
 											useFilledIcon={false}
 											outlinedIcon={

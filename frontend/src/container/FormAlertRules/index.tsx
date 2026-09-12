@@ -60,6 +60,7 @@ import { compositeQueryToQueryEnvelope } from 'utils/compositeQueryToQueryEnvelo
 import { openInNewTab } from 'utils/navigation';
 
 import BasicInfo from './BasicInfo';
+import { AlertDetectionTypes } from './alertDetectionTypes';
 import ChartPreview from './ChartPreview';
 import QuerySection from './QuerySection';
 import RuleOptions from './RuleOptions';
@@ -75,22 +76,19 @@ import { getSelectedQueryOptions } from './utils';
 
 import './FormAlertRules.styles.scss';
 
-export enum AlertDetectionTypes {
-	THRESHOLD_ALERT = 'threshold_rule',
-	ANOMALY_DETECTION_ALERT = 'anomaly_rule',
-}
+export { AlertDetectionTypes } from './alertDetectionTypes';
 
 const ALERT_SETUP_GUIDE_URLS: Record<AlertTypes, string> = {
 	[AlertTypes.METRICS_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#metrics',
 	[AlertTypes.LOGS_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#logs',
 	[AlertTypes.TRACES_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#traces',
 	[AlertTypes.EXCEPTIONS_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#exceptions',
 	[AlertTypes.ANOMALY_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/anomaly-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#anomaly',
 };
 
 function FormAlertRules({
@@ -147,7 +145,7 @@ function FormAlertRules({
 	}, [isLoadingAlertQuery]);
 
 	const handleCancelAlertQuery = useCallback(() => {
-		ruleCache.cancelQueries(REACT_QUERY_KEY.ALERT_RULES_CHART_PREVIEW);
+		void ruleCache.cancelQueries(REACT_QUERY_KEY.ALERT_RULES_CHART_PREVIEW);
 		setIsChartQueryCancelled(true);
 	}, [ruleCache]);
 
@@ -235,7 +233,7 @@ function FormAlertRules({
 			ruleType: value,
 		}));
 
-		logEvent(`Alert: Detection method changed`, {
+		void logEvent(`Alert: Detection method changed`, {
 			detectionMethod: value,
 		});
 
@@ -244,7 +242,7 @@ function FormAlertRules({
 
 	const updateFunctions = (data: IBuilderQuery): QueryFunction[] => {
 		const anomalyFunction: QueryFunction = {
-			name: 'anomaly' as any,
+			name: 'anomaly',
 			args: [
 				{
 					name: 'z_score_threshold',
@@ -627,7 +625,7 @@ function FormAlertRules({
 
 		setLoading(false);
 
-		logEvent('Alert: Save alert', {
+		void logEvent('Alert: Save alert', {
 			...logData,
 			dataSource: ALERTS_DATA_SOURCE_MAP[postableAlert?.alertType as AlertTypes],
 			channelNames: postableAlert?.preferredChannels,
@@ -689,7 +687,7 @@ function FormAlertRules({
 			showErrorModal(apiError as APIError);
 		}
 		setLoading(false);
-		logEvent('Alert: Test notification', {
+		void logEvent('Alert: Test notification', {
 			dataSource: ALERTS_DATA_SOURCE_MAP[alertDef?.alertType as AlertTypes],
 			channelNames: postableAlert?.preferredChannels,
 			broadcastToAll: postableAlert?.broadcastToAll,
@@ -779,7 +777,7 @@ function FormAlertRules({
 		}
 
 		if (url) {
-			logEvent('Alert: Check example alert clicked', {
+			void logEvent('Alert: Check example alert clicked', {
 				dataSource: ALERTS_DATA_SOURCE_MAP[alertDef?.alertType as AlertTypes],
 				isNewRule,
 				ruleId,
@@ -792,7 +790,7 @@ function FormAlertRules({
 
 	useEffect(() => {
 		if (!isNewRule) {
-			logEvent('Alert: Edit page visited', {
+			void logEvent('Alert: Edit page visited', {
 				ruleId,
 				dataSource: ALERTS_DATA_SOURCE_MAP[alertType as AlertTypes],
 			});
@@ -855,16 +853,31 @@ function FormAlertRules({
 						<Typography.Title level={5} className="alert-type-title">
 							<BellDot size={14} />
 
-							{alertDef.alertType === AlertTypes.ANOMALY_BASED_ALERT &&
-								'Anomaly Detection Alert'}
-							{alertDef.alertType === AlertTypes.METRICS_BASED_ALERT &&
-								'Metrics Based Alert'}
-							{alertDef.alertType === AlertTypes.LOGS_BASED_ALERT &&
-								'Logs Based Alert'}
-							{alertDef.alertType === AlertTypes.TRACES_BASED_ALERT &&
-								'Traces Based Alert'}
-							{alertDef.alertType === AlertTypes.EXCEPTIONS_BASED_ALERT &&
-								'Exceptions Based Alert'}
+							<span className="translate-safe">
+								{alertDef.alertType === AlertTypes.ANOMALY_BASED_ALERT
+									? 'Anomaly Detection Alert'
+									: null}
+							</span>
+							<span className="translate-safe">
+								{alertDef.alertType === AlertTypes.METRICS_BASED_ALERT
+									? 'Metrics Based Alert'
+									: null}
+							</span>
+							<span className="translate-safe">
+								{alertDef.alertType === AlertTypes.LOGS_BASED_ALERT
+									? 'Logs Based Alert'
+									: null}
+							</span>
+							<span className="translate-safe">
+								{alertDef.alertType === AlertTypes.TRACES_BASED_ALERT
+									? 'Traces Based Alert'
+									: null}
+							</span>
+							<span className="translate-safe">
+								{alertDef.alertType === AlertTypes.EXCEPTIONS_BASED_ALERT
+									? 'Exceptions Based Alert'
+									: null}
+							</span>
 						</Typography.Title>
 					</div>
 
@@ -929,7 +942,7 @@ function FormAlertRules({
 							alertType={alertType || AlertTypes.METRICS_BASED_ALERT}
 							runQuery={(): void => {
 								setIsChartQueryCancelled(false);
-								ruleCache.invalidateQueries([
+								void ruleCache.invalidateQueries([
 									REACT_QUERY_KEY.ALERT_RULES_CHART_PREVIEW,
 								]);
 								handleRunQuery();
@@ -991,8 +1004,7 @@ function FormAlertRules({
 							onClick={onCancelHandler}
 							data-testid="alert-cancel-button"
 						>
-							{isNewRule && t('button_cancelchanges')}
-							{ruleId && !isEmpty(ruleId) && t('button_discard')}
+							{isNewRule ? t('button_cancelchanges') : t('button_discard')}
 						</ActionButton>
 					</ButtonContainer>
 				</MainFormContainer>

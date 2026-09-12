@@ -62,7 +62,7 @@ function CrossPanelSync({ dashboardId }: CrossPanelSyncProps): JSX.Element {
 								Sync crosshair and tooltip across all the dashboard panels
 							</span>
 							<Typography.Link
-								href="https://argus.example.com/docs/dashboards/interactivity/#cross-panel-sync"
+								href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#dashboards"
 								target="_blank"
 								rel="noopener noreferrer"
 								className={styles.crossPanelSyncTooltipDocLink}

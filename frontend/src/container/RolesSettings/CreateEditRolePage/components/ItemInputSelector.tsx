@@ -10,7 +10,7 @@ import cx from 'classnames';
 import styles from './ItemInputSelector.module.scss';
 
 const BASE_DOCS_URL =
-	'https://argus.example.com/docs/manage/administrator-guide/iam/permissions/';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/contributing/go/authz.md#selector';
 
 export interface ItemInputSelectorProps {
 	placeholder: string;
@@ -34,7 +34,7 @@ function ItemInputSelector({
 	selectedIds,
 	onChange,
 	testId,
-	docsAnchor = 'role',
+	docsAnchor: _docsAnchor = 'role',
 	hasError = false,
 	prefixElement,
 }: ItemInputSelectorProps): JSX.Element {
@@ -171,7 +171,7 @@ function ItemInputSelector({
 							<Typography align="left">
 								Still not sure on how to add selectors? <br />
 								<Typography.Link
-									href={`${BASE_DOCS_URL}#${docsAnchor}`}
+									href={BASE_DOCS_URL}
 									target="_blank"
 									rel="noopener noreferrer"
 								>
@@ -188,7 +188,7 @@ function ItemInputSelector({
 				<Typography className={styles.itemInputSelectorHint}>
 					Not sure what to type here?{' '}
 					<Typography.Link
-						href={`${BASE_DOCS_URL}#${docsAnchor}`}
+						href={BASE_DOCS_URL}
 						target="_blank"
 						rel="noopener noreferrer"
 					>

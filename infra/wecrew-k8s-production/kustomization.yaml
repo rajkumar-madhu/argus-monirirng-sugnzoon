@@ -1,0 +1,36 @@
+# Release template: replace the zero image digest before use. The edge CIDR was
+# verified from a host-to-kind NodePort request on the WeCrew node.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../wecrew-k8s
+images:
+  - name: argus-monitoring
+    newName: argus-monitoring
+    digest: sha256:0000000000000000000000000000000000000000000000000000000000000000
+replicas:
+  - {name: zookeeper, count: 1}
+  - {name: clickhouse, count: 1}
+  - {name: argus, count: 1}
+  - {name: otel-collector, count: 1}
+configMapGenerator:
+  - name: wecrew-monitoring-release
+    namespace: wecrew-monitoring
+    literals:
+      - edge-source-cidr=10.244.0.1/32
+generatorOptions:
+  disableNameSuffixHash: true
+replacements:
+  - source:
+      kind: ConfigMap
+      name: wecrew-monitoring-release
+      fieldPath: data.edge-source-cidr
+    targets:
+      - select:
+          kind: NetworkPolicy
+          name: app-edge
+        fieldPaths: [spec.ingress.0.from.0.ipBlock.cidr]
+      - select:
+          kind: NetworkPolicy
+          name: collector-edge
+        fieldPaths: [spec.ingress.0.from.0.ipBlock.cidr]

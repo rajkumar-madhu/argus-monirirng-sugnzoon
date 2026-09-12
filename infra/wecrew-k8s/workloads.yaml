@@ -1,0 +1,326 @@
+# Existing schema migration only: do not run a bootstrap migrator against restored data.
+# Requests total 700m CPU / 2816Mi memory; memory limits match the Compose services.
+# ClickHouse nofile ulimit must be verified in the container runtime (Kubernetes has no pod ulimit field).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+  namespace: wecrew-monitoring
+spec:
+  # Restore existing data and pin the release image before individually enabling.
+  replicas: 0
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: zookeeper
+      app.kubernetes.io/part-of: wecrew-monitoring
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: zookeeper
+        app.kubernetes.io/part-of: wecrew-monitoring
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 120
+      nodeSelector:
+        kubernetes.io/hostname: wecrew-control-plane
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: zookeeper
+          image: signoz/zookeeper:3.7.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: client
+              containerPort: 2181
+            - name: admin
+              containerPort: 8080
+          env:
+            - name: ALLOW_ANONYMOUS_LOGIN
+              value: "yes"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+          startupProbe:
+            httpGet:
+              path: /commands/ruok
+              port: admin
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /commands/ruok
+              port: admin
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+          volumeMounts:
+            - name: zookeeper-data
+              mountPath: /bitnami/zookeeper
+      volumes:
+        - name: zookeeper-data
+          persistentVolumeClaim:
+            claimName: zookeeper-data
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clickhouse
+  namespace: wecrew-monitoring
+spec:
+  # Restore existing data and pin the release image before individually enabling.
+  replicas: 0
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: clickhouse
+      app.kubernetes.io/part-of: wecrew-monitoring
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: clickhouse
+        app.kubernetes.io/part-of: wecrew-monitoring
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 120
+      nodeSelector:
+        kubernetes.io/hostname: wecrew-control-plane
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: clickhouse
+          image: clickhouse/clickhouse-server:25.12.5
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8123
+            - name: native
+              containerPort: 9000
+          env:
+            - name: CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT
+              value: "1"
+          resources:
+            requests:
+              cpu: 350m
+              memory: 2Gi
+            limits:
+              memory: 2500Mi
+          startupProbe:
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+          volumeMounts:
+            - name: clickhouse-data
+              mountPath: /var/lib/clickhouse
+            - name: config
+              mountPath: /etc/clickhouse-server/config.d/cluster.xml
+              subPath: clickhouse-cluster.xml
+              readOnly: true
+            - name: config
+              mountPath: /etc/clickhouse-server/users.d/argus-limits.xml
+              subPath: clickhouse-users-override.xml
+              readOnly: true
+      volumes:
+        - name: clickhouse-data
+          persistentVolumeClaim:
+            claimName: clickhouse-data
+        - name: config
+          configMap:
+            name: wecrew-monitoring-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argus
+  namespace: wecrew-monitoring
+spec:
+  # Restore existing data and pin the release image before individually enabling.
+  replicas: 0
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: argus
+      app.kubernetes.io/part-of: wecrew-monitoring
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: argus
+        app.kubernetes.io/part-of: wecrew-monitoring
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 120
+      nodeSelector:
+        kubernetes.io/hostname: wecrew-control-plane
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: argus
+          image: argus-monitoring:release-required
+          imagePullPolicy: Never
+          args: ["--config=/etc/argus/config.yaml"]
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: ARGUS_SQLSTORE_PROVIDER
+              value: "sqlite"
+            - name: ARGUS_SQLSTORE_SQLITE_PATH
+              value: "/var/lib/argus/argus.db"
+            - name: ARGUS_TELEMETRYSTORE_PROVIDER
+              value: "clickhouse"
+            - name: ARGUS_TELEMETRYSTORE_CLICKHOUSE_DSN
+              value: "tcp://clickhouse:9000"
+            - name: ARGUS_APISERVER_ADDRESS
+              value: "0.0.0.0:8080"
+            - name: ARGUS_GLOBAL_EXTERNAL_URL
+              value: "https://monitoring.wecrew.in"
+            - name: ARGUS_TOKENIZER_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: wecrew-monitoring-auth
+                  key: jwt-secret
+          resources:
+            requests:
+              cpu: 150m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+          startupProbe:
+            httpGet:
+              path: /api/v2/healthz
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /api/v2/readyz
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              path: /api/v2/livez
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: argus-data
+              mountPath: /var/lib/argus
+            - name: config
+              mountPath: /etc/argus/config.yaml
+              subPath: argus.yaml
+              readOnly: true
+      volumes:
+        - name: argus-data
+          persistentVolumeClaim:
+            claimName: argus-data
+        - name: config
+          configMap:
+            name: wecrew-monitoring-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-collector
+  namespace: wecrew-monitoring
+spec:
+  # Restore existing data and pin the release image before individually enabling.
+  replicas: 0
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: otel-collector
+      app.kubernetes.io/part-of: wecrew-monitoring
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: otel-collector
+        app.kubernetes.io/part-of: wecrew-monitoring
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 120
+      nodeSelector:
+        kubernetes.io/hostname: wecrew-control-plane
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: otel-collector
+          image: signoz/signoz-otel-collector:v0.144.6
+          imagePullPolicy: IfNotPresent
+          args: ["--config=/etc/otel-collector-config.yaml"]
+          ports:
+            - name: otlp-grpc
+              containerPort: 4317
+            - name: otlp-http
+              containerPort: 4318
+            - name: health
+              containerPort: 13133
+          env:
+            - name: SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_DSN
+              value: "tcp://clickhouse:9000"
+            - name: SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_CLUSTER
+              value: "cluster"
+            - name: SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_REPLICATION
+              value: "true"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+          startupProbe:
+            httpGet:
+              path: /
+              port: health
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /
+              port: health
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+          volumeMounts:
+            - name: config
+              mountPath: /etc/otel-collector-config.yaml
+              subPath: otel-collector-config.yaml
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: wecrew-monitoring-config

@@ -26,7 +26,7 @@ function CreatePipelineButton({
 	const onEnterEditMode = (): void => {
 		setActionMode(ActionMode.Editing);
 
-		logEvent('Logs: Pipelines: Entered Edit Mode', {
+		void logEvent('Logs: Pipelines: Entered Edit Mode', {
 			source: 'signoz-ui',
 		});
 	};
@@ -34,7 +34,7 @@ function CreatePipelineButton({
 		setActionMode(ActionMode.Editing);
 		setActionType(ActionType.AddPipeline);
 
-		logEvent('Logs: Pipelines: Clicked Add New Pipeline', {
+		void logEvent('Logs: Pipelines: Clicked Add New Pipeline', {
 			source: 'signoz-ui',
 		});
 	};
@@ -43,7 +43,7 @@ function CreatePipelineButton({
 		<ButtonContainer>
 			<TextToolTip
 				text={t('learn_more')}
-				url="https://argus.example.com/docs/logs-pipelines/introduction/?utm_source=product&utm_medium=pipelines-tab"
+				url="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#logs"
 			/>
 			{isAddNewPipelineVisible && (
 				<CustomButton onClick={onEnterEditMode} disabled={isDisabled}>

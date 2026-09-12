@@ -143,7 +143,7 @@ function ListAlertRules(): JSX.Element {
 						)}
 						<TextToolTip
 							text="More details on how to create alerts"
-							url="https://argus.example.com/docs/alerts/?utm_source=product&utm_medium=list-alerts"
+							url="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md"
 							urlText="Learn More"
 						/>
 					</div>

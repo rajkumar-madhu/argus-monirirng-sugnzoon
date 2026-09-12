@@ -320,14 +320,14 @@ function Login(): JSX.Element {
 
 				<div className="login-form-card">
 					<ParentContainer>
-						<Label htmlFor="signupEmail">Email address</Label>
+						<Label htmlFor="email">Email address</Label>
 						<FormContainer.Item name="email">
 							<Input
 								type="email"
 								id="email"
 								data-testid="email"
 								required
-								placeholder="e.g. john@argus.example.com"
+								placeholder="e.g. name@yourcompany.com"
 								disabled={versionLoading}
 								className="login-form-input"
 								onPressEnter={onNextHandler}

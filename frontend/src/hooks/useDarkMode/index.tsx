@@ -9,97 +9,41 @@ import {
 	useContext,
 	useEffect,
 	useMemo,
-	useState,
 } from 'react';
 import { theme as antdTheme, ThemeConfig } from 'antd';
-import get from 'api/browser/localstorage/get';
 import set from 'api/browser/localstorage/set';
 import { LOCALSTORAGE } from 'constants/localStorage';
 
 import { THEME_MODE } from './constant';
 
 export const ThemeContext = createContext({
-	theme: THEME_MODE.DARK,
+	theme: THEME_MODE.LIGHT,
 	toggleTheme: (): void => {},
 	autoSwitch: false,
 	setAutoSwitch: ((): void => {}) as Dispatch<SetStateAction<boolean>>,
 	setTheme: ((): void => {}) as Dispatch<SetStateAction<string>>,
 });
 
-// Hook to detect system theme preference
-export const useSystemTheme = (): 'light' | 'dark' => {
-	const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>('dark');
-
-	useEffect(() => {
-		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-		setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
-
-		const handler = (e: MediaQueryListEvent): void => {
-			setSystemTheme(e.matches ? 'dark' : 'light');
-		};
-
-		mediaQuery.addEventListener('change', handler);
-		return (): void => mediaQuery.removeEventListener('change', handler);
-	}, []);
-
-	return systemTheme;
-};
-
 export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
-	const [theme, setThemeState] = useState(
-		get(LOCALSTORAGE.THEME) || THEME_MODE.DARK,
-	);
-	const [autoSwitch, setAutoSwitch] = useState(
-		get(LOCALSTORAGE.THEME_AUTO_SWITCH) === 'true',
-	);
-	const systemTheme = useSystemTheme();
-
-	// Handle auto-switch functionality
-	useEffect(() => {
-		if (autoSwitch) {
-			const newTheme = systemTheme === 'dark' ? THEME_MODE.DARK : THEME_MODE.LIGHT;
-			if (newTheme !== theme) {
-				setThemeState(newTheme);
-				set(LOCALSTORAGE.THEME, newTheme);
-			}
-		}
-	}, [systemTheme, autoSwitch, theme]);
-
-	// Save auto-switch preference
-	useEffect(() => {
-		set(LOCALSTORAGE.THEME_AUTO_SWITCH, autoSwitch.toString());
-	}, [autoSwitch]);
-
-	const toggleTheme = useCallback((): void => {
-		if (theme === THEME_MODE.LIGHT) {
-			setThemeState(THEME_MODE.DARK);
-			set(LOCALSTORAGE.THEME, THEME_MODE.DARK);
-		} else {
-			setThemeState(THEME_MODE.LIGHT);
+	// Preserve the hook API for existing consumers while enforcing light-only UI.
+	const keepLightTheme = useCallback((): void => {
+		try {
 			set(LOCALSTORAGE.THEME, THEME_MODE.LIGHT);
+			set(LOCALSTORAGE.THEME_AUTO_SWITCH, 'false');
+		} catch {
+			// Rendering stays light even when browser storage is unavailable.
 		}
-		set(LOCALSTORAGE.THEME_ANALYTICS_V1, '');
-	}, [theme]);
-
-	const setTheme = useCallback(
-		(newTheme: SetStateAction<string>): void => {
-			const themeValue =
-				typeof newTheme === 'function' ? newTheme(theme) : newTheme;
-			setThemeState(themeValue);
-			set(LOCALSTORAGE.THEME, themeValue);
-		},
-		[theme],
-	);
-
+	}, []);
+	useEffect(keepLightTheme, [keepLightTheme]);
 	const value = useMemo(
 		() => ({
-			theme,
-			toggleTheme,
-			autoSwitch,
-			setAutoSwitch,
-			setTheme,
+			theme: THEME_MODE.LIGHT,
+			autoSwitch: false,
+			toggleTheme: keepLightTheme,
+			setTheme: keepLightTheme,
+			setAutoSwitch: keepLightTheme,
 		}),
-		[theme, toggleTheme, autoSwitch, setAutoSwitch, setTheme],
+		[keepLightTheme],
 	);
 
 	return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

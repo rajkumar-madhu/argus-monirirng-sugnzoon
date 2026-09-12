@@ -1,6 +1,6 @@
 import { Typography } from '@signozhq/ui/typography';
 
-import barberPoolUrl from '@/assets/svgs/barber-pool.svg';
+import brandLogo from '@/assets/Logos/argus-brand-logo.svg';
 
 interface OnboardingQuestionHeaderProps {
 	title: string;
@@ -13,8 +13,8 @@ export function OnboardingQuestionHeader({
 }: OnboardingQuestionHeaderProps): JSX.Element {
 	return (
 		<div className="onboarding-header-section">
-			<div className="onboarding-header-icon">
-				<img src={barberPoolUrl} alt="Argus" width="32" height="32" />
+			<div className="onboarding-header-icon" style={{ width: 120 }}>
+				<img src={brandLogo} alt="WeCrew" width="120" height="32" />
 			</div>
 			<Typography.Title level={4} className="onboarding-header-title">
 				{title}

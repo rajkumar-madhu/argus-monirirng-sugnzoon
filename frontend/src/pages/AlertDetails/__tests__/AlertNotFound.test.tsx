@@ -89,6 +89,10 @@ describe('AlertNotFound', () => {
 		const user = userEvent.setup();
 		render(<AlertNotFound isTestAlert={false} />);
 		await user.click(screen.getByText('Contact Support'));
-		expect(window.open).toHaveBeenCalledWith('https://argus.example.com/slack', '_blank');
+		expect(window.open).toHaveBeenCalledWith(
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues',
+			'_blank',
+			'noreferrer',
+		);
 	});
 });

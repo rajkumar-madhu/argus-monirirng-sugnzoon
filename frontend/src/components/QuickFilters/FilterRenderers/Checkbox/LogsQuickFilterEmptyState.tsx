@@ -3,27 +3,14 @@ import { Button } from 'antd';
 import EmptyQuickFilterIcon from 'assets/CustomIcons/EmptyQuickFilterIcon';
 import { ArrowUpRight } from '@signozhq/icons';
 
-const QUICK_FILTER_DOC_PATHS: Record<string, string> = {
-	severity_text: 'severity-text',
-	'deployment.environment': 'environment',
-	'service.name': 'service-name',
-	'host.name': 'hostname',
-	'k8s.cluster.name': 'k8s-cluster-name',
-	'k8s.deployment.name': 'k8s-deployment-name',
-	'k8s.namespace.name': 'k8s-namespace-name',
-	'k8s.pod.name': 'k8s-pod-name',
-};
-
 function LogsQuickFilterEmptyState({
-	attributeKey,
+	attributeKey: _attributeKey,
 }: {
 	attributeKey: string;
 }): JSX.Element {
 	const handleLearnMoreClick = (): void => {
-		const section = QUICK_FILTER_DOC_PATHS[attributeKey];
-
 		window.open(
-			`https://argus.example.com/docs/logs-management/features/logs-quick-filters#${section}`,
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#logs',
 			'_blank',
 		);
 	};

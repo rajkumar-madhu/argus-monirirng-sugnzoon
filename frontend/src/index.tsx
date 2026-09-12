@@ -3,13 +3,12 @@ import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { Provider } from 'react-redux';
-import AppRoutes from 'AppRoutes';
+import ApplicationRoot from 'components/ApplicationRoot/ApplicationRoot';
 import { AxiosError } from 'axios';
 import { GlobalTimeStoreAdapter } from 'components/GlobalTimeStoreAdapter/GlobalTimeStoreAdapter';
 import { ThemeProvider } from 'hooks/useDarkMode';
 import { configureOverlayScrollbars } from 'lib/configureOverlayScrollbars';
 import { NuqsAdapter } from 'nuqs/adapters/react';
-import { AppProvider } from 'providers/App/App';
 import TimezoneProvider from 'providers/Timezone';
 import store from 'store';
 import APIError from 'types/api/error';
@@ -19,6 +18,7 @@ import 'lib/monaco/setup';
 
 import './ReactI18';
 
+import 'uplot/dist/uPlot.min.css';
 import 'styles.scss';
 
 installTranslationResilience();
@@ -60,9 +60,7 @@ if (container) {
 						<QueryClientProvider client={queryClient}>
 							<Provider store={store}>
 								<GlobalTimeStoreAdapter />
-								<AppProvider>
-									<AppRoutes />
-								</AppProvider>
+								<ApplicationRoot />
 							</Provider>
 						</QueryClientProvider>
 					</TimezoneProvider>

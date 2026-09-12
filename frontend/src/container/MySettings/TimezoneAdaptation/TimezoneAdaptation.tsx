@@ -28,13 +28,13 @@ function TimezoneAdaptation(): JSX.Element {
 
 	const handleOverrideClear = (): void => {
 		updateTimezone(browserTimezone);
-		logEvent('Account Settings: Timezone override cleared', {});
+		void logEvent('Account Settings: Timezone override cleared', {});
 	};
 
 	const handleSwitchChange = (): void => {
 		setIsAdaptationEnabled((prev) => {
 			const isEnabled = !prev;
-			logEvent(
+			void logEvent(
 				`Account Settings: Timezone adaptation ${
 					isEnabled ? 'enabled' : 'disabled'
 				}`,
@@ -57,7 +57,7 @@ function TimezoneAdaptation(): JSX.Element {
 			</div>
 
 			<p className="timezone-adaption__description">
-				Adapt the timestamps shown in the Argus console to my active timezone.
+				Adapt the timestamps shown in the WeCrew console to my active timezone.
 			</p>
 
 			<div className="timezone-adaption__note">

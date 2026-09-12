@@ -227,7 +227,7 @@ describe('FeedbackModal', () => {
 		const docsLink = screen.getByText('Read our docs');
 		expect(docsLink).toHaveAttribute(
 			'href',
-			'https://argus.example.com/docs/introduction/',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md',
 		);
 		expect(docsLink).toHaveAttribute('target', '_blank');
 		expect(docsLink).toHaveAttribute('rel', 'noreferrer');

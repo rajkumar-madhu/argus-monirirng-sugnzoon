@@ -1,18 +1,6 @@
 $light-theme: 'lightMode';
 $dark-theme: 'darkMode';
 
-@keyframes gradientFlow {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
 .workspace-locked {
 	&__modal {
 		.ant-modal-mask {
@@ -142,18 +130,7 @@ $dark-theme: 'darkMode';
 		}
 	}
 	&__title {
-		background: linear-gradient(
-			99deg,
-			#ead8fd 0%,
-			#7a97fa 33%,
-			#fd5ab2 66%,
-			#ead8fd 100%
-		);
-		background-size: 300% 300%;
-		background-clip: text;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		animation: gradientFlow 24s ease infinite;
+		color: var(--foreground);
 		margin-bottom: 18px;
 	}
 

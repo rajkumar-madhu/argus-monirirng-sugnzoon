@@ -59,13 +59,13 @@ describe('MultiIngestionSettings Page', () => {
 		expect(screen.getByText('Ingestion Keys')).toBeInTheDocument();
 
 		expect(
-			screen.getByText('Create and manage ingestion keys for Argus'),
+			screen.getByText('Create and manage ingestion keys for WeCrew'),
 		).toBeInTheDocument();
 
 		const aboutKeyslink = screen.getByRole('link', { name: /Learn more/i });
 		expect(aboutKeyslink).toHaveAttribute(
 			'href',
-			'https://argus.example.com/docs/ingestion/signoz-cloud/keys/',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#ingestion-keys',
 		);
 		expect(aboutKeyslink).toHaveAttribute('target', '_blank');
 		expect(aboutKeyslink).toHaveClass('learn-more');

@@ -41,7 +41,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	color: var(--text-vanilla-400);
+	color: var(--l2-foreground);
 }
 
 .headerRight {
@@ -66,5 +66,5 @@
 .sectionTitle {
 	padding: 8px 4px 0;
 	font-weight: 600;
-	color: var(--text-vanilla-400);
+	color: var(--l2-foreground);
 }

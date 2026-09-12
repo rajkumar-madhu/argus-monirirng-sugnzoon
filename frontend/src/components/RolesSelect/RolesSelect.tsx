@@ -7,6 +7,7 @@ import type { AuthtypesGettableRoleDTO } from 'api/generated/services/sigNoz.sch
 import cx from 'classnames';
 import APIError from 'types/api/error';
 import { popupContainer } from 'utils/selectPopupContainer';
+import { getRolePresentation } from 'utils/rolePresentation';
 
 import './RolesSelect.styles.scss';
 
@@ -37,7 +38,7 @@ export function getRoleOptions(
 	valueField: 'id' | 'name',
 ): RoleOption[] {
 	return roles.map((role) => ({
-		label: role.name ?? '',
+		label: getRolePresentation(role).name,
 		value: role[valueField] ?? '',
 	}));
 }

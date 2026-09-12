@@ -29,7 +29,7 @@ function SkipOnBoardingModal({ onContinueClick }: Props): JSX.Element {
 					<Typography>
 						Please instrument your application as mentioned&nbsp;
 						<a
-							href="https://argus.example.com/docs/instrumentation/overview"
+							href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#add-a-data-source"
 							target="_blank"
 							rel="noreferrer"
 						>

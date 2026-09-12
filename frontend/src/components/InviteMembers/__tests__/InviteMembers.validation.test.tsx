@@ -33,7 +33,9 @@ describe('InviteMembers - Validation', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], INVALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -58,7 +60,9 @@ describe('InviteMembers - Validation', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], INVALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -83,7 +87,9 @@ describe('InviteMembers - Validation', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], INVALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -118,7 +124,9 @@ describe('InviteMembers - Validation', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], VALID_EMAIL);
 
 			await user.click(screen.getByTestId('submit-btn'));
@@ -141,7 +149,9 @@ describe('InviteMembers - Validation', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getByTestId('submit-btn'));
 
@@ -174,7 +184,9 @@ describe('InviteMembers - Validation', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], INVALID_EMAIL);
 
 			await user.click(screen.getByTestId('submit-btn'));
@@ -202,7 +214,9 @@ describe('InviteMembers - Validation', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));

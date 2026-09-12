@@ -71,6 +71,8 @@ describe('PublicDashboardView', () => {
 			<PublicDashboardView publicDashboardId="pub-1" data={buildData(true)} />,
 		);
 
+		expect(screen.getByAltText('WeCrew')).toBeInTheDocument();
+		expect(screen.getByText('WeCrew')).toBeInTheDocument();
 		expect(screen.getByText('My V2 Dashboard')).toBeInTheDocument();
 		expect(screen.getByText('Section A')).toBeInTheDocument();
 		expect(screen.getByTestId('public-section-grid')).toBeInTheDocument();

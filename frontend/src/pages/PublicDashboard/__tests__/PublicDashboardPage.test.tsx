@@ -60,6 +60,8 @@ describe('PublicDashboardPage', () => {
 		render(<PublicDashboardPage />);
 
 		expect(screen.getByTestId('public-dashboard-legacy')).toBeInTheDocument();
+		expect(screen.getByAltText('WeCrew')).toBeInTheDocument();
+		expect(screen.queryByAltText('Argus')).not.toBeInTheDocument();
 		expect(
 			screen.getByText(/hasn't been migrated to the new dashboard experience/i),
 		).toBeInTheDocument();

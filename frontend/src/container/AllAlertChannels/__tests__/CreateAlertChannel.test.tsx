@@ -290,10 +290,10 @@ describe('Create Alert Channel', () => {
 					helpText: 'help_pager_client',
 				});
 			});
-			it('Should check if Client input contains the default value "Argus Alert Manager"', () => {
+			it('Should check if Client input contains the default value "WeCrew Alert Manager"', () => {
 				const clientTextArea = screen.getByTestId('pager-client-textarea');
 
-				expect(clientTextArea).toHaveValue('Argus Alert Manager');
+				expect(clientTextArea).toHaveValue('WeCrew Alert Manager');
 			});
 			it('Should check if Client URL label, text area, and info (Shows up as event source link in Pagerduty) are displayed properly', () => {
 				testLabelInputAndHelpValue({
@@ -302,11 +302,11 @@ describe('Create Alert Channel', () => {
 					helpText: 'help_pager_client_url',
 				});
 			});
-			it('Should check if Client URL contains the default value "https://enter-signoz-host-n-port-here/alerts"', () => {
+			it('Should check if Client URL contains the default WeCrew value', () => {
 				const clientUrlTextArea = screen.getByTestId('pager-client-url-textarea');
 
 				expect(clientUrlTextArea).toHaveValue(
-					'https://enter-signoz-host-n-port-here/alerts',
+					'https://monitoring.wecrew.in/alerts',
 				);
 			});
 		});
@@ -570,7 +570,7 @@ describe('Create Alert Channel', () => {
 					screen.getByRole('link', { name: 'jira_service_account_tip_link' }),
 				).toHaveAttribute(
 					'href',
-					'https://argus.example.com/docs/alerts-management/notification-channel/jira/#use-a-service-account-recommended',
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md',
 				);
 			});
 
@@ -680,7 +680,7 @@ describe('Create Alert Channel', () => {
 					screen.getByRole('link', { name: 'jsmops_tip_link' }),
 				).toHaveAttribute(
 					'href',
-					'https://argus.example.com/docs/alerts-management/notification-channel/jsm-ops/',
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md',
 				);
 			});
 
@@ -766,7 +766,7 @@ describe('Create Alert Channel', () => {
 					screen.getByRole('link', { name: 'incidentio_tip_link' }),
 				).toHaveAttribute(
 					'href',
-					'https://argus.example.com/docs/alerts-management/notification-channel/incidentio/',
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md',
 				);
 			});
 

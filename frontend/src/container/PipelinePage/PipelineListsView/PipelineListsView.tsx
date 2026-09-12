@@ -34,6 +34,7 @@ import AddNewPipeline from './AddNewPipeline';
 import AddNewProcessor from './AddNewProcessor';
 import { pipelineColumns } from './config';
 import ModeAndConfiguration from './ModeAndConfiguration';
+// eslint-disable-next-line import/no-cycle -- expanded view imports shared pipeline list types
 import PipelineExpanView from './PipelineExpandView';
 import SaveConfigButton from './SaveConfigButton';
 import {
@@ -78,7 +79,7 @@ function PipelinesListEmptyState(): JSX.Element {
 						<Typography>
 							{t('learn_more')}&nbsp;
 							<a
-								href="https://argus.example.com/docs/logs-pipelines/introduction/?utm_source=product&utm_medium=pipelines-tab"
+								href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#logs"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
@@ -397,7 +398,7 @@ function PipelineListsView({
 		setActionType(ActionType.AddPipeline);
 		pipelineForm.resetFields();
 
-		logEvent('Logs: Pipelines: Clicked Add New Pipeline', {
+		void logEvent('Logs: Pipelines: Clicked Add New Pipeline', {
 			source: 'signoz-ui',
 		});
 	}, [setActionType, pipelineForm]);
@@ -472,13 +473,13 @@ function PipelineListsView({
 			// Log modified JSON flattening configurations
 			const modifiedConfigs = getModifiedJsonFlatteningConfigs();
 			if (modifiedConfigs.length > 0) {
-				logEvent('Logs pipeline: Saved JSON Flattening Configuration', {
+				void logEvent('Logs pipeline: Saved JSON Flattening Configuration', {
 					count: modifiedConfigs.length,
 					configurations: modifiedConfigs,
 				});
 			}
 
-			logEvent('Logs: Pipelines: Saved Pipelines', {
+			void logEvent('Logs: Pipelines: Saved Pipelines', {
 				count: pipelinesInDB.length,
 				enabled: pipelinesInDB.filter((p) => p.enabled).length,
 				source: 'signoz-ui',
@@ -544,7 +545,7 @@ function PipelineListsView({
 	const logEventCalledRef = useRef(false);
 	useEffect(() => {
 		if (!logEventCalledRef.current && !isUndefined(currPipelineData)) {
-			logEvent('Logs Pipelines: List page visited', {
+			void logEvent('Logs Pipelines: List page visited', {
 				number: currPipelineData?.length,
 			});
 			logEventCalledRef.current = true;

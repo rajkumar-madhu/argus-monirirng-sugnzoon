@@ -1,8 +1,8 @@
-# Argus
+# WeCrew
 
 **Community observability platform** — logs, metrics, traces, alerts, and dashboards in one place, built on OpenTelemetry.
 
-Argus is a community fork of the MIT-licensed [SigNoz](https://github.com/SigNoz/signoz) codebase. Original copyright and attribution to **SigNoz Inc.** are retained in `LICENSE`. Argus is **not** affiliated with or endorsed by SigNoz Inc.
+WeCrew is a community fork of the MIT-licensed [SigNoz](https://github.com/SigNoz/signoz) codebase. Original copyright and attribution to **SigNoz Inc.** are retained in `LICENSE`. WeCrew is **not** affiliated with or endorsed by SigNoz Inc.
 
 <p align="center">
   <a href="README.zh-cn.md">中文</a> ·
@@ -10,9 +10,9 @@ Argus is a community fork of the MIT-licensed [SigNoz](https://github.com/SigNoz
   <a href="README.pt-br.md">Português</a>
 </p>
 
-## What is Argus?
+## What is WeCrew?
 
-Argus provides an OpenTelemetry-native observability stack you can run yourself:
+WeCrew provides an OpenTelemetry-native observability stack you can run yourself:
 
 - **Logs, metrics, and traces** in a unified UI
 - **Dashboards and alerts** with flexible query builders
@@ -27,7 +27,7 @@ Replace placeholders before deploying in production:
 |-------------|---------|
 | GitHub org/repo | `github.com/rajkumar-madhu/argus-monirirng-sugnzoon` |
 | Container registry | `ghcr.io/rajkumar-madhu/argus` |
-| Public URL | `https://argus.example.com` |
+| Public URL | `https://monitoring.wecrew.in` |
 
 ### Build from source
 
@@ -39,10 +39,10 @@ make go-build-community js-build docker-build-community
 
 ```bash
 make devenv-up          # ClickHouse + upstream OTel collector
-make go-run-community   # Argus API server
+make go-run-community   # WeCrew API server
 ```
 
-See [docs/ARGUS.md](docs/ARGUS.md) for fork-specific notes and [docs/contributing/development.md](docs/contributing/development.md) for the full dev setup.
+See [docs/ARGUS.md](docs/ARGUS.md) for compatibility notes and [docs/contributing/development.md](docs/contributing/development.md) for the full dev setup.
 
 ### Install for production
 
@@ -50,7 +50,7 @@ Community install paths are documented in [deploy/README.md](deploy/README.md). 
 
 ## Upstream compatibility
 
-Argus intentionally keeps several SigNoz upstream contracts so existing collectors and migrations continue to work:
+WeCrew intentionally keeps several SigNoz upstream contracts so existing collectors and migrations continue to work:
 
 - ClickHouse databases: `signoz_traces`, `signoz_metrics`, `signoz_logs`, `signoz_meter`, `signoz_metadata`, `signoz_index*`
 - Collector images: `signoz/signoz-otel-collector`, `signoz/signoz-schema-migrator`, `signoz/zookeeper`
@@ -60,7 +60,7 @@ Argus intentionally keeps several SigNoz upstream contracts so existing collecto
 
 ## Documentation
 
-- [Argus fork guide](docs/ARGUS.md)
+- [WeCrew compatibility guide](docs/ARGUS.md)
 - [Contributing](CONTRIBUTING.md)
 - [Development setup](docs/contributing/development.md)
 - [Integration tests](docs/contributing/tests/integration.md)
@@ -68,7 +68,7 @@ Argus intentionally keeps several SigNoz upstream contracts so existing collecto
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Original SigNoz copyright retained; Argus fork notice included where applicable.
+MIT — see [LICENSE](LICENSE). Original SigNoz copyright retained; WeCrew fork notice included where applicable.
 
 ## Contributing
 

@@ -46,7 +46,7 @@ describe('LicenseKeyRow', () => {
 		});
 		render(<LicenseKeyRow />);
 
-		expect(screen.getByText('Argus License Key')).toBeInTheDocument();
+		expect(screen.getByText('WeCrew License Key')).toBeInTheDocument();
 		expect(screen.getByText('ab·······ij')).toBeInTheDocument();
 	});
 

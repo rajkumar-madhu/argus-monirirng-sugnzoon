@@ -38,7 +38,7 @@ function ConfigureOIDCAuthnProvider({
 					Configure OpenID Connect Single Sign-On with your Identity Provider. Read
 					the{' '}
 					<a
-						href="https://argus.example.com/docs/manage/administrator-guide/sso/overview/"
+						href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#account-help"
 						target="_blank"
 						rel="noreferrer"
 					>

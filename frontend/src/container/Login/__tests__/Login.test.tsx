@@ -26,9 +26,7 @@ jest.mock('lib/history', () => ({
 	},
 }));
 
-const mockHistoryPush = history.push as jest.MockedFunction<
-	typeof history.push
->;
+const mockHistoryPush = jest.spyOn(history, 'push');
 
 // Mock data
 const mockVersionSetupCompleted: Info = {
@@ -145,7 +143,9 @@ describe('Login Component', () => {
 			).toBeInTheDocument();
 			expect(getByTestId('email')).toBeInTheDocument();
 			expect(getByTestId('initiate_login')).toBeInTheDocument();
-			expect(getByPlaceholderText('e.g. john@argus.example.com')).toBeInTheDocument();
+			expect(
+				getByPlaceholderText('e.g. name@yourcompany.com'),
+			).toBeInTheDocument();
 		});
 
 		it('shows loading state when version data is being fetched', () => {

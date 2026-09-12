@@ -38,7 +38,9 @@ describe('InviteMembers - Submission', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], 'alice@argus.example.com');
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -70,7 +72,9 @@ describe('InviteMembers - Submission', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 
 			await user.type(emailInputs[0], 'alice@argus.example.com');
 			await user.click(screen.getAllByText('Select roles')[0]);
@@ -123,7 +127,9 @@ describe('InviteMembers - Submission', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -152,7 +158,9 @@ describe('InviteMembers - Submission', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -215,7 +223,9 @@ describe('InviteMembers - Submission', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 
 			await user.type(emailInputs[0], 'alice@argus.example.com');
 			await user.click(screen.getAllByText('Select roles')[0]);
@@ -232,12 +242,18 @@ describe('InviteMembers - Submission', () => {
 				expect(apiCalls).toHaveLength(2);
 			});
 
-			expect(apiCalls).toStrictEqual(['alice@argus.example.com', 'bob@argus.example.com']);
+			expect(apiCalls).toStrictEqual([
+				'alice@argus.example.com',
+				'bob@argus.example.com',
+			]);
 			expect(onSuccess).not.toHaveBeenCalled();
 			expect(onAllFailed).not.toHaveBeenCalled();
 			expect(onPartialSuccess).toHaveBeenCalledWith(
 				expect.arrayContaining([
-					expect.objectContaining({ email: 'alice@argus.example.com', success: true }),
+					expect.objectContaining({
+						email: 'alice@argus.example.com',
+						success: true,
+					}),
 					expect.objectContaining({
 						email: 'bob@argus.example.com',
 						success: false,
@@ -274,7 +290,9 @@ describe('InviteMembers - Submission', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -301,7 +319,9 @@ describe('InviteMembers - Submission', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -331,7 +351,9 @@ describe('InviteMembers - Submission', () => {
 
 			expect(screen.getByTestId('submit-btn')).toBeDisabled();
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], VALID_EMAIL);
 
 			expect(screen.getByTestId('submit-btn')).not.toBeDisabled();
@@ -351,7 +373,9 @@ describe('InviteMembers - Submission', () => {
 
 			expect(screen.getByTestId('touched-count')).toHaveTextContent('0');
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText(
+				'e.g. engineer@wecrew.in',
+			);
 			await user.type(emailInputs[0], 'a@b.com');
 
 			expect(screen.getByTestId('touched-count')).toHaveTextContent('1');

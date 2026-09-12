@@ -145,19 +145,19 @@ function SaveView(): JSX.Element {
 	useEffect(() => {
 		if (!logEventCalledRef.current && !isLoading) {
 			if (sourcepage === DataSource.TRACES) {
-				logEvent('Traces Views: Views visited', {
+				void logEvent('Traces Views: Views visited', {
 					number: viewsData?.data?.data?.length,
 				});
 			} else if (sourcepage === DataSource.LOGS) {
-				logEvent('Logs Views: Views visited', {
+				void logEvent('Logs Views: Views visited', {
 					number: viewsData?.data?.data?.length,
 				});
 			} else if (sourcepage === DataSource.METRICS) {
-				logEvent(MetricsExplorerEvents.TabChanged, {
+				void logEvent(MetricsExplorerEvents.TabChanged, {
 					[MetricsExplorerEventKeys.Tab]: 'views',
 				});
 			} else if (sourcepage === 'meter') {
-				logEvent(MeterExplorerEvents.TabChanged, {
+				void logEvent(MeterExplorerEvents.TabChanged, {
 					[MeterExplorerEventKeys.Tab]: 'views',
 				});
 			}
@@ -166,7 +166,7 @@ function SaveView(): JSX.Element {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewsData?.data.data, isLoading]);
 	const onUpdateQueryHandler = (): void => {
-		updateViewAsync(
+		void updateViewAsync(
 			{
 				compositeQuery: activeCompositeQuery || ({} as ICompositeMetricQuery),
 				viewKey: activeViewKey,
@@ -180,8 +180,8 @@ function SaveView(): JSX.Element {
 						message: 'View Updated Successfully',
 					});
 					hideEditViewModal();
-					refetchAllView();
-					logEvent(MetricsExplorerEvents.ViewEdited, {
+					void refetchAllView();
+					void logEvent(MetricsExplorerEvents.ViewEdited, {
 						[MetricsExplorerEventKeys.Tab]: 'views',
 					});
 				},
@@ -214,7 +214,7 @@ function SaveView(): JSX.Element {
 				},
 				SOURCEPAGE_VS_ROUTES[sourcepage],
 			);
-			logEvent(MetricsExplorerEvents.OpenInExplorerClicked, {
+			void logEvent(MetricsExplorerEvents.OpenInExplorerClicked, {
 				[MetricsExplorerEventKeys.Tab]: 'views',
 				[MetricsExplorerEventKeys.ViewName]: name,
 			});
@@ -306,7 +306,7 @@ function SaveView(): JSX.Element {
 					Manage your saved views for {ROUTES_VS_SOURCEPAGE[pathname]}.{' '}
 					<Typography.Link
 						className="learn-more"
-						href="https://argus.example.com/docs/metrics-management/metrics-explorer/?utm_source=product&utm_medium=views-tab#saved-views-in-metrics-explorer"
+						href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics"
 						target="_blank"
 					>
 						Learn more

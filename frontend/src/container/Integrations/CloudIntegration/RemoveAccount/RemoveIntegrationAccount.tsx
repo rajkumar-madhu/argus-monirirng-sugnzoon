@@ -44,7 +44,7 @@ function RemoveIntegrationAccount({
 			},
 		});
 	const handleOk = (): void => {
-		logEvent(INTEGRATION_TELEMETRY_EVENTS.INTEGRATION_ACCOUNT_REMOVED, {
+		void logEvent(INTEGRATION_TELEMETRY_EVENTS.INTEGRATION_ACCOUNT_REMOVED, {
 			accountId,
 			integration: cloudProvider,
 		});
@@ -65,7 +65,7 @@ function RemoveIntegrationAccount({
 		modalDescription = (
 			<>
 				Removing this account will remove all components created for sending
-				telemetry to Argus in your AWS account within the next ~15 minutes
+				telemetry to WeCrew in your AWS account within the next ~15 minutes
 				(cloudformation stacks named signoz-integration-telemetry-collection in
 				enabled regions). <br />
 				<br />
@@ -76,7 +76,7 @@ function RemoveIntegrationAccount({
 	} else if (cloudProvider === INTEGRATION_TYPES.GCP) {
 		modalDescription = (
 			<>
-				Removing this account will stop Argus from monitoring it. <br />
+				Removing this account will stop WeCrew from monitoring it. <br />
 				<br />
 				Since you manage the GCP resources yourself, remember to manually tear down
 				the OTel collector and Pub/Sub resources you created for this integration if
@@ -87,7 +87,7 @@ function RemoveIntegrationAccount({
 		modalDescription = (
 			<>
 				Removing this account will remove all components created for sending
-				telemetry to Argus in your Azure subscription within the next ~15 minutes
+				telemetry to WeCrew in your Azure subscription within the next ~15 minutes
 				(deployment stack named signoz-integration-telemetry will be deleted
 				automatically). <br />
 				<br />

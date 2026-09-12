@@ -11,6 +11,7 @@ import { Collapse, Form, Tooltip } from 'antd';
 import { useCollapseSectionErrors } from 'hooks/useCollapseSectionErrors';
 
 import './ClaimMappingSection.styles.scss';
+import styles from './ClaimMappingSection.module.scss';
 
 interface ClaimMappingSectionProps {
 	fieldNamePrefix: string[];
@@ -54,23 +55,29 @@ function ClaimMappingSection({
 			>
 				<Collapse.Panel
 					key="claim-mapping"
+					collapsible="icon"
 					header={
-						<div
-							className="claim-mapping-section__collapse-header"
-							role="button"
+						<button
+							className={`claim-mapping-section__collapse-header ${styles.toggle}`}
+							type="button"
+							data-testid="claim-mapping-toggle"
+							onClick={(): void =>
+								handleCollapseChange(expanded ? [] : ['claim-mapping'])
+							}
+							onKeyDown={(event): void => event.stopPropagation()}
 							aria-expanded={expanded}
 							aria-controls="claim-mapping-content"
 						>
 							{!expanded ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
-							<div className="claim-mapping-section__collapse-header-text">
-								<h4 className="claim-mapping-section__section-title">
+							<span className="claim-mapping-section__collapse-header-text">
+								<span className="claim-mapping-section__section-title">
 									Claim Mapping (Advanced)
-								</h4>
-								<p className="claim-mapping-section__section-description">
-									Configure how claims from your Identity Provider map to Argus user
+								</span>
+								<span className="claim-mapping-section__section-description">
+									Configure how claims from your Identity Provider map to WeCrew user
 									attributes. Leave empty to use default values.
-								</p>
-							</div>
+								</span>
+							</span>
 							{!expanded && hasErrors && (
 								<Tooltip
 									title={
@@ -84,7 +91,7 @@ function ClaimMappingSection({
 									<TriangleAlert size={16} color={Color.BG_CHERRY_500} />
 								</Tooltip>
 							)}
-						</div>
+						</button>
 					}
 				>
 					<div id="claim-mapping-content" className="claim-mapping-section__content">

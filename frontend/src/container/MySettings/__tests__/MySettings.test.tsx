@@ -6,7 +6,6 @@ import {
 	setupAuthzDenyAll,
 } from 'lib/authz/utils/authz-test-utils';
 import { server } from 'mocks-server/server';
-import { logEventMock } from '__tests__/logEventMock';
 import {
 	act,
 	fireEvent,
@@ -64,8 +63,7 @@ jest.mock('providers/ErrorModalProvider', () => ({
 
 jest.mock('hooks/useDarkMode', () => ({
 	__esModule: true,
-	useIsDarkMode: jest.fn(() => true),
-	useSystemTheme: jest.fn(() => 'dark'),
+	useIsDarkMode: jest.fn(() => false),
 	default: jest.fn(() => ({
 		toggleTheme: toggleThemeFunction,
 		autoSwitch: false,
@@ -85,7 +83,6 @@ jest.mock('hooks/useNotifications', () => ({
 	})),
 }));
 
-const THEME_SELECTOR_TEST_ID = 'theme-selector';
 const RESET_PASSWORD_BUTTON_TEXT = 'Reset password';
 const CURRENT_PASSWORD_TEST_ID = 'current-password-textbox';
 const NEW_PASSWORD_TEST_ID = 'new-password-textbox';
@@ -105,53 +102,14 @@ describe('MySettings Flows', () => {
 		render(<MySettingsContainer />);
 	});
 
-	describe('Dark/Light Theme Switch', () => {
-		it('Should display Dark, Light, and System theme options properly', async () => {
-			// Check Dark theme option
-			expect(screen.getByText('Dark')).toBeInTheDocument();
-			const darkThemeIcon = screen.getByTestId('dark-theme-icon');
-			expect(darkThemeIcon).toBeInTheDocument();
-			expect(darkThemeIcon.tagName).toBe('svg');
-
-			// Check Light theme option
-			expect(screen.getByText('Light')).toBeInTheDocument();
-			const lightThemeIcon = screen.getByTestId('light-theme-icon');
-			expect(lightThemeIcon).toBeInTheDocument();
-			expect(lightThemeIcon.tagName).toBe('svg');
-			expect(screen.getByText('Beta')).toBeInTheDocument();
-
-			// Check System theme option
-			expect(screen.getByText('System')).toBeInTheDocument();
-			const autoThemeIcon = screen.getByTestId('auto-theme-icon');
-			expect(autoThemeIcon).toBeInTheDocument();
-			expect(autoThemeIcon.tagName).toBe('svg');
-		});
-
-		it('Should have Dark theme selected by default', async () => {
-			const themeSelector = screen.getByTestId(THEME_SELECTOR_TEST_ID);
-			const darkOption = within(themeSelector).getByRole('radio', {
-				name: /Dark/,
-			});
-			expect(darkOption).toBeChecked();
-		});
-
-		it('Should switch theme and log event when Light theme is selected', async () => {
-			const themeSelector = screen.getByTestId(THEME_SELECTOR_TEST_ID);
-			const lightOption = within(themeSelector).getByRole('radio', {
-				name: /Light/,
-			});
-
-			fireEvent.click(lightOption);
-
-			await waitFor(() => {
-				expect(toggleThemeFunction).toHaveBeenCalled();
-				expect(logEventMock).toHaveBeenCalledWith(
-					'Account Settings: Theme Changed',
-					{
-						theme: 'light',
-					},
-				);
-			});
+	describe('Light-only appearance', () => {
+		it('shows the light appearance without dark or system choices', () => {
+			expect(screen.getByTestId('light-only-appearance')).toHaveTextContent(
+				'Light',
+			);
+			expect(screen.queryByTestId('theme-selector')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('dark-theme-icon')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('auto-theme-icon')).not.toBeInTheDocument();
 		});
 	});
 
@@ -387,7 +345,7 @@ describe('MySettings Flows', () => {
 		it('Should render license section content when license key exists', async () => {
 			expect(screen.getByText('License')).toBeInTheDocument();
 			await expect(screen.findByText('License key')).resolves.toBeInTheDocument();
-			expect(screen.getByText('Your Argus license key.')).toBeInTheDocument();
+			expect(screen.getByText('Your WeCrew license key.')).toBeInTheDocument();
 		});
 
 		it('Should not render license section when there is no active license', () => {
@@ -403,7 +361,7 @@ describe('MySettings Flows', () => {
 			expect(scoped.queryByText('License')).not.toBeInTheDocument();
 			expect(scoped.queryByText('License key')).not.toBeInTheDocument();
 			expect(
-				scoped.queryByText('Your Argus license key.'),
+				scoped.queryByText('Your WeCrew license key.'),
 			).not.toBeInTheDocument();
 		});
 

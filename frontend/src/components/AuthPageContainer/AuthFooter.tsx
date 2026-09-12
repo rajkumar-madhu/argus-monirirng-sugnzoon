@@ -12,17 +12,12 @@ interface FooterItem {
 
 const footerItems: FooterItem[] = [
 	{
-		text: 'All systems operational',
-		url: 'https://argus.example.com/',
-		statusIndicator: true,
+		text: 'Self-hosting guide',
+		url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/infra/hostinger-vm/README.md',
 	},
 	{
-		text: 'Privacy',
-		url: 'https://argus.example.com/privacy',
-	},
-	{
-		text: 'Security',
-		url: 'https://argus.example.com/security',
+		text: 'Source code',
+		url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon',
 	},
 ];
 

@@ -27,7 +27,7 @@ import {
 import { EQueryType } from 'types/common/dashboard';
 import { popupContainer } from 'utils/selectPopupContainer';
 
-import { AlertDetectionTypes } from '.';
+import { AlertDetectionTypes } from './alertDetectionTypes';
 import {
 	FormContainer,
 	InlineSelect,
@@ -49,7 +49,7 @@ function RuleOptions({
 
 	const { ruleType } = alertDef;
 
-	const handleMatchOptChange = (value: string | unknown): void => {
+	const handleMatchOptChange = (value: unknown): void => {
 		const m = (value as string) || alertDef.condition?.matchType;
 		setAlertDef({
 			...alertDef,
@@ -60,7 +60,7 @@ function RuleOptions({
 		});
 	};
 
-	const onChangeSelectedQueryName = (value: string | unknown): void => {
+	const onChangeSelectedQueryName = (value: unknown): void => {
 		if (typeof value !== 'string') {
 			return;
 		}
@@ -81,7 +81,7 @@ function RuleOptions({
 			value={alertDef.condition?.op}
 			style={{ minWidth: '120px' }}
 			data-testid="alert-threshold-op-select"
-			onChange={(value: string | unknown): void => {
+			onChange={(value: unknown): void => {
 				const newOp = (value as string) || '';
 
 				setAlertDef({
@@ -118,7 +118,7 @@ function RuleOptions({
 			style={{ minWidth: '130px' }}
 			value={alertDef.condition?.matchType}
 			data-testid="alert-threshold-match-type-select-v1"
-			onChange={(value: string | unknown): void => handleMatchOptChange(value)}
+			onChange={(value: unknown): void => handleMatchOptChange(value)}
 		>
 			<Select.Option value="1">{t('option_atleastonce')}</Select.Option>
 			<Select.Option value="2">{t('option_allthetimes')}</Select.Option>
@@ -133,7 +133,7 @@ function RuleOptions({
 		</InlineSelect>
 	);
 
-	const onChangeEvalWindow = (value: string | unknown): void => {
+	const onChangeEvalWindow = (value: unknown): void => {
 		const ew = (value as string) || alertDef.evalWindow;
 		setAlertDef({
 			...alertDef,
@@ -141,7 +141,7 @@ function RuleOptions({
 		});
 	};
 
-	const onChangeAlgorithm = (value: string | unknown): void => {
+	const onChangeAlgorithm = (value: unknown): void => {
 		const alg = (value as string) || alertDef.condition.algorithm;
 		setAlertDef({
 			...alertDef,
@@ -152,7 +152,7 @@ function RuleOptions({
 		});
 	};
 
-	const onChangeSeasonality = (value: string | unknown): void => {
+	const onChangeSeasonality = (value: unknown): void => {
 		const seasonality = (value as string) || alertDef.condition.seasonality;
 		setAlertDef({
 			...alertDef,
@@ -223,7 +223,7 @@ function RuleOptions({
 			defaultValue={3}
 			style={{ minWidth: '120px' }}
 			value={alertDef.condition.target}
-			onChange={(value: number | unknown): void => {
+			onChange={(value: unknown): void => {
 				if (typeof value === 'number') {
 					onChangeDeviation(value);
 				}
@@ -315,7 +315,7 @@ function RuleOptions({
 		});
 	};
 
-	const onChangeFrequency = (value: string | unknown): void => {
+	const onChangeFrequency = (value: unknown): void => {
 		const freq = (value as string) || alertDef.frequency;
 		setAlertDef({
 			...alertDef,

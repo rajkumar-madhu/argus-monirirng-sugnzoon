@@ -1,7 +1,7 @@
-import { TelemetryFieldKey } from 'api/v5/v5';
+import type { TelemetryFieldKey } from 'api/v5/v5';
 import { isEmpty } from 'lodash-es';
-import { IField } from 'types/api/logs/fields';
-import {
+import type { IField } from 'types/api/logs/fields';
+import type {
 	IBuilderQuery,
 	TagFilterItem,
 } from 'types/api/queryBuilder/queryBuilderData';
@@ -46,6 +46,9 @@ export type EmptyLogsListConfig = {
 	clearFiltersButtonText?: string;
 };
 
+const WECREW_GETTING_STARTED_URL =
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md';
+
 export const getEmptyLogsListConfig = (
 	handleClearFilters: () => void,
 ): EmptyLogsListConfig => ({
@@ -53,17 +56,17 @@ export const getEmptyLogsListConfig = (
 	subTitle: 'This could be because :',
 	description: [
 		'Logs are not linked to Traces.',
-		'Logs are not being sent to Argus.',
+		'Logs are not being sent to WeCrew.',
 		'No logs are associated with this particular trace/span.',
 	],
 	documentationLinks: [
 		{
-			text: 'Sending logs to Argus',
-			url: 'https://argus.example.com/docs/logs-management/send-logs-to-signoz/',
+			text: 'Sending logs to WeCrew',
+			url: `${WECREW_GETTING_STARTED_URL}#logs`,
 		},
 		{
 			text: 'Correlate traces and logs',
-			url: 'https://argus.example.com/docs/traces-management/guides/correlate-traces-and-logs/',
+			url: `${WECREW_GETTING_STARTED_URL}#traces`,
 		},
 	],
 	clearFiltersButtonText: 'Clear filters from Trace to view other logs',

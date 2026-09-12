@@ -158,11 +158,17 @@ function QueryAggregationSelect({
 	const { setAggregationOptions } = useQueryBuilderV2Context();
 
 	const formatAggregations = useCallback(
-		(aggregations: any[] | undefined): string =>
+		(aggregations: IBuilderQuery['aggregations']): string =>
 			aggregations
-				?.map(({ expression, alias }: any) =>
-					alias ? `${expression} as ${alias}` : expression,
-				)
+				?.map((aggregation) => {
+					if ('expression' in aggregation) {
+						return aggregation.alias
+							? `${aggregation.expression} as ${aggregation.alias}`
+							: aggregation.expression;
+					}
+
+					return aggregation.metricName;
+				})
 				.join(' ') || '',
 		[],
 	);
@@ -383,12 +389,12 @@ function QueryAggregationSelect({
 					}
 				},
 				{
-					decorations: (v: any): import('@codemirror/view').DecorationSet =>
-						v.decorations,
+					decorations: (plugin): import('@codemirror/view').DecorationSet =>
+						plugin.decorations,
 				},
 			),
 		[validFunctions],
-	) as any;
+	);
 
 	const operatorCompletions: Completion[] = tracesAggregateOperatorOptions.map(
 		(op) => ({
@@ -676,7 +682,7 @@ function QueryAggregationSelect({
 						</span>
 						<br />
 						<a
-							href="https://argus.example.com/docs/querying/aggregation-grouping/#core-aggregation-functions-logs--traces"
+							href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces"
 							target="_blank"
 							rel="noopener noreferrer"
 							style={{ color: '#1890ff', textDecoration: 'underline' }}

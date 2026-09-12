@@ -707,7 +707,7 @@ function GeneralSettings({
 						<TextToolTip
 							{...{
 								text: `More details on how to set retention period`,
-								url: 'https://argus.example.com/docs/userguide/retention-period/',
+								url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#account-help',
 							}}
 						/>
 					)}

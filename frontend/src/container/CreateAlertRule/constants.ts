@@ -8,32 +8,33 @@ export const ALERT_TYPE_URL_MAP: Record<
 > = {
 	[AlertTypes.METRICS_BASED_ALERT]: {
 		selection:
-			'https://argus.example.com/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#metrics',
 		creation:
-			'https://argus.example.com/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#metrics',
 	},
 	[AlertTypes.LOGS_BASED_ALERT]: {
 		selection:
-			'https://argus.example.com/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#logs',
 		creation:
-			'https://argus.example.com/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#logs',
 	},
 	[AlertTypes.TRACES_BASED_ALERT]: {
 		selection:
-			'https://argus.example.com/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#traces',
 		creation:
-			'https://argus.example.com/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#traces',
 	},
 	[AlertTypes.EXCEPTIONS_BASED_ALERT]: {
 		selection:
-			'https://argus.example.com/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#exceptions',
 		creation:
-			'https://argus.example.com/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#exceptions',
 	},
 	[AlertTypes.ANOMALY_BASED_ALERT]: {
-		selection: 'https://argus.example.com/docs/alerts-management/anomaly-based-alerts/',
+		selection:
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#anomaly',
 		creation:
-			'https://argus.example.com/docs/alerts-management/anomaly-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md#anomaly',
 	},
 };
 

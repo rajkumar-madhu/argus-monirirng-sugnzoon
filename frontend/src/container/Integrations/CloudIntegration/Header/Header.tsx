@@ -39,7 +39,7 @@ function Header({ type }: { type: IntegrationType }): JSX.Element {
 						color="secondary"
 						onClick={(): void => {
 							window.open(
-								'https://argus.example.com/blog/native-aws-integrations-with-autodiscovery/',
+								'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#add-a-data-source',
 								'_blank',
 							);
 						}}

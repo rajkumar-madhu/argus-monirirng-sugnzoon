@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/prefer-tag-over-role -- Existing integration rows use div styling; keyboard semantics are provided explicitly. */
 import { useMemo } from 'react';
 import { Color } from '@signozhq/design-tokens';
 import { Badge } from '@signozhq/ui/badge';
@@ -62,14 +63,25 @@ function IntegrationsList(props: IntegrationsListProps): JSX.Element {
 						<Button
 							type="primary"
 							className="retry-btn"
-							onClick={(): Promise<any> => refetch()}
+							onClick={(): void => {
+								void refetch();
+							}}
 							icon={<RotateCw size={14} />}
 						>
 							Retry
 						</Button>
 						<div
 							className="contact-support"
+							role="button"
+							aria-label="Contact support"
+							tabIndex={0}
 							onClick={(): void => handleContactSupport(isCloudUserVal)}
+							onKeyDown={(event): void => {
+								if (event.key === 'Enter' || event.key === ' ') {
+									event.preventDefault();
+									handleContactSupport(isCloudUserVal);
+								}
+							}}
 						>
 							<Typography.Link className="text">Contact Support </Typography.Link>
 
@@ -138,7 +150,16 @@ function IntegrationsList(props: IntegrationsListProps): JSX.Element {
 						<div
 							className="integrations-list-item"
 							key={integration.id}
+							role="button"
+							aria-label={`Open ${integration.title} integration`}
+							tabIndex={0}
 							onClick={(): void => handleSelectedIntegration(integration)}
+							onKeyDown={(event): void => {
+								if (event.key === 'Enter' || event.key === ' ') {
+									event.preventDefault();
+									handleSelectedIntegration(integration);
+								}
+							}}
 						>
 							<div className="integrations-list-item-column title-column">
 								<div className="integrations-list-item-name-image-container">
@@ -154,7 +175,7 @@ function IntegrationsList(props: IntegrationsListProps): JSX.Element {
 								</div>
 							</div>
 							<div className="integrations-list-item-column">
-								<div className="integrations-list-item-published-by">Argus</div>
+								<div className="integrations-list-item-published-by">WeCrew</div>
 							</div>
 							<div className="integrations-list-item-column">
 								<div className="integrations-list-item-installation-status">

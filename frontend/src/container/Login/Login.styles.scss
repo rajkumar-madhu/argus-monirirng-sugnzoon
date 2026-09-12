@@ -90,7 +90,7 @@
 		}
 
 		.login-error-icon {
-			color: var(--bg-cherry-200);
+			color: var(--text-cherry-700);
 			padding-top: 1px;
 		}
 
@@ -99,7 +99,7 @@
 		}
 
 		&__error-code {
-			color: #fadadb;
+			color: var(--text-cherry-700);
 			font-size: 13px;
 			font-weight: 500;
 			line-height: 1;
@@ -107,7 +107,7 @@
 		}
 
 		&__error-message {
-			color: #f5b6b8;
+			color: var(--text-cherry-700);
 			font-size: 13px;
 			font-weight: 400;
 			line-height: 20px;
@@ -119,7 +119,7 @@
 		}
 
 		&__message-badge-label-text {
-			color: #fadadb;
+			color: var(--text-cherry-700);
 		}
 
 		&__message-badge-line {
@@ -139,14 +139,14 @@
 		}
 
 		&__message-item {
-			color: #f5b6b8;
+			color: var(--text-cherry-700);
 			font-size: 13px;
 			font-weight: 400;
 			line-height: 20px;
 			letter-spacing: -0.065px;
 
 			&::before {
-				background: #f5b6b8;
+				background: var(--text-cherry-700);
 			}
 		}
 
@@ -155,7 +155,7 @@
 		}
 
 		&__scroll-hint-text {
-			color: #fadadb;
+			color: var(--text-cherry-700);
 		}
 	}
 }

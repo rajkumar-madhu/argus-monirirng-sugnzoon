@@ -19,6 +19,25 @@ describe('ViewRolePage - Managed Role', () => {
 		jest.restoreAllMocks();
 	});
 
+	it('shows WeCrew branding for the managed role without renaming its identity', async () => {
+		render(
+			<TooltipProvider>
+				<ViewRolePage />
+			</TooltipProvider>,
+			undefined,
+			{ initialRoute: buildViewRoleRoute(MANAGED_ROLE_ID, MANAGED_ROLE_NAME) },
+		);
+		await waitFor(() => {
+			expect(screen.getByTestId('role-display-name')).toHaveTextContent(
+				'Role - WeCrew Admin',
+			);
+			expect(screen.getByTestId('role-display-description')).toHaveTextContent(
+				'full administrative access to WeCrew resources',
+			);
+		});
+		expect(screen.queryByText('Role - signoz-admin')).not.toBeInTheDocument();
+	});
+
 	it('disables Delete button for managed roles', async () => {
 		render(
 			<TooltipProvider>

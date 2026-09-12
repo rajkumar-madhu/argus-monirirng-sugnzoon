@@ -5,12 +5,14 @@ import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 import history from 'lib/history';
 import { ArrowUpRight } from '@signozhq/icons';
 import { DataSource } from 'types/common/queryBuilder';
-import DOCLINKS from 'utils/docLinks';
 import { openInNewTab } from 'utils/navigation';
 
 import eyesEmojiUrl from '@/assets/Images/eyesEmoji.svg';
 
 import './NoLogs.styles.scss';
+
+const WECREW_GETTING_STARTED_URL =
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md';
 
 export default function NoLogs({
 	dataSource,
@@ -27,19 +29,19 @@ export default function NoLogs({
 
 		if (isCloudUserVal) {
 			if (dataSource === DataSource.TRACES) {
-				logEvent('Traces Explorer: Navigate to onboarding', {});
+				void logEvent('Traces Explorer: Navigate to onboarding', {});
 			} else if (dataSource === DataSource.LOGS) {
-				logEvent('Logs Explorer: Navigate to onboarding', {});
+				void logEvent('Logs Explorer: Navigate to onboarding', {});
 			} else if (dataSource === DataSource.METRICS) {
-				logEvent('Metrics Explorer: Navigate to onboarding', {});
+				void logEvent('Metrics Explorer: Navigate to onboarding', {});
 			}
 			history.push(ROUTES.GET_STARTED_WITH_CLOUD);
 		} else if (dataSource === 'traces') {
-			openInNewTab(DOCLINKS.TRACES_EXPLORER_EMPTY_STATE);
+			openInNewTab(`${WECREW_GETTING_STARTED_URL}#traces`);
 		} else if (dataSource === DataSource.METRICS) {
-			openInNewTab(DOCLINKS.METRICS_EXPLORER_EMPTY_STATE);
+			openInNewTab(`${WECREW_GETTING_STARTED_URL}#metrics`);
 		} else {
-			openInNewTab(`${DOCLINKS.USER_GUIDE}${dataSource}/`);
+			openInNewTab(`${WECREW_GETTING_STARTED_URL}#logs`);
 		}
 	};
 	return (
@@ -55,7 +57,7 @@ export default function NoLogs({
 				</Typography>
 
 				<Typography.Link className="send-logs-link" onClick={handleLinkClick}>
-					Sending {dataSource} to Argus <ArrowUpRight size={16} />
+					Sending {dataSource} to WeCrew <ArrowUpRight size={16} />
 				</Typography.Link>
 			</div>
 		</div>

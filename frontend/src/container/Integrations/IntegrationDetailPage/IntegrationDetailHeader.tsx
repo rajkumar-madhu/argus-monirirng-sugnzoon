@@ -151,11 +151,11 @@ function IntegrationDetailHeader(
 					disabled={isInstallLoading || isLoading}
 					onClick={(): void => {
 						if (connectionState === ConnectionStates.NotInstalled) {
-							logEvent(INTEGRATION_TELEMETRY_EVENTS.INTEGRATIONS_DETAIL_CONNECT, {
+							void logEvent(INTEGRATION_TELEMETRY_EVENTS.INTEGRATIONS_DETAIL_CONNECT, {
 								integration: id,
 							});
 						} else {
-							logEvent(
+							void logEvent(
 								INTEGRATION_TELEMETRY_EVENTS.INTEGRATIONS_DETAIL_TEST_CONNECTION,
 								{
 									integration: id,
@@ -293,7 +293,7 @@ function IntegrationDetailHeader(
 							<div className="last-data">
 								We have not received data from your {title} Instance yet. You need to
 								manually configure your {title} instance to start sending data to
-								Argus.
+								WeCrew.
 							</div>
 							<div className="last-data">
 								If you have already configured your resources to send data, sit tight
@@ -305,7 +305,7 @@ function IntegrationDetailHeader(
 						<div className="data-test-connection">
 							<div className="last-data">
 								You would need to manually configure your {title} instance to start
-								sending data to Argus.
+								sending data to WeCrew.
 							</div>
 							<div className="last-data">
 								If you have already configured your resources to send data, sit tight

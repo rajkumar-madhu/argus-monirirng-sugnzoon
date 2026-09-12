@@ -1,4 +1,7 @@
-import { getUserSettingsDropdownMenuItems } from 'container/SideNav/menuItems';
+import {
+	getUserSettingsDropdownMenuItems,
+	helpSupportDropdownMenuItems,
+} from 'container/SideNav/menuItems';
 
 const BASE_PARAMS = {
 	userEmail: 'test@argus.example.com',
@@ -8,6 +11,22 @@ const BASE_PARAMS = {
 };
 
 describe('getUserSettingsDropdownMenuItems', () => {
+	it('directs product resources to the WeCrew repository', () => {
+		const repository =
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon';
+		expect(
+			helpSupportDropdownMenuItems.find((item) => item.key === 'github')?.url,
+		).toBe(repository);
+		expect(
+			helpSupportDropdownMenuItems.find((item) => item.key === 'documentation')
+				?.url,
+		).toBe(
+			`${repository}/blob/codex/fix-api-generation/infra/hostinger-vm/README.md`,
+		);
+		expect(
+			helpSupportDropdownMenuItems.find((item) => item.key === 'slack')?.url,
+		).toBe(`${repository}/issues`);
+	});
 	it('always includes logged-in-as label, workspace, account, keyboard shortcuts, and sign out', () => {
 		const items = getUserSettingsDropdownMenuItems(BASE_PARAMS);
 		const keys = items?.map((item) => item?.key);

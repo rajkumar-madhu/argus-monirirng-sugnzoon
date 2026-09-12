@@ -44,7 +44,7 @@ function FunnelsEmptyState({
 							New funnel
 						</Button>
 					)}
-					<LearnMore url="https://argus.example.com/blog/tracing-funnels-observability-distributed-systems/" />
+					<LearnMore url="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces" />
 				</div>
 			</div>
 		</div>

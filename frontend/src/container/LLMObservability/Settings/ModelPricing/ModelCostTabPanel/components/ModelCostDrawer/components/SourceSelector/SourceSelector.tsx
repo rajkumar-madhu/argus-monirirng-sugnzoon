@@ -49,7 +49,7 @@ function SourceSelector({
 				{isReadOnly && (
 					<span className={styles.managedLabel} data-testid="drawer-managed-label">
 						<Lock size={12} />
-						Managed by Argus
+						Managed by WeCrew
 					</span>
 				)}
 			</div>
@@ -67,8 +67,8 @@ function SourceSelector({
 					<div className={styles.sourceRadioTitle}>Auto-populated</div>
 					<div className={styles.sourceRadioDesc}>
 						{disableAuto
-							? 'Available once Argus has default pricing for this model.'
-							: 'Default pricing from Argus.'}
+							? 'Available once WeCrew has default pricing for this model.'
+							: 'Default pricing from WeCrew.'}
 					</div>
 				</RadioGroupItem>
 				<RadioGroupItem

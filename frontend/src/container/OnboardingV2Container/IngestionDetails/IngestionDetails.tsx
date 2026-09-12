@@ -5,7 +5,6 @@ import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
 import { useGetIngestionKeys } from 'api/generated/services/gateway';
 import { GatewaytypesIngestionKeyDTO } from 'api/generated/services/sigNoz.schemas';
-import { DOCS_BASE_URL } from 'constants/app';
 import { convertToApiError } from 'api/ErrorResponseHandlerForGeneratedAPIs';
 import { useGetGlobalConfig } from 'api/generated/services/global';
 import { useNotifications } from 'hooks/useNotifications';
@@ -13,6 +12,9 @@ import { ArrowUpRight, Copy, Info, Key, TriangleAlert } from '@signozhq/icons';
 import { withBasePath } from 'utils/basePath';
 
 import './IngestionDetails.styles.scss';
+
+const WECREW_INGESTION_GUIDE_URL =
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#ingestion-keys';
 
 function maskKey(key: string, visibleStart = 4, visibleEnd = 4): string {
 	if (!key) {
@@ -85,16 +87,19 @@ export default function OnboardingIngestionDetails(): JSX.Element {
 			{isError && (
 				<div className="ingestion-endpoint-section-error-container">
 					<Typography.Text className="ingestion-endpoint-section-error-text error">
-						<TriangleAlert size={14} /> {error.message || 'Something went wrong'}
+						<TriangleAlert size={14} />{' '}
+						<span className="translate-safe">
+							{error.message || 'Something went wrong'}
+						</span>
 					</Typography.Text>
 
 					<div className="ingestion-setup-details-links">
 						<Info size={14} />
 
 						<span>
-							Find your ingestion URL and learn more about sending data to Argus{' '}
+							Find your ingestion URL and learn more about sending data to WeCrew{' '}
 							<a
-								href={`${DOCS_BASE_URL}/docs/ingestion/signoz-cloud/overview/`}
+								href={WECREW_INGESTION_GUIDE_URL}
 								target="_blank"
 								className="learn-more"
 								rel="noreferrer"
@@ -110,7 +115,7 @@ export default function OnboardingIngestionDetails(): JSX.Element {
 				<>
 					<div className="ingestion-key-details-section">
 						<Typography.Text className="ingestion-key-details-section-text">
-							You can use this key to send your telemetry data to Argus.
+							You can use this key to send your telemetry data to WeCrew.
 						</Typography.Text>
 
 						<div className="ingestion-key-details-section-key">
@@ -137,7 +142,7 @@ export default function OnboardingIngestionDetails(): JSX.Element {
 														size={14}
 														className="copy-btn"
 														onClick={(): void => {
-															logEvent(
+															void logEvent(
 																`${ONBOARDING_V3_ANALYTICS_EVENTS_MAP?.BASE}: ${ONBOARDING_V3_ANALYTICS_EVENTS_MAP?.INGESTION_URL_COPIED}`,
 																{},
 															);
@@ -187,7 +192,7 @@ export default function OnboardingIngestionDetails(): JSX.Element {
 												size={14}
 												className="copy-btn"
 												onClick={(): void => {
-													logEvent(
+													void logEvent(
 														`${ONBOARDING_V3_ANALYTICS_EVENTS_MAP?.BASE}: ${ONBOARDING_V3_ANALYTICS_EVENTS_MAP?.INGESTION_KEY_COPIED}`,
 														{},
 													);
@@ -209,12 +214,12 @@ export default function OnboardingIngestionDetails(): JSX.Element {
 						<span>
 							We support{' '}
 							<a
-								href={`${DOCS_BASE_URL}/docs/ingestion/signoz-cloud/keys/`}
+								href={WECREW_INGESTION_GUIDE_URL}
 								target="_blank"
 								className="learn-more"
 								rel="noreferrer"
 							>
-								multiple ingestions keys
+								multiple ingestion keys
 							</a>
 							. To create a new one,{' '}
 							<a

@@ -10,14 +10,14 @@ export function ComingSoon(): JSX.Element {
 		<Tooltip
 			title={
 				<div>
-					Join our Slack community for more details:{' '}
+					Visit the WeCrew source repository for more details:{' '}
 					<a
-						href="https://argus.example.com/slack"
+						href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon"
 						rel="noopener noreferrer"
 						target="_blank"
 						onClick={(e): void => e.stopPropagation()}
 					>
-						Argus Community
+						WeCrew source
 					</a>
 				</div>
 			}

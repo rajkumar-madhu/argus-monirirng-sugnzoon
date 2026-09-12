@@ -99,8 +99,8 @@ function PublicDashboardView({
 			<div className={styles.header}>
 				<div className={styles.headerLeft}>
 					<div className={styles.brand}>
-						<img src={argusBrandLogoUrl} alt="Argus" className={styles.brandLogo} />
-						<Typography className={styles.brandName}>Argus</Typography>
+						<img src={argusBrandLogoUrl} alt="WeCrew" className={styles.brandLogo} />
+						<Typography className={styles.brandName}>WeCrew</Typography>
 					</div>
 					<Typography.Text className={styles.title}>
 						{dashboard?.spec?.display?.name}

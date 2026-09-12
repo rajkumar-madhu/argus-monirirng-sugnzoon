@@ -148,14 +148,22 @@ describe('CreateEdit — role mapping uses API roles', () => {
 
 		// Open the Select and wait for the async roles fetch to populate it.
 		await openDefaultRoleSelect(user);
-		await screen.findByTitle(allRoles[0].name);
+		await screen.findByTitle('WeCrew Admin');
 
 		// Every role returned by the API is offered as an option, including the
 		// custom (non-managed) roles — the whole point of the refactor. Use
 		// getAllByTitle: the preselected default role also renders its name on
 		// the selection item, so a role may legitimately appear more than once.
+		const managedLabels: Record<string, string> = {
+			'signoz-admin': 'WeCrew Admin',
+			'signoz-editor': 'WeCrew Editor',
+			'signoz-viewer': 'WeCrew Viewer',
+			'signoz-anonymous': 'WeCrew Anonymous',
+		};
 		allRoles.forEach((role) => {
-			expect(screen.getAllByTitle(role.name).length).toBeGreaterThan(0);
+			expect(
+				screen.getAllByTitle(managedLabels[role.name] ?? role.name).length,
+			).toBeGreaterThan(0);
 		});
 
 		// The old hardcoded uppercase role values must NOT appear as options.
@@ -180,7 +188,7 @@ describe('CreateEdit — role mapping uses API roles', () => {
 		await expandRoleMapping(user);
 
 		await openDefaultRoleSelect(user);
-		await user.click(await screen.findByTitle(editorRole.name));
+		await user.click(await screen.findByTitle('WeCrew Editor'));
 
 		await saveChanges(user);
 
@@ -273,7 +281,7 @@ describe('CreateEdit — role mapping uses API roles', () => {
 
 		// The stored default role renders as a real selection, not a raw token.
 		await waitFor(() =>
-			expect(screen.getAllByTitle(editorRole.name).length).toBeGreaterThan(0),
+			expect(screen.getAllByTitle('WeCrew Editor').length).toBeGreaterThan(0),
 		);
 
 		await saveChanges(user);

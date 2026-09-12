@@ -80,8 +80,8 @@ export const PagerInitialConfig: Partial<PagerChannel> = {
 	  )
 	{{- end }}`,
 	severity: '{{ (index .Alerts 0).Labels.severity }}',
-	client: 'Argus Alert Manager',
-	client_url: 'https://enter-signoz-host-n-port-here/alerts',
+	client: 'WeCrew Alert Manager',
+	client_url: 'https://monitoring.wecrew.in/alerts',
 	details: JSON.stringify({
 		firing: `{{ .Alerts.Firing | toJson }}`,
 		resolved: `{{ .Alerts.Resolved | toJson }}`,
@@ -133,7 +133,7 @@ export const JsmOpsInitialConfig: Partial<JsmOpsChannel> = {
 
 {{ end }}{{ if .Annotations.description }}**Description:** {{ .Annotations.description }}
 
-{{ end }}{{ if .GeneratorURL }}[View in Argus]({{ .GeneratorURL }})
+{{ end }}{{ if .GeneratorURL }}[View in WeCrew]({{ .GeneratorURL }})
 
 {{ end }}{{ if .Annotations.related_logs }}[View related logs]({{ .Annotations.related_logs }})
 
@@ -159,7 +159,7 @@ export const IncidentIOInitialConfig: Partial<IncidentIOChannel> = {
 
 {{ end }}{{ if .Annotations.description }}**Description:** {{ .Annotations.description }}
 
-{{ end }}{{ if .GeneratorURL }}[View in Argus]({{ .GeneratorURL }})
+{{ end }}{{ if .GeneratorURL }}[View in WeCrew]({{ .GeneratorURL }})
 
 {{ end }}{{ if .Annotations.related_logs }}[View related logs]({{ .Annotations.related_logs }})
 

@@ -13,7 +13,7 @@ export function NoAuthBanner(): JSX.Element {
 			Impersonation mode: authentication is disabled. Anyone with access to this
 			instance has admin privileges.{' '}
 			<a
-				href="https://argus.example.com/docs/manage/administrator-guide/configuration/impersonation-mode/"
+				href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#account-help"
 				target="_blank"
 				rel="noreferrer"
 			>

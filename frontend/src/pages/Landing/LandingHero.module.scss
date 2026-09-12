@@ -1,0 +1,159 @@
+.hero {
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 40px 48px 24px;
+	display: grid;
+	grid-template-columns: 1.02fr 1fr;
+	align-items: center;
+	min-height: 600px;
+}
+.copy {
+	position: relative;
+	z-index: 1;
+	padding: 36px 0;
+}
+.title {
+	margin: 0 0 24px;
+	font-size: clamp(38px, 3.4vw, 52px);
+	font-weight: 750;
+	line-height: 1.07;
+	letter-spacing: -0.055em;
+	color: var(--landing-ink);
+}
+.accent {
+	font-size: 1.14em;
+	color: var(--landing-gold);
+}
+.description {
+	max-width: 620px;
+	margin: 0;
+	color: var(--landing-muted);
+	font-size: clamp(18px, 1.6vw, 24px);
+	line-height: 1.5;
+	letter-spacing: -0.025em;
+}
+.actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	margin-top: 42px;
+}
+.primary,
+.secondary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 18px;
+	min-height: 52px;
+	padding: 12px 22px;
+	border-radius: 8px;
+	border: 1px solid var(--landing-gold);
+	font-size: 15px;
+	font-weight: 600;
+	text-decoration: none;
+}
+.primary {
+	background: var(--landing-gold);
+	color: white;
+}
+.secondary {
+	background: transparent;
+	color: var(--landing-ink);
+}
+.primary:hover {
+	color: white;
+	filter: brightness(1.06);
+}
+.secondary:hover {
+	color: var(--landing-gold);
+	background: white;
+}
+.primary:focus-visible,
+.secondary:focus-visible {
+	outline: 3px solid var(--landing-gold);
+	outline-offset: 5px;
+}
+.visual {
+	position: relative;
+	margin: 0 -12px 0 -20px;
+	max-width: 620px;
+	min-width: 0;
+}
+.art {
+	display: block;
+	width: 100%;
+	height: auto;
+	mix-blend-mode: multiply;
+}
+.signalLabels {
+	position: absolute;
+	top: 34%;
+	left: 11%;
+	width: 20%;
+	height: 36%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	font-size: clamp(12px, 1.1vw, 16px);
+	font-weight: 650;
+	text-align: center;
+	color: var(--landing-ink);
+}
+.caption {
+	position: absolute;
+	bottom: 3%;
+	right: 4%;
+	color: var(--landing-muted);
+	font-size: 12px;
+}
+@media (max-width: 900px) {
+	.hero {
+		grid-template-columns: 1fr;
+		padding: 28px 24px;
+		min-height: auto;
+	}
+	.copy {
+		padding: 12px 0 0;
+	}
+	.title {
+		max-width: 690px;
+	}
+	.description {
+		max-width: 650px;
+	}
+	.visual {
+		max-width: 680px;
+		margin: 0 auto;
+		width: 100%;
+	}
+	.signalLabels {
+		font-size: 16px;
+	}
+}
+@media (max-width: 480px) {
+	.hero {
+		padding: 28px 20px 16px;
+	}
+	.title {
+		font-size: 40px;
+	}
+	.description {
+		font-size: 18px;
+	}
+	.actions {
+		flex-direction: column;
+		margin-top: 28px;
+		gap: 12px;
+	}
+	.visual {
+		margin-top: 16px;
+	}
+	.signalLabels {
+		font-size: 12px;
+	}
+	.caption {
+		position: static;
+		text-align: right;
+		margin-top: -14px;
+	}
+}

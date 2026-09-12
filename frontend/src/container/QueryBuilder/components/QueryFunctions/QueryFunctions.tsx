@@ -15,12 +15,12 @@ import { toFloat64 } from './utils';
 import './QueryFunctions.styles.scss';
 
 const defaultMetricFunctionStruct: QueryFunction = {
-	name: QueryFunctionsTypes.CUTOFF_MIN as any,
+	name: QueryFunctionsTypes.CUTOFF_MIN as QueryFunction['name'],
 	args: [],
 };
 
 const defaultLogFunctionStruct: QueryFunction = {
-	name: QueryFunctionsTypes.TIME_SHIFT as any,
+	name: QueryFunctionsTypes.TIME_SHIFT as QueryFunction['name'],
 	args: [],
 };
 
@@ -89,7 +89,7 @@ export default function QueryFunctions({
 	const [functions, setFunctions] = useState<QueryFunction[]>(
 		queryFunctions.map((func) => ({
 			...func,
-			name: normalizeFunctionName(func.name) as any,
+			name: normalizeFunctionName(func.name) as QueryFunction['name'],
 		})),
 	);
 
@@ -148,7 +148,7 @@ export default function QueryFunctions({
 		if (updateFunctions && updateFunctions.length > 0 && updateFunctions[index]) {
 			// Normalize function name from backend response to match frontend expectations
 			const normalizedValue = normalizeFunctionName(value);
-			updateFunctions[index].name = normalizedValue as any;
+			updateFunctions[index].name = normalizedValue as QueryFunction['name'];
 			setFunctions(updateFunctions);
 			onChange(updateFunctions);
 		}
@@ -216,7 +216,7 @@ export default function QueryFunctions({
 							Add new function
 							<Typography.Link
 								style={{ textDecoration: 'underline' }}
-								href="https://argus.example.com/docs/querying/functions-extended-analysis/?utm_source=product&utm_medium=query-builder"
+								href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics"
 								target="_blank"
 							>
 								{' '}

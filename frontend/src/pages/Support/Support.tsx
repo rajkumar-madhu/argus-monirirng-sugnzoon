@@ -1,28 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
-import { useHistory, useLocation } from 'react-router-dom';
-import { Button, Card, Modal } from 'antd';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Button, Card } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
-import { createSubscription } from 'api/generated/services/subscriptions';
-import type { CreateSubscription201 } from 'api/generated/services/sigNoz.schemas';
-import { FeatureKeys } from 'constants/features';
-import { useNotifications } from 'hooks/useNotifications';
-import AuthZTooltip from 'lib/authz/components/AuthZTooltip/AuthZTooltip';
-import { SubscriptionCreatePermission } from 'lib/authz/hooks/useAuthZ/permissions/subscription.permissions';
-import {
-	ArrowUpRight,
-	Book,
-	CreditCard,
-	Github,
-	LifeBuoy,
-	MessageSquare,
-	Slack,
-	X,
-} from '@signozhq/icons';
-import { useAppContext } from 'providers/App/App';
-import APIError from 'types/api/error';
-import { getBaseUrl } from 'utils/basePath';
+import { ArrowUpRight, Book, Github, LifeBuoy, Slack } from '@signozhq/icons';
 import { openInNewTab } from 'utils/navigation';
 
 import './Support.styles.scss';
@@ -30,21 +11,19 @@ import './Support.styles.scss';
 const { Title, Text } = Typography;
 
 interface Channel {
-	key: any;
+	key: string;
 	name?: string;
 	icon?: JSX.Element;
 	title?: string;
-	url: any;
+	url: string;
 	btnText?: string;
+	isExternal?: boolean;
 }
 
 const channelsMap = {
 	documentation: 'documentation',
 	github: 'github',
 	slack_community: 'slack_community',
-	chat: 'chat',
-	schedule_call: 'schedule_call',
-	slack_connect: 'slack_connect',
 };
 
 const supportChannels = [
@@ -53,7 +32,7 @@ const supportChannels = [
 		name: 'Documentation',
 		icon: <Book size={16} />,
 		title: 'Find answers in the documentation.',
-		url: 'https://argus.example.com/docs/',
+		url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md',
 		btnText: 'Visit docs',
 		isExternal: true,
 	},
@@ -68,107 +47,35 @@ const supportChannels = [
 	},
 	{
 		key: 'slack_community',
-		name: 'Slack Community',
+		name: 'Source',
 		icon: <Slack size={16} />,
-		title: 'Get support from the Argus community.',
-		url: 'https://argus.example.com/slack',
-		btnText: 'Join Slack',
+		title: 'Browse the WeCrew source and self-hosting guides.',
+		url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon',
+		btnText: 'View source',
 		isExternal: true,
-	},
-	{
-		key: 'chat',
-		name: 'Chat',
-		icon: <MessageSquare size={16} />,
-		title: 'Get quick support directly from the team.',
-		url: '',
-		btnText: 'Launch chat',
-		isExternal: false,
 	},
 ];
 
 export default function Support(): JSX.Element {
 	const history = useHistory();
-	const { notifications } = useNotifications();
-	const { trialInfo, featureFlags } = useAppContext();
-	const [isAddCreditCardModalOpen, setIsAddCreditCardModalOpen] =
-		useState(false);
-
-	const { pathname } = useLocation();
 	const handleChannelWithRedirects = (url: string): void => {
 		openInNewTab(url);
 	};
 
 	useEffect(() => {
 		if (history?.location?.state) {
-			const histroyState = history?.location?.state as any;
+			const historyState = history.location.state as { from?: string };
 
-			if (histroyState && histroyState?.from) {
-				logEvent(`Support : From URL : ${histroyState.from}`, {});
+			if (historyState.from) {
+				void logEvent(`Support : From URL : ${historyState.from}`, {});
 			}
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const isPremiumChatSupportEnabled =
-		featureFlags?.find((flag) => flag.name === FeatureKeys.PREMIUM_SUPPORT)
-			?.active || false;
-
-	const showAddCreditCardModal =
-		!isPremiumChatSupportEnabled && !trialInfo?.trialConvertedToSubscription;
-
-	const handleBillingOnSuccess = (data: CreateSubscription201): void => {
-		if (data?.data?.redirectURL) {
-			const newTab = document.createElement('a');
-			newTab.href = data.data.redirectURL;
-			newTab.target = '_blank';
-			newTab.rel = 'noopener noreferrer';
-			newTab.click();
-		}
-	};
-
-	const handleBillingOnError = (error: APIError): void => {
-		notifications.error({
-			message: error.getErrorCode(),
-			description: error.getErrorMessage(),
-		});
-	};
-
-	const { mutate: updateCreditCard, isLoading: isLoadingBilling } = useMutation(
-		createSubscription,
-		{
-			onSuccess: (data) => {
-				handleBillingOnSuccess(data);
-			},
-			onError: handleBillingOnError,
-		},
-	);
-
-	const handleAddCreditCard = (): void => {
-		logEvent('Add Credit card modal: Clicked', {
-			source: `help & support`,
-			page: pathname,
-		});
-
-		updateCreditCard({
-			url: getBaseUrl(),
-		});
-	};
-
-	const handleChat = (): void => {
-		if (showAddCreditCardModal) {
-			logEvent('Disabled Chat Support: Clicked', {
-				source: `help & support`,
-				page: pathname,
-			});
-			setIsAddCreditCardModalOpen(true);
-		} else if (window.pylon) {
-			window.Pylon('show');
-		}
-	};
-
 	const handleChannelClick = (channel: Channel): void => {
-		logEvent(`Support : ${channel.name}`, {});
+		void logEvent(`Support : ${channel.name}`, {});
 
 		switch (channel.key) {
 			case channelsMap.documentation:
@@ -176,11 +83,10 @@ export default function Support(): JSX.Element {
 			case channelsMap.slack_community:
 				handleChannelWithRedirects(channel.url);
 				break;
-			case channelsMap.chat:
-				handleChat();
-				break;
 			default:
-				handleChannelWithRedirects('https://argus.example.com/slack');
+				handleChannelWithRedirects(
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues',
+				);
 				break;
 		}
 	};
@@ -227,48 +133,6 @@ export default function Support(): JSX.Element {
 					)}
 				</div>
 			</div>
-
-			{/* Add Credit Card Modal */}
-			<Modal
-				className="add-credit-card-modal"
-				title={<span className="title">Add Credit Card for Chat Support</span>}
-				open={isAddCreditCardModalOpen}
-				closable
-				onCancel={(): void => setIsAddCreditCardModalOpen(false)}
-				destroyOnClose
-				footer={[
-					<Button
-						key="cancel"
-						onClick={(): void => setIsAddCreditCardModalOpen(false)}
-						className="cancel-btn"
-						icon={<X size={16} />}
-					>
-						Cancel
-					</Button>,
-					<AuthZTooltip
-						key="submit"
-						checks={[SubscriptionCreatePermission]}
-						withPortal={false}
-					>
-						<Button
-							type="primary"
-							icon={<CreditCard size={16} />}
-							size="middle"
-							loading={isLoadingBilling}
-							disabled={isLoadingBilling}
-							onClick={handleAddCreditCard}
-							className="add-credit-card-btn periscope-btn primary"
-						>
-							Add Credit Card
-						</Button>
-					</AuthZTooltip>,
-				]}
-			>
-				<Typography.Text className="add-credit-card-text">
-					You&apos;re currently on <span className="highlight-text">Trial plan</span>
-					. Add a credit card to access Argus chat support to your workspace.
-				</Typography.Text>
-			</Modal>
 		</div>
 	);
 }

@@ -213,7 +213,7 @@ function LaunchChatSupport({
 			>
 				<Typography.Text className="add-credit-card-text">
 					You&apos;re currently on <span className="highlight-text">Trial plan</span>
-					. Add a credit card to access Argus chat support to your workspace.
+					. Add a credit card to access WeCrew chat support for your workspace.
 				</Typography.Text>
 			</Modal>
 		</div>

@@ -72,8 +72,8 @@ import { useAppContext } from 'providers/App/App';
 import { AppState } from 'store/reducers';
 import AppReducer from 'types/reducer/app';
 import { USER_ROLES } from 'types/roles';
-import { checkVersionState } from 'utils/app';
-import { isModifierKeyPressed } from 'utils/app';
+import { checkVersionState, isModifierKeyPressed } from 'utils/app';
+import { withBasePath } from 'utils/basePath';
 import { showErrorNotification } from 'utils/error';
 import { openInNewTab } from 'utils/navigation';
 
@@ -99,6 +99,7 @@ import {
 import { getActiveMenuKeyFromPath } from './sideNav.utils';
 
 import './SideNav.styles.scss';
+import styles from './SideNavControls.module.scss';
 
 function SortableFilter({ item }: { item: SidebarItem }): JSX.Element {
 	const { attributes, listeners, setNodeRef, transform, transition } =
@@ -138,6 +139,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 		AppReducer
 	>((state) => state.app);
 
+	const appContext = useAppContext();
 	const {
 		user,
 		featureFlags,
@@ -146,9 +148,11 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 		userPreferences,
 		isFetchingUserPreferences,
 		changelog,
-		toggleChangelogModal,
 		updateUserPreferenceInContext,
-	} = useAppContext();
+	} = appContext;
+	const toggleChangelogModal = useCallback((): void => {
+		appContext.toggleChangelogModal();
+	}, [appContext]);
 
 	const { notifications } = useNotifications();
 
@@ -602,14 +606,14 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 							key: changelogKey,
 							label: (
 								<div className="nav-item-label-container">
-									<span>{CHANGELOG_LABEL}</span>
+									<span>Source history</span>
 									<ArrowUpRight size={14} />
 								</div>
 							),
 							icon: <ScrollText size={14} />,
 							itemKey: changelogKey,
 							isExternal: true,
-							url: 'https://argus.example.com/changelog/',
+							url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/commits/codex/fix-api-generation',
 						},
 					];
 				}
@@ -628,14 +632,14 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 						key: changelogKey,
 						label: (
 							<div className="nav-item-label-container">
-								<span>{CHANGELOG_LABEL}</span>
+								<span>Source history</span>
 								<ArrowUpRight size={14} />
 							</div>
 						),
 						icon: <ScrollText size={14} />,
 						itemKey: changelogKey,
 						isExternal: true,
-						url: 'https://argus.example.com/changelog/',
+						url: 'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/commits/codex/fix-api-generation',
 					},
 				];
 			});
@@ -879,7 +883,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 		if (item && !('type' in item)) {
 			void logEvent('Help Popover: Item clicked', {
 				menuRoute: item.key,
-				menuLabel: String(item.label),
+				menuLabel: typeof item.label === 'string' ? item.label : item.key,
 			});
 
 			switch (item.key) {
@@ -1008,15 +1012,29 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 				<div className="brand-container">
 					<div className="brand">
 						<div className="brand-company-meta">
-							<div
-								className="brand-logo"
+							<a
+								className={cx('brand-logo', styles.control)}
+								data-testid="sidenav-home"
+								aria-label="WeCrew workspace home"
+								href={withBasePath(
+									buildNavUrl(
+										ROUTES.HOME,
+										getQueryString(
+											routeConfig[ROUTES.HOME] || [],
+											new URLSearchParams(search),
+										),
+									),
+								)}
 								onClick={(event: MouseEvent): void => {
-									// Current home page
+									if (isModifierKeyPressed(event) || event.button !== 0) {
+										return;
+									}
+									event.preventDefault();
 									onClickHandler(ROUTES.HOME, event);
 								}}
 							>
-								<img src={argusBrandLogoUrl} alt="Argus" />
-							</div>
+								<img src={argusBrandLogoUrl} alt="WeCrew" />
+							</a>
 
 							{(licenseTag || currentVersion) && (
 								<div
@@ -1057,12 +1075,19 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 													!licenseTag && 'version-container-standalone',
 												)}
 											>
-												<span
-													className={cx('version', changelog && 'version-clickable')}
+												<button
+													type="button"
+													disabled={!changelog}
+													data-testid="sidenav-version"
+													className={cx(
+														'version',
+														styles.control,
+														changelog && 'version-clickable',
+													)}
 													onClick={onClickVersionHandler}
 												>
 													{currentVersion}
-												</span>
+												</button>
 
 												{showVersionUpdateNotification && changelog && (
 													<span className="version-update-notification-dot-icon" />
@@ -1121,15 +1146,18 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 
 											{pinnedMenuItems.length > 1 && (
 												<Tooltip title="Manage shortcuts" placement="right">
-													<div
-														className="nav-section-title-icon reorder"
+													<button
+														type="button"
+														aria-label="Manage shortcuts"
+														data-testid="sidenav-manage-shortcuts"
+														className={cx('nav-section-title-icon reorder', styles.control)}
 														onClick={(): void => {
 															void logEvent('Sidebar V2: Manage shortcuts clicked', {});
 															setIsReorderShortcutNavItemsModalOpen(true);
 														}}
 													>
 														<List size={16} />
-													</div>
+													</button>
 												</Tooltip>
 											)}
 										</div>
@@ -1163,8 +1191,15 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 							>
 								{!isCollapsed && (
 									<div className="nav-title-section">
-										<div
-											className="nav-section-title"
+										<button
+											type="button"
+											data-testid="sidenav-more"
+											aria-expanded={!isMoreMenuCollapsed}
+											className={cx(
+												'nav-section-title',
+												styles.control,
+												styles.fullWidthControl,
+											)}
 											onClick={(): void => {
 												// Only allow toggling when sidebar is open (pinned, hovered, or dropdown open)
 												if (isCollapsed) {
@@ -1177,20 +1212,20 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 												setIsMoreMenuCollapsed(newCollapsedState);
 											}}
 										>
-											<div className="nav-section-title-icon">
+											<span className="nav-section-title-icon">
 												<Ellipsis size={16} />
-											</div>
+											</span>
 
-											<div className="nav-section-title-text">MORE</div>
+											<span className="nav-section-title-text">MORE</span>
 
-											<div className="collapse-expand-section-icon">
+											<span className="collapse-expand-section-icon">
 												{isMoreMenuCollapsed ? (
 													<ChevronDown size={16} />
 												) : (
 													<ChevronUp size={16} />
 												)}
-											</div>
-										</div>
+											</span>
+										</button>
 									</div>
 								)}
 
@@ -1210,13 +1245,19 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 						)}
 
 						<div className="scroll-for-more-container">
-							<div className="scroll-for-more" onClick={handleScrollForMore}>
-								<div className="scroll-for-more-icon">
+							<button
+								type="button"
+								data-testid="sidenav-scroll-more"
+								aria-label="Scroll for more navigation items"
+								className={cx('scroll-for-more', styles.control)}
+								onClick={handleScrollForMore}
+							>
+								<span className="scroll-for-more-icon">
 									<ChevronsDown size={16} />
-								</div>
+								</span>
 
-								<div className="scroll-for-more-label">Scroll for more</div>
-							</div>
+								<span className="scroll-for-more-label">Scroll for more</span>
+							</button>
 						</div>
 					</div>
 

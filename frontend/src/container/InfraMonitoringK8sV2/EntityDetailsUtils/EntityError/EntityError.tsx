@@ -15,7 +15,9 @@ export default function EntityError(): JSX.Element {
 		if (isCloudUserVal) {
 			history.push('/support');
 		} else {
-			openInNewTab('https://argus.example.com/slack');
+			openInNewTab(
+				'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues',
+			);
 		}
 	};
 

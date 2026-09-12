@@ -28,14 +28,20 @@ export const checkListStepToPreferenceKeyMap = {
 };
 
 export const DOCS_LINKS = {
-	ADD_DATA_SOURCE: 'https://argus.example.com/docs/instrumentation/overview/',
-	SEND_LOGS: 'https://argus.example.com/docs/userguide/logs_query_builder/',
-	SEND_TRACES: 'https://argus.example.com/docs/userguide/traces/',
-	SEND_METRICS: 'https://argus.example.com/docs/metrics-management/metrics-explorer/',
-	SETUP_ALERTS: 'https://argus.example.com/docs/alerts/',
+	ADD_DATA_SOURCE:
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#add-a-data-source',
+	SEND_LOGS:
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#logs',
+	SEND_TRACES:
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#traces',
+	SEND_METRICS:
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics',
+	SETUP_ALERTS:
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#alerts',
 	SETUP_SAVED_VIEWS:
-		'https://argus.example.com/docs/metrics-management/metrics-explorer/#saved-views-in-metrics-explorer',
-	SETUP_DASHBOARDS: 'https://argus.example.com/docs/userguide/manage-dashboards/',
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#saved-views',
+	SETUP_DASHBOARDS:
+		'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#dashboards',
 };
 
 export const defaultChecklistItemsState: ChecklistItem[] = [
@@ -63,7 +69,7 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 		id: 'SEND_LOGS',
 		title: 'Send your logs',
 		description:
-			'Send your logs to Argus to get more visibility into how your resources interact.',
+			'Send your logs to WeCrew to get more visibility into how your resources interact.',
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,
@@ -75,7 +81,7 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 		id: 'SEND_TRACES',
 		title: 'Send your traces',
 		description:
-			'Send your traces to Argus to get more visibility into how your resources interact.',
+			'Send your traces to WeCrew to get more visibility into how your resources interact.',
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,
@@ -87,7 +93,7 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 		id: 'SEND_METRICS',
 		title: 'Send your metrics',
 		description:
-			'Send your metrics to Argus to get more visibility into how your resources interact.',
+			'Send your metrics to WeCrew to get more visibility into how your resources interact.',
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,

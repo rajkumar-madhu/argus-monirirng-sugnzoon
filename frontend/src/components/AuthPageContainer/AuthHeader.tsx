@@ -8,7 +8,11 @@ import './AuthHeader.styles.scss';
 
 function AuthHeader(): JSX.Element {
 	const handleGetHelp = useCallback((): void => {
-		window.open('https://argus.example.com/support/', '_blank');
+		window.open(
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/issues',
+			'_blank',
+			'noopener,noreferrer',
+		);
 	}, []);
 
 	return (
@@ -16,13 +20,14 @@ function AuthHeader(): JSX.Element {
 			<div className="auth-header-logo">
 				<img
 					src={argusBrandLogoUrl}
-					alt="Argus"
+					alt="WeCrew"
 					className="auth-header-logo-icon"
+					style={{ width: 120, height: 32 }}
 				/>
-				<span className="auth-header-logo-text">Argus</span>
 			</div>
 			<Button
 				className="auth-header-help-button"
+				testId="auth-help"
 				prefix={<LifeBuoy size={12} />}
 				onClick={handleGetHelp}
 				variant="solid"

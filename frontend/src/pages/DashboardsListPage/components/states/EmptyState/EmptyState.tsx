@@ -14,7 +14,7 @@ interface Props {
 }
 
 const LEARN_MORE_HREF =
-	'https://argus.example.com/docs/userguide/manage-dashboards?utm_source=product&utm_medium=dashboard-list-empty-state';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#dashboards';
 
 function EmptyState({ createDropdown }: Props): JSX.Element {
 	return (
@@ -38,7 +38,7 @@ function EmptyState({ createDropdown }: Props): JSX.Element {
 						className={styles.learnMore}
 						testId="learn-more"
 						onClick={(): void => {
-							logEvent('Dashboard List: Learn more clicked', {});
+							void logEvent('Dashboard List: Learn more clicked', {});
 							openInNewTab(LEARN_MORE_HREF);
 						}}
 					>

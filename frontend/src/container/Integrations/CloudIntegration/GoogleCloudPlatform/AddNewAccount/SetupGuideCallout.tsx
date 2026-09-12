@@ -5,7 +5,7 @@ import { Typography } from '@signozhq/ui/typography';
 import styles from './SetupGuideCallout.module.scss';
 
 const GCP_INTEGRATION_DOCS_URL =
-	'https://argus.example.com/docs/integrations/gcp/gcp-integration/';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#add-a-data-source';
 
 function SetupGuideCallout(): JSX.Element {
 	return (

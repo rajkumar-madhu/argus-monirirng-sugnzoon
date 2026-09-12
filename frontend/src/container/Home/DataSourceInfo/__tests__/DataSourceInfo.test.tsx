@@ -39,6 +39,14 @@ describe('DataSourceInfo', () => {
 
 		render(<DataSourceInfo dataSentToArgus={false} isLoading={false} />);
 
+		expect(
+			screen.getByText('Welcome to your WeCrew workspace'),
+		).toBeInTheDocument();
+		expect(
+			screen.getByText(
+				/Start by sending your traces, metrics, and logs to WeCrew/,
+			),
+		).toBeInTheDocument();
 		await screen.findByText(/custom-host\.test\.cloud/i);
 	});
 
@@ -64,6 +72,9 @@ describe('DataSourceInfo', () => {
 
 		render(<DataSourceInfo dataSentToArgus={true} isLoading={false} />);
 
+		expect(
+			screen.getByText('Welcome to your WeCrew workspace'),
+		).toBeInTheDocument();
 		await screen.findByText(/custom-host\.test\.cloud/i);
 	});
 });

@@ -25,27 +25,25 @@ function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
 			entityName = 'Feature request';
 		}
 
-		logEvent('Feedback: Submitted', {
-			data: feedback,
-			type: activeTab,
-			page: location.pathname,
-		})
-			.then(() => {
-				onClose();
-
-				toast.success(`${entityName} submitted successfully`, {
-					position: 'top-right',
-				});
-			})
-			.catch(() => {
-				console.error(`Failed to submit ${entityName}`);
-				toast.error(`Failed to submit ${entityName}`, {
-					position: 'top-right',
-				});
-			})
-			.finally(() => {
-				setIsLoading(false);
+		try {
+			await logEvent('Feedback: Submitted', {
+				data: feedback,
+				type: activeTab,
+				page: location.pathname,
 			});
+			onClose();
+
+			toast.success(`${entityName} submitted successfully`, {
+				position: 'top-right',
+			});
+		} catch {
+			console.error(`Failed to submit ${entityName}`);
+			toast.error(`Failed to submit ${entityName}`, {
+				position: 'top-right',
+			});
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	useEffect(
@@ -144,7 +142,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
 						</Typography.Link>
 						or{' '}
 						<a
-							href="https://argus.example.com/docs/introduction/"
+							href="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md"
 							target="_blank"
 							rel="noreferrer"
 							className="read-docs-link"

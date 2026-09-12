@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle -- messaging queue API modules share these query helpers */
 import {
 	getConsumerLagDetails,
 	MessagingQueueServicePayload,
@@ -17,9 +18,10 @@ import { TagFilterItem } from 'types/api/queryBuilder/queryBuilderData';
 import { EQueryType } from 'types/common/dashboard';
 import { DataSource, ReduceOperators } from 'types/common/queryBuilder';
 import { v4 as uuid } from 'uuid';
+/* eslint-enable import/no-cycle */
 
 export const KAFKA_SETUP_DOC_LINK =
-	'https://argus.example.com/docs/messaging-queues/kafka?utm_source=product&utm_medium=kafka-get-started';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/getting-started.md#metrics';
 
 export function convertToTitleCase(text: string): string {
 	return text

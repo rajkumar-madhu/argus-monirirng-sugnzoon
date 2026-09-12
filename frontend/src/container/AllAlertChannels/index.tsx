@@ -44,7 +44,7 @@ function AlertChannels(): JSX.Element {
 
 	useEffect(() => {
 		if (!isUndefined(data?.data)) {
-			logEvent('Alert Channel: Channel list page visited', {
+			void logEvent('Alert Channel: Channel list page visited', {
 				number: data?.data?.length,
 			});
 		}
@@ -68,7 +68,7 @@ function AlertChannels(): JSX.Element {
 				<RightActionContainer>
 					<TextToolTip
 						text={t('tooltip_notification_channels')}
-						url="https://argus.example.com/docs/setup-alerts-notification/"
+						url="https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/docs/wecrew/alerts.md"
 					/>
 
 					<Tooltip

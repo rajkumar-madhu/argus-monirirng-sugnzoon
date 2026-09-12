@@ -9,8 +9,8 @@ export default function GeneralSettingsCloud(): JSX.Element {
 		<Card className="general-settings-container">
 			<Info size={16} />
 			<Typography.Text>
-				Please <a href="mailto:cloud-support@argus.example.com"> email us </a> or connect
-				with us via chat support to change the retention period.
+				Please <a href="mailto:support@wecrew.in"> email us </a> or connect with us
+				via chat support to change the retention period.
 			</Typography.Text>
 		</Card>
 	);

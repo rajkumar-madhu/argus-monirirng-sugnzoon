@@ -89,7 +89,7 @@ describe('ChangelogModal', () => {
 		renderChangelog();
 		fireEvent.click(screen.getByText('Update my workspace'));
 		expect(window.open).toHaveBeenCalledWith(
-			'https://argus.example.com/upgrade-path',
+			'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/codex/fix-api-generation/infra/wecrew-k8s/README.md',
 			'_blank',
 			'noopener,noreferrer',
 		);

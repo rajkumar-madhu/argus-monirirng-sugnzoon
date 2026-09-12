@@ -124,7 +124,7 @@ function OptimiseSignozNeeds({
 	}, [services, hostsPerDay, logsPerDay]);
 
 	const handleOnNext = (): void => {
-		logEvent('Org Onboarding: Answered', {
+		void logEvent('Org Onboarding: Answered', {
 			logsPerDay,
 			hostsPerDay,
 			services,
@@ -142,7 +142,7 @@ function OptimiseSignozNeeds({
 
 		onWillDoLater();
 
-		logEvent('Org Onboarding: Clicked Do Later', {
+		void logEvent('Org Onboarding: Clicked Do Later', {
 			currentPageID: 3,
 		});
 	};
@@ -189,7 +189,7 @@ function OptimiseSignozNeeds({
 		<div className="questions-container">
 			<OnboardingQuestionHeader
 				title="Set up your workspace"
-				subtitle="Tailor Argus to suit your observability needs."
+				subtitle="Tailor WeCrew to suit your observability needs."
 			/>
 
 			<div className="questions-form-container">

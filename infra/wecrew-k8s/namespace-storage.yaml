@@ -1,0 +1,118 @@
+# Node-local storage: restore data and verify the durable node mount before starting workloads.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: wecrew-monitoring
+  labels:
+    app.kubernetes.io/part-of: wecrew-monitoring
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wecrew-monitoring-argus
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes: [ReadWriteOnce]
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  claimRef:
+    namespace: wecrew-monitoring
+    name: argus-data
+  local:
+    path: /var/local/wecrew-monitoring/argus
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values: [wecrew-control-plane]
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: argus-data
+  namespace: wecrew-monitoring
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: ""
+  volumeName: wecrew-monitoring-argus
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wecrew-monitoring-clickhouse
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes: [ReadWriteOnce]
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  claimRef:
+    namespace: wecrew-monitoring
+    name: clickhouse-data
+  local:
+    path: /var/local/wecrew-monitoring/clickhouse
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values: [wecrew-control-plane]
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: clickhouse-data
+  namespace: wecrew-monitoring
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: ""
+  volumeName: wecrew-monitoring-clickhouse
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wecrew-monitoring-zookeeper
+spec:
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes: [ReadWriteOnce]
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  claimRef:
+    namespace: wecrew-monitoring
+    name: zookeeper-data
+  local:
+    path: /var/local/wecrew-monitoring/zookeeper
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values: [wecrew-control-plane]
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zookeeper-data
+  namespace: wecrew-monitoring
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: ""
+  volumeName: wecrew-monitoring-zookeeper
+  resources:
+    requests:
+      storage: 2Gi
