@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { Button } from '@signozhq/ui/button';
 import { LifeBuoy } from '@signozhq/icons';
-import { DOCS_BASE_URL } from 'constants/app';
+import DOCLINKS from 'utils/docLinks';
 import { openInNewTab } from 'utils/navigation';
 
 import argusMarkUrl from '@/assets/Logos/argus-mark.svg';
@@ -10,7 +10,7 @@ import './AuthHeader.styles.scss';
 
 function AuthHeader(): JSX.Element {
 	const handleGetHelp = useCallback((): void => {
-		openInNewTab(`${DOCS_BASE_URL}/docs/introduction/`);
+		openInNewTab(DOCLINKS.USER_GUIDE);
 	}, []);
 
 	return (

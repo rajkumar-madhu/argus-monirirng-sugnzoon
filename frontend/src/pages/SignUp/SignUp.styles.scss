@@ -1,6 +1,6 @@
 .signup-card {
-	width: 576px;
-	max-width: 100%;
+	width: 100%;
+	max-width: 440px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -17,10 +17,10 @@
 
 		.signup-header-title {
 			font-family: Inter, sans-serif;
-			font-size: 18px;
-			font-weight: 600;
-			line-height: 1;
-			letter-spacing: 0;
+			font-size: 24px;
+			font-weight: 650;
+			line-height: 1.15;
+			letter-spacing: -0.02em;
 			color: var(--l1-foreground);
 			margin: 0 !important;
 		}
@@ -45,8 +45,8 @@
 			width: 100%;
 			background: var(--l1-background);
 			border: 1px solid var(--l1-border);
-			border-radius: 8px;
-			padding: 24px;
+			border-radius: 16px;
+			padding: 28px;
 
 			.signup-form-fields {
 				width: 100%;
@@ -63,15 +63,15 @@
 
 			.signup-form-input,
 			.signup-antd-input {
-				height: 32px;
+				height: 40px;
 				width: 100%;
-				border-radius: 2px;
+				border-radius: 8px;
 
 				&.ant-input,
 				&.ant-input-password,
 				&.ant-input-affix-wrapper {
-					height: 32px;
-					border-radius: 2px;
+					height: 40px;
+					border-radius: 8px;
 					background: var(--l2-background);
 					border-color: var(--l2-border);
 					color: var(--l2-foreground);
@@ -94,11 +94,11 @@
 			}
 
 			.signup-form-input {
-				height: 32px;
+				height: 40px;
 				background: var(--l2-background);
 				border: 1px solid var(--l1-border);
-				border-radius: 2px;
-				padding: 6px 8px;
+				border-radius: 8px;
+				padding: 8px 12px;
 				font-family: Inter, sans-serif;
 				font-size: 13px;
 				font-weight: 400;

@@ -3,9 +3,7 @@ import { Compass, Info } from '@signozhq/icons';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
 
 import styles from './ChartHeader.module.scss';
-import { DOCS_BASE_URL } from 'constants/app';
-
-const DOCS_ROOT = `${DOCS_BASE_URL}/docs`;
+import { resolveDocsUrl } from 'utils/docLinks';
 
 interface ChartHeaderProps {
 	title: string;
@@ -34,7 +32,7 @@ function ChartHeader({
 						<>
 							{tooltipTitle}{' '}
 							<a
-								href={`${DOCS_ROOT}${docPath}`}
+								href={resolveDocsUrl(`/docs${docPath}`)}
 								target="_blank"
 								rel="noopener"
 								onClick={(e): void => e.stopPropagation()}

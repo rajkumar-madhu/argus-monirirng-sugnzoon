@@ -178,7 +178,12 @@ export default defineConfig(({ mode }): UserConfig => {
 				env.VITE_WEBSOCKET_API_ENDPOINT,
 			),
 			'process.env.DOCS_BASE_URL': JSON.stringify(
-				env.VITE_DOCS_BASE_URL || 'https://signoz.io',
+				env.VITE_DOCS_BASE_URL ||
+					'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon',
+			),
+			'process.env.INSTRUMENTATION_DOCS_URL': JSON.stringify(
+				env.VITE_INSTRUMENTATION_DOCS_URL ||
+					'https://opentelemetry.io/docs/languages/',
 			),
 			'process.env.ENVIRONMENT': JSON.stringify(env.VITE_ENVIRONMENT),
 			'process.env.VERSION': JSON.stringify(env.VITE_VERSION),

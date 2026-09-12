@@ -4,7 +4,7 @@
 	width: 100%;
 	max-width: 1176px;
 	margin: 0 auto;
-	padding: 16px 0;
+	padding: 20px 0;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -44,7 +44,7 @@
 	background: var(--auth-surface, var(--l2-background));
 	color: var(--auth-text, var(--l2-foreground));
 	border: 1px solid var(--auth-border, transparent);
-	border-radius: 6px;
+	border-radius: 999px;
 	cursor: pointer;
 	transition: opacity 0.2s ease;
 

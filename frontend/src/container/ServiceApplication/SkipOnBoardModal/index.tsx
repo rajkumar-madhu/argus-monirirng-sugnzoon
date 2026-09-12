@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import Modal from 'components/Modal';
+import DOCLINKS from 'utils/docLinks';
 
 function SkipOnBoardingModal({ onContinueClick }: Props): JSX.Element {
 	return (
@@ -28,11 +29,7 @@ function SkipOnBoardingModal({ onContinueClick }: Props): JSX.Element {
 					<Typography>No instrumentation data.</Typography>
 					<Typography>
 						Please instrument your application as mentioned&nbsp;
-						<a
-							href="https://signoz.io/docs/instrumentation/overview"
-							target="_blank"
-							rel="noreferrer"
-						>
+						<a href={DOCLINKS.INSTRUMENTATION} target="_blank" rel="noreferrer">
 							here
 						</a>
 					</Typography>

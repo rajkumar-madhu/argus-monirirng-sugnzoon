@@ -1,5 +1,6 @@
 import { MenuProps } from 'antd';
-import { COMMUNITY_URL, DOCS_BASE_URL, GITHUB_REPO_URL } from 'constants/app';
+import { COMMUNITY_URL, GITHUB_REPO_URL } from 'constants/app';
+import DOCLINKS from 'utils/docLinks';
 import ROUTES from 'constants/routes';
 import {
 	ArrowUpRight,
@@ -449,7 +450,7 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 		),
 		icon: <Book size={14} />,
 		isExternal: true,
-		url: `${DOCS_BASE_URL}/docs`,
+		url: DOCLINKS.ROOT,
 		itemKey: 'documentation',
 	},
 	{

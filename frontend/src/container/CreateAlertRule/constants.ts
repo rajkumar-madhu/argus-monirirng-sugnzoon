@@ -1,5 +1,5 @@
-import { DOCS_BASE_URL } from 'constants/app';
 import { AlertTypes } from 'types/api/alerts/alertTypes';
+import { resolveDocsUrl } from 'utils/docLinks';
 
 // since we don't have a card in alert creation for anomaly based alert
 
@@ -8,24 +8,42 @@ export const ALERT_TYPE_URL_MAP: Record<
 	{ selection: string; creation: string }
 > = {
 	[AlertTypes.METRICS_BASED_ALERT]: {
-		selection: `${DOCS_BASE_URL}/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples`,
-		creation: `${DOCS_BASE_URL}/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-creation-page`,
+		selection: resolveDocsUrl(
+			'/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples',
+		),
+		creation: resolveDocsUrl(
+			'/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		),
 	},
 	[AlertTypes.LOGS_BASED_ALERT]: {
-		selection: `${DOCS_BASE_URL}/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples`,
-		creation: `${DOCS_BASE_URL}/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-creation-page`,
+		selection: resolveDocsUrl(
+			'/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples',
+		),
+		creation: resolveDocsUrl(
+			'/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		),
 	},
 	[AlertTypes.TRACES_BASED_ALERT]: {
-		selection: `${DOCS_BASE_URL}/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples`,
-		creation: `${DOCS_BASE_URL}/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-creation-page`,
+		selection: resolveDocsUrl(
+			'/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples',
+		),
+		creation: resolveDocsUrl(
+			'/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		),
 	},
 	[AlertTypes.EXCEPTIONS_BASED_ALERT]: {
-		selection: `${DOCS_BASE_URL}/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples`,
-		creation: `${DOCS_BASE_URL}/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-creation-page`,
+		selection: resolveDocsUrl(
+			'/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples',
+		),
+		creation: resolveDocsUrl(
+			'/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		),
 	},
 	[AlertTypes.ANOMALY_BASED_ALERT]: {
-		selection: `${DOCS_BASE_URL}/docs/alerts-management/anomaly-based-alerts/`,
-		creation: `${DOCS_BASE_URL}/docs/alerts-management/anomaly-based-alerts/?utm_source=product&utm_medium=alert-creation-page`,
+		selection: resolveDocsUrl('/docs/alerts-management/anomaly-based-alerts/'),
+		creation: resolveDocsUrl(
+			'/docs/alerts-management/anomaly-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		),
 	},
 };
 

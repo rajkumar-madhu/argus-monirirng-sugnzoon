@@ -15,7 +15,8 @@ import { toast } from '@signozhq/ui/sonner';
 import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
 import LaunchChatSupport from 'components/LaunchChatSupport/LaunchChatSupport';
-import { DOCS_BASE_URL } from 'constants/app';
+import { INSTRUMENTATION_DOCS_URL } from 'constants/app';
+import { resolveDocsUrl } from 'utils/docLinks';
 import { QueryParams } from 'constants/query';
 import ROUTES from 'constants/routes';
 import { useGetGlobalConfig } from 'api/generated/services/global';
@@ -186,9 +187,7 @@ function OnboardingAddDataSource(): JSX.Element {
 	const [showInviteTeamMembersModal, setShowInviteTeamMembersModal] =
 		useState<boolean>(false);
 
-	const [docsUrl, setDocsUrl] = useState<string>(
-		`${DOCS_BASE_URL}/docs/instrumentation/`,
-	);
+	const [docsUrl, setDocsUrl] = useState<string>(INSTRUMENTATION_DOCS_URL);
 
 	const [selectedDataSource, setSelectedDataSource] = useState<Entity | null>(
 		null,
@@ -276,7 +275,7 @@ function OnboardingAddDataSource(): JSX.Element {
 		}
 
 		// Step 1: Parse the URL
-		const fullUrl = url.startsWith('/') ? `${DOCS_BASE_URL}${url}` : url;
+		const fullUrl = url.startsWith('/') ? resolveDocsUrl(url) : url;
 
 		const urlObj = new URL(fullUrl);
 
@@ -914,7 +913,9 @@ function OnboardingAddDataSource(): JSX.Element {
 																		{selectedDataSource?.question?.helpText}
 																		{selectedDataSource?.question?.helpLink && (
 																			<a
-																				href={`${DOCS_BASE_URL}${selectedDataSource?.question?.helpLink}`}
+																				href={resolveDocsUrl(
+																					selectedDataSource?.question?.helpLink || '',
+																				)}
 																				target="_blank"
 																				rel="noopener noreferrer"
 																				className="question-help-link"
@@ -984,7 +985,9 @@ function OnboardingAddDataSource(): JSX.Element {
 																		{selectedFramework?.question?.helpText}
 																		{selectedFramework?.question?.helpLink && (
 																			<a
-																				href={`${DOCS_BASE_URL}${selectedFramework?.question?.helpLink}`}
+																				href={resolveDocsUrl(
+																					selectedFramework?.question?.helpLink || '',
+																				)}
 																				target="_blank"
 																				rel="noopener noreferrer"
 																				className="question-help-link"

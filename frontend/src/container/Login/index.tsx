@@ -302,135 +302,140 @@ function Login(): JSX.Element {
 
 	return (
 		<div className="login-form-container">
-			<FormContainer form={form} onFinish={onSubmitHandler}>
-				<div className="login-form-header">
-					<Typography.Title level={4} className="login-form-title">
-						Sign in
-					</Typography.Title>
-					<Typography.Text className="login-form-description">
-						Monitor traces, metrics, and logs from one workspace.
-					</Typography.Text>
-				</div>
+			<FormContainer form={form} onFinish={onSubmitHandler} className="login-form">
+				<div className="login-signin-sheet">
+					<p className="login-step-label">
+						{sessionsContext ? 'Step 2 of 2' : 'Step 1 of 2'}
+					</p>
+					<div className="login-form-header">
+						<Typography.Title level={4} className="login-form-title">
+							Sign in
+						</Typography.Title>
+						<Typography.Text className="login-form-description">
+							Sign in to monitor, trace, and troubleshoot your services.
+						</Typography.Text>
+					</div>
 
-				<div className="login-form-card">
-					<ParentContainer>
-						<Label htmlFor="signupEmail">Email address</Label>
-						<FormContainer.Item name="email">
-							<Input
-								type="email"
-								id="email"
-								data-testid="email"
-								required
-								placeholder="e.g. you@company.com"
-								disabled={versionLoading}
-								className="login-form-input"
-								onPressEnter={onNextHandler}
-							/>
-						</FormContainer.Item>
-					</ParentContainer>
-
-					{sessionsContext && sessionsContext.orgs.length > 1 && (
+					<div className="login-form-card">
 						<ParentContainer>
-							<Label htmlFor="orgId">Organization Name</Label>
-							<FormContainer.Item name="orgId">
-								<Select
-									id="orgId"
-									data-testid="orgId"
-									className="login-form-input login-form-select-no-border"
-									placeholder="Select your organization"
-									options={sessionsContext.orgs.map((org) => ({
-										value: org.id,
-										label: org.name || 'default',
-									}))}
-									onChange={(value: string): void => {
-										setSessionsOrgId(value);
-									}}
-								/>
-							</FormContainer.Item>
-						</ParentContainer>
-					)}
-
-					{sessionsContext && isPasswordAuthN && (
-						<ParentContainer>
-							<div className="password-label-container">
-								<Label htmlFor="Password">Password</Label>
-								<Typography.Link
-									className="forgot-password-link"
-									onClick={(event): void => {
-										event.preventDefault();
-										handleForgotPasswordClick();
-									}}
-								>
-									Forgot password?
-								</Typography.Link>
-							</div>
-							<FormContainer.Item name="password">
-								<Input.Password
+							<Label htmlFor="email">Email address</Label>
+							<FormContainer.Item name="email">
+								<Input
+									type="email"
+									id="email"
+									data-testid="email"
 									required
-									placeholder="Enter password"
-									id="currentPassword"
-									data-testid="password"
-									disabled={isSubmitting}
+									placeholder="e.g. you@company.com"
+									disabled={versionLoading}
 									className="login-form-input"
+									onPressEnter={onNextHandler}
 								/>
 							</FormContainer.Item>
 						</ParentContainer>
-					)}
+
+						{sessionsContext && sessionsContext.orgs.length > 1 && (
+							<ParentContainer>
+								<Label htmlFor="orgId">Organization Name</Label>
+								<FormContainer.Item name="orgId">
+									<Select
+										id="orgId"
+										data-testid="orgId"
+										className="login-form-input login-form-select-no-border"
+										placeholder="Select your organization"
+										options={sessionsContext.orgs.map((org) => ({
+											value: org.id,
+											label: org.name || 'default',
+										}))}
+										onChange={(value: string): void => {
+											setSessionsOrgId(value);
+										}}
+									/>
+								</FormContainer.Item>
+							</ParentContainer>
+						)}
+
+						{sessionsContext && isPasswordAuthN && (
+							<ParentContainer>
+								<div className="password-label-container">
+									<Label htmlFor="Password">Password</Label>
+									<Typography.Link
+										className="forgot-password-link"
+										onClick={(event): void => {
+											event.preventDefault();
+											handleForgotPasswordClick();
+										}}
+									>
+										Forgot password?
+									</Typography.Link>
+								</div>
+								<FormContainer.Item name="password">
+									<Input.Password
+										required
+										placeholder="Enter password"
+										id="currentPassword"
+										data-testid="password"
+										disabled={isSubmitting}
+										className="login-form-input"
+									/>
+								</FormContainer.Item>
+							</ParentContainer>
+						)}
+					</div>
+
+					{errorMessage && <AuthError error={errorMessage} />}
+
+					<div className="login-form-actions">
+						{!sessionsContext && (
+							<Button
+								disabled={!isNextButtonEnabled}
+								variant="solid"
+								onClick={onNextHandler}
+								testId="initiate_login"
+								className="login-submit-btn"
+								suffix={<ArrowRight />}
+							>
+								Next
+							</Button>
+						)}
+
+						{sessionsContext && isCallbackAuthN && (
+							<Button
+								disabled={!isSubmitButtonEnabled}
+								variant="solid"
+								type="submit"
+								color="primary"
+								testId="callback_authn_submit"
+								data-attr="signup"
+								className="login-submit-btn"
+								suffix={<ArrowRight />}
+							>
+								Sign in with SSO
+							</Button>
+						)}
+
+						{sessionsContext && isPasswordAuthN && (
+							<Button
+								disabled={!isSubmitButtonEnabled}
+								variant="solid"
+								color="primary"
+								testId="password_authn_submit"
+								type="submit"
+								data-attr="signup"
+								className="login-submit-btn"
+								suffix={<ArrowRight />}
+							>
+								Sign in with Password
+							</Button>
+						)}
+					</div>
+
+					<p className="auth-switch-row">
+						Need an account?{' '}
+						<a className="auth-switch-link" href={ROUTES.SIGN_UP}>
+							Create one
+						</a>
+					</p>
 				</div>
-
-				{errorMessage && <AuthError error={errorMessage} />}
-
-				<div className="login-form-actions">
-					{!sessionsContext && (
-						<Button
-							disabled={!isNextButtonEnabled}
-							variant="solid"
-							onClick={onNextHandler}
-							testId="initiate_login"
-							className="login-submit-btn"
-							suffix={<ArrowRight />}
-						>
-							Next
-						</Button>
-					)}
-
-					{sessionsContext && isCallbackAuthN && (
-						<Button
-							disabled={!isSubmitButtonEnabled}
-							variant="solid"
-							type="submit"
-							color="primary"
-							testId="callback_authn_submit"
-							data-attr="signup"
-							className="login-submit-btn"
-							suffix={<ArrowRight />}
-						>
-							Sign in with SSO
-						</Button>
-					)}
-
-					{sessionsContext && isPasswordAuthN && (
-						<Button
-							disabled={!isSubmitButtonEnabled}
-							variant="solid"
-							color="primary"
-							testId="password_authn_submit"
-							type="submit"
-							data-attr="signup"
-							className="login-submit-btn"
-							suffix={<ArrowRight />}
-						>
-							Sign in with Password
-						</Button>
-					)}
-				</div>
-
-				<p className="auth-switch-row">
-					Need an account?{' '}
-					<a className="auth-switch-link" href={ROUTES.SIGN_UP}>
-						Create one
-					</a>
-				</p>
 			</FormContainer>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import { DOCS_BASE_URL } from 'constants/app';
+import { resolveDocsUrl } from 'utils/docLinks';
 
 export interface McpClient {
 	key: string;
@@ -101,8 +101,8 @@ export const MCP_CLIENTS: McpClient[] = [
 ];
 
 export function docsUrl(path: string): string {
-	return `${DOCS_BASE_URL}${path}`;
+	return resolveDocsUrl(path);
 }
 
-export const MCP_DOCS_URL = `${DOCS_BASE_URL}/docs/ai/signoz-mcp-server/`;
-export const MCP_USE_CASES_URL = `${DOCS_BASE_URL}/docs/ai/use-cases/`;
+export const MCP_DOCS_URL = resolveDocsUrl('/docs/ai/signoz-mcp-server/');
+export const MCP_USE_CASES_URL = resolveDocsUrl('/docs/ai/use-cases/');

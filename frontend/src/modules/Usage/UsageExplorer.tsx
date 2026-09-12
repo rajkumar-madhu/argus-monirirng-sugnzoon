@@ -13,6 +13,7 @@ import { GlobalTime } from 'types/actions/globalTime';
 import { GlobalReducer } from 'types/reducer/globalTime';
 import MetricReducer from 'types/reducer/metrics';
 import { isOnboardingSkipped } from 'utils/app';
+import DOCLINKS from 'utils/docLinks';
 
 import { Card } from './styles';
 
@@ -171,7 +172,7 @@ function _UsageExplorer(props: UsageExplorerProps): JSX.Element {
 						<Typography>
 							No spans found. Please add instrumentation (follow this
 							<a
-								href="https://signoz.io/docs/instrumentation/overview"
+								href={DOCLINKS.INSTRUMENTATION}
 								target="_blank"
 								style={{ marginLeft: 3 }}
 								rel="noreferrer"

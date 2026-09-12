@@ -4,17 +4,43 @@
 	display: flex;
 	justify-content: center;
 	width: 100%;
+	max-width: 440px;
 	align-items: flex-start;
+}
+
+.login-form {
+	width: 100%;
+}
+
+.login-signin-sheet {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	padding: 32px;
+	border-radius: 20px;
+	background: var(--auth-surface, #fff);
+	border: 1px solid var(--auth-border, var(--l2-border));
+	box-shadow: 0 18px 48px rgba(14, 22, 38, 0.07);
+}
+
+.login-step-label {
+	margin: 0 0 12px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--auth-primary, #4e74f8);
 }
 
 .login-form-header {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	align-items: flex-start;
+	justify-content: flex-start;
 	gap: 8px;
-	margin-bottom: 32px;
-	text-align: center;
+	margin-bottom: 24px;
+	text-align: left;
 	width: 100%;
 }
 
@@ -27,10 +53,10 @@
 
 .login-form-title {
 	font-family: Inter, sans-serif;
-	font-size: 18px;
-	font-weight: 600;
-	line-height: 1;
-	letter-spacing: 0;
+	font-size: 24px;
+	font-weight: 650;
+	line-height: 1.15;
+	letter-spacing: -0.02em;
 	color: var(--l1-foreground);
 	margin: 0 !important;
 }
@@ -44,18 +70,19 @@
 	color: var(--l2-foreground);
 	max-width: 317px;
 	margin: 0 !important;
-	text-align: center;
+	text-align: left;
+	max-width: none;
 }
 
 .login-form-card {
 	width: 100%;
-	background: var(--l2-background);
-	border: 1px solid var(--l2-border);
-	border-radius: 8px;
-	padding: 24px;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	padding: 0;
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: 20px;
 }
 
 .login-error-container {
@@ -184,11 +211,11 @@
 }
 
 .login-form-input {
-	height: 32px;
+	height: 40px;
 	background: var(--l2-background) !important;
 	border: 1px solid var(--l2-border) !important;
-	border-radius: 2px;
-	padding: 6px 8px;
+	border-radius: 8px;
+	padding: 8px 12px;
 	font-family: Inter, sans-serif;
 	font-size: 13px;
 	font-weight: 400;
@@ -212,15 +239,15 @@
 	// Select component styling to match Input
 	&.ant-select {
 		width: 100%;
-		height: 32px;
+		height: 40px;
 		margin: 0;
 		padding: 0;
 
 		.ant-select-selector {
-			height: 32px !important;
-			min-height: 32px !important;
-			padding: 0 8px !important;
-			border-radius: 2px !important;
+			height: 40px !important;
+			min-height: 40px !important;
+			padding: 0 12px !important;
+			border-radius: 8px !important;
 			font-family: Inter, sans-serif !important;
 			font-size: 13px !important;
 			font-weight: 400 !important;
@@ -288,6 +315,10 @@
 .login-form-actions {
 	width: 100%;
 	margin-top: 24px;
+}
+
+.login-signin-sheet .auth-switch-row {
+	margin-bottom: 0;
 }
 
 .login-submit-btn {

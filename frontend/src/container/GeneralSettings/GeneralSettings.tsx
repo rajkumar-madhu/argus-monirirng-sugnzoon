@@ -8,7 +8,7 @@ import { Modal, Spin } from 'antd';
 import setRetentionApi from 'api/settings/setRetention';
 import setRetentionApiV2 from 'api/settings/setRetentionV2';
 import TextToolTip from 'components/TextToolTip';
-import { DOCS_BASE_URL } from 'constants/app';
+import DOCLINKS from 'utils/docLinks';
 import CustomDomainSettings from 'container/CustomDomainSettings';
 import LicenseKeyRow from 'container/GeneralSettings/LicenseKeyRow/LicenseKeyRow';
 import GeneralSettingsCloud from 'container/GeneralSettingsCloud';
@@ -708,7 +708,7 @@ function GeneralSettings({
 						<TextToolTip
 							{...{
 								text: `More details on how to set retention period`,
-								url: `${DOCS_BASE_URL}/docs/userguide/retention-period/`,
+								url: DOCLINKS.RETENTION,
 							}}
 						/>
 					)}

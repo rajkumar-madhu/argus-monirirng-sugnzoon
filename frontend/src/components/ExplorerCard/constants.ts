@@ -1,7 +1,9 @@
-import { DOCS_BASE_URL } from 'constants/app';
+import { resolveDocsUrl } from 'utils/docLinks';
 
 export const ExploreHeaderToolTip = {
-	url: `${DOCS_BASE_URL}/docs/querying/overview/?utm_source=product&utm_medium=new-query-builder`,
+	url: resolveDocsUrl(
+		'/docs/querying/overview/?utm_source=product&utm_medium=new-query-builder',
+	),
 	text: 'More details on how to use query builder',
 };
 

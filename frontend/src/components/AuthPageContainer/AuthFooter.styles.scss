@@ -18,14 +18,14 @@
 	padding: 12px;
 	background: var(--l2-background);
 	border: 1px solid var(--l1-border);
-	border-radius: 4px;
+	border-radius: 999px;
 }
 
 .auth-footer-item {
 	display: flex;
 	align-items: center;
 	gap: 6px;
-	height: 12px;
+	height: auto;
 }
 
 .auth-footer-status-indicator {

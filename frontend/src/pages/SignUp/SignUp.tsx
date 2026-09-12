@@ -101,7 +101,7 @@ function SignUp(): JSX.Element {
 	);
 
 	return (
-		<AuthPageContainer>
+		<AuthPageContainer variant="signup">
 			<div className="signup-card">
 				<div className="signup-form-header">
 					<Typography.Title level={4} className="signup-header-title">

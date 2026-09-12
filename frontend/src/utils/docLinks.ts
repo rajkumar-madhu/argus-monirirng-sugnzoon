@@ -1,6 +1,41 @@
-import { DOCS_BASE_URL } from 'constants/app';
+import {
+	DOCS_BASE_URL,
+	GITHUB_REPO_URL,
+	INSTRUMENTATION_DOCS_URL,
+} from 'constants/app';
 
-const docs = (path: string): string => `${DOCS_BASE_URL}${path}`;
+const ARGUS_FORK_DOCS = `${GITHUB_REPO_URL}/blob/HEAD/docs/ARGUS.md`;
+const ARGUS_SECURITY_DOCS = `${GITHUB_REPO_URL}/blob/HEAD/SECURITY.md`;
+
+const usesUpstreamOrGithubHost = (base: string): boolean =>
+	base.includes('signoz.io') || base.includes('github.com');
+
+const docs = (path: string): string => {
+	if (path.includes('/instrumentation')) {
+		if (!usesUpstreamOrGithubHost(DOCS_BASE_URL)) {
+			return `${DOCS_BASE_URL}${path}`;
+		}
+		return INSTRUMENTATION_DOCS_URL;
+	}
+	if (usesUpstreamOrGithubHost(DOCS_BASE_URL)) {
+		if (
+			path.startsWith('/privacy') ||
+			path.startsWith('/security') ||
+			path.startsWith('/terms')
+		) {
+			return ARGUS_SECURITY_DOCS;
+		}
+		return ARGUS_FORK_DOCS;
+	}
+	return `${DOCS_BASE_URL}${path}`;
+};
+
+export const resolveDocsUrl = (pathOrUrl: string): string => {
+	if (pathOrUrl.startsWith('http://') || pathOrUrl.startsWith('https://')) {
+		return pathOrUrl;
+	}
+	return docs(pathOrUrl);
+};
 
 const DOCLINKS = {
 	ROOT: docs('/docs'),

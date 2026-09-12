@@ -11,17 +11,17 @@
 
 .auth-page-wrapper--light {
 	// Self-contained light palette so auth never inherits a dark body theme.
-	--auth-bg: #f4f7fb;
-	--auth-bg-accent: #e8eef8;
+	--auth-bg: #f6f3ee;
+	--auth-bg-accent: #ece7df;
 	--auth-surface: #ffffff;
-	--auth-border: #d8e0ec;
-	--auth-text: #152033;
-	--auth-text-muted: #5b6b82;
-	--auth-text-subtle: #8a97ab;
+	--auth-border: #ddd4c8;
+	--auth-text: #0e1626;
+	--auth-text-muted: #5c6573;
+	--auth-text-subtle: #8a8378;
 	--auth-primary: #4e74f8;
-	--auth-primary-soft: rgba(78, 116, 248, 0.12);
-	--auth-dot: rgba(78, 116, 248, 0.18);
-	--auth-line: #c9d4e5;
+	--auth-primary-soft: rgba(78, 116, 248, 0.14);
+	--auth-dot: rgba(78, 116, 248, 0.16);
+	--auth-line: #d4cbbd;
 
 	background: linear-gradient(
 		180deg,
@@ -84,12 +84,18 @@
 		color: var(--auth-text-muted) !important;
 	}
 
-	.login-form-card,
+	.login-signin-sheet,
 	.signup-form-container,
 	.auth-footer-content {
 		background: var(--auth-surface) !important;
 		border: 1px solid var(--auth-border) !important;
-		box-shadow: 0 12px 40px rgba(21, 32, 51, 0.06);
+		box-shadow: 0 18px 48px rgba(14, 22, 38, 0.07);
+	}
+
+	.login-form-card {
+		background: transparent !important;
+		border: none !important;
+		box-shadow: none !important;
 	}
 
 	.login-form-input,
@@ -228,7 +234,7 @@
 	position: relative;
 	z-index: 1;
 	width: 100%;
-	max-width: 1440px;
+	max-width: 1120px;
 	margin: 0 auto;
 	min-height: 100vh;
 	display: flex;
@@ -242,16 +248,16 @@
 .auth-page-content {
 	flex: 1;
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: center;
-	padding-top: 8vh;
+	padding-top: 24px;
 	padding-bottom: 24px;
 	width: 100%;
 	position: relative;
 
 	@media (max-width: 768px) {
-		padding-top: 12vh;
-		align-items: center;
+		padding-top: 8px;
+		align-items: flex-start;
 	}
 
 	&.onboarding-flow {
@@ -261,4 +267,23 @@
 			padding-top: 0;
 		}
 	}
+}
+
+.auth-page-split {
+	width: 100%;
+	display: grid;
+	grid-template-columns: minmax(0, 1.05fr) minmax(320px, 440px);
+	gap: 64px;
+	align-items: center;
+
+	@media (max-width: 960px) {
+		grid-template-columns: 1fr;
+		gap: 28px;
+	}
+}
+
+.auth-page-form-column {
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }

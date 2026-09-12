@@ -4,16 +4,19 @@ import { THEME_MODE } from 'hooks/useDarkMode/constant';
 
 import AuthFooter from './AuthFooter';
 import AuthHeader from './AuthHeader';
+import AuthLandingPanel from './AuthLandingPanel';
 
 import './AuthPageContainer.styles.scss';
 
 type AuthPageContainerProps = PropsWithChildren<{
 	isOnboarding?: boolean;
+	variant?: 'signin' | 'signup';
 }>;
 
 function AuthPageContainer({
 	children,
 	isOnboarding = false,
+	variant = 'signup',
 }: AuthPageContainerProps): JSX.Element {
 	const { theme, setTheme } = useThemeMode();
 	const previousThemeRef = useRef<string | null>(null);
@@ -50,7 +53,14 @@ function AuthPageContainer({
 				<main
 					className={`auth-page-content ${isOnboarding ? 'onboarding-flow' : ''}`}
 				>
-					{children}
+					{isOnboarding ? (
+						children
+					) : (
+						<div className="auth-page-split">
+							<AuthLandingPanel variant={variant} />
+							<div className="auth-page-form-column">{children}</div>
+						</div>
+					)}
 				</main>
 				<AuthFooter />
 			</div>
@@ -60,6 +70,7 @@ function AuthPageContainer({
 
 AuthPageContainer.defaultProps = {
 	isOnboarding: false,
+	variant: 'signup',
 };
 
 export default AuthPageContainer;

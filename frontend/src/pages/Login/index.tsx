@@ -5,7 +5,7 @@ import './Login.styles.scss';
 
 function Login(): JSX.Element {
 	return (
-		<AuthPageContainer>
+		<AuthPageContainer variant="signin">
 			<div className="auth-form-card">
 				<LoginContainer />
 			</div>
