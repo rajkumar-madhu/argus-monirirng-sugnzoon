@@ -2,7 +2,7 @@
 
 These are operator-run steps, not a deployment script. Run host commands only
 on the verified VPS `213.210.36.154`; run Kubernetes commands only with explicit
-context `wecrew` and namespace `wecrew-monitoring`. Do not execute the snippets
+context `kind-wecrew` and namespace `wecrew-monitoring`. Do not execute the snippets
 until the release and backup gates below pass.
 
 ## Before stopping anything
@@ -119,24 +119,24 @@ release records. Apply the staging overlay first and confirm that no destination
 pods exist. Then start each deployment in order:
 
 ```sh
-kubectl --context wecrew apply -k infra/wecrew-k8s-staging
-kubectl --context wecrew -n wecrew-monitoring get deployment
-kubectl --context wecrew -n wecrew-monitoring get pods
+kubectl --context kind-wecrew apply -k infra/wecrew-k8s-staging
+kubectl --context kind-wecrew -n wecrew-monitoring get deployment
+kubectl --context kind-wecrew -n wecrew-monitoring get pods
 
-kubectl --context wecrew -n wecrew-monitoring scale deployment/zookeeper --replicas=1
-kubectl --context wecrew -n wecrew-monitoring rollout status deployment/zookeeper --timeout=300s
-kubectl --context wecrew -n wecrew-monitoring scale deployment/clickhouse --replicas=1
-kubectl --context wecrew -n wecrew-monitoring rollout status deployment/clickhouse --timeout=300s
+kubectl --context kind-wecrew -n wecrew-monitoring scale deployment/zookeeper --replicas=1
+kubectl --context kind-wecrew -n wecrew-monitoring rollout status deployment/zookeeper --timeout=300s
+kubectl --context kind-wecrew -n wecrew-monitoring scale deployment/clickhouse --replicas=1
+kubectl --context kind-wecrew -n wecrew-monitoring rollout status deployment/clickhouse --timeout=300s
 ```
 
 Compare aggregate database/table counts, replication status and SQLite integrity
 with the pre-cutover baseline. Start the application and collector individually:
 
 ```sh
-kubectl --context wecrew -n wecrew-monitoring scale deployment/argus --replicas=1
-kubectl --context wecrew -n wecrew-monitoring rollout status deployment/argus --timeout=300s
-kubectl --context wecrew -n wecrew-monitoring scale deployment/otel-collector --replicas=1
-kubectl --context wecrew -n wecrew-monitoring rollout status deployment/otel-collector --timeout=300s
+kubectl --context kind-wecrew -n wecrew-monitoring scale deployment/argus --replicas=1
+kubectl --context kind-wecrew -n wecrew-monitoring rollout status deployment/argus --timeout=300s
+kubectl --context kind-wecrew -n wecrew-monitoring scale deployment/otel-collector --replicas=1
+kubectl --context kind-wecrew -n wecrew-monitoring rollout status deployment/otel-collector --timeout=300s
 ```
 
 Verify `/api/v1/version` reports the reviewed release version, `/api/v2/readyz`
@@ -152,7 +152,7 @@ reviewed production overlay so the declared state records one replica for every
 workload. Do not reapply the zero-replica staging overlay after release.
 
 ```sh
-kubectl --context wecrew apply -k infra/wecrew-k8s-production
+kubectl --context kind-wecrew apply -k infra/wecrew-k8s-production
 ```
 
 ## Rollback

@@ -1,6 +1,6 @@
 # WeCrew monitoring: full-stack Kubernetes migration
 
-Target: context `wecrew`, namespace `wecrew-monitoring`, node
+Target: context `kind-wecrew`, namespace `wecrew-monitoring`, node
 `wecrew-control-plane`, public URL `https://monitoring.wecrew.in`.
 This directory stages the application, ClickHouse, ZooKeeper and OpenTelemetry
 collector with **zero replicas**. Applying these manifests is not a completed
@@ -73,7 +73,7 @@ the entire application data directory after clean shutdown.
    kubectl kustomize infra/wecrew-k8s-production > /tmp/wecrew-monitoring-production.yaml
    kubeconform -strict -summary /tmp/wecrew-monitoring-staging.yaml
    kubeconform -strict -summary /tmp/wecrew-monitoring-production.yaml
-   kubectl --context wecrew apply --dry-run=client -k infra/wecrew-k8s-staging
+   kubectl --context kind-wecrew apply --dry-run=client -k infra/wecrew-k8s-staging
    ```
 
    A first-run server dry-run of the combined render cannot resolve namespaced
@@ -81,9 +81,9 @@ the entire application data directory after clean shutdown.
    run server dry-run against the zero-replica staging overlay:
 
    ```sh
-   kubectl --context wecrew create namespace wecrew-monitoring \
-     --dry-run=client -o yaml | kubectl --context wecrew apply -f -
-   kubectl --context wecrew apply --dry-run=server -k infra/wecrew-k8s-staging
+   kubectl --context kind-wecrew create namespace wecrew-monitoring \
+     --dry-run=client -o yaml | kubectl --context kind-wecrew apply -f -
+   kubectl --context kind-wecrew apply --dry-run=server -k infra/wecrew-k8s-staging
    ```
 
    Load the committed release image into the `wecrew` kind node or use an

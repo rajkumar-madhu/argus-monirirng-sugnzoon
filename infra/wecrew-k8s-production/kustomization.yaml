@@ -7,7 +7,7 @@ resources:
 images:
   - name: argus-monitoring
     newName: argus-monitoring
-    digest: sha256:0000000000000000000000000000000000000000000000000000000000000000
+    digest: sha256:7d25df354fba1ca64084492aead41674023fe8e0ad093f06524a7de954b7da31
 replicas:
   - {name: zookeeper, count: 1}
   - {name: clickhouse, count: 1}
