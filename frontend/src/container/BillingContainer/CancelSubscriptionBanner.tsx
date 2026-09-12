@@ -21,7 +21,7 @@ import { Color } from '@signozhq/design-tokens';
 
 import styles from './CancelSubscriptionBanner.module.scss';
 
-const SUPPORT_EMAIL = 'cloud-support@argus.example.com';
+const SUPPORT_EMAIL = 'cloud-support@example.com';
 const MAX_MAILTO_URI_LENGTH = 1800;
 
 type DialogView = 'confirm' | 'fallback';

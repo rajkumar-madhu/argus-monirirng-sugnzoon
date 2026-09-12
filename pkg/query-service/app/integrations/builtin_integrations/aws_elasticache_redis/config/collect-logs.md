@@ -33,7 +33,7 @@ processors:
     timeout: 10s
 
 exporters:
-  # export to SigNoz cloud
+  # export to Argus
   otlp/redis-logs:
     endpoint: "${env:OTLP_DESTINATION_ENDPOINT}"
     tls:
@@ -61,10 +61,10 @@ Set the following environment variables in your otel-collector environment:
 
 ```bash
 
-# region specific SigNoz cloud ingestion endpoint
+# region specific Argus ingestion endpoint
 export OTLP_DESTINATION_ENDPOINT="ingest.us.signoz.cloud:443"
 
-# your SigNoz ingestion key
+# your Argus ingestion key
 export SIGNOZ_INGESTION_KEY="signoz-ingestion-key"
 
 ```

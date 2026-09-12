@@ -54,7 +54,7 @@ export default function ServiceTopLevelOperations(): JSX.Element {
 			Argus calculates the RED metrics for a service using the entry-point spans.
 			For more details, you can check out our
 			<a
-				href="https://argus.example.com/docs/userguide/metrics/"
+				href="https://signoz.io/docs/userguide/metrics/"
 				target="_blank"
 				rel="noreferrer"
 			>

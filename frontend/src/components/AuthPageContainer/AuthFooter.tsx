@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from '@signozhq/icons';
+import DOCLINKS from 'utils/docLinks';
 
 import './AuthFooter.styles.scss';
 
@@ -13,16 +14,15 @@ interface FooterItem {
 const footerItems: FooterItem[] = [
 	{
 		text: 'All systems operational',
-		url: 'https://argus.example.com/',
 		statusIndicator: true,
 	},
 	{
 		text: 'Privacy',
-		url: 'https://argus.example.com/privacy',
+		url: DOCLINKS.PRIVACY,
 	},
 	{
 		text: 'Security',
-		url: 'https://argus.example.com/security',
+		url: DOCLINKS.SECURITY,
 	},
 ];
 
@@ -59,7 +59,13 @@ function AuthFooter(): JSX.Element {
 									)}
 								</a>
 							) : (
-								<span className="auth-footer-text">{item.text}</span>
+								<span
+									className={`auth-footer-text ${
+										item.statusIndicator ? 'auth-footer-status-text' : ''
+									}`}
+								>
+									{item.text}
+								</span>
 							)}
 						</div>
 						{index < footerItems.length - 1 && (

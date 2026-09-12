@@ -39,7 +39,7 @@ processors:
       hostname_sources: ["os"]
 
 exporters:
-  # export to SigNoz cloud
+  # export to Argus
   otlp/redis:
     endpoint: "${env:OTLP_DESTINATION_ENDPOINT}"
     tls:
@@ -76,10 +76,10 @@ export REDIS_ENDPOINT="localhost:6379"
 # can be left empty if the redis server is not configured to require a password.
 export REDIS_PASSWORD=""
 
-# region specific SigNoz cloud ingestion endpoint
+# region specific Argus ingestion endpoint
 export OTLP_DESTINATION_ENDPOINT="ingest.us.signoz.cloud:443"
 
-# your SigNoz ingestion key
+# your Argus ingestion key
 export SIGNOZ_INGESTION_KEY="signoz-ingestion-key"
 
 ```

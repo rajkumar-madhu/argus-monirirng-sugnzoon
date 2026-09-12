@@ -3,6 +3,7 @@ import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import { ArrowUpRight } from '@signozhq/icons';
 import logEvent from 'api/common/logEvent';
+import DOCLINKS from 'utils/docLinks';
 
 import dashboardsUrl from '@/assets/Icons/dashboards.svg';
 
@@ -13,8 +14,7 @@ interface Props {
 	createDropdown?: ReactNode;
 }
 
-const LEARN_MORE_HREF =
-	'https://argus.example.com/docs/userguide/manage-dashboards?utm_source=product&utm_medium=dashboard-list-empty-state';
+const LEARN_MORE_HREF = DOCLINKS.MANAGE_DASHBOARDS_EMPTY;
 
 function EmptyState({ createDropdown }: Props): JSX.Element {
 	return (

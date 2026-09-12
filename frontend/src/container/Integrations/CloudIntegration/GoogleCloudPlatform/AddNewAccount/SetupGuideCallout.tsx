@@ -5,7 +5,7 @@ import { Typography } from '@signozhq/ui/typography';
 import styles from './SetupGuideCallout.module.scss';
 
 const GCP_INTEGRATION_DOCS_URL =
-	'https://argus.example.com/docs/integrations/gcp/gcp-integration/';
+	'https://signoz.io/docs/integrations/gcp/gcp-integration/';
 
 function SetupGuideCallout(): JSX.Element {
 	return (

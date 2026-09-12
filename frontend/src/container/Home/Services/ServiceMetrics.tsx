@@ -93,10 +93,7 @@ const EmptyState = memo(
 								logEvent('Homepage: Learn more clicked', {
 									source: 'Service Metrics',
 								});
-								window.open(
-									'https://argus.example.com/docs/instrumentation/overview/',
-									'_blank',
-								);
+								openInNewTab(DOCS_LINKS.ADD_DATA_SOURCE);
 							}}
 						>
 							Learn more <ArrowUpRight size={12} />

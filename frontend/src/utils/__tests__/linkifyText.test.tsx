@@ -11,10 +11,10 @@ describe('linkifyText', () => {
 	});
 
 	it('wraps an http(s) URL in an anchor that opens in a new tab', () => {
-		render(<div>{linkifyText('see https://argus.example.com/docs for more')}</div>);
+		render(<div>{linkifyText('see https://signoz.io/docs for more')}</div>);
 
-		const link = screen.getByRole('link', { name: 'https://argus.example.com/docs' });
-		expect(link).toHaveAttribute('href', 'https://argus.example.com/docs');
+		const link = screen.getByRole('link', { name: 'https://signoz.io/docs' });
+		expect(link).toHaveAttribute('href', 'https://signoz.io/docs');
 		expect(link).toHaveAttribute('target', '_blank');
 		expect(link).toHaveAttribute('rel', 'noopener noreferrer');
 	});
@@ -23,14 +23,14 @@ describe('linkifyText', () => {
 		render(<div>{linkifyText('visit argus.example.com')}</div>);
 
 		const link = screen.getByRole('link', { name: 'argus.example.com' });
-		expect(link).toHaveAttribute('href', 'https://argus.example.com');
+		expect(link).toHaveAttribute('href', 'https://signoz.io');
 	});
 
 	it('keeps trailing punctuation outside the link', () => {
-		render(<div>{linkifyText('read https://argus.example.com.')}</div>);
+		render(<div>{linkifyText('read https://signoz.io.')}</div>);
 
-		const link = screen.getByRole('link', { name: 'https://argus.example.com' });
-		expect(link).toHaveAttribute('href', 'https://argus.example.com');
+		const link = screen.getByRole('link', { name: 'https://signoz.io' });
+		expect(link).toHaveAttribute('href', 'https://signoz.io');
 	});
 
 	it('linkifies multiple URLs in the same string', () => {
@@ -49,15 +49,15 @@ describe('linkifyText', () => {
 
 	it('preserves newlines around a link', () => {
 		const { container } = render(
-			<div>{linkifyText('line one\nsee https://argus.example.com\nline three')}</div>,
+			<div>{linkifyText('line one\nsee https://signoz.io\nline three')}</div>,
 		);
 
 		expect(container.textContent).toBe(
-			'line one\nsee https://argus.example.com\nline three',
+			'line one\nsee https://signoz.io\nline three',
 		);
 		expect(
-			screen.getByRole('link', { name: 'https://argus.example.com' }),
-		).toHaveAttribute('href', 'https://argus.example.com');
+			screen.getByRole('link', { name: 'https://signoz.io' }),
+		).toHaveAttribute('href', 'https://signoz.io');
 	});
 
 	it('returns an empty string unchanged', () => {

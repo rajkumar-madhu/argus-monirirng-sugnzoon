@@ -267,7 +267,7 @@ exporters:
     endpoint: "localhost:4317"
     tls:
       insecure: true
-  # export to SigNoz cloud
+  # export to Argus
   otlp/signoz:
     endpoint: "${env:OTLP_DESTINATION_ENDPOINT}"
     tls:
@@ -297,10 +297,10 @@ export POSTGRESQL_USERNAME="<username>"
 # The password to use for accessing postgres instance
 export POSTGRESQL_PASSWORD="<PASSWORD>"
 
-# region specific SigNoz cloud ingestion endpoint
+# region specific Argus ingestion endpoint
 export OTLP_DESTINATION_ENDPOINT="ingest.us.signoz.cloud:443"
 
-# your SigNoz ingestion key
+# your Argus ingestion key
 export SIGNOZ_INGESTION_KEY="signoz-ingestion-key"
 
 ```

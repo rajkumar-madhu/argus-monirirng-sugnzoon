@@ -104,7 +104,7 @@ function ServiceMetricTable({
 				<Flex justify="left">
 					<Typography.Title level={5} color="warning" style={{ marginTop: 0 }}>
 						<SolidAlertTriangle size="md" /> {getText('rps_over_100')}
-						<a href="mailto:cloud-support@argus.example.com">email</a>
+						<a href="mailto:cloud-support@example.com">email</a>
 					</Typography.Title>
 				</Flex>
 			)}

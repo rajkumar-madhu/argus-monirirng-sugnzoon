@@ -82,7 +82,7 @@ function ChangelogModal({ changelog, onClose }: Props): JSX.Element {
 
 	const onClickUpdateWorkspace = (): void => {
 		window.open(
-			'https://argus.example.com/upgrade-path',
+			'https://signoz.io/upgrade-path',
 			'_blank',
 			'noopener,noreferrer',
 		);

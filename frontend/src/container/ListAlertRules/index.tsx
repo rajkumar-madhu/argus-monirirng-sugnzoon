@@ -13,6 +13,7 @@ import { useAppContext } from 'providers/App/App';
 import { useTimezone } from 'providers/Timezone';
 
 import TextToolTip from 'components/TextToolTip';
+import DOCLINKS from 'utils/docLinks';
 
 import { AlertsEmptyState } from './AlertsEmptyState/AlertsEmptyState';
 import { ActionsMenu, ColumnSelector } from './components';
@@ -143,7 +144,7 @@ function ListAlertRules(): JSX.Element {
 						)}
 						<TextToolTip
 							text="More details on how to create alerts"
-							url="https://argus.example.com/docs/alerts/?utm_source=product&utm_medium=list-alerts"
+							url={DOCLINKS.ALERTS_LIST}
 							urlText="Learn More"
 						/>
 					</div>

@@ -38,6 +38,7 @@ import logEvent from 'api/common/logEvent';
 import { Logout } from 'api/utils';
 import updateUserPreference from 'api/v1/user/preferences/name/update';
 import cx from 'classnames';
+import { DOCS_BASE_URL } from 'constants/app';
 import { FeatureKeys } from 'constants/features';
 import ROUTES from 'constants/routes';
 import { GlobalShortcuts } from 'constants/shortcuts/globalShortcuts';
@@ -609,7 +610,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 							icon: <ScrollText size={14} />,
 							itemKey: changelogKey,
 							isExternal: true,
-							url: 'https://argus.example.com/changelog/',
+							url: `${DOCS_BASE_URL}/changelog/`,
 						},
 					];
 				}
@@ -635,7 +636,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 						icon: <ScrollText size={14} />,
 						itemKey: changelogKey,
 						isExternal: true,
-						url: 'https://argus.example.com/changelog/',
+						url: `${DOCS_BASE_URL}/changelog/`,
 					},
 				];
 			});

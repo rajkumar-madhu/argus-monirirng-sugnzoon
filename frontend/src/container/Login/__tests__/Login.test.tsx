@@ -145,7 +145,7 @@ describe('Login Component', () => {
 			).toBeInTheDocument();
 			expect(getByTestId('email')).toBeInTheDocument();
 			expect(getByTestId('initiate_login')).toBeInTheDocument();
-			expect(getByPlaceholderText('e.g. john@argus.example.com')).toBeInTheDocument();
+			expect(getByPlaceholderText('e.g. you@company.com')).toBeInTheDocument();
 		});
 
 		it('shows loading state when version data is being fetched', () => {

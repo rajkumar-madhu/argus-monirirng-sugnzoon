@@ -11,6 +11,7 @@ import { AlertTypes } from 'types/api/alerts/alertTypes';
 import { isModifierKeyPressed } from 'utils/app';
 import { openInNewTab } from 'utils/navigation';
 
+import { ALERT_TYPE_URL_MAP } from '../constants';
 import { getOptionList } from './config';
 import { AlertTypeCard, SelectTypeContainer } from './styles';
 import { OptionType } from './types';
@@ -26,30 +27,7 @@ function SelectAlertType({ onSelect }: SelectAlertTypeProps): JSX.Element {
 	const optionList = getOptionList(t, isAnomalyDetectionEnabled);
 
 	function handleRedirection(option: AlertTypes): void {
-		let url = '';
-		switch (option) {
-			case AlertTypes.ANOMALY_BASED_ALERT:
-				url = 'https://argus.example.com/docs/alerts-management/anomaly-based-alerts/';
-				break;
-			case AlertTypes.METRICS_BASED_ALERT:
-				url =
-					'https://argus.example.com/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
-				break;
-			case AlertTypes.LOGS_BASED_ALERT:
-				url =
-					'https://argus.example.com/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
-				break;
-			case AlertTypes.TRACES_BASED_ALERT:
-				url =
-					'https://argus.example.com/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
-				break;
-			case AlertTypes.EXCEPTIONS_BASED_ALERT:
-				url =
-					'https://argus.example.com/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-source-selection-page#examples';
-				break;
-			default:
-				break;
-		}
+		const url = ALERT_TYPE_URL_MAP[option]?.selection || '';
 
 		logEvent('Alert: Sample alert link clicked', {
 			dataSource: ALERTS_DATA_SOURCE_MAP[option],

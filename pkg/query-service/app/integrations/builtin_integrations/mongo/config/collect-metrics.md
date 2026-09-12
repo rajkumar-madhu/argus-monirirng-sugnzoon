@@ -48,7 +48,7 @@ processors:
       hostname_sources: ["os"]
 
 exporters:
-  # export to SigNoz cloud
+  # export to Argus
   otlp/mongodb:
     endpoint: "${env:OTLP_DESTINATION_ENDPOINT}"
     tls:
@@ -87,10 +87,10 @@ export MONGODB_USERNAME="monitoring"
 # password for MongoDB monitoring user"
 export MONGODB_PASSWORD="<PASSWORD>"
 
-# region specific SigNoz cloud ingestion endpoint
+# region specific Argus ingestion endpoint
 export OTLP_DESTINATION_ENDPOINT="ingest.us.signoz.cloud:443"
 
-# your SigNoz ingestion key
+# your Argus ingestion key
 export SIGNOZ_INGESTION_KEY="signoz-ingestion-key"
 
 ```

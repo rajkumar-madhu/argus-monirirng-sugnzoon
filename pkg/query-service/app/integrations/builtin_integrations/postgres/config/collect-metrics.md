@@ -45,7 +45,7 @@ processors:
       hostname_sources: ["os"]
 
 exporters:
-  # export to SigNoz cloud
+  # export to Argus
   otlp/postgres:
     endpoint: "${env:OTLP_DESTINATION_ENDPOINT}"
     tls:
@@ -84,10 +84,10 @@ export POSTGRESQL_PASSWORD="<PASSWORD>"
 export POSTGRESQL_ENDPOINT="host:port"
 
 
-# region specific SigNoz cloud ingestion endpoint
+# region specific Argus ingestion endpoint
 export OTLP_DESTINATION_ENDPOINT="ingest.us.signoz.cloud:443"
 
-# your SigNoz ingestion key
+# your Argus ingestion key
 export SIGNOZ_INGESTION_KEY="signoz-ingestion-key"
 
 ```

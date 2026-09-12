@@ -9,7 +9,7 @@ describe('ContextLinksSection utils', () => {
 	describe('isValidContextLinkUrl', () => {
 		it.each([
 			['', true],
-			['https://argus.example.com', true],
+			['https://signoz.io', true],
 			['http://localhost:3301/trace', true],
 			['/trace/{{_traceId}}', true],
 			['{{host}}/trace', true],

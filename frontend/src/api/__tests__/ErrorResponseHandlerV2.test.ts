@@ -42,7 +42,7 @@ const cases: {
 					error: {
 						code: 'bad_request',
 						message: 'Invalid dashboard payload',
-						url: 'https://argus.example.com/docs',
+						url: 'https://signoz.io/docs',
 						errors: [{ message: 'name is required' }, { message: 'name too long' }],
 					},
 				},

@@ -128,7 +128,7 @@ function JiraSettings({ setSelectedConfig }: JiraProps): JSX.Element {
 			>
 				{t('jira_service_account_tip')}{' '}
 				<Typography.Link
-					href="https://argus.example.com/docs/alerts-management/notification-channel/jira/#use-a-service-account-recommended"
+					href="https://signoz.io/docs/alerts-management/notification-channel/jira/#use-a-service-account-recommended"
 					target="_blank"
 					rel="noopener noreferrer"
 				>

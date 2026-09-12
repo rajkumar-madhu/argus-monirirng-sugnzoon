@@ -67,7 +67,7 @@ processors:
     timeout: 10s
 
 exporters:
-  # export to SigNoz cloud
+  # export to Argus
   otlp/clickhouse-logs:
     endpoint: "${env:OTLP_DESTINATION_ENDPOINT}"
     tls:
@@ -107,10 +107,10 @@ export CLICKHOUSE_LOG_FILE="/var/log/clickhouse-server/server.log"
 # Must be a IANA timezone name like Asia/Kolkata. For examples, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 export CLICKHOUSE_TIMEZONE="Etc/UTC"
 
-# region specific SigNoz cloud ingestion endpoint
+# region specific Argus ingestion endpoint
 export OTLP_DESTINATION_ENDPOINT="ingest.us.signoz.cloud:443"
 
-# your SigNoz ingestion key
+# your Argus ingestion key
 export SIGNOZ_INGESTION_KEY="signoz-ingestion-key"
 
 ```

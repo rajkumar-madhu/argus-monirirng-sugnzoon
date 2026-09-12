@@ -624,16 +624,17 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 				<>
 					Your Argus license is terminated, enterprise features have been disabled.
 					Please contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for new license
+					<a href="mailto:support@example.com">support@example.com</a> for new
+					license
 				</>
 			)}
 			{activeLicense?.state === LicenseState.EXPIRED && (
 				<>
 					Your Argus license has expired. Please contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for renewal to
+					<a href="mailto:support@example.com">support@example.com</a> for renewal to
 					avoid termination of license as per our{' '}
 					<a
-						href="https://argus.example.com/terms-of-service"
+						href="https://signoz.io/terms-of-service"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -644,10 +645,10 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 			{activeLicense?.state === LicenseState.CANCELLED && (
 				<>
 					Your Argus license is cancelled. Please contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for reactivation
-					to avoid termination of license as per our{' '}
+					<a href="mailto:support@example.com">support@example.com</a> for
+					reactivation to avoid termination of license as per our{' '}
 					<a
-						href="https://argus.example.com/terms-of-service"
+						href="https://signoz.io/terms-of-service"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -660,10 +661,10 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 				<>
 					Your Argus license is defaulted. Please clear the bill to continue using
 					the enterprise features. Contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> to avoid
+					<a href="mailto:support@example.com">support@example.com</a> to avoid
 					termination of license as per our{' '}
 					<a
-						href="https://argus.example.com/terms-of-service"
+						href="https://signoz.io/terms-of-service"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -675,10 +676,10 @@ function AppLayout(props: AppLayoutProps): JSX.Element {
 			{activeLicense?.state === LicenseState.EVALUATION_EXPIRED && (
 				<>
 					Your Argus trial has ended. Please contact support at{' '}
-					<a href="mailto:support@argus.example.com">support@argus.example.com</a> for next steps to
-					avoid termination of license as per our{' '}
+					<a href="mailto:support@example.com">support@example.com</a> for next steps
+					to avoid termination of license as per our{' '}
 					<a
-						href="https://argus.example.com/terms-of-service"
+						href="https://signoz.io/terms-of-service"
 						target="_blank"
 						rel="noopener noreferrer"
 					>

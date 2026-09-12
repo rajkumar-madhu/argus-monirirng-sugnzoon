@@ -239,7 +239,7 @@ function CloudAccountSetupModal({
 							</div>
 							<div className="cloud-account-setup-how-it-works__description-item">
 								Once the Integration template is deployed, you can enable the services
-								you want to monitor right here in Signoz dashboard.
+								you want to monitor right here in Argus dashboard.
 							</div>
 						</div>
 					)}

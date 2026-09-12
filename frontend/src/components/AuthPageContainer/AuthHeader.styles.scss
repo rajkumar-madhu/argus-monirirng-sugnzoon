@@ -4,7 +4,7 @@
 	width: 100%;
 	max-width: 1176px;
 	margin: 0 auto;
-	padding: 12px 0;
+	padding: 16px 0;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -15,23 +15,15 @@
 .auth-header-logo {
 	display: flex;
 	align-items: center;
-	gap: 4.9px;
+	gap: 8px;
 	text-decoration: none;
+	color: var(--auth-text, var(--l1-foreground));
 }
 
 .auth-header-logo-icon {
-	width: 17.5px;
-	height: 17.5px;
+	height: 28px;
+	width: auto;
 	flex-shrink: 0;
-}
-
-.auth-header-logo-text {
-	font-family: Satoshi, var(--font-family-inter, Inter), sans-serif;
-	font-size: 15.4px;
-	font-weight: 500;
-	line-height: 17.5px;
-	color: var(--l1-foreground);
-	white-space: nowrap;
 }
 
 .auth-header-help-button {
@@ -41,10 +33,10 @@
 	gap: 8px;
 	height: 32px;
 	padding: 10px 16px;
-	background: var(--l2-background);
-	color: var(--l2-foreground);
-	border: none;
-	border-radius: 2px;
+	background: var(--auth-surface, var(--l2-background));
+	color: var(--auth-text, var(--l2-foreground));
+	border: 1px solid var(--auth-border, transparent);
+	border-radius: 6px;
 	cursor: pointer;
 	transition: opacity 0.2s ease;
 
@@ -53,16 +45,16 @@
 		font-size: 11px;
 		font-weight: 500;
 		line-height: 1;
-		color: var(--l2-foreground);
+		color: inherit;
 		text-align: center;
 	}
 
 	svg {
 		flex-shrink: 0;
-		color: var(--l2-foreground);
+		color: inherit;
 	}
 
 	&:hover {
-		opacity: 0.8;
+		opacity: 0.85;
 	}
 }

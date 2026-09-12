@@ -31,8 +31,8 @@ export const AWS_INTEGRATION = {
 	description: 'One click setup for AWS monitoring with Argus',
 	author: {
 		name: 'Argus',
-		email: 'integrations@argus.example.com',
-		homepage: 'https://argus.example.com',
+		email: 'integrations@example.com',
+		homepage: 'https://signoz.io',
 	},
 	icon: awsDarkLogo,
 	icon_alt: 'aws-logo',
@@ -46,8 +46,8 @@ export const AZURE_INTEGRATION = {
 	description: 'One click setup for Azure monitoring with Argus',
 	author: {
 		name: 'Argus',
-		email: 'integrations@argus.example.com',
-		homepage: 'https://argus.example.com',
+		email: 'integrations@example.com',
+		homepage: 'https://signoz.io',
 	},
 	icon: azureOpenaiLogo,
 	icon_alt: 'azure-logo',
@@ -61,8 +61,8 @@ export const GCP_INTEGRATION = {
 	description: 'Setup for GCP monitoring with Argus',
 	author: {
 		name: 'Argus',
-		email: 'integrations@argus.example.com',
-		homepage: 'https://argus.example.com',
+		email: 'integrations@example.com',
+		homepage: 'https://signoz.io',
 	},
 	icon: gcpLogo,
 	icon_alt: 'gcp-logo',

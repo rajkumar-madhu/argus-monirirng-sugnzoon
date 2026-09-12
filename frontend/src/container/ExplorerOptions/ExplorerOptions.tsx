@@ -38,6 +38,7 @@ import axios from 'axios';
 import cx from 'classnames';
 import { getViewDetailsUsingViewKey } from 'components/ExplorerCard/utils';
 import { SOMETHING_WENT_WRONG } from 'constants/api';
+import DOCLINKS from 'utils/docLinks';
 import { LOCALSTORAGE } from 'constants/localStorage';
 import { QueryParams } from 'constants/query';
 import { PANEL_TYPES } from 'constants/queryBuilder';
@@ -716,13 +717,13 @@ function ExplorerOptions({
 
 	const infoIconLink = useMemo(() => {
 		if (isLogsExplorer) {
-			return 'https://argus.example.com/docs/userguide/logs_query_builder/?utm_source=product&utm_medium=logs-explorer-toolbar';
+			return DOCLINKS.LOGS_TOOLBAR;
 		}
 		// TODO: Add metrics explorer info icon link
 		if (isMetricsExplorer) {
 			return '';
 		}
-		return 'https://argus.example.com/docs/userguide/traces/?utm_source=product&utm_medium=trace-explorer-toolbar';
+		return DOCLINKS.TRACES_TOOLBAR;
 	}, [isLogsExplorer, isMetricsExplorer]);
 
 	const getQueryName = (query: Query): string => {

@@ -3,9 +3,9 @@
   "title": "PostgreSQL",
   "description": "Monitor Postgres with metrics and logs",
   "author": {
-    "name": "SigNoz",
-    "email": "integrations@signoz.io",
-    "homepage": "https://signoz.io"
+    "name": "Argus",
+    "email": "integrations@example.com",
+    "homepage": "https://argus.example.com"
   },
   "icon": "file://icon.svg",
   "categories": [

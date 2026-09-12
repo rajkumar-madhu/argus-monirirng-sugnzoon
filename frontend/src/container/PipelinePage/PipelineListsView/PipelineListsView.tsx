@@ -78,7 +78,7 @@ function PipelinesListEmptyState(): JSX.Element {
 						<Typography>
 							{t('learn_more')}&nbsp;
 							<a
-								href="https://argus.example.com/docs/logs-pipelines/introduction/?utm_source=product&utm_medium=pipelines-tab"
+								href="https://signoz.io/docs/logs-pipelines/introduction/?utm_source=product&utm_medium=pipelines-tab"
 								target="_blank"
 								rel="noopener noreferrer"
 							>

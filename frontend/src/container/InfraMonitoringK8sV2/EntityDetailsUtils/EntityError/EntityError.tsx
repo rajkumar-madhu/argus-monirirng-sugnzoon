@@ -1,4 +1,5 @@
 import { Typography } from '@signozhq/ui/typography';
+import { COMMUNITY_URL } from 'constants/app';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 import history from 'lib/history';
 import { ArrowRight } from '@signozhq/icons';
@@ -15,7 +16,7 @@ export default function EntityError(): JSX.Element {
 		if (isCloudUserVal) {
 			history.push('/support');
 		} else {
-			openInNewTab('https://argus.example.com/slack');
+			openInNewTab(COMMUNITY_URL);
 		}
 	};
 

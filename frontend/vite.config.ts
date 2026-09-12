@@ -177,7 +177,9 @@ export default defineConfig(({ mode }): UserConfig => {
 			'process.env.WEBSOCKET_API_ENDPOINT': JSON.stringify(
 				env.VITE_WEBSOCKET_API_ENDPOINT,
 			),
-			'process.env.DOCS_BASE_URL': JSON.stringify(env.VITE_DOCS_BASE_URL),
+			'process.env.DOCS_BASE_URL': JSON.stringify(
+				env.VITE_DOCS_BASE_URL || 'https://signoz.io',
+			),
 			'process.env.ENVIRONMENT': JSON.stringify(env.VITE_ENVIRONMENT),
 			'process.env.VERSION': JSON.stringify(env.VITE_VERSION),
 		},
