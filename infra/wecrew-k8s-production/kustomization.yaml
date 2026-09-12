@@ -17,7 +17,7 @@ configMapGenerator:
   - name: wecrew-monitoring-release
     namespace: wecrew-monitoring
     literals:
-      - edge-source-cidr=10.244.0.1/32
+      - edge-source-cidr=172.16.2.1/32
 generatorOptions:
   disableNameSuffixHash: true
 replacements:
