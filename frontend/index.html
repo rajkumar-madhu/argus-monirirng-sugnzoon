@@ -83,14 +83,14 @@
 							? 'dark'
 							: 'light';
 					}
-					if (theme === 'light') {
-						document.body.classList.add('lightMode');
-					} else {
-						// Default to dark when no preference is stored
+					if (theme === 'dark') {
 						document.body.classList.add('dark', 'darkMode');
+					} else {
+						// Default to light when no preference is stored
+						document.body.classList.add('lightMode');
 					}
 				} catch (e) {
-					document.body.classList.add('dark', 'darkMode');
+					document.body.classList.add('lightMode');
 				}
 			})();
 		</script>

@@ -16,7 +16,7 @@ import { ErrorV2 } from 'types/api';
 import APIError from 'types/api/error';
 import { SessionsContext } from 'types/api/v2/sessions/context/get';
 
-import tvUrl from '@/assets/svgs/tv.svg';
+import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
 
 import { FormContainer, Label, ParentContainer } from './styles';
 
@@ -307,14 +307,17 @@ function Login(): JSX.Element {
 			<FormContainer form={form} onFinish={onSubmitHandler}>
 				<div className="login-form-header">
 					<div className="login-form-emoji">
-						<img src={tvUrl} alt="TV" width="32" height="32" />
+						<img
+							src={argusBrandLogoUrl}
+							alt="Argus"
+							className="login-form-brand-logo"
+						/>
 					</div>
 					<Typography.Title level={4} className="login-form-title">
 						Sign in to your workspace
 					</Typography.Title>
 					<Typography.Text className="login-form-description">
-						Sign in to monitor, trace, and troubleshoot your applications
-						effortlessly.
+						Monitor, trace, and troubleshoot your applications with Argus.
 					</Typography.Text>
 				</div>
 
@@ -327,7 +330,7 @@ function Login(): JSX.Element {
 								id="email"
 								data-testid="email"
 								required
-								placeholder="e.g. john@argus.example.com"
+								placeholder="e.g. you@company.com"
 								disabled={versionLoading}
 								className="login-form-input"
 								onPressEnter={onNextHandler}
@@ -430,6 +433,13 @@ function Login(): JSX.Element {
 						</Button>
 					)}
 				</div>
+
+				<p className="auth-switch-row">
+					Need an account?{' '}
+					<a className="auth-switch-link" href={ROUTES.SIGN_UP}>
+						Create one
+					</a>
+				</p>
 			</FormContainer>
 		</div>
 	);

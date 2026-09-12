@@ -18,7 +18,7 @@ import { useAppContext } from 'providers/App/App';
 import {
 	AboutArgusQuestions,
 	SignozDetails,
-} from './AboutArgusQuestions/AboutArgusQuestions';
+} from './AboutSigNozQuestions/AboutSigNozQuestions';
 import InviteTeamMembers from './InviteTeamMembers/InviteTeamMembers';
 import OptimiseSignozNeeds, {
 	OptimiseSignozDetails,

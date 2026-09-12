@@ -59,6 +59,8 @@ import { isModifierKeyPressed } from 'utils/app';
 import { compositeQueryToQueryEnvelope } from 'utils/compositeQueryToQueryEnvelope';
 import { openInNewTab } from 'utils/navigation';
 
+import { ALERT_TYPE_URL_MAP } from '../CreateAlertRule/constants';
+
 import BasicInfo from './BasicInfo';
 import ChartPreview from './ChartPreview';
 import QuerySection from './QuerySection';
@@ -82,15 +84,15 @@ export enum AlertDetectionTypes {
 
 const ALERT_SETUP_GUIDE_URLS: Record<AlertTypes, string> = {
 	[AlertTypes.METRICS_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		ALERT_TYPE_URL_MAP[AlertTypes.METRICS_BASED_ALERT].creation,
 	[AlertTypes.LOGS_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		ALERT_TYPE_URL_MAP[AlertTypes.LOGS_BASED_ALERT].creation,
 	[AlertTypes.TRACES_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		ALERT_TYPE_URL_MAP[AlertTypes.TRACES_BASED_ALERT].creation,
 	[AlertTypes.EXCEPTIONS_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/exceptions-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		ALERT_TYPE_URL_MAP[AlertTypes.EXCEPTIONS_BASED_ALERT].creation,
 	[AlertTypes.ANOMALY_BASED_ALERT]:
-		'https://argus.example.com/docs/alerts-management/anomaly-based-alerts/?utm_source=product&utm_medium=alert-creation-page',
+		ALERT_TYPE_URL_MAP[AlertTypes.ANOMALY_BASED_ALERT].creation,
 };
 
 function FormAlertRules({

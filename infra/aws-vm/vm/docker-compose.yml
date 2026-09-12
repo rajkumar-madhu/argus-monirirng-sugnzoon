@@ -1,0 +1,105 @@
+# Self-hosted Argus stack for a single EC2 VM (dev).
+# ClickHouse DB names and collector images keep upstream SigNoz contracts.
+
+services:
+  zookeeper:
+    image: signoz/zookeeper:3.7.1
+    restart: unless-stopped
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    volumes:
+      - zookeeper-data:/bitnami/zookeeper
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -m 2 http://localhost:8080/commands/ruok | grep -q null"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.12.5
+    restart: unless-stopped
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "0.0.0.0:8123/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  schema-migrator:
+    image: signoz/signoz-otel-collector:v0.144.6
+    restart: on-failure
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    environment:
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_DSN: tcp://clickhouse:9000
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_CLUSTER: cluster
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_REPLICATION: "true"
+      SIGNOZ_OTEL_COLLECTOR_TIMEOUT: 10m
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        /signoz-otel-collector migrate bootstrap &&
+        /signoz-otel-collector migrate sync up &&
+        /signoz-otel-collector migrate async up
+
+  otel-collector:
+    image: signoz/signoz-otel-collector:v0.144.6
+    restart: unless-stopped
+    depends_on:
+      schema-migrator:
+        condition: service_completed_successfully
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "13133:13133"
+    environment:
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_DSN: tcp://clickhouse:9000
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_CLUSTER: cluster
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_REPLICATION: "true"
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "localhost:13133"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  argus:
+    image: ${ARGUS_IMAGE:-ghcr.io/rajkumar-madhu/argus:latest}
+    restart: unless-stopped
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+      otel-collector:
+        condition: service_healthy
+    ports:
+      - "80:8080"
+    environment:
+      ARGUS_SQLSTORE_PROVIDER: sqlite
+      ARGUS_SQLSTORE_SQLITE_PATH: /var/lib/argus/argus.db
+      ARGUS_TELEMETRYSTORE_PROVIDER: clickhouse
+      ARGUS_TELEMETRYSTORE_CLICKHOUSE_DSN: tcp://clickhouse:9000
+      ARGUS_APISERVER_ADDRESS: 0.0.0.0:8080
+      ARGUS_GLOBAL_EXTERNAL_URL: ${ARGUS_EXTERNAL_URL:-http://localhost}
+    volumes:
+      - argus-data:/var/lib/argus
+      - ./argus.yaml:/etc/argus/config.yaml:ro
+    command: ["server", "--config=/etc/argus/config.yaml"]
+
+volumes:
+  zookeeper-data:
+  clickhouse-data:
+  argus-data:

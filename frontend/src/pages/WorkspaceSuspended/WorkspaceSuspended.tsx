@@ -81,7 +81,7 @@ function WorkspaceSuspended(): JSX.Element {
 								type="default"
 								shape="round"
 								size="middle"
-								href="mailto:cloud-support@argus.example.com"
+								href="mailto:cloud-support@example.com"
 								role="button"
 							>
 								Contact Us

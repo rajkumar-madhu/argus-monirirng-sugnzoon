@@ -4,9 +4,9 @@ Argus community installs are **self-managed**. This fork does not ship SigNoz Fo
 
 ## Installation
 
-1. Build or pull the Argus image from your registry (placeholder: `ghcr.io/rajkumar-madhu/argus`).
-2. Run the upstream OpenTelemetry collector and schema migrator images (`signoz/signoz-otel-collector`, `signoz/signoz-schema-migrator`) against ClickHouse.
-3. Configure Argus using [conf/example.yaml](../conf/example.yaml) — set `global.external_url` to your public URL (e.g. `https://argus.example.com` or `https://argus.example.com/argus` when served under a path prefix).
+1. Build or pull the Argus image from your registry (`ghcr.io/rajkumar-madhu/argus`; Go module path stays `github.com/your-org/argus`).
+2. Run the upstream OpenTelemetry collector and schema migrator images (`signoz/signoz-otel-collector`, `signoz/signoz-schema-migrator`) against ClickHouse (`signoz_*` databases).
+3. Configure Argus using [conf/example.yaml](../conf/example.yaml) — set `global.external_url` to your public URL (e.g. `https://argus.example.com` or `https://argus.example.com/argus` when served under a path prefix). Source repo: [rajkumar-madhu/argus-monirirng-sugnzoon](https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon).
 
 Full deployment documentation for your organization should live at a URL you control, for example:
 

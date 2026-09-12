@@ -1,0 +1,1518 @@
+{
+  "schemaVersion": "v6",
+  "image": "",
+  "name": "",
+  "generateName": true,
+  "tags": [
+    {
+      "key": "tag",
+      "value": "nginx"
+    },
+    {
+      "key": "tag",
+      "value": "http"
+    },
+    {
+      "key": "tag",
+      "value": "customer"
+    }
+  ],
+  "spec": {
+    "display": {
+      "name": "Nginx customer overview",
+      "description": "Grafana-style customer HTTP dashboard from Nginx access logs: KPI tiles (request volume, status codes, bytes, unique visitors, Googlebot), status and bytes time series, method/status mix, top pages/referrers/agents/IPs, and a live request list. Mirrors the Grafana Loki Nginx dashboard layout. Requires attributes.source=nginx from the built-in collector config. Geo map / p95 latency need $request_time + geoip in a custom log_format (not in Nginx combined logs)."
+    },
+    "variables": [],
+    "panels": {
+      "5ec414da-e142-50d8-be7c-236fabca36e6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total requests",
+            "description": "Access-log lines in the selected window (Grafana Loki KPI)."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "requests"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "446cb981-a833-5a8f-86e2-e0134811f414": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HTTP 200",
+            "description": "Successful responses."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx' AND status = '200'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "200"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "d4494fa4-9f4e-5f3f-80a7-accc91350f5f": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HTTP 301",
+            "description": "Permanent redirects."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx' AND status = '301'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "301"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "8a348304-5e2c-56be-886d-db42957238a6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HTTP 304",
+            "description": "Not modified / cache hits."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx' AND status = '304'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "304"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "ec5e081d-b894-5569-97cd-a3b1a2cf8d1c": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Bytes sent",
+            "description": "Sum of body_bytes_sent from access logs."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "bytes",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "sum(toFloat64OrZero(body_bytes_sent))"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "bytes"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "6e8b0b9f-4298-5f35-b884-c136fbf3aedc": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Unique visitors",
+            "description": "Distinct remote_addr values (Grafana 'realtime visitors' analogue)."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count_distinct(remote_addr)"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "visitors"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "8b8644bc-9ed1-539c-af70-9d39f595c7b2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HTTP 404",
+            "description": "Not found."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx' AND status = '404'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "404"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "77f0627a-44fe-573f-a0b2-955de7991413": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HTTP 413",
+            "description": "Payload too large."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx' AND status = '413'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "413"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "dadd2515-838c-5ad0-89cc-6b5fff2d7101": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HTTP 500",
+            "description": "Internal server errors."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx' AND status = '500'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "500"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "9b618e29-8351-56ce-8dc5-645f9ac01273": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "5xx requests",
+            "description": "All 5xx responses in the window."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx' AND status LIKE '5%'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "5xx"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "7ac94d50-2bf3-582c-bd6e-e6e1fcfe8b33": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Googlebot requests",
+            "description": "User-Agent contains Googlebot."
+          },
+          "plugin": {
+            "kind": "signoz/NumberPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx' AND http_user_agent CONTAINS 'Googlebot'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "googlebot"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "e21b1d23-501f-584c-b9c8-ccb195d2ddfe": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HTTP status over time",
+            "description": "Request rate by status code \u2014 Grafana status time series."
+          },
+          "plugin": {
+            "kind": "signoz/TimeSeriesPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time",
+                "fillSpans": false
+              },
+              "formatting": {
+                "unit": "reqps",
+                "decimalPrecision": "2"
+              },
+              "chartAppearance": {
+                "lineInterpolation": "spline",
+                "showPoints": false,
+                "lineStyle": "solid",
+                "fillMode": "gradient",
+                "spanGaps": {
+                  "fillOnlyBelow": false,
+                  "fillLessThan": ""
+                }
+              },
+              "axes": {
+                "softMin": 0,
+                "softMax": null,
+                "isLogScale": false
+              },
+              "legend": {
+                "position": "bottom",
+                "mode": "list",
+                "customColors": null
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "time_series",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "status",
+                        "signal": "logs",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "{{status}}"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "4c7ddb79-6635-5901-ace6-5a3c0dd62a0d": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Bytes sent over time",
+            "description": "Response payload volume from access logs."
+          },
+          "plugin": {
+            "kind": "signoz/TimeSeriesPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time",
+                "fillSpans": false
+              },
+              "formatting": {
+                "unit": "Bps",
+                "decimalPrecision": "2"
+              },
+              "chartAppearance": {
+                "lineInterpolation": "spline",
+                "showPoints": false,
+                "lineStyle": "solid",
+                "fillMode": "gradient",
+                "spanGaps": {
+                  "fillOnlyBelow": false,
+                  "fillLessThan": ""
+                }
+              },
+              "axes": {
+                "softMin": 0,
+                "softMax": null,
+                "isLogScale": false
+              },
+              "legend": {
+                "position": "bottom",
+                "mode": "list",
+                "customColors": null
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "time_series",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "sum(toFloat64OrZero(body_bytes_sent))"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "bytes"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "e5bb9df4-a1d6-552c-aa9a-edf19709e9e4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Status mix",
+            "description": "Share of responses by status code."
+          },
+          "plugin": {
+            "kind": "signoz/PieChartPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "legend": {
+                "position": "right",
+                "mode": "list",
+                "customColors": null
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "status",
+                        "signal": "logs",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "{{status}}"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "bb33f044-7b44-53a6-a58b-71f70e5d6cea": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Request methods",
+            "description": "GET / POST / other from parsed access logs."
+          },
+          "plugin": {
+            "kind": "signoz/PieChartPanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "unit": "short",
+                "decimalPrecision": "0"
+              },
+              "legend": {
+                "position": "right",
+                "mode": "list",
+                "customColors": null
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "request_method",
+                        "signal": "logs",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "{{request_method}}"
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "4f0550cd-5658-5c9f-a4ca-3be3bcbb6733": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Top 10 requested pages",
+            "description": "Most requested paths (Grafana 'Top 10 requested pages')."
+          },
+          "plugin": {
+            "kind": "signoz/TablePanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "columnUnits": null,
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "request_path",
+                        "signal": "logs",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [
+                      {
+                        "key": {
+                          "name": "count()"
+                        },
+                        "direction": "desc"
+                      }
+                    ],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "requests",
+                    "limit": 10
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "f17b3697-1535-51d8-9eb4-c77ea0ec3d78": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Top HTTP referrers",
+            "description": "Acquisition \u2014 Grafana 'Top 10 HTTP referrers'."
+          },
+          "plugin": {
+            "kind": "signoz/TablePanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "columnUnits": null,
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "http_referrer",
+                        "signal": "logs",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [
+                      {
+                        "key": {
+                          "name": "count()"
+                        },
+                        "direction": "desc"
+                      }
+                    ],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "requests",
+                    "limit": 10
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "02c72621-6ea5-521d-b13a-887c49f22d2b": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Top user agents",
+            "description": "Acquisition \u2014 Grafana 'Top 10 Useragents'."
+          },
+          "plugin": {
+            "kind": "signoz/TablePanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "columnUnits": null,
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "http_user_agent",
+                        "signal": "logs",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [
+                      {
+                        "key": {
+                          "name": "count()"
+                        },
+                        "direction": "desc"
+                      }
+                    ],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "requests",
+                    "limit": 10
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "6cd11d3c-982c-593a-8bb7-eae02fda3918": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Top visitor IPs",
+            "description": "Grafana 'Top 10 visitor IPs'."
+          },
+          "plugin": {
+            "kind": "signoz/TablePanel",
+            "spec": {
+              "visualization": {
+                "timePreference": "global_time"
+              },
+              "formatting": {
+                "columnUnits": null,
+                "decimalPrecision": "0"
+              },
+              "thresholds": null
+            }
+          },
+          "queries": [
+            {
+              "kind": "scalar",
+              "spec": {
+                "name": "A",
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "stepInterval": 60,
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [
+                      {
+                        "expression": "count()"
+                      }
+                    ],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [
+                      {
+                        "name": "remote_addr",
+                        "signal": "logs",
+                        "fieldContext": "attribute",
+                        "fieldDataType": "string"
+                      }
+                    ],
+                    "order": [
+                      {
+                        "key": {
+                          "name": "count()"
+                        },
+                        "direction": "desc"
+                      }
+                    ],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "requests",
+                    "limit": 10
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      },
+      "b469dac7-ca18-5b88-b999-b7128bb39472": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Recent requests",
+            "description": "Latest parsed access-log lines (method, path, status, bytes, client)."
+          },
+          "plugin": {
+            "kind": "signoz/ListPanel",
+            "spec": {
+              "selectFields": [
+                {
+                  "name": "timestamp",
+                  "signal": "logs"
+                },
+                {
+                  "name": "request_method",
+                  "signal": "logs",
+                  "fieldContext": "attribute",
+                  "fieldDataType": "string"
+                },
+                {
+                  "name": "request_path",
+                  "signal": "logs",
+                  "fieldContext": "attribute",
+                  "fieldDataType": "string"
+                },
+                {
+                  "name": "status",
+                  "signal": "logs",
+                  "fieldContext": "attribute",
+                  "fieldDataType": "string"
+                },
+                {
+                  "name": "body_bytes_sent",
+                  "signal": "logs",
+                  "fieldContext": "attribute",
+                  "fieldDataType": "string"
+                },
+                {
+                  "name": "remote_addr",
+                  "signal": "logs",
+                  "fieldContext": "attribute",
+                  "fieldDataType": "string"
+                },
+                {
+                  "name": "http_user_agent",
+                  "signal": "logs",
+                  "fieldContext": "attribute",
+                  "fieldDataType": "string"
+                },
+                {
+                  "name": "body",
+                  "signal": "logs"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "raw",
+              "spec": {
+                "plugin": {
+                  "kind": "signoz/BuilderQuery",
+                  "spec": {
+                    "name": "A",
+                    "signal": "logs",
+                    "source": "",
+                    "aggregations": [],
+                    "disabled": false,
+                    "filter": {
+                      "expression": "source = 'nginx'"
+                    },
+                    "groupBy": [],
+                    "order": [
+                      {
+                        "key": {
+                          "name": "timestamp"
+                        },
+                        "direction": "desc"
+                      },
+                      {
+                        "key": {
+                          "name": "id"
+                        },
+                        "direction": "desc"
+                      }
+                    ],
+                    "having": {
+                      "expression": ""
+                    },
+                    "functions": [],
+                    "legend": "",
+                    "limit": 25
+                  }
+                }
+              }
+            }
+          ],
+          "links": []
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "items": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/5ec414da-e142-50d8-be7c-236fabca36e6"
+              }
+            },
+            {
+              "x": 2,
+              "y": 0,
+              "width": 2,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/446cb981-a833-5a8f-86e2-e0134811f414"
+              }
+            },
+            {
+              "x": 4,
+              "y": 0,
+              "width": 2,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/d4494fa4-9f4e-5f3f-80a7-accc91350f5f"
+              }
+            },
+            {
+              "x": 6,
+              "y": 0,
+              "width": 2,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/8a348304-5e2c-56be-886d-db42957238a6"
+              }
+            },
+            {
+              "x": 8,
+              "y": 0,
+              "width": 2,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/ec5e081d-b894-5569-97cd-a3b1a2cf8d1c"
+              }
+            },
+            {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/6e8b0b9f-4298-5f35-b884-c136fbf3aedc"
+              }
+            },
+            {
+              "x": 0,
+              "y": 3,
+              "width": 2,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/8b8644bc-9ed1-539c-af70-9d39f595c7b2"
+              }
+            },
+            {
+              "x": 2,
+              "y": 3,
+              "width": 2,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/77f0627a-44fe-573f-a0b2-955de7991413"
+              }
+            },
+            {
+              "x": 4,
+              "y": 3,
+              "width": 2,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/dadd2515-838c-5ad0-89cc-6b5fff2d7101"
+              }
+            },
+            {
+              "x": 6,
+              "y": 3,
+              "width": 3,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/9b618e29-8351-56ce-8dc5-645f9ac01273"
+              }
+            },
+            {
+              "x": 9,
+              "y": 3,
+              "width": 3,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/7ac94d50-2bf3-582c-bd6e-e6e1fcfe8b33"
+              }
+            },
+            {
+              "x": 0,
+              "y": 6,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/e21b1d23-501f-584c-b9c8-ccb195d2ddfe"
+              }
+            },
+            {
+              "x": 8,
+              "y": 6,
+              "width": 4,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/e5bb9df4-a1d6-552c-aa9a-edf19709e9e4"
+              }
+            },
+            {
+              "x": 0,
+              "y": 12,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/4c7ddb79-6635-5901-ace6-5a3c0dd62a0d"
+              }
+            },
+            {
+              "x": 8,
+              "y": 12,
+              "width": 4,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/bb33f044-7b44-53a6-a58b-71f70e5d6cea"
+              }
+            },
+            {
+              "x": 0,
+              "y": 18,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/4f0550cd-5658-5c9f-a4ca-3be3bcbb6733"
+              }
+            },
+            {
+              "x": 6,
+              "y": 18,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/f17b3697-1535-51d8-9eb4-c77ea0ec3d78"
+              }
+            },
+            {
+              "x": 0,
+              "y": 24,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/02c72621-6ea5-521d-b13a-887c49f22d2b"
+              }
+            },
+            {
+              "x": 6,
+              "y": 24,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/6cd11d3c-982c-593a-8bb7-eae02fda3918"
+              }
+            },
+            {
+              "x": 0,
+              "y": 30,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/b469dac7-ca18-5b88-b999-b7128bb39472"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "",
+    "refreshInterval": "",
+    "links": []
+  }
+}

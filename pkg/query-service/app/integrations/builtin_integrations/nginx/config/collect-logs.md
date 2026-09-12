@@ -87,7 +87,7 @@ processors:
     timeout: 10s
 
 exporters:
-  # export to SigNoz cloud
+  # export to Argus
   otlp/nginx-logs:
     endpoint: "${env:OTLP_DESTINATION_ENDPOINT}"
     tls:
@@ -95,9 +95,9 @@ exporters:
     headers:
       "signoz-access-token": "${env:SIGNOZ_INGESTION_KEY}"
 
-  # export to local collector
+  # export to self-hosted Argus collector (Hostinger example)
   # otlp/nginx-logs:
-  #   endpoint: "localhost:4317"
+  #   endpoint: "213.210.36.154:4317"
   #   tls:
   #     insecure: true
 
@@ -131,18 +131,18 @@ export NGINX_ACCESS_LOG_FILE=/var/log/nginx/access.log
 # typically found at /usr/local/var/log/nginx/error.log on macOS
 export NGINX_ERROR_LOG_FILE=/var/log/nginx/error.log
 
-# region specific SigNoz cloud ingestion endpoint
+# region specific Argus ingestion endpoint
 export OTLP_DESTINATION_ENDPOINT="ingest.us.signoz.cloud:443"
 
-# your SigNoz ingestion key
+# your Argus ingestion key
 export SIGNOZ_INGESTION_KEY="signoz-ingestion-key"
 
 ```
 
 #### Use collector config file
 
-Make the collector config file available to your otel collector and use it by adding the following flag to the command for running your collector  
+Make the collector config file available to your otel collector and use it by adding the following flag to the command for running your collector
 ```bash
 --config nginx-logs-collection-config.yaml
-```  
+```
 Note: the collector can use multiple config files, specified by multiple occurrences of the --config flag.

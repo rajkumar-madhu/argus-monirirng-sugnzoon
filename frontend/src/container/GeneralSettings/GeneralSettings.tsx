@@ -8,6 +8,7 @@ import { Modal, Spin } from 'antd';
 import setRetentionApi from 'api/settings/setRetention';
 import setRetentionApiV2 from 'api/settings/setRetentionV2';
 import TextToolTip from 'components/TextToolTip';
+import { DOCS_BASE_URL } from 'constants/app';
 import CustomDomainSettings from 'container/CustomDomainSettings';
 import LicenseKeyRow from 'container/GeneralSettings/LicenseKeyRow/LicenseKeyRow';
 import GeneralSettingsCloud from 'container/GeneralSettingsCloud';
@@ -669,9 +670,9 @@ function GeneralSettings({
 	return (
 		<div className="general-settings-page">
 			<div className="general-settings-header">
-				<span className="general-settings-title">Workspace</span>
+				<span className="general-settings-title">Argus workspace</span>
 				<span className="general-settings-subtitle">
-					Manage your workspace settings.
+					Manage your Argus workspace settings.
 				</span>
 			</div>
 
@@ -707,7 +708,7 @@ function GeneralSettings({
 						<TextToolTip
 							{...{
 								text: `More details on how to set retention period`,
-								url: 'https://argus.example.com/docs/userguide/retention-period/',
+								url: `${DOCS_BASE_URL}/docs/userguide/retention-period/`,
 							}}
 						/>
 					)}

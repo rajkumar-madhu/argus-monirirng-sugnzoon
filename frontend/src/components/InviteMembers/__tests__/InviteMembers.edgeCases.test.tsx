@@ -35,13 +35,13 @@ describe('InviteMembers - Edge Cases', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText('e.g. you@company.com');
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.type(emailInputs[1], 'bob@argus.example.com');
 
 			await user.click(screen.getByTestId('reset-btn'));
 
-			const resetInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const resetInputs = screen.getAllByPlaceholderText('e.g. you@company.com');
 			expect(resetInputs).toHaveLength(2);
 			resetInputs.forEach((input) => {
 				expect(input).toHaveValue('');
@@ -66,7 +66,7 @@ describe('InviteMembers - Edge Cases', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText('e.g. you@company.com');
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -98,7 +98,7 @@ describe('InviteMembers - Edge Cases', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText('e.g. you@company.com');
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -130,7 +130,7 @@ describe('InviteMembers - Edge Cases', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText('e.g. you@company.com');
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -187,7 +187,7 @@ describe('InviteMembers - Edge Cases', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText('e.g. you@company.com');
 			await user.type(emailInputs[0], VALID_EMAIL);
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));
@@ -224,7 +224,7 @@ describe('InviteMembers - Edge Cases', () => {
 				/>,
 			);
 
-			const emailInputs = screen.getAllByPlaceholderText('e.g. john@argus.example.com');
+			const emailInputs = screen.getAllByPlaceholderText('e.g. you@company.com');
 			await user.type(emailInputs[0], '  alice@argus.example.com  ');
 			await user.click(screen.getAllByText('Select roles')[0]);
 			await user.click(await screen.findByTitle('Viewer'));

@@ -10,11 +10,12 @@ import passwordAuthNContext from 'api/v2/sessions/email_password/post';
 import afterLogin from 'AppRoutes/utils';
 import AuthError from 'components/AuthError/AuthError';
 import AuthPageContainer from 'components/AuthPageContainer';
+import ROUTES from 'constants/routes';
 import { useNotifications } from 'hooks/useNotifications';
 import { ArrowRight } from '@signozhq/icons';
 import APIError from 'types/api/error';
 
-import tvUrl from '@/assets/svgs/tv.svg';
+import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
 
 import { FormContainer, Label } from './styles';
 
@@ -106,14 +107,13 @@ function SignUp(): JSX.Element {
 			<div className="signup-card">
 				<div className="signup-form-header">
 					<div className="signup-header-icon">
-						<img src={tvUrl} alt="TV" width="32" height="32" />
+						<img src={argusBrandLogoUrl} alt="Argus" className="signup-brand-logo" />
 					</div>
 					<Typography.Title level={4} className="signup-header-title">
-						Create your account
+						Create your Argus account
 					</Typography.Title>
 					<Typography.Text className="signup-header-subtitle">
-						You&apos;re almost in. Create a password to start monitoring your
-						applications with Argus.
+						Set a password to start monitoring traces, metrics, and logs.
 					</Typography.Text>
 				</div>
 
@@ -124,7 +124,7 @@ function SignUp(): JSX.Element {
 								<Label htmlFor="signupEmail">Email address</Label>
 								<FormContainer.Item noStyle name="email">
 									<Input
-										placeholder="e.g. john@argus.example.com"
+										placeholder="e.g. you@company.com"
 										type="email"
 										autoFocus
 										required
@@ -197,6 +197,13 @@ function SignUp(): JSX.Element {
 							Access My Workspace
 						</Button>
 					</div>
+
+					<p className="auth-switch-row">
+						Already have an account?{' '}
+						<a className="auth-switch-link" href={ROUTES.LOGIN}>
+							Sign in
+						</a>
+					</p>
 				</FormContainer>
 			</div>
 		</AuthPageContainer>

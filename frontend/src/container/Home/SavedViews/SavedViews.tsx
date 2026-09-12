@@ -201,7 +201,7 @@ export default function SavedViews({
 								});
 
 								window.open(
-									'https://argus.example.com/docs/metrics-management/metrics-explorer/#saved-views-in-metrics-explorer',
+									'https://signoz.io/docs/metrics-management/metrics-explorer/#saved-views-in-metrics-explorer',
 									'_blank',
 									'noopener noreferrer',
 								);

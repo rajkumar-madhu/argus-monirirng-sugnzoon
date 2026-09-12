@@ -1,4 +1,5 @@
 import { MenuProps } from 'antd';
+import { COMMUNITY_URL, DOCS_BASE_URL, GITHUB_REPO_URL } from 'constants/app';
 import ROUTES from 'constants/routes';
 import {
 	ArrowUpRight,
@@ -110,7 +111,7 @@ export const slackSupportMenuItem = {
 
 export const trySignozCloudMenuItem: SidebarItem = {
 	key: 'trySignozCloud',
-	label: 'Try Signoz Cloud',
+	label: 'Try Argus Cloud',
 	icon: <Cloudy size={16} />,
 };
 
@@ -448,7 +449,7 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 		),
 		icon: <Book size={14} />,
 		isExternal: true,
-		url: 'https://argus.example.com/docs',
+		url: `${DOCS_BASE_URL}/docs`,
 		itemKey: 'documentation',
 	},
 	{
@@ -462,20 +463,20 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 
 		icon: <Github size={14} />,
 		isExternal: true,
-		url: 'https://github.com/signoz/signoz',
+		url: GITHUB_REPO_URL,
 		itemKey: 'github',
 	},
 	{
 		key: 'slack',
 		label: (
 			<div className="nav-item-label-container">
-				<span>Community Slack</span>
+				<span>Community</span>
 				<ArrowUpRight size={14} />
 			</div>
 		),
 		icon: <Slack size={14} />,
 		isExternal: true,
-		url: 'https://argus.example.com/slack',
+		url: COMMUNITY_URL,
 		itemKey: 'community-slack',
 	},
 	{

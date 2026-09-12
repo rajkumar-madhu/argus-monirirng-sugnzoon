@@ -19,7 +19,7 @@ import { LOCALSTORAGE } from 'constants/localStorage';
 import { THEME_MODE } from './constant';
 
 export const ThemeContext = createContext({
-	theme: THEME_MODE.DARK,
+	theme: THEME_MODE.LIGHT,
 	toggleTheme: (): void => {},
 	autoSwitch: false,
 	setAutoSwitch: ((): void => {}) as Dispatch<SetStateAction<boolean>>,
@@ -28,7 +28,7 @@ export const ThemeContext = createContext({
 
 // Hook to detect system theme preference
 export const useSystemTheme = (): 'light' | 'dark' => {
-	const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>('dark');
+	const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>('light');
 
 	useEffect(() => {
 		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -47,7 +47,7 @@ export const useSystemTheme = (): 'light' | 'dark' => {
 
 export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
 	const [theme, setThemeState] = useState(
-		get(LOCALSTORAGE.THEME) || THEME_MODE.DARK,
+		get(LOCALSTORAGE.THEME) || THEME_MODE.LIGHT,
 	);
 	const [autoSwitch, setAutoSwitch] = useState(
 		get(LOCALSTORAGE.THEME_AUTO_SWITCH) === 'true',

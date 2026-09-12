@@ -1,5 +1,6 @@
 import { ORG_PREFERENCES } from 'constants/orgPreferences';
 import ROUTES from 'constants/routes';
+import DOCLINKS from 'utils/docLinks';
 
 import circusTentUrl from '@/assets/Icons/circus-tent.svg';
 import eightBallUrl from '@/assets/Icons/eight-ball.svg';
@@ -28,14 +29,13 @@ export const checkListStepToPreferenceKeyMap = {
 };
 
 export const DOCS_LINKS = {
-	ADD_DATA_SOURCE: 'https://argus.example.com/docs/instrumentation/overview/',
-	SEND_LOGS: 'https://argus.example.com/docs/userguide/logs_query_builder/',
-	SEND_TRACES: 'https://argus.example.com/docs/userguide/traces/',
-	SEND_METRICS: 'https://argus.example.com/docs/metrics-management/metrics-explorer/',
-	SETUP_ALERTS: 'https://argus.example.com/docs/alerts/',
-	SETUP_SAVED_VIEWS:
-		'https://argus.example.com/docs/metrics-management/metrics-explorer/#saved-views-in-metrics-explorer',
-	SETUP_DASHBOARDS: 'https://argus.example.com/docs/userguide/manage-dashboards/',
+	ADD_DATA_SOURCE: DOCLINKS.INSTRUMENTATION,
+	SEND_LOGS: DOCLINKS.LOGS_QUERY_BUILDER,
+	SEND_TRACES: DOCLINKS.TRACES_GUIDE,
+	SEND_METRICS: DOCLINKS.METRICS_EXPLORER,
+	SETUP_ALERTS: DOCLINKS.ALERTS,
+	SETUP_SAVED_VIEWS: DOCLINKS.METRICS_SAVED_VIEWS,
+	SETUP_DASHBOARDS: DOCLINKS.MANAGE_DASHBOARDS,
 };
 
 export const defaultChecklistItemsState: ChecklistItem[] = [

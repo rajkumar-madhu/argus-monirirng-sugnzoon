@@ -64,7 +64,7 @@ function ConfigureGoogleAuthAuthnProvider({
 					Enter OAuth 2.0 credentials obtained from the Google API Console below.
 					Read the{' '}
 					<a
-						href="https://argus.example.com/docs/manage/administrator-guide/sso/overview/"
+						href="https://signoz.io/docs/manage/administrator-guide/sso/overview/"
 						target="_blank"
 						rel="noreferrer"
 					>

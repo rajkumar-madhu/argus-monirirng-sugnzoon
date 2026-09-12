@@ -1,4 +1,4 @@
-### Monitor Postgres with SigNoz
+### Monitor Postgres with Argus
 
 Collect key Postgres metrics and view them with an out of the box dashboard.  
 

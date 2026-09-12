@@ -29,7 +29,7 @@ function RolesSettings(): JSX.Element {
 						? 'Create and manage custom roles for your team. '
 						: 'The built-in roles of this instance.'}{' '}
 					<a
-						href="https://argus.example.com/docs/manage/administrator-guide/iam/roles/"
+						href="https://signoz.io/docs/manage/administrator-guide/iam/roles/"
 						target="_blank"
 						rel="noopener noreferrer"
 						className={styles.rolesSettingsHeaderLearnMore}

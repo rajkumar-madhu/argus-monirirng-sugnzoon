@@ -15,7 +15,7 @@ const stopPropagation = (
 /**
  * Splits `text` into plain-text and anchor segments, wrapping any detected
  * URL in an anchor that opens in a new tab. Trailing punctuation is kept
- * outside the link so sentences like "see https://argus.example.com." stay clean.
+ * outside the link so sentences like "see https://signoz.io." stay clean.
  */
 export function linkifyText(text: string): ReactNode {
 	if (!text) {

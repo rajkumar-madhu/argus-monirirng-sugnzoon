@@ -14,10 +14,11 @@ import Card from 'periscope/components/Card/Card';
 import { useAppContext } from 'providers/App/App';
 import { toCompositeMetricQuery } from 'types/api/alerts/convert';
 import { USER_ROLES } from 'types/roles';
+import { openInNewTab } from 'utils/navigation';
 
 import beaconUrl from '@/assets/Icons/beacon.svg';
 
-import { getItemIcon } from '../constants';
+import { DOCS_LINKS, getItemIcon } from '../constants';
 
 export default function AlertRules({
 	onUpdateChecklistDoneItem,
@@ -109,11 +110,7 @@ export default function AlertRules({
 									source: 'Alert Rules',
 								});
 
-								window.open(
-									'https://argus.example.com/docs/alerts/',
-									'_blank',
-									'noreferrer noopener',
-								);
+								openInNewTab(DOCS_LINKS.SETUP_ALERTS);
 							}}
 						>
 							Learn more <ArrowUpRight size={12} />

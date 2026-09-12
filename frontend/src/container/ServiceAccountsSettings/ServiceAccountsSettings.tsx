@@ -215,7 +215,7 @@ function ServiceAccountsSettings(): JSX.Element {
 					<p className="sa-settings__subtitle">
 						Overview of service accounts added to this workspace.{' '}
 						<a
-							href="https://argus.example.com/docs/manage/administrator-guide/iam/service-accounts"
+							href="https://signoz.io/docs/manage/administrator-guide/iam/service-accounts"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="sa-settings__learn-more"

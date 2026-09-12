@@ -9,6 +9,125 @@
 	flex-direction: column;
 }
 
+.auth-page-wrapper--light {
+	// Self-contained light palette so auth never inherits a dark body theme.
+	--auth-bg: #f4f7fb;
+	--auth-bg-accent: #e8eef8;
+	--auth-surface: #ffffff;
+	--auth-border: #d8e0ec;
+	--auth-text: #152033;
+	--auth-text-muted: #5b6b82;
+	--auth-text-subtle: #8a97ab;
+	--auth-primary: #2b4cff;
+	--auth-primary-soft: rgba(43, 76, 255, 0.12);
+	--auth-dot: rgba(43, 76, 255, 0.18);
+	--auth-line: #c9d4e5;
+
+	background: linear-gradient(
+		180deg,
+		var(--auth-bg) 0%,
+		var(--auth-bg-accent) 100%
+	);
+	color: var(--auth-text);
+
+	.auth-page-dots.bg-dot-pattern {
+		background: radial-gradient(circle, var(--auth-dot) 1px, transparent 1px);
+		background-size: 14px 14px;
+		opacity: 0.9;
+	}
+
+	.masked-dots {
+		mask-image: radial-gradient(
+			circle at 50% 12%,
+			rgba(0, 0, 0, 0.55) 0%,
+			transparent 62%
+		);
+		-webkit-mask-image: radial-gradient(
+			circle at 50% 12%,
+			rgba(0, 0, 0, 0.55) 0%,
+			transparent 62%
+		);
+	}
+
+	.auth-page-gradient {
+		background: radial-gradient(
+			ellipse at center -320px,
+			rgba(43, 76, 255, 0.22) 0%,
+			transparent 68%
+		);
+		opacity: 0.85;
+		filter: blur(90px);
+	}
+
+	.auth-page-line-left,
+	.auth-page-line-right {
+		background-image: repeating-linear-gradient(
+			to bottom,
+			var(--auth-line) 0px,
+			var(--auth-line) 4px,
+			transparent 4px,
+			transparent 8px
+		);
+	}
+
+	.auth-header-logo-text,
+	.login-form-title,
+	.signup-header-title,
+	.forgot-password-title {
+		color: var(--auth-text) !important;
+	}
+
+	.login-form-description,
+	.signup-header-subtitle,
+	.forgot-password-description,
+	.auth-footer-text {
+		color: var(--auth-text-muted) !important;
+	}
+
+	.login-form-card,
+	.signup-form-container,
+	.auth-footer-content {
+		background: var(--auth-surface) !important;
+		border: 1px solid var(--auth-border) !important;
+		box-shadow: 0 12px 40px rgba(21, 32, 51, 0.06);
+	}
+
+	.login-form-input,
+	.signup-form-input,
+	.signup-antd-input.ant-input,
+	.signup-antd-input.ant-input-password,
+	.signup-antd-input.ant-input-affix-wrapper {
+		background: #f8fafc !important;
+		border-color: var(--auth-border) !important;
+		color: var(--auth-text) !important;
+	}
+
+	.forgot-password-link {
+		color: var(--auth-primary) !important;
+
+		&:hover {
+			color: #1f3ad6 !important;
+		}
+	}
+
+	.auth-switch-link {
+		color: var(--auth-primary);
+		font-weight: 500;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.auth-switch-row {
+		margin-top: 20px;
+		text-align: center;
+		font-size: 13px;
+		color: var(--auth-text-muted);
+	}
+}
+
 .auth-page-background {
 	position: fixed;
 	top: 0;
@@ -131,7 +250,7 @@
 	position: relative;
 
 	@media (max-width: 768px) {
-		padding-top: 15vh;
+		padding-top: 12vh;
 		align-items: center;
 	}
 

@@ -306,7 +306,7 @@ function SaveView(): JSX.Element {
 					Manage your saved views for {ROUTES_VS_SOURCEPAGE[pathname]}.{' '}
 					<Typography.Link
 						className="learn-more"
-						href="https://argus.example.com/docs/metrics-management/metrics-explorer/?utm_source=product&utm_medium=views-tab#saved-views-in-metrics-explorer"
+						href="https://signoz.io/docs/metrics-management/metrics-explorer/?utm_source=product&utm_medium=views-tab#saved-views-in-metrics-explorer"
 						target="_blank"
 					>
 						Learn more

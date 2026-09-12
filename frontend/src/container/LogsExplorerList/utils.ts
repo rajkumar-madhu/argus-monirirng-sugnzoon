@@ -1,4 +1,5 @@
 import { TelemetryFieldKey } from 'api/v5/v5';
+import DOCLINKS from 'utils/docLinks';
 import { isEmpty } from 'lodash-es';
 import { IField } from 'types/api/logs/fields';
 import {
@@ -59,11 +60,11 @@ export const getEmptyLogsListConfig = (
 	documentationLinks: [
 		{
 			text: 'Sending logs to Argus',
-			url: 'https://argus.example.com/docs/logs-management/send-logs-to-signoz/',
+			url: DOCLINKS.SEND_LOGS,
 		},
 		{
 			text: 'Correlate traces and logs',
-			url: 'https://argus.example.com/docs/traces-management/guides/correlate-traces-and-logs/',
+			url: DOCLINKS.CORRELATE_TRACES_LOGS,
 		},
 	],
 	clearFiltersButtonText: 'Clear filters from Trace to view other logs',

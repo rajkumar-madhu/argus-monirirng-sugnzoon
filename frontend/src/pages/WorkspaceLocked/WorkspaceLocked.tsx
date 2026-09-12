@@ -124,7 +124,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 			description: (
 				<Typography>
 					{t('extendTrialMsgPart1')}{' '}
-					<a href="mailto:cloud-support@argus.example.com">cloud-support@argus.example.com</a>{' '}
+					<a href="mailto:cloud-support@example.com">cloud-support@example.com</a>{' '}
 					{t('extendTrialMsgPart2')}
 				</Typography>
 			),
@@ -308,7 +308,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 								type="default"
 								shape="round"
 								size="middle"
-								href="mailto:cloud-support@argus.example.com"
+								href="mailto:cloud-support@example.com"
 								role="button"
 								className="periscope-btn"
 								onClick={handleContactUsClick}

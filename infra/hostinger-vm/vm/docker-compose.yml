@@ -1,0 +1,121 @@
+# Argus community stack for Hostinger KVM (coexists with WeCrew/kind/Traefik).
+# ClickHouse stays on the internal compose network only (host :9000 is already used).
+# Memory caps keep this from OOMing a host that already runs kind (~22GiB).
+
+name: argus-monitoring
+
+services:
+  zookeeper:
+    image: signoz/zookeeper:3.7.1
+    restart: unless-stopped
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    volumes:
+      - zookeeper-data:/bitnami/zookeeper
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -m 2 http://localhost:8080/commands/ruok | grep -q null"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.12.5
+    restart: unless-stopped
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    # Intentionally no host ports — keep CH internal (host :9000 is taken by uvicorn).
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - ./clickhouse-cluster.xml:/etc/clickhouse-server/config.d/cluster.xml:ro
+      - ./clickhouse-users-override.xml:/etc/clickhouse-server/users.d/argus-limits.xml:ro
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    mem_limit: 2500m
+    environment:
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "0.0.0.0:8123/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  schema-migrator:
+    image: signoz/signoz-otel-collector:v0.144.6
+    restart: on-failure
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    environment:
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_DSN: tcp://clickhouse:9000
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_CLUSTER: cluster
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_REPLICATION: "true"
+      SIGNOZ_OTEL_COLLECTOR_TIMEOUT: 10m
+    mem_limit: 1g
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        /signoz-otel-collector migrate bootstrap &&
+        /signoz-otel-collector migrate sync up &&
+        /signoz-otel-collector migrate async up
+
+  otel-collector:
+    image: signoz/signoz-otel-collector:v0.144.6
+    restart: unless-stopped
+    depends_on:
+      schema-migrator:
+        condition: service_completed_successfully
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "13133:13133"
+    environment:
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_DSN: tcp://clickhouse:9000
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_CLUSTER: cluster
+      SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_REPLICATION: "true"
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    mem_limit: 1g
+    healthcheck:
+      # Collector image has neither wget nor curl — probe the health port with bash.
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/13133'"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  argus:
+    image: ${ARGUS_IMAGE:-argus-monitoring:hostinger}
+    restart: unless-stopped
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+      otel-collector:
+        condition: service_healthy
+    ports:
+      # Traefik owns :80; existing LinkedEye Argus UI owns :8088 — use 8089.
+      - "8089:8080"
+    environment:
+      ARGUS_SQLSTORE_PROVIDER: sqlite
+      ARGUS_SQLSTORE_SQLITE_PATH: /var/lib/argus/argus.db
+      ARGUS_TELEMETRYSTORE_PROVIDER: clickhouse
+      ARGUS_TELEMETRYSTORE_CLICKHOUSE_DSN: tcp://clickhouse:9000
+      ARGUS_APISERVER_ADDRESS: 0.0.0.0:8080
+      ARGUS_GLOBAL_EXTERNAL_URL: ${ARGUS_EXTERNAL_URL:-http://213.210.36.154:8089}
+      # Set in /opt/argus-monitoring/.env — required beyond lab use
+      ARGUS_TOKENIZER_JWT_SECRET: ${ARGUS_TOKENIZER_JWT_SECRET:-}
+    volumes:
+      - argus-data:/var/lib/argus
+      - ./argus.yaml:/etc/argus/config.yaml:ro
+    # ENTRYPOINT is ["./argus", "server"] — only pass config here.
+    command: ["--config=/etc/argus/config.yaml"]
+    mem_limit: 1g
+
+volumes:
+  zookeeper-data:
+  clickhouse-data:
+  argus-data:

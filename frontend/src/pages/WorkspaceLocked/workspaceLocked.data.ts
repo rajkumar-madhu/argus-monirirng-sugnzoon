@@ -43,7 +43,7 @@ export const enterpriseGradeValuesData = [
 export const customerStoriesData = [
 	{
 		key: 'story-subomi-oluwalana',
-		avatar: 'https://argus.example.com/img/users/subomi-oluwalana.webp',
+		avatar: 'https://signoz.io/img/users/subomi-oluwalana.webp',
 		personName: 'Subomi Oluwalana',
 		role: 'Founder & CEO at Convoy',
 		customerName: 'Convoy',
@@ -54,7 +54,7 @@ export const customerStoriesData = [
 	},
 	{
 		key: 'story-dhruv-garg',
-		avatar: 'https://argus.example.com/img/users/dhruv-garg.webp',
+		avatar: 'https://signoz.io/img/users/dhruv-garg.webp',
 		personName: 'Dhruv Garg',
 		role: 'Tech Lead at Nudge',
 		customerName: 'Nudge',
@@ -65,7 +65,7 @@ export const customerStoriesData = [
 	},
 	{
 		key: 'story-vivek-bhakta',
-		avatar: 'https://argus.example.com/img/users/vivek-bhakta.webp',
+		avatar: 'https://signoz.io/img/users/vivek-bhakta.webp',
 		personName: 'Vivek Bhakta',
 		role: 'CTO at Wombo AI',
 		customerName: 'Wombo AI',
@@ -75,7 +75,7 @@ export const customerStoriesData = [
 	},
 	{
 		key: 'story-pranay-narang',
-		avatar: 'https://argus.example.com/img/users/pranay-narang.webp',
+		avatar: 'https://signoz.io/img/users/pranay-narang.webp',
 		personName: 'Pranay Narang',
 		role: 'Engineering at Azodha',
 		customerName: 'Azodha',
@@ -85,7 +85,7 @@ export const customerStoriesData = [
 	},
 	{
 		key: 'story-Sheheryar-Sewani',
-		avatar: 'https://argus.example.com/img/users/shey.webp',
+		avatar: 'https://signoz.io/img/users/shey.webp',
 		personName: 'Sheheryar Sewani',
 		role: 'Seasoned Rails Dev & Founder',
 		customerName: '',
@@ -96,17 +96,17 @@ export const customerStoriesData = [
 	},
 	{
 		key: 'story-daniel-schell',
-		avatar: 'https://argus.example.com/img/users/daniel.webp',
+		avatar: 'https://signoz.io/img/users/daniel.webp',
 		personName: 'Daniel Schell',
 		role: 'Founder & CTO at Airlockdigital',
 		customerName: 'Airlockdigital',
 		message:
-			'Have been deep diving Signoz. Seems like the new hotness for an "all-in-one".',
+			'Have been deep diving Argus. Seems like the new hotness for an "all-in-one".',
 		link: 'https://x.com/danonit/status/1749256583157284919',
 	},
 	{
 		key: 'c-story-6',
-		avatar: 'https://argus.example.com/img/users/go-frendi.webp',
+		avatar: 'https://signoz.io/img/users/go-frendi.webp',
 		personName: 'Go Frendi Gunawan',
 		role: 'Data Engineer at Ctlyst.id',
 		customerName: 'Ctlyst.id',
@@ -116,12 +116,12 @@ export const customerStoriesData = [
 	},
 	{
 		key: 'story-anselm-eickhoff',
-		avatar: 'https://argus.example.com/img/users/anselm.jpg',
+		avatar: 'https://signoz.io/img/users/anselm.jpg',
 		personName: 'Anselm Eickhoff',
 		role: 'Software Architect',
 		customerName: '',
 		message:
-			'NewRelic: receiving OpenTelemetry at all takes me 1/2 day to grok, docs are a mess. Traces show up after 5min. I burn the free 100GB/mo in 1 day of light testing. @SignozHQ: can run it locally (∞GB), has a special tutorial for OpenTelemetry + Rust! Traces show up immediately.',
+			'NewRelic: receiving OpenTelemetry at all takes me 1/2 day to grok, docs are a mess. Traces show up after 5min. I burn the free 100GB/mo in 1 day of light testing. Argus: can run it locally (∞GB), has a special tutorial for OpenTelemetry + Rust! Traces show up immediately.',
 		link:
 			'https://twitter.com/ae_play/status/1572993932094472195?s=20&t=LWWrW5EP_k5q6_mwbFN4jQ',
 	},
@@ -145,7 +145,7 @@ export const faqData = [
 		key: 'enterprise-support-plans',
 		label: 'Do you offer enterprise support plans?',
 		children:
-			'Yes, feel free to reach out to us on hello@argus.example.com if you need a dedicated support plan or paid support for setting up your initial Argus setup.',
+			'Yes, feel free to reach out to us on hello@example.com if you need a dedicated support plan or paid support for setting up your initial Argus setup.',
 	},
 	{
 		key: 'who-should-use-enterprise-plans',

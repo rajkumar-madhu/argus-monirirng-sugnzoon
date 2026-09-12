@@ -12,7 +12,7 @@ import APIError from 'types/api/error';
 import { OrgSessionContext } from 'types/api/v2/sessions/context/get';
 import { getBaseUrl } from 'utils/basePath';
 
-import tvUrl from '@/assets/svgs/tv.svg';
+import argusBrandLogoUrl from '@/assets/Logos/argus-brand-logo.svg';
 
 import SuccessScreen from './SuccessScreen';
 
@@ -134,7 +134,11 @@ function ForgotPassword({
 			>
 				<div className="login-form-header">
 					<div className="login-form-emoji">
-						<img src={tvUrl} alt="TV" width="32" height="32" />
+						<img
+							src={argusBrandLogoUrl}
+							alt="Argus"
+							className="login-form-brand-logo"
+						/>
 					</div>
 					<h4 className="forgot-password-title">Forgot your password?</h4>
 					<p className="forgot-password-description">

@@ -70,7 +70,7 @@ describe('useDarkMode', () => {
 
 			const { result } = renderHook(() => useThemeMode(), { wrapper });
 
-			expect(result.current.theme).toBe('dark');
+			expect(result.current.theme).toBe('light');
 			expect(typeof result.current.toggleTheme).toBe('function');
 			expect(result.current.autoSwitch).toBe(false);
 			expect(typeof result.current.setAutoSwitch).toBe('function');

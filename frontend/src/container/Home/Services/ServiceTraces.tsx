@@ -19,9 +19,10 @@ import { USER_ROLES } from 'types/roles';
 import { isModifierKeyPressed } from 'utils/app';
 import { openInNewTab } from 'utils/navigation';
 
+import { DOCS_LINKS } from '../constants';
+
 import triangleRulerUrl from '@/assets/Icons/triangle-ruler.svg';
 
-import { DOCS_LINKS } from '../constants';
 import { columns, TIME_PICKER_OPTIONS } from './constants';
 
 const homeInterval = 30 * 60 * 1000;
@@ -150,10 +151,7 @@ export default function ServiceTraces({
 									logEvent('Homepage: Learn more clicked', {
 										source: 'Service Traces',
 									});
-									window.open(
-										'https://argus.example.com/docs/instrumentation/overview/',
-										'_blank',
-									);
+									openInNewTab(DOCS_LINKS.ADD_DATA_SOURCE);
 								}}
 							>
 								Learn more <ArrowUpRight size={12} />

@@ -171,7 +171,7 @@ function _UsageExplorer(props: UsageExplorerProps): JSX.Element {
 						<Typography>
 							No spans found. Please add instrumentation (follow this
 							<a
-								href="https://argus.example.com/docs/instrumentation/overview"
+								href="https://signoz.io/docs/instrumentation/overview"
 								target="_blank"
 								style={{ marginLeft: 3 }}
 								rel="noreferrer"

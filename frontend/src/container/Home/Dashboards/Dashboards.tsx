@@ -100,7 +100,7 @@ export default function Dashboards({
 									source: 'Dashboards',
 								});
 								window.open(
-									'https://argus.example.com/docs/userguide/manage-dashboards/',
+									'https://signoz.io/docs/userguide/manage-dashboards/',
 									'_blank',
 								);
 							}}

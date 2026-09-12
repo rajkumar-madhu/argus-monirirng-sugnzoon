@@ -16,12 +16,15 @@
 		width: 100%;
 
 		.signup-header-icon {
-			width: 32px;
-			height: 32px;
-			font-size: 24px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			margin-bottom: 4px;
+		}
+
+		.signup-brand-logo {
+			height: 36px;
+			width: auto;
 		}
 
 		.signup-header-title {
@@ -54,7 +57,7 @@
 			width: 100%;
 			background: var(--l1-background);
 			border: 1px solid var(--l1-border);
-			border-radius: 4px;
+			border-radius: 8px;
 			padding: 24px;
 
 			.signup-form-fields {

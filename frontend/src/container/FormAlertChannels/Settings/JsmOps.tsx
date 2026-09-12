@@ -51,7 +51,7 @@ function JsmOpsSettings({ setSelectedConfig }: JsmOpsProps): JSX.Element {
 			>
 				{t('jsmops_tip')}{' '}
 				<Typography.Link
-					href="https://argus.example.com/docs/alerts-management/notification-channel/jsm-ops/"
+					href="https://signoz.io/docs/alerts-management/notification-channel/jsm-ops/"
 					target="_blank"
 					rel="noopener noreferrer"
 				>

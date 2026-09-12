@@ -1,5 +1,7 @@
+import { DOCS_BASE_URL } from 'constants/app';
+
 export const ExploreHeaderToolTip = {
-	url: 'https://argus.example.com/docs/querying/overview/?utm_source=product&utm_medium=new-query-builder',
+	url: `${DOCS_BASE_URL}/docs/querying/overview/?utm_source=product&utm_medium=new-query-builder`,
 	text: 'More details on how to use query builder',
 };
 

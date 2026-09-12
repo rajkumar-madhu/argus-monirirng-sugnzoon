@@ -61,8 +61,8 @@ function WorkspaceAccessRestricted(): JSX.Element {
 											{activeLicense.state === LicenseState.TERMINATED && (
 												<>
 													Your Argus license is terminated, please contact support at{' '}
-													<a href="mailto:cloud-support@argus.example.com">
-														cloud-support@argus.example.com
+													<a href="mailto:cloud-support@example.com">
+														cloud-support@example.com
 													</a>{' '}
 													for a new deployment
 												</>
@@ -70,12 +70,12 @@ function WorkspaceAccessRestricted(): JSX.Element {
 											{activeLicense.state === LicenseState.EXPIRED && (
 												<>
 													Your Argus license is expired, please contact support at{' '}
-													<a href="mailto:cloud-support@argus.example.com">
-														cloud-support@argus.example.com
+													<a href="mailto:cloud-support@example.com">
+														cloud-support@example.com
 													</a>{' '}
 													for renewal to avoid termination of license as per our{' '}
 													<a
-														href="https://argus.example.com/terms-of-service"
+														href="https://signoz.io/terms-of-service"
 														target="_blank"
 														rel="noopener noreferrer"
 													>
@@ -87,12 +87,12 @@ function WorkspaceAccessRestricted(): JSX.Element {
 											{activeLicense.state === LicenseState.CANCELLED && (
 												<>
 													Your Argus license is cancelled, please contact support at{' '}
-													<a href="mailto:cloud-support@argus.example.com">
-														cloud-support@argus.example.com
+													<a href="mailto:cloud-support@example.com">
+														cloud-support@example.com
 													</a>{' '}
 													for reactivation to avoid termination of license as per our{' '}
 													<a
-														href="https://argus.example.com/terms-of-service"
+														href="https://signoz.io/terms-of-service"
 														target="_blank"
 														rel="noopener noreferrer"
 													>
@@ -107,7 +107,7 @@ function WorkspaceAccessRestricted(): JSX.Element {
 											type="default"
 											shape="round"
 											size="middle"
-											href="mailto:cloud-support@argus.example.com"
+											href="mailto:cloud-support@example.com"
 											role="button"
 										>
 											Contact Us
