@@ -69,9 +69,12 @@ services:
       schema-migrator:
         condition: service_completed_successfully
     ports:
-      - "4317:4317"
-      - "4318:4318"
-      - "13133:13133"
+      # Loopback only. OTLP has no authenticator/TLS; publishing on 0.0.0.0
+      # plus an open Hostinger firewall lets anyone poison ClickHouse.
+      # Override OTLP_HOST_BIND only with a source-IP allowlist.
+      - "${OTLP_HOST_BIND:-127.0.0.1}:4317:4317"
+      - "${OTLP_HOST_BIND:-127.0.0.1}:4318:4318"
+      # Health stays container-local (see healthcheck). Do not publish 13133.
     environment:
       SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_DSN: tcp://clickhouse:9000
       SIGNOZ_OTEL_COLLECTOR_CLICKHOUSE_CLUSTER: cluster

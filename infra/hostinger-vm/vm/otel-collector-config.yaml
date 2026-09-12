@@ -24,7 +24,8 @@ exporters:
 
 extensions:
   health_check:
-    endpoint: 0.0.0.0:13133
+    # Container-local only. Compose does not publish 13133 on the host.
+    endpoint: 127.0.0.1:13133
 
 service:
   extensions: [health_check]

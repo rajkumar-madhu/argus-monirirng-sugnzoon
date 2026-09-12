@@ -95,9 +95,9 @@ exporters:
     headers:
       "signoz-access-token": "${env:SIGNOZ_INGESTION_KEY}"
 
-  # export to self-hosted Argus collector (Hostinger example)
+  # export to self-hosted Argus collector (Hostinger: loopback or SSH tunnel)
   # otlp/nginx-logs:
-  #   endpoint: "213.210.36.154:4317"
+  #   endpoint: "127.0.0.1:4317"
   #   tls:
   #     insecure: true
 

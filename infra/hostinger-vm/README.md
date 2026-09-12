@@ -12,9 +12,9 @@ Self-hosted **Argus monitoring** (SigNoz fork) via Docker Compose on an existing
 | Coexists with | Existing kind node + Traefik on `:80`, LinkedEye UI on `:8088` |
 | Install dir | `/opt/argus-monitoring` |
 | UI | http://213.210.36.154:8089/ |
-| OTLP gRPC | `213.210.36.154:4317` |
-| OTLP HTTP | `http://213.210.36.154:4318` |
-| Collector health | http://213.210.36.154:13133/ |
+| OTLP gRPC | `127.0.0.1:4317` on the VPS (loopback; not on the public NIC) |
+| OTLP HTTP | `http://127.0.0.1:4318` on the VPS |
+| Collector health | container-local `:13133` (not published on the host) |
 | ClickHouse | **internal only** (`25.12.5`; host `:9000` taken by uvicorn). Do **not** use 25.5 — migrator needs `object_serialization_version`. |
 | Image | `argus-monitoring:hostinger` (built on VPS; GHCR was `401`) |
 
@@ -36,11 +36,12 @@ If available RAM drops below ~5–6 GiB before `compose up`, abort rather than O
 Open inbound TCP:
 
 - **8089** — Argus UI
-- **4317** — OTLP gRPC
-- **4318** — OTLP HTTP
-- **13133** — optional (collector health)
 
 Do **not** publish ClickHouse (`8123`/`9000`).
+
+Do **not** open **4317**, **4318**, or **13133**. Compose binds OTLP to `127.0.0.1` and keeps collector health inside the container. The bundled collector has no authenticator or TLS — a public bind plus an open firewall would let anyone inject traces/metrics/logs or flood ClickHouse.
+
+Remote ingest: SSH-tunnel to loopback (below), or set `OTLP_HOST_BIND=0.0.0.0` **and** a source-IP allowlist. Do not leave OTLP open to `0.0.0.0/0`.
 
 ## Deploy / rebuild
 
@@ -85,10 +86,21 @@ Do not commit `.env`.
 ```bash
 curl -sS -o /dev/null -w "%{http_code}\n" http://213.210.36.154:8089/
 curl -sS http://213.210.36.154:8089/api/v1/version
-curl -sS http://213.210.36.154:13133/
+ssh root@213.210.36.154 'cd /opt/argus-monitoring && docker compose ps otel-collector'
 ```
 
+Collector health is not on the public host. Confirm `otel-collector` is `healthy` (the compose healthcheck probes `127.0.0.1:13133` inside the container).
+
 First visit completes onboarding (`setupCompleted: false` until you finish the wizard).
+
+## Remote OTLP (SSH tunnel)
+
+From a client that should send telemetry:
+
+```bash
+ssh -N -L 4317:127.0.0.1:4317 -L 4318:127.0.0.1:4318 root@213.210.36.154
+# then export OTLP to 127.0.0.1:4317 (gRPC) or http://127.0.0.1:4318
+```
 
 ## Customer HTTP dashboard (Grafana-style Nginx)
 
@@ -96,7 +108,7 @@ Argus ships a **Nginx customer overview** dashboard (same KPI + traffic + acquis
 
 1. Sign in at http://213.210.36.154:8089/
 2. **Integrations → Nginx → Enable**
-3. Point a collector at access/error logs (`NGINX_ACCESS_LOG_FILE`) and export OTLP to `213.210.36.154:4317`
+3. Point a collector at access/error logs (`NGINX_ACCESS_LOG_FILE`) and export OTLP to `127.0.0.1:4317` (same host or via the SSH tunnel above)
 4. Open the integration’s **Nginx customer overview** dashboard
 
 Definition (also importable): [`pkg/query-service/app/integrations/builtin_integrations/nginx/assets/dashboards/overview.json`](../../pkg/query-service/app/integrations/builtin_integrations/nginx/assets/dashboards/overview.json)

@@ -90,7 +90,7 @@ Do not hand-edit `frontend/src/api/generated/`. Schema names that still contain 
 
 Production-ish single-node compose for the existing Hostinger KVM (`213.210.36.154`) lives in [`infra/hostinger-vm/`](../infra/hostinger-vm/). UI publishes on **`:8089`** so Traefik (`:80`) and LinkedEye (`:8088`) stay untouched. See that README for build/load/deploy and safety rules.
 
-**Live check (2026-09-11):** UI `http://213.210.36.154:8089/` returned HTTP 200; collector health `:13133` OK; existing kind/Traefik left running. ClickHouse image must be **25.12.5+**.
+**Live check (2026-09-11):** UI `http://213.210.36.154:8089/` returned HTTP 200; existing kind/Traefik left running. ClickHouse image must be **25.12.5+**. Collector health and OTLP stay off the public NIC (`127.0.0.1` / container-local) — do not probe `:13133` or `:4317`/`:4318` on the host IP.
 
 ## Fork verification notes
 
