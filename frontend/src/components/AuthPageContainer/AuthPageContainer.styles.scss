@@ -18,9 +18,9 @@
 	--auth-text: #152033;
 	--auth-text-muted: #5b6b82;
 	--auth-text-subtle: #8a97ab;
-	--auth-primary: #2b4cff;
-	--auth-primary-soft: rgba(43, 76, 255, 0.12);
-	--auth-dot: rgba(43, 76, 255, 0.18);
+	--auth-primary: #4e74f8;
+	--auth-primary-soft: rgba(78, 116, 248, 0.12);
+	--auth-dot: rgba(78, 116, 248, 0.18);
 	--auth-line: #c9d4e5;
 
 	background: linear-gradient(
@@ -52,7 +52,7 @@
 	.auth-page-gradient {
 		background: radial-gradient(
 			ellipse at center -320px,
-			rgba(43, 76, 255, 0.22) 0%,
+			rgba(78, 116, 248, 0.22) 0%,
 			transparent 68%
 		);
 		opacity: 0.85;
@@ -106,7 +106,7 @@
 		color: var(--auth-primary) !important;
 
 		&:hover {
-			color: #1f3ad6 !important;
+			color: #3f5ecc !important;
 		}
 	}
 

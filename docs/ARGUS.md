@@ -86,11 +86,11 @@ cd frontend && pnpm generate:api
 
 Do not hand-edit `frontend/src/api/generated/`. Schema names that still contain historical `SigNoz`/`GithubComSigNoz…` fragments come from Go type/package reflection and upstream libraries; treat them as generated artifacts, not product branding.
 
-## Hostinger (beside WeCrew)
+## Hostinger (shared VPS)
 
-Production-ish single-node compose for the existing Hostinger KVM (`213.210.36.154`) lives in [`infra/hostinger-vm/`](../infra/hostinger-vm/). UI publishes on **`:8089`** so Traefik (`:80`) and LinkedEye Argus (`:8088`) stay untouched. See that README for build/load/deploy and safety rules.
+Production-ish single-node compose for the existing Hostinger KVM (`213.210.36.154`) lives in [`infra/hostinger-vm/`](../infra/hostinger-vm/). UI publishes on **`:8089`** so Traefik (`:80`) and LinkedEye (`:8088`) stay untouched. See that README for build/load/deploy and safety rules.
 
-**Live check (2026-09-11):** UI `http://213.210.36.154:8089/` returned HTTP 200; collector health `:13133` OK; WeCrew/Traefik left running. ClickHouse image must be **25.12.5+**.
+**Live check (2026-09-11):** UI `http://213.210.36.154:8089/` returned HTTP 200; collector health `:13133` OK; existing kind/Traefik left running. ClickHouse image must be **25.12.5+**.
 
 ## Fork verification notes
 

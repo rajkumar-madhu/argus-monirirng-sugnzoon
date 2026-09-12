@@ -1,4 +1,4 @@
-# Argus community stack for Hostinger KVM (coexists with WeCrew/kind/Traefik).
+# Argus community stack for Hostinger KVM (coexists with existing kind/Traefik).
 # ClickHouse stays on the internal compose network only (host :9000 is already used).
 # Memory caps keep this from OOMing a host that already runs kind (~22GiB).
 

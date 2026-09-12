@@ -1,4 +1,4 @@
-# Minimal Argus community config for Hostinger (beside WeCrew).
+# Minimal Argus community config for Hostinger (shared VPS, Argus-only branding).
 # Prefer ARGUS_* env overrides in docker-compose for DSN / external URL.
 
 global:

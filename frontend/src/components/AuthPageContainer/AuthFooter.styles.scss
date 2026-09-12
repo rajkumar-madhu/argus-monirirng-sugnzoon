@@ -32,12 +32,12 @@
 	width: 6px;
 	height: 6px;
 	border-radius: 9999px;
-	background: #0f7a55;
+	background: var(--bg-forest-500, #3ca36b);
 	flex-shrink: 0;
 }
 
 .auth-footer-status-text {
-	color: #0f7a55 !important;
+	color: var(--bg-forest-500, #3ca36b) !important;
 }
 
 .auth-footer-icon {
