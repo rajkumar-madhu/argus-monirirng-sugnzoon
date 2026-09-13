@@ -1,0 +1,125 @@
+.section {
+	max-width: 1344px;
+	margin: 0 auto;
+	padding: 72px 24px;
+	border-top: 1px solid var(--landing-border);
+}
+
+.header {
+	display: grid;
+	grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+	gap: 48px;
+	align-items: end;
+	margin-bottom: 32px;
+}
+
+.eyebrow {
+	margin: 0 0 8px;
+	color: var(--landing-gold);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.header h2 {
+	max-width: 650px;
+	margin: 0;
+	color: var(--landing-ink);
+	font-size: clamp(32px, 3.6vw, 50px);
+	letter-spacing: -0.05em;
+	line-height: 1.08;
+}
+
+.header > p {
+	margin: 0;
+	color: var(--landing-muted);
+	font-size: 18px;
+	line-height: 1.55;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 16px;
+}
+
+.card {
+	min-width: 0;
+	padding: 28px;
+	border: 1px solid var(--landing-border);
+	border-radius: 12px;
+	background: var(--landing-white);
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	margin-bottom: 24px;
+	border-radius: 50%;
+	background: color-mix(in srgb, var(--landing-gold) 12%, var(--landing-white));
+	color: var(--landing-gold);
+}
+
+.card h3 {
+	margin: 0 0 10px;
+	color: var(--landing-ink);
+	font-size: 21px;
+	letter-spacing: -0.03em;
+}
+
+.card p {
+	margin: 0;
+	color: var(--landing-muted);
+	font-size: 16px;
+	line-height: 1.55;
+}
+
+.workspace {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 28px;
+	padding: 12px 0;
+	color: var(--landing-ink);
+	border-bottom: 2px solid var(--landing-gold);
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.workspace:hover {
+	color: var(--landing-gold);
+}
+
+.workspace:focus-visible {
+	outline: 3px solid var(--landing-gold);
+	outline-offset: 5px;
+}
+
+@media (max-width: 800px) {
+	.section {
+		padding: 48px 24px;
+	}
+
+	.header,
+	.grid {
+		grid-template-columns: 1fr;
+	}
+
+	.header {
+		gap: 18px;
+	}
+}
+
+@media (max-width: 480px) {
+	.section {
+		padding: 40px 20px;
+	}
+
+	.card {
+		padding: 24px;
+	}
+}

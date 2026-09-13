@@ -3,6 +3,7 @@ import ROUTES from 'constants/routes';
 import { withBasePath } from 'utils/basePath';
 import brandLogo from '@/assets/Logos/argus-brand-logo.svg';
 
+import LandingCapabilities from './LandingCapabilities';
 import LandingHero from './LandingHero';
 import SignalExplorer from './SignalExplorer';
 import styles from './LandingPage.module.scss';
@@ -43,6 +44,7 @@ function LandingPage(): JSX.Element {
 			</header>
 			<main id="main-content">
 				<LandingHero />
+				<LandingCapabilities />
 				<section
 					id="opentelemetry"
 					className={styles.principles}
