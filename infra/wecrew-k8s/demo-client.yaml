@@ -1,0 +1,111 @@
+# A deliberately low-volume, in-cluster OTLP client used to validate the
+# complete WeCrew ingestion path. Every emitted record is marked as demo data.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wecrew-demo-client
+  namespace: wecrew-monitoring
+  labels:
+    app.kubernetes.io/name: wecrew-demo-client
+    app.kubernetes.io/part-of: wecrew-monitoring
+data:
+  emit.sh: |
+    #!/bin/sh
+    set -eu
+
+    endpoint="http://otel-collector.wecrew-monitoring.svc.cluster.local:4318/v1"
+    sequence=0
+
+    post() {
+      signal="$1"
+      payload="$2"
+      if ! curl --fail --silent --show-error --max-time 10 \
+        -H 'Content-Type: application/json' \
+        --data "$payload" \
+        "$endpoint/$signal"; then
+        echo "failed to export demo $signal" >&2
+      fi
+    }
+
+    while true; do
+      sequence=$((sequence + 1))
+      epoch_seconds="$(date +%s)"
+      timestamp="${epoch_seconds}000000000"
+      trace_id="$(printf '%024x%08x' "$epoch_seconds" "$sequence")"
+      span_id="$(printf '%08x%08x' "$epoch_seconds" "$sequence")"
+      resource='{"attributes":[{"key":"service.name","value":{"stringValue":"wecrew-demo-client"}},{"key":"service.namespace","value":{"stringValue":"wecrew-demo"}},{"key":"deployment.environment","value":{"stringValue":"demo"}},{"key":"wecrew.demo","value":{"boolValue":true}}]}'
+
+      post traces "{\"resourceSpans\":[{\"resource\":$resource,\"scopeSpans\":[{\"scope\":{\"name\":\"wecrew.demo.client\"},\"spans\":[{\"traceId\":\"$trace_id\",\"spanId\":\"$span_id\",\"name\":\"demo.client.heartbeat\",\"kind\":1,\"startTimeUnixNano\":\"$timestamp\",\"endTimeUnixNano\":\"$timestamp\",\"attributes\":[{\"key\":\"demo.sequence\",\"value\":{\"intValue\":\"$sequence\"}}]}]}]}]}"
+      post metrics "{\"resourceMetrics\":[{\"resource\":$resource,\"scopeMetrics\":[{\"scope\":{\"name\":\"wecrew.demo.client\"},\"metrics\":[{\"name\":\"wecrew_demo_client_heartbeat\",\"description\":\"Demo client heartbeat for end-to-end validation\",\"gauge\":{\"dataPoints\":[{\"timeUnixNano\":\"$timestamp\",\"asInt\":\"1\",\"attributes\":[{\"key\":\"demo.sequence\",\"value\":{\"intValue\":\"$sequence\"}}]}]}}]}]}]}"
+      post logs "{\"resourceLogs\":[{\"resource\":$resource,\"scopeLogs\":[{\"scope\":{\"name\":\"wecrew.demo.client\"},\"logRecords\":[{\"timeUnixNano\":\"$timestamp\",\"severityNumber\":9,\"severityText\":\"INFO\",\"body\":{\"stringValue\":\"WeCrew demo client heartbeat\"},\"traceId\":\"$trace_id\",\"spanId\":\"$span_id\",\"attributes\":[{\"key\":\"demo.sequence\",\"value\":{\"intValue\":\"$sequence\"}}]}]}]}]}"
+      sleep 60
+    done
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wecrew-demo-client
+  namespace: wecrew-monitoring
+  labels:
+    app.kubernetes.io/name: wecrew-demo-client
+    app.kubernetes.io/part-of: wecrew-monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: wecrew-demo-client
+      app.kubernetes.io/part-of: wecrew-monitoring
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: wecrew-demo-client
+        app.kubernetes.io/part-of: wecrew-monitoring
+        wecrew.in/monitoring-otlp-client: "true"
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: otlp-client
+          image: curlimages/curl@sha256:94e9e444bcba979c2ea12e27ae39bee4cd10bc7041a472c4727a558e213744e6
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "/scripts/emit.sh"]
+          resources:
+            requests: {cpu: 10m, memory: 32Mi}
+            limits: {cpu: 50m, memory: 64Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - name: script
+              mountPath: /scripts
+              readOnly: true
+      volumes:
+        - name: script
+          configMap:
+            name: wecrew-demo-client
+            defaultMode: 0555
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: wecrew-demo-client-egress
+  namespace: wecrew-monitoring
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: wecrew-demo-client
+      app.kubernetes.io/part-of: wecrew-monitoring
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: otel-collector
+              app.kubernetes.io/part-of: wecrew-monitoring
+      ports:
+        - {protocol: TCP, port: 4318}

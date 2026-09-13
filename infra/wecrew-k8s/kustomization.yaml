@@ -6,3 +6,4 @@ resources:
   - workloads.yaml
   - services.yaml
   - network-policy.yaml
+  - demo-client.yaml

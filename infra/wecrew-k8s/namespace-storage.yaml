@@ -5,6 +5,7 @@ metadata:
   name: wecrew-monitoring
   labels:
     app.kubernetes.io/part-of: wecrew-monitoring
+    wecrew.in/monitoring-otlp-client: "true"
 ---
 apiVersion: v1
 kind: PersistentVolume
