@@ -1,0 +1,12 @@
+[Unit]
+Description=WeCrew monitoring OTLP gRPC edge socket
+
+[Socket]
+# Loopback only. OTLP has no authenticator/TLS; publishing on 0.0.0.0
+# plus an open Hostinger firewall lets anyone poison ClickHouse.
+ListenStream=127.0.0.1:4317
+Service=wecrew-monitoring-edge@30317.service
+NoDelay=true
+
+[Install]
+WantedBy=sockets.target

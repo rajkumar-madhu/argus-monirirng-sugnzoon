@@ -41,6 +41,8 @@ Do **not** publish ClickHouse (`8123`/`9000`).
 
 Do **not** open **4317**, **4318**, or **13133**. Compose binds OTLP to `127.0.0.1` and keeps collector health inside the container. The bundled collector has no authenticator or TLS — a public bind plus an open firewall would let anyone inject traces/metrics/logs or flood ClickHouse.
 
+If the live host uses kind (`wecrew-monitoring`) plus systemd `wecrew-monitoring-otlp-*.socket` edge proxies, those sockets must also listen on `127.0.0.1` (see `vm/systemd/`). A `0.0.0.0` socket bypasses the in-cluster `collector-edge` NetworkPolicy: `systemd-socket-proxyd` SNATs through the kind gateway address that policy already allows.
+
 Remote ingest: SSH-tunnel to loopback (below), or set `OTLP_HOST_BIND=0.0.0.0` **and** a source-IP allowlist. Do not leave OTLP open to `0.0.0.0/0`.
 
 ## Deploy / rebuild
@@ -49,8 +51,13 @@ Remote ingest: SSH-tunnel to loopback (below), or set `OTLP_HOST_BIND=0.0.0.0` *
 # SSH inventory first
 ssh -o BatchMode=yes root@213.210.36.154 'hostname; free -h; docker ps --format "{{.Names}}" | head'
 
-# Sync compose assets
+# Sync compose assets (and loopback OTLP systemd units)
 rsync -av infra/hostinger-vm/vm/ root@213.210.36.154:/opt/argus-monitoring/
+ssh root@213.210.36.154 '
+  install -m 0644 /opt/argus-monitoring/systemd/wecrew-monitoring-otlp-*.socket /etc/systemd/system/
+  systemctl daemon-reload
+  systemctl restart wecrew-monitoring-otlp-grpc.socket wecrew-monitoring-otlp-http.socket
+'
 
 # Image: GHCR may be private — build on VPS (amd64)
 # See Dockerfile.hostinger; clone lives at /opt/argus-monitoring/src
