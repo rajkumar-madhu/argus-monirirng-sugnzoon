@@ -86,11 +86,19 @@ cd frontend && pnpm generate:api
 
 Do not hand-edit `frontend/src/api/generated/`. Schema names that still contain historical `SigNoz`/`GithubComSigNoz…` fragments come from Go type/package reflection and upstream libraries; treat them as generated artifacts, not product branding.
 
-## Hostinger (shared VPS)
+## Hostinger (shared VPS with WeCrew)
 
-Production-ish single-node compose for the existing Hostinger KVM (`213.210.36.154`) lives in [`infra/hostinger-vm/`](../infra/hostinger-vm/). UI publishes on **`:8089`** so Traefik (`:80`) and LinkedEye (`:8088`) stay untouched. See that README for build/load/deploy and safety rules.
+**Argus** (this observability fork) and **WeCrew** (a separate product) share one Hostinger KVM (`213.210.36.154`). They are not the same app. Do not reuse WeCrew colors, copy, cluster, or compose project for Argus — and do not tear WeCrew down to deploy Argus.
 
-**Live check (2026-09-11):** UI `http://213.210.36.154:8089/` returned HTTP 200; existing kind/Traefik left running. ClickHouse image must be **25.12.5+**. Collector health and OTLP stay off the public NIC (`127.0.0.1` / container-local) — do not probe `:13133` or `:4317`/`:4318` on the host IP.
+| Neighbor | How it runs on the VPS | Public bind | Notes |
+|----------|------------------------|-------------|--------|
+| **WeCrew** | `kind-wecrew` + Traefik | `:80` (and existing host routes) | Leave this stack running |
+| **LinkedEye** | existing compose | `:8088` | Leave those containers alone |
+| **Argus** | Docker Compose project `argus-monitoring` in `/opt/argus-monitoring` | `:8089` | This repo’s Hostinger path |
+
+Production-ish compose lives in [`infra/hostinger-vm/`](../infra/hostinger-vm/). See that README for build/load/deploy and safety rules.
+
+**Live check (2026-09-11):** UI `http://213.210.36.154:8089/` returned HTTP 200; WeCrew `kind-wecrew` + Traefik left running. ClickHouse image must be **25.12.5+**. Collector health and OTLP stay off the public NIC (`127.0.0.1` / container-local) — do not probe `:13133` or `:4317`/`:4318` on the host IP.
 
 ## Fork verification notes
 

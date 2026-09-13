@@ -1,15 +1,25 @@
 # Argus community on Hostinger KVM
 
-Self-hosted **Argus monitoring** (SigNoz fork) via Docker Compose on an existing Hostinger VPS. The host already runs a separate product stack (`kind-wecrew` + Traefik). Argus is not that product — keep branding, ports, and compose projects separate.
+Self-hosted **Argus monitoring** (SigNoz fork) via Docker Compose on an existing Hostinger VPS. Argus is **not** WeCrew. The same KVM already runs WeCrew (`kind-wecrew` + Traefik) and LinkedEye; keep branding, ports, and compose projects separate.
 
 **Do not** use the AWS CDK path (`infra/aws-vm/cdk`). Compose files here are adapted from `infra/aws-vm/vm/`.
+
+## Coexistence (WeCrew is a neighbor)
+
+| Product | Runtime | Public port | Tear down? |
+|---------|---------|-------------|------------|
+| **WeCrew** | `kind-wecrew` + Traefik | `:80` | **No** — never `kind delete` / stop Traefik for Argus |
+| **LinkedEye** | existing compose (`argus-prod-*`) | `:8088` | **No** |
+| **Argus** (this stack) | Compose project `argus-monitoring` | `:8089` | Stop only this project (`docker compose down` in `/opt/argus-monitoring`) |
+
+`wecrew-monitoring-otlp-*.socket` units on the host belong to WeCrew’s in-cluster collector edge. Loopback-bind them; do not treat them as the Argus UI.
 
 ## Live deploy (srv1754783)
 
 | Fact | Value |
 |------|--------|
 | Host | `srv1754783.hstgr.cloud` / `213.210.36.154` |
-| Coexists with | Existing kind node + Traefik on `:80`, LinkedEye UI on `:8088` |
+| Coexists with | WeCrew (`kind-wecrew` + Traefik `:80`), LinkedEye UI `:8088` |
 | Install dir | `/opt/argus-monitoring` |
 | UI | http://213.210.36.154:8089/ |
 | OTLP gRPC | `127.0.0.1:4317` on the VPS (loopback; not on the public NIC) |
@@ -20,7 +30,7 @@ Self-hosted **Argus monitoring** (SigNoz fork) via Docker Compose on an existing
 
 ## Memory profile (capped)
 
-The existing kind control-plane node alone often sits near **~22 GiB**. This stack is capped:
+The WeCrew kind control-plane node alone often sits near **~22 GiB**. This Argus stack is capped:
 
 | Service | `mem_limit` | Observed (idle) |
 |---------|-------------|-----------------|
@@ -124,7 +134,7 @@ Geo map and p95 latency need extra Nginx `log_format` fields (`$request_time`, G
 
 ## Safety rules
 
-- Never tear down the existing kind / Traefik stack on this host
+- Never tear down WeCrew (`kind-wecrew`) or Traefik on this host
 - Project name `argus-monitoring` avoids colliding with LinkedEye `argus-prod-*`
 - Disk was ~82%+ full at deploy — watch ClickHouse volume growth
 - Collector healthcheck uses bash `/dev/tcp` (image has no `wget`/`curl`)
@@ -141,4 +151,4 @@ ssh root@213.210.36.154 'cd /opt/argus-monitoring && docker compose down'
 | Path | Use |
 |------|-----|
 | `infra/aws-vm/` | EC2 + CDK |
-| `infra/hostinger-vm/` | Bare Hostinger KVM (leave existing kind/Traefik alone) |
+| `infra/hostinger-vm/` | Bare Hostinger KVM (leave WeCrew kind/Traefik alone) |
