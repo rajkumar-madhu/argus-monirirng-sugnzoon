@@ -100,8 +100,8 @@ services:
       otel-collector:
         condition: service_healthy
     ports:
-      # Traefik owns :80; existing LinkedEye Argus UI owns :8088 — use 8089.
-      - "8089:8080"
+      # Traefik owns :80; LinkedEye owns :8088; WeCrew keeps 127.0.0.1:8089.
+      - "213.210.36.154:8089:8080"
     environment:
       ARGUS_SQLSTORE_PROVIDER: sqlite
       ARGUS_SQLSTORE_SQLITE_PATH: /var/lib/argus/argus.db
