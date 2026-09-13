@@ -89,25 +89,37 @@ const logsQueryServerRequest = (): void =>
 
 describe('Logs Explorer Tests', () => {
 	it('Logs Explorer default view test without data', async () => {
-		const { getByRole, queryByText, getByTestId, queryByTestId, container } =
-			render(
-				<MemoryRouter
-					initialEntries={[
-						'/logs-explorer/?panelType=list&selectedExplorerView=list',
-					]}
-				>
-					<PreferenceContextProvider>
-						<LogsExplorer />
-					</PreferenceContextProvider>
-				</MemoryRouter>,
-			);
+		const {
+			getByRole,
+			getByText,
+			queryByText,
+			getByTestId,
+			queryByTestId,
+			container,
+		} = render(
+			<MemoryRouter
+				initialEntries={[
+					'/logs-explorer/?panelType=list&selectedExplorerView=list',
+				]}
+			>
+				<PreferenceContextProvider>
+					<LogsExplorer />
+				</PreferenceContextProvider>
+			</MemoryRouter>,
+		);
 
 		// by default is hidden, toggle the chart and check it's visibility
 		const histogramToggle = getByRole('switch');
 		fireEvent.click(histogramToggle);
 		expect(queryByText(frequencyChartContent)).toBeInTheDocument();
 
-		// check the presence of search bar and query builder and absence of clickhouse
+		// check the production header, search bar and query builder and absence of clickhouse
+		expect(getByTestId('logs-explorer-experience-header')).toBeInTheDocument();
+		expect(
+			getByText('Search and correlate OpenTelemetry logs across your services.', {
+				exact: false,
+			}),
+		).toBeInTheDocument();
 		const searchView = getByTestId('search-view');
 		expect(searchView).toBeInTheDocument();
 		const queryBuilderView = getByTestId('query-builder-view');

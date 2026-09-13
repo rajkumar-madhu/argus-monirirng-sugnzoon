@@ -40,6 +40,7 @@ import {
 	logsRunQueryAction,
 	logsSaveViewAction,
 } from './aiActions';
+import LogsExplorerExperienceHeader from './LogsExplorerExperienceHeader';
 import { ExplorerViews } from './utils';
 
 import './LogsExplorer.styles.scss';
@@ -236,6 +237,10 @@ function LogsExplorer(): JSX.Element {
 						</section>
 					)}
 					<section className={cx('log-module-right-section')}>
+						<LogsExplorerExperienceHeader
+							selectedView={selectedView}
+							showLiveLogs={showLiveLogs}
+						/>
 						<Toolbar
 							showAutoRefresh={false}
 							leftActions={
