@@ -79,7 +79,9 @@ spec:
             capabilities:
               drop: ["ALL"]
             readOnlyRootFilesystem: true
+            runAsGroup: 102
             runAsNonRoot: true
+            runAsUser: 101
           volumeMounts:
             - name: script
               mountPath: /scripts
