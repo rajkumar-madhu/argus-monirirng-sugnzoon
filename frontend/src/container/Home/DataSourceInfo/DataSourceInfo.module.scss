@@ -1,0 +1,27 @@
+.welcome {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-4);
+	padding: var(--spacing-6) 0;
+	border-top: 1px solid var(--l1-border);
+	min-width: 0;
+}
+
+.title {
+	margin: 0;
+	color: var(--l1-foreground);
+	font-family: 'Instrument Serif', Georgia, serif;
+	font-size: clamp(2rem, 3vw, 3rem);
+	font-weight: 400;
+	line-height: 1.15;
+	letter-spacing: -0.025em;
+	overflow-wrap: anywhere;
+}
+
+.description {
+	margin: 0;
+	max-width: 56ch;
+	color: var(--l2-foreground);
+	font-size: var(--periscope-font-size-base, 14px);
+	line-height: 1.7;
+}

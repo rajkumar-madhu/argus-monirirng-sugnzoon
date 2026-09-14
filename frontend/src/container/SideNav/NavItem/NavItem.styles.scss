@@ -1,11 +1,16 @@
 .nav-item {
+	width: 100%;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	text-align: left;
 	border-radius: 2px;
 
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 
-	height: 32px;
+	min-height: 36px;
 	margin-bottom: 4px;
 	cursor: pointer;
 
@@ -69,7 +74,7 @@
 		font-family: Inter;
 		font-size: 13px;
 		font-style: normal;
-		font-weight: 300;
+		font-weight: 400;
 		line-height: 18px;
 
 		background: transparent;
@@ -92,7 +97,7 @@
 			font-family: Inter;
 			font-size: 13px;
 			font-style: normal;
-			font-weight: 300;
+			font-weight: 400;
 			line-height: normal;
 			letter-spacing: 0.14px;
 		}
@@ -117,5 +122,50 @@
 
 	.beta-tag {
 		padding-right: 0;
+	}
+}
+
+.nav-item-row {
+	position: relative;
+
+	.nav-item:focus-visible,
+	.nav-pin-button:focus-visible {
+		outline: 2px solid var(--l1-foreground);
+		outline-offset: -2px;
+	}
+
+	.nav-item.active .nav-item-label {
+		font-weight: 600;
+	}
+
+	.nav-pin-button {
+		position: absolute;
+		right: var(--spacing-2);
+		top: var(--spacing-2);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: var(--spacing-1);
+		border: 0;
+		border-radius: var(--spacing-1);
+		background: var(--l1-background);
+		color: var(--l2-foreground);
+		cursor: pointer;
+		opacity: 0;
+
+		&:disabled {
+			cursor: not-allowed;
+		}
+	}
+
+	&:hover .nav-pin-button,
+	&:focus-within .nav-pin-button {
+		opacity: 1;
+	}
+}
+
+@media (hover: none) {
+	.nav-item-row .nav-pin-button {
+		opacity: 1;
 	}
 }

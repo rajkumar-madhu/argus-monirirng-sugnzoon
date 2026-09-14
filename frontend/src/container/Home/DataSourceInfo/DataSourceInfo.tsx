@@ -12,10 +12,11 @@ import { LicensePlatform } from 'types/api/licensesV3/getActive';
 import { openInNewTab } from 'utils/navigation';
 
 import containerPlusUrl from '@/assets/Icons/container-plus.svg';
-import helloWaveUrl from '@/assets/Icons/hello-wave.svg';
 import hurrayUrl from '@/assets/Icons/hurray.svg';
 
 import { DOCS_LINKS } from '../constants';
+
+import styles from './DataSourceInfo.module.scss';
 
 function DataSourceInfo({
 	dataSentToArgus,
@@ -48,7 +49,7 @@ function DataSourceInfo({
 	);
 
 	const handleConnect = (): void => {
-		logEvent('Homepage: Connect dataSource clicked', {});
+		void logEvent('Homepage: Connect dataSource clicked', {});
 
 		if (activeLicense && activeLicense.platform === LicensePlatform.CLOUD) {
 			history.push(ROUTES.GET_STARTED_WITH_CLOUD);
@@ -59,14 +60,11 @@ function DataSourceInfo({
 
 	const renderNotSendingData = (): JSX.Element => (
 		<>
-			<h2 className="welcome-title">
-				Hello there, Welcome to your Argus workspace
-			</h2>
+			<h1 className={styles.title}>Your Argus workspace</h1>
 
-			<p className="welcome-description">
-				You’re not sending any data yet. <br />
-				Argus is so much better with your data ⎯ start by sending your telemetry
-				data to Argus.
+			<p className={styles.description}>
+				Connect a data source to investigate logs, follow traces, and monitor
+				services.
 			</p>
 
 			<Card className="welcome-card">
@@ -85,9 +83,9 @@ function DataSourceInfo({
 								className="periscope-btn primary"
 								prefix={<img src={containerPlusUrl} alt="plus" />}
 								onClick={handleConnect}
-								// TODO - Support tabindex, keyboard events - @H4ad
+								data-testid="connect-data-source"
 							>
-								Connect Data Source
+								Connect data source
 							</Button>
 						</div>
 
@@ -108,9 +106,7 @@ function DataSourceInfo({
 
 	const renderDataReceived = (): JSX.Element => (
 		<>
-			<h2 className="welcome-title">
-				Hello there, Welcome to your Argus workspace
-			</h2>
+			<h1 className={styles.title}>Your Argus workspace</h1>
 
 			{!isError && hostsData && (
 				<Card className="welcome-card">
@@ -131,19 +127,11 @@ function DataSourceInfo({
 	);
 
 	return (
-		<div className="welcome-container">
-			<div className="hello-wave-container">
-				<div className="hello-wave-img-container">
-					<img
-						src={helloWaveUrl}
-						alt="hello-wave"
-						className="hello-wave-img"
-						width={36}
-						height={36}
-					/>
-				</div>
-			</div>
-
+		<section
+			className={styles.welcome}
+			aria-label="Workspace overview"
+			aria-busy={isLoading}
+		>
 			{isLoading && (
 				<>
 					<Skeleton.Avatar active size={36} shape="square" />
@@ -154,7 +142,7 @@ function DataSourceInfo({
 			{!isLoading && dataSentToArgus && renderDataReceived()}
 
 			{!isLoading && notSendingData && renderNotSendingData()}
-		</div>
+		</section>
 	);
 }
 

@@ -19,7 +19,7 @@ export default function NavItem({
 }: {
 	item: SidebarItem;
 	isActive: boolean;
-	onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+	onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	isDisabled: boolean;
 	onTogglePin?: (item: SidebarItem) => void;
 	isPinned?: boolean;
@@ -29,81 +29,87 @@ export default function NavItem({
 	const { label, icon, isBeta, isNew, isEarlyAccess, tooltip } = item;
 
 	const handleTogglePinClick = (
-		event: React.MouseEvent<SVGSVGElement, MouseEvent>,
+		event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
 	): void => {
 		event.stopPropagation();
-		onTogglePin?.(item);
+		if (!isDisabled) {
+			onTogglePin?.(item);
+		}
 	};
 
 	const navItem = (
-		<div
-			className={cx(
-				'nav-item',
-				isActive ? 'active' : '',
-				isDisabled ? 'disabled' : '',
+		<div className="nav-item-row">
+			<button
+				className={cx(
+					'nav-item',
+					isActive ? 'active' : '',
+					isDisabled ? 'disabled' : '',
+				)}
+				type="button"
+				aria-label={typeof label === 'string' ? label : undefined}
+				disabled={isDisabled}
+				tabIndex={isDisabled ? -1 : 0}
+				aria-current={isActive ? 'page' : undefined}
+				aria-disabled={isDisabled}
+				onClick={(event): void => {
+					if (isDisabled) {
+						return;
+					}
+					onClick(event);
+				}}
+				data-testid={dataTestId}
+			>
+				{showIcon && <span className="nav-item-active-marker" />}
+				<span className={cx('nav-item-data', isBeta ? 'beta-tag' : '')}>
+					{showIcon && (
+						<span className={cx('nav-item-icon', isEarlyAccess ? 'noz-wave' : '')}>
+							{icon}
+						</span>
+					)}
+
+					<span className="nav-item-label">{label}</span>
+
+					{isBeta && (
+						<span className="nav-item-beta">
+							<Badge color="robin" className="sidenav-beta-tag">
+								Beta
+							</Badge>
+						</span>
+					)}
+
+					{isNew && (
+						<span className="nav-item-new">
+							<Badge color="robin" className="sidenav-new-tag">
+								New
+							</Badge>
+						</span>
+					)}
+
+					{isEarlyAccess && (
+						<span className="nav-item-early-access">
+							<Badge color="robin">Early Access</Badge>
+						</span>
+					)}
+				</span>
+			</button>
+			{onTogglePin && (
+				<Tooltip
+					title={isPinned ? 'Remove from shortcuts' : 'Add to shortcuts'}
+					placement="right"
+				>
+					<button
+						type="button"
+						className="nav-pin-button"
+						aria-label={isPinned ? 'Remove from shortcuts' : 'Add to shortcuts'}
+						aria-pressed={isPinned}
+						disabled={isDisabled}
+						data-testid={`nav-pin-${item.key}`}
+						onClick={handleTogglePinClick}
+					>
+						{isPinned ? <PinOff size={14} /> : <Pin size={14} />}
+					</button>
+				</Tooltip>
 			)}
-			onClick={(event): void => {
-				if (isDisabled) {
-					return;
-				}
-				onClick(event);
-			}}
-			data-testid={dataTestId}
-		>
-			{showIcon && <div className="nav-item-active-marker" />}
-			<div className={cx('nav-item-data', isBeta ? 'beta-tag' : '')}>
-				{showIcon && (
-					<div className={cx('nav-item-icon', isEarlyAccess ? 'noz-wave' : '')}>
-						{icon}
-					</div>
-				)}
-
-				<div className="nav-item-label">{label}</div>
-
-				{isBeta && (
-					<div className="nav-item-beta">
-						<Badge color="robin" className="sidenav-beta-tag">
-							Beta
-						</Badge>
-					</div>
-				)}
-
-				{isNew && (
-					<div className="nav-item-new">
-						<Badge color="robin" className="sidenav-new-tag">
-							New
-						</Badge>
-					</div>
-				)}
-
-				{isEarlyAccess && (
-					<div className="nav-item-early-access">
-						<Badge color="robin">Early Access</Badge>
-					</div>
-				)}
-
-				{onTogglePin && !isPinned && (
-					<Tooltip title="Add to shortcuts" placement="right">
-						<Pin
-							size={12}
-							className="nav-item-pin-icon"
-							onClick={handleTogglePinClick}
-							color="var(--Vanilla-400, #c0c1c3)"
-						/>
-					</Tooltip>
-				)}
-
-				{onTogglePin && isPinned && (
-					<Tooltip title="Remove from shortcuts" placement="right">
-						<PinOff
-							size={12}
-							className="nav-item-pin-icon"
-							onClick={handleTogglePinClick}
-							color="var(--Vanilla-400, #c0c1c3)"
-						/>
-					</Tooltip>
-				)}
-			</div>
 		</div>
 	);
 
