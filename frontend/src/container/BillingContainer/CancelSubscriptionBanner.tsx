@@ -20,11 +20,12 @@ import { getBaseUrl } from 'utils/basePath';
 import { Color } from '@signozhq/design-tokens';
 
 import styles from './CancelSubscriptionBanner.module.scss';
+import { isUsableSupportEmail } from './cancelSubscriptionUtils';
 
 const SUPPORT_EMAIL = 'cloud-support@example.com';
 const MAX_MAILTO_URI_LENGTH = 1800;
 
-type DialogView = 'confirm' | 'fallback';
+type DialogView = 'confirm' | 'fallback' | 'unavailable';
 
 function buildEmailBody(orgName: string, userEmail: string): string {
 	return [
@@ -49,17 +50,21 @@ function buildEmailBody(orgName: string, userEmail: string): string {
 	].join('\n');
 }
 
-function buildMailtoUri(orgName: string, userEmail: string): string {
+function buildMailtoUri(
+	supportEmail: string,
+	orgName: string,
+	userEmail: string,
+): string {
 	const subject = encodeURIComponent('Cancel My Argus Subscription');
 	const body = encodeURIComponent(buildEmailBody(orgName, userEmail));
-	const full = `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
+	const full = `mailto:${supportEmail}?subject=${subject}&body=${body}`;
 	if (full.length <= MAX_MAILTO_URI_LENGTH) {
 		return full;
 	}
 	const shortBody = encodeURIComponent(
 		'Hi Argus Team,\n\nI would like to cancel my Argus Cloud subscription.\nPlease find my account details and reason for cancellation below.\n\n[Your details here]\n\nRegards,',
 	);
-	return `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${shortBody}`;
+	return `mailto:${supportEmail}?subject=${subject}&body=${shortBody}`;
 }
 
 function openMailto(uri: string): void {
@@ -71,7 +76,9 @@ function openMailto(uri: string): void {
 	document.body.removeChild(link);
 }
 
-function CancelSubscriptionBanner(): JSX.Element {
+function CancelSubscriptionBanner({
+	supportEmail = SUPPORT_EMAIL,
+}: { supportEmail?: string } = {}): JSX.Element {
 	const [dialogView, setDialogView] = useState<DialogView | null>(null);
 	const [confirmText, setConfirmText] = useState('');
 	const [copied, setCopied] = useState(false);
@@ -96,15 +103,19 @@ function CancelSubscriptionBanner(): JSX.Element {
 			user: pick(user, ['email', 'displayName', 'role', 'organization']),
 			role: user?.role,
 		});
-		setDialogView('confirm');
+		setDialogView(isUsableSupportEmail(supportEmail) ? 'confirm' : 'unavailable');
 	};
 
 	const handleContactSupport = (): void => {
+		if (!isUsableSupportEmail(supportEmail)) {
+			setDialogView('unavailable');
+			return;
+		}
 		void logEvent('Billing : Cancel Subscription Confirmed', {
 			user: pick(user, ['email', 'displayName', 'role', 'organization']),
 			role: user?.role,
 		});
-		openMailto(buildMailtoUri(orgName, userEmail));
+		openMailto(buildMailtoUri(supportEmail, orgName, userEmail));
 		setConfirmText('');
 		setDialogView('fallback');
 	};
@@ -217,13 +228,23 @@ function CancelSubscriptionBanner(): JSX.Element {
 						/>
 					</div>
 				)}
+				{dialogView === 'unavailable' && (
+					<p
+						className={styles.fallbackHint}
+						data-testid="cancellation-support-unavailable"
+					>
+						Contact your deployment administrator to request cancellation. A billing
+						support address has not been configured. Nothing has been sent, and your
+						subscription has not changed.
+					</p>
+				)}
 				{dialogView === 'fallback' && (
 					<div className={styles.fallbackBody}>
 						<p className={styles.fallbackHint}>
 							An email draft has been opened. If it did not open, send your
 							cancellation request directly to:
 						</p>
-						<span className={styles.fallbackEmail}>{SUPPORT_EMAIL}</span>
+						<span className={styles.fallbackEmail}>{supportEmail}</span>
 						<div className={styles.fallbackActions}>
 							<Button
 								variant="outlined"
@@ -241,7 +262,7 @@ function CancelSubscriptionBanner(): JSX.Element {
 								data-testid="retry-mailto-btn"
 							>
 								<a
-									href={buildMailtoUri(orgName, userEmail)}
+									href={buildMailtoUri(supportEmail, orgName, userEmail)}
 									onClick={handleRetryMailto}
 									className={styles.retryLink}
 									target="_blank"

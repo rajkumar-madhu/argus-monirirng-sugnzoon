@@ -65,7 +65,7 @@ describe('MultiIngestionSettings Page', () => {
 		const aboutKeyslink = screen.getByRole('link', { name: /Learn more/i });
 		expect(aboutKeyslink).toHaveAttribute(
 			'href',
-			'https://argus.example.com/docs/ingestion/signoz-cloud/keys/',
+			'https://signoz.io/docs/ingestion/signoz-cloud/keys/',
 		);
 		expect(aboutKeyslink).toHaveAttribute('target', '_blank');
 		expect(aboutKeyslink).toHaveClass('learn-more');

@@ -65,6 +65,7 @@ function AuthLandingPanel({
 					<span />
 					<span />
 					<span />
+					<small>Example telemetry</small>
 				</div>
 				<div className="auth-landing-preview-grid">
 					<div className="auth-landing-stat">

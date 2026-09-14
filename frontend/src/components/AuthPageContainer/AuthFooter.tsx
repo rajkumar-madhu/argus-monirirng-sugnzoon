@@ -13,13 +13,11 @@ interface FooterItem {
 
 const footerItems: FooterItem[] = [
 	{
-		text: 'All systems operational',
-		statusIndicator: true,
+		text: 'Self-hosted observability',
 	},
-	{
-		text: 'Privacy',
-		url: DOCLINKS.PRIVACY,
-	},
+	...(DOCLINKS.PRIVACY !== DOCLINKS.SECURITY
+		? [{ text: 'Privacy', url: DOCLINKS.PRIVACY }]
+		: []),
 	{
 		text: 'Security',
 		url: DOCLINKS.SECURITY,

@@ -28,7 +28,7 @@ exports[`PipelinePage container test should render PipelinePageLayout section 1`
     <svg
       aria-label="Help"
       role="img"
-      style="font-size: 1rem; color: rgba(255, 255, 255, 0.835);"
+      style="font-size: 1rem; color: rgb(166, 166, 166);"
     />
     <button
       class="ant-btn css-dev-only-do-not-override-2i2tap ant-btn-primary c1"
@@ -80,7 +80,7 @@ exports[`PipelinePage container test should render PipelinePageLayout section 1`
               >
                 learn_more 
                 <a
-                  href="https://argus.example.com/docs/logs-pipelines/introduction/?utm_source=product&utm_medium=pipelines-tab"
+                  href="https://signoz.io/docs/logs-pipelines/introduction/?utm_source=product&utm_medium=pipelines-tab"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

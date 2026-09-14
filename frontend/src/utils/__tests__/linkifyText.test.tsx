@@ -20,10 +20,10 @@ describe('linkifyText', () => {
 	});
 
 	it('prefixes bare www. links with https://', () => {
-		render(<div>{linkifyText('visit argus.example.com')}</div>);
+		render(<div>{linkifyText('visit www.example.com')}</div>);
 
-		const link = screen.getByRole('link', { name: 'argus.example.com' });
-		expect(link).toHaveAttribute('href', 'https://signoz.io');
+		const link = screen.getByRole('link', { name: 'www.example.com' });
+		expect(link).toHaveAttribute('href', 'https://www.example.com');
 	});
 
 	it('keeps trailing punctuation outside the link', () => {

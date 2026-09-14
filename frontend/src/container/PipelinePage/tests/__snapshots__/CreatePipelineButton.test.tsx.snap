@@ -28,7 +28,7 @@ exports[`PipelinePage container test should render CreatePipelineButton section 
     <svg
       aria-label="Help"
       role="img"
-      style="font-size: 1rem; color: rgba(255, 255, 255, 0.835);"
+      style="font-size: 1rem; color: rgb(166, 166, 166);"
     />
     <button
       class="ant-btn css-dev-only-do-not-override-2i2tap ant-btn-default c1"

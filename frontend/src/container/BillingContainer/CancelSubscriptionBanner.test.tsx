@@ -8,10 +8,13 @@ import { render, screen, userEvent, waitFor } from 'tests/test-utils';
 
 import CancelSubscriptionBanner from './CancelSubscriptionBanner';
 
+const TEST_SUPPORT_EMAIL = 'billing@argus.test';
+
 jest.mock('utils/basePath', () => ({
 	getBasePath: (): string => '/',
 	withBasePath: (path: string): string => path,
-	getAbsoluteUrl: (path: string): string => `https://test.argus.example.com${path}`,
+	getAbsoluteUrl: (path: string): string =>
+		`https://test.argus.example.com${path}`,
 	getBaseUrl: (): string => 'https://test.argus.example.com',
 }));
 
@@ -51,9 +54,45 @@ describe('CancelSubscriptionBanner', () => {
 		jest.restoreAllMocks();
 	});
 
+	it.each([
+		undefined,
+		'cloud-support@example.com',
+		'billing@argus.example.org',
+		'billing@EXAMPLE.NET',
+		'',
+		'not-an-email',
+	])(
+		'shows administrator guidance without opening email for %s',
+		async (supportEmail) => {
+			const { mockClick } = mockMailto();
+			const user = userEvent.setup({ pointerEventsCheck: 0 });
+			render(<CancelSubscriptionBanner supportEmail={supportEmail} />);
+			await waitFor(() => {
+				expect(screen.getByTestId('cancel-subscription-btn')).toBeEnabled();
+			});
+			await user.click(screen.getByTestId('cancel-subscription-btn'));
+			expect(
+				screen.getByTestId('cancellation-support-unavailable'),
+			).toHaveTextContent('Contact your deployment administrator');
+			expect(
+				screen.getByTestId('cancellation-support-unavailable'),
+			).toHaveTextContent(
+				'Nothing has been sent, and your subscription has not changed.',
+			);
+			expect(mockClick).not.toHaveBeenCalled();
+			expect(
+				screen.queryByTestId('cancel-subscription-confirm-btn'),
+			).not.toBeInTheDocument();
+			expect(screen.queryByTestId('retry-mailto-btn')).not.toBeInTheDocument();
+			expect(
+				screen.queryByTestId('copy-email-template-btn'),
+			).not.toBeInTheDocument();
+		},
+	);
+
 	it('disables Cancel Subscription when subscription delete is denied', async () => {
 		server.use(setupAuthzDeny(SubscriptionDeletePermission));
-		render(<CancelSubscriptionBanner />);
+		render(<CancelSubscriptionBanner supportEmail={TEST_SUPPORT_EMAIL} />);
 
 		await waitFor(() => {
 			expect(screen.getByTestId('cancel-subscription-btn')).toBeDisabled();
@@ -61,7 +100,7 @@ describe('CancelSubscriptionBanner', () => {
 	});
 
 	it('renders banner with title and subtitle', () => {
-		render(<CancelSubscriptionBanner />);
+		render(<CancelSubscriptionBanner supportEmail={TEST_SUPPORT_EMAIL} />);
 		expect(
 			screen.getByText('Cancel your subscription', { selector: 'span' }),
 		).toBeInTheDocument();
@@ -74,7 +113,7 @@ describe('CancelSubscriptionBanner', () => {
 
 	it('opens dialog with content when Cancel Subscription is clicked', async () => {
 		const user = userEvent.setup({ pointerEventsCheck: 0 });
-		render(<CancelSubscriptionBanner />);
+		render(<CancelSubscriptionBanner supportEmail={TEST_SUPPORT_EMAIL} />);
 
 		await waitFor(() => {
 			expect(screen.getByTestId('cancel-subscription-btn')).toBeEnabled();
@@ -95,7 +134,7 @@ describe('CancelSubscriptionBanner', () => {
 
 	it('keeps Cancel subscription button disabled until "cancel" is typed', async () => {
 		const user = userEvent.setup({ pointerEventsCheck: 0 });
-		render(<CancelSubscriptionBanner />);
+		render(<CancelSubscriptionBanner supportEmail={TEST_SUPPORT_EMAIL} />);
 
 		await waitFor(() => {
 			expect(screen.getByTestId('cancel-subscription-btn')).toBeEnabled();
@@ -115,7 +154,7 @@ describe('CancelSubscriptionBanner', () => {
 
 	it('closes dialog and resets input when Go back is clicked', async () => {
 		const user = userEvent.setup({ pointerEventsCheck: 0 });
-		render(<CancelSubscriptionBanner />);
+		render(<CancelSubscriptionBanner supportEmail={TEST_SUPPORT_EMAIL} />);
 
 		await waitFor(() => {
 			expect(screen.getByTestId('cancel-subscription-btn')).toBeEnabled();
@@ -141,7 +180,7 @@ describe('CancelSubscriptionBanner', () => {
 		const { mockClick, appendSpy, removeSpy } = mockMailto();
 
 		const user = userEvent.setup({ pointerEventsCheck: 0 });
-		render(<CancelSubscriptionBanner />);
+		render(<CancelSubscriptionBanner supportEmail={TEST_SUPPORT_EMAIL} />);
 
 		await waitFor(() => {
 			expect(screen.getByTestId('cancel-subscription-btn')).toBeEnabled();
@@ -165,7 +204,7 @@ describe('CancelSubscriptionBanner', () => {
 		expect(
 			screen.getByText(/An email draft has been opened/i),
 		).toBeInTheDocument();
-		expect(screen.getByText('cloud-support@argus.example.com')).toBeInTheDocument();
+		expect(screen.getByText(TEST_SUPPORT_EMAIL)).toBeInTheDocument();
 		expect(screen.getByTestId('copy-email-template-btn')).toBeInTheDocument();
 		expect(screen.getByTestId('retry-mailto-btn')).toBeInTheDocument();
 	});
@@ -174,7 +213,7 @@ describe('CancelSubscriptionBanner', () => {
 		mockMailto();
 
 		const user = userEvent.setup({ pointerEventsCheck: 0 });
-		render(<CancelSubscriptionBanner />);
+		render(<CancelSubscriptionBanner supportEmail={TEST_SUPPORT_EMAIL} />);
 
 		await waitFor(() => {
 			expect(screen.getByTestId('cancel-subscription-btn')).toBeEnabled();
@@ -196,7 +235,7 @@ describe('CancelSubscriptionBanner', () => {
 		mockMailto();
 
 		const user = userEvent.setup({ pointerEventsCheck: 0 });
-		render(<CancelSubscriptionBanner />);
+		render(<CancelSubscriptionBanner supportEmail={TEST_SUPPORT_EMAIL} />);
 
 		await waitFor(() => {
 			expect(screen.getByTestId('cancel-subscription-btn')).toBeEnabled();
@@ -209,7 +248,7 @@ describe('CancelSubscriptionBanner', () => {
 		expect(retryLink.tagName).toBe('A');
 		expect(retryLink).toHaveAttribute(
 			'href',
-			expect.stringContaining('mailto:cloud-support@argus.example.com'),
+			expect.stringContaining(`mailto:${TEST_SUPPORT_EMAIL}`),
 		);
 	});
 
@@ -217,7 +256,7 @@ describe('CancelSubscriptionBanner', () => {
 		mockMailto();
 
 		const user = userEvent.setup({ pointerEventsCheck: 0 });
-		render(<CancelSubscriptionBanner />);
+		render(<CancelSubscriptionBanner supportEmail={TEST_SUPPORT_EMAIL} />);
 
 		await waitFor(() => {
 			expect(screen.getByTestId('cancel-subscription-btn')).toBeEnabled();

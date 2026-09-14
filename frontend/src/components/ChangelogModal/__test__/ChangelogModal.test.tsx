@@ -85,26 +85,24 @@ describe('ChangelogModal', () => {
 	});
 
 	it('opens migration docs when Update my workspace is clicked', () => {
-		window.open = jest.fn();
+		const openSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
 		renderChangelog();
 		fireEvent.click(screen.getByText('Update my workspace'));
-		expect(window.open).toHaveBeenCalledWith(
-			'https://argus.example.com/upgrade-path',
+		expect(openSpy).toHaveBeenCalledWith(
+			'https://signoz.io/upgrade-path',
 			'_blank',
 			'noopener,noreferrer',
 		);
+		openSpy.mockRestore();
 	});
 
 	it('scrolls for more when Scroll for more is clicked', () => {
 		renderChangelog();
 		const scrollBtn = screen.getByTestId('scroll-more-btn');
 		const contentDiv = screen.getByTestId('changelog-content');
-		if (contentDiv) {
-			contentDiv.scrollTo = jest.fn();
-		}
+		const scrollTo = jest.fn();
+		Object.defineProperty(contentDiv, 'scrollTo', { value: scrollTo });
 		fireEvent.click(scrollBtn);
-		if (contentDiv) {
-			expect(contentDiv.scrollTo).toHaveBeenCalled();
-		}
+		expect(scrollTo).toHaveBeenCalled();
 	});
 });

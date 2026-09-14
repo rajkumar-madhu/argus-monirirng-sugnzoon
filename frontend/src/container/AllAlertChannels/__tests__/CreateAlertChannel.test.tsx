@@ -70,18 +70,21 @@ describe('Create Alert Channel', () => {
 			expect(screen.getByText('page_title_create')).toBeInTheDocument();
 		});
 		it('Should check if the name label and textbox are displayed properly', () => {
+			expect.hasAssertions();
 			testLabelInputAndHelpValue({
 				labelText: 'field_channel_name',
 				testId: 'channel-name-textbox',
 			});
 		});
 		it('Should check if Send resolved alerts label and checkbox are displayed properly', () => {
+			expect.hasAssertions();
 			testLabelInputAndHelpValue({
 				labelText: 'field_send_resolved',
 				testId: 'field-send-resolved-checkbox',
 			});
 		});
 		it('Should check if channel type label and dropdown are displayed properly', () => {
+			expect.hasAssertions();
 			testLabelInputAndHelpValue({
 				labelText: 'field_channel_type',
 				testId: 'channel-type-select',
@@ -92,12 +95,14 @@ describe('Create Alert Channel', () => {
 			expect(screen.getByText('Slack')).toBeInTheDocument();
 		});
 		it('Should check if Webhook URL label and input are displayed properly', () => {
+			expect.hasAssertions();
 			testLabelInputAndHelpValue({
 				labelText: 'field_webhook_url',
 				testId: 'webhook-url-textbox',
 			});
 		});
 		it('Should check if Recepient label, input, and help text are displayed properly', () => {
+			expect.hasAssertions();
 			testLabelInputAndHelpValue({
 				labelText: 'field_slack_recipient',
 				testId: 'slack-channel-textbox',
@@ -106,6 +111,7 @@ describe('Create Alert Channel', () => {
 		});
 
 		it('Should check if Title label and text area are displayed properly', () => {
+			expect.hasAssertions();
 			testLabelInputAndHelpValue({
 				labelText: 'field_slack_title',
 				testId: 'title-textarea',
@@ -117,6 +123,7 @@ describe('Create Alert Channel', () => {
 			expect(titleTextArea).toHaveTextContent(slackTitleDefaultValue);
 		});
 		it('Should check if Description label and text area are displayed properly', () => {
+			expect.hasAssertions();
 			testLabelInputAndHelpValue({
 				labelText: 'field_slack_description',
 				testId: 'description-textarea',
@@ -193,12 +200,14 @@ describe('Create Alert Channel', () => {
 				expect(screen.getByText('Webhook')).toBeInTheDocument();
 			});
 			it('Should check if Webhook URL label and input are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_webhook_url',
 					testId: 'webhook-url-textbox',
 				});
 			});
 			it('Should check if Webhook User Name label, input, and help text are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_webhook_username',
 					testId: 'webhook-username-textbox',
@@ -206,6 +215,7 @@ describe('Create Alert Channel', () => {
 				});
 			});
 			it('Should check if Password label and textbox, and help text are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'Password (optional)',
 					testId: 'webhook-password-textbox',
@@ -222,12 +232,14 @@ describe('Create Alert Channel', () => {
 				expect(screen.getByText('Pagerduty')).toBeInTheDocument();
 			});
 			it('Should check if Routing key label, required, and textbox are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_pager_routing_key',
 					testId: 'pager-routing-key-textbox',
 				});
 			});
 			it('Should check if Description label, required, info (Shows up as description in pagerduty), and text area are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_pager_description',
 					testId: 'pager-description-textarea',
@@ -244,6 +256,7 @@ describe('Create Alert Channel', () => {
 				);
 			});
 			it('Should check if Severity label, info (help_pager_severity), and textbox are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_pager_severity',
 					testId: 'pager-severity-textbox',
@@ -256,6 +269,7 @@ describe('Create Alert Channel', () => {
 				expect(severityTextbox).toHaveValue(pagerDutySeverityTextDefaultValue);
 			});
 			it('Should check if Additional Information label, text area, and help text (help_pager_details) are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_pager_details',
 					testId: 'pager-additional-details-textarea',
@@ -270,6 +284,7 @@ describe('Create Alert Channel', () => {
 				expect(detailsTextArea).toHaveValue(pagerDutyAdditionalDetailsDefaultValue);
 			});
 			it('Should check if Group label, text area, and info (help_pager_group) are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_pager_group',
 					testId: 'pager-group-textarea',
@@ -277,6 +292,7 @@ describe('Create Alert Channel', () => {
 				});
 			});
 			it('Should check if Class label, text area, and info (help_pager_class) are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_pager_class',
 					testId: 'pager-class-textarea',
@@ -284,6 +300,7 @@ describe('Create Alert Channel', () => {
 				});
 			});
 			it('Should check if Client label, text area, and info (Shows up as event source in Pagerduty) are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_pager_client',
 					testId: 'pager-client-textarea',
@@ -296,6 +313,7 @@ describe('Create Alert Channel', () => {
 				expect(clientTextArea).toHaveValue('Argus Alert Manager');
 			});
 			it('Should check if Client URL label, text area, and info (Shows up as event source link in Pagerduty) are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_pager_client_url',
 					testId: 'pager-client-url-textarea',
@@ -320,6 +338,7 @@ describe('Create Alert Channel', () => {
 			});
 
 			it('Should check if API key label, required, and textbox are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_opsgenie_api_key',
 					testId: 'opsgenie-api-key-textbox',
@@ -328,6 +347,7 @@ describe('Create Alert Channel', () => {
 			});
 
 			it('Should check if Message label, required, info (Shows up as message in opsgenie), and text area are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_opsgenie_message',
 					testId: 'opsgenie-message-textarea',
@@ -342,7 +362,8 @@ describe('Create Alert Channel', () => {
 				expect(messageTextArea).toHaveValue(opsGenieMessageDefaultValue);
 			});
 
-			it('Should check if Description label, required, info (Shows up as description in opsgenie), and text area are displayed properly `{{ if gt (len .Alerts.Firing) 0 -}}', () => {
+			it('Should check if Description label, required field, and help text are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_opsgenie_description',
 					testId: 'opsgenie-description-textarea',
@@ -351,7 +372,7 @@ describe('Create Alert Channel', () => {
 				});
 			});
 
-			it('Should check if Description label, required, info (Shows up as description in opsgenie), and text area are displayed properly `{{ if gt (len .Alerts.Firing) 0 -}}', () => {
+			it('Should check if Description contains the default template', () => {
 				const descriptionTextArea = screen.getByTestId(
 					'opsgenie-description-textarea',
 				);
@@ -362,6 +383,7 @@ describe('Create Alert Channel', () => {
 			});
 
 			it('Should check if Priority label, required, info (help_opsgenie_priority), and text area are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_opsgenie_priority',
 					testId: 'opsgenie-priority-textarea',
@@ -370,7 +392,7 @@ describe('Create Alert Channel', () => {
 				});
 			});
 
-			it('Should check if Message contains the default template', () => {
+			it('Should check if Priority contains the default template', () => {
 				const priorityTextArea = screen.getByTestId('opsgenie-priority-textarea');
 
 				expect(priorityTextArea).toHaveValue(opsGeniePriorityDefaultValue);
@@ -385,6 +407,7 @@ describe('Create Alert Channel', () => {
 				expect(screen.getByText('Email')).toBeInTheDocument();
 			});
 			it('Should check if API key label, required, info(help_email_to), and textbox are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_email_to',
 					testId: 'email-to-textbox',
@@ -403,6 +426,7 @@ describe('Create Alert Channel', () => {
 			});
 
 			it('Should check if Webhook URL label and input are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_webhook_url',
 					testId: 'webhook-url-textbox',
@@ -410,6 +434,7 @@ describe('Create Alert Channel', () => {
 			});
 
 			it('Should check if Title label and text area are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_slack_title',
 					testId: 'title-textarea',
@@ -422,6 +447,7 @@ describe('Create Alert Channel', () => {
 				expect(titleTextArea).toHaveTextContent(slackTitleDefaultValue);
 			});
 			it('Should check if Description label and text area are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_slack_description',
 					testId: 'description-textarea',
@@ -458,6 +484,7 @@ describe('Create Alert Channel', () => {
 			});
 
 			it('Should check if Webhook URL label and input are displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_webhook_url',
 					testId: 'webhook-url-textbox',
@@ -554,6 +581,7 @@ describe('Create Alert Channel', () => {
 			});
 
 			it('Should check if the Site URL field is displayed properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_jira_site',
 					testId: 'jira-site-textbox',
@@ -570,7 +598,7 @@ describe('Create Alert Channel', () => {
 					screen.getByRole('link', { name: 'jira_service_account_tip_link' }),
 				).toHaveAttribute(
 					'href',
-					'https://argus.example.com/docs/alerts-management/notification-channel/jira/#use-a-service-account-recommended',
+					'https://signoz.io/docs/alerts-management/notification-channel/jira/#use-a-service-account-recommended',
 				);
 			});
 
@@ -668,6 +696,7 @@ describe('Create Alert Channel', () => {
 			});
 
 			it('Should display the API key field properly', () => {
+				expect.hasAssertions();
 				testLabelInputAndHelpValue({
 					labelText: 'field_jsmops_api_key',
 					testId: 'jsmops-api-key-textbox',
@@ -680,7 +709,7 @@ describe('Create Alert Channel', () => {
 					screen.getByRole('link', { name: 'jsmops_tip_link' }),
 				).toHaveAttribute(
 					'href',
-					'https://argus.example.com/docs/alerts-management/notification-channel/jsm-ops/',
+					'https://signoz.io/docs/alerts-management/notification-channel/jsm-ops/',
 				);
 			});
 
@@ -766,7 +795,7 @@ describe('Create Alert Channel', () => {
 					screen.getByRole('link', { name: 'incidentio_tip_link' }),
 				).toHaveAttribute(
 					'href',
-					'https://argus.example.com/docs/alerts-management/notification-channel/incidentio/',
+					'https://signoz.io/docs/alerts-management/notification-channel/incidentio/',
 				);
 			});
 

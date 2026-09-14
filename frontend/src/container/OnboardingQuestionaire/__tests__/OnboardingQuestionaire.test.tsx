@@ -72,7 +72,7 @@ describe('OnboardingQuestionaire Component', () => {
 		it('renders organization questions on initial load', () => {
 			render(<OnboardingQuestionaire />);
 
-			expect(screen.getByText(/welcome to signoz cloud/i)).toBeInTheDocument();
+			expect(screen.getByText(/welcome to argus cloud/i)).toBeInTheDocument();
 
 			expect(
 				screen.getByText(/which observability tool do you currently use/i),
@@ -150,13 +150,13 @@ describe('OnboardingQuestionaire Component', () => {
 			await user.click(nextButton);
 
 			await expect(
-				screen.findByText(/how did you first come across signoz/i, {}),
+				screen.findByText(/how did you first come across argus/i, {}),
 			).resolves.toBeInTheDocument();
 		});
 	});
 
 	describe('Step 2: About Argus', () => {
-		it('renders about signoz questions after step 1 completion', async () => {
+		it('renders about argus questions after step 1 completion', async () => {
 			const user = userEvent.setup({ pointerEventsCheck: 0 });
 			render(<OnboardingQuestionaire />);
 
@@ -171,7 +171,7 @@ describe('OnboardingQuestionaire Component', () => {
 				screen.findByText(/set up your workspace/i, {}),
 			).resolves.toBeInTheDocument();
 			await expect(
-				screen.findByText(/how did you first come across signoz/i, {}),
+				screen.findByText(/how did you first come across argus/i, {}),
 			).resolves.toBeInTheDocument();
 		});
 
@@ -231,14 +231,14 @@ describe('OnboardingQuestionaire Component', () => {
 			await user.click(screen.getByRole('button', { name: /next/i }));
 
 			await expect(
-				screen.findByText(/what got you interested in signoz/i, {}),
+				screen.findByText(/what got you interested in argus/i, {}),
 			).resolves.toBeInTheDocument();
 
 			const othersCheckbox = screen.getByLabelText(/^others$/i);
 			await user.click(othersCheckbox);
 
 			await expect(
-				screen.findByPlaceholderText(/what got you interested in signoz/i, {}),
+				screen.findByPlaceholderText(/what got you interested in argus/i, {}),
 			).resolves.toBeInTheDocument();
 		});
 	});

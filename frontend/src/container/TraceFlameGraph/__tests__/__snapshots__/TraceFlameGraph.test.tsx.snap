@@ -9,7 +9,7 @@ exports[`loads and displays greeting 1`] = `
   width: Infinity%;
   height: 10px;
   margin: 1px 0;
-  background-color: hsl(282.9,100%,60.7%);
+  background-color: hsl(282.9,100%,32.7%);
   border-radius: 5px;
   z-index: 1;
 }

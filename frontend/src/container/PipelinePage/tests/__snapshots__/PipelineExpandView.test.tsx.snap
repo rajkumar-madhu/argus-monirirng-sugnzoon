@@ -21,7 +21,7 @@ exports[`PipelinePage should render PipelineExpandView section 1`] = `
 }
 
 .c0 .ant-table-content {
-  background: #1d1d1d;
+  background: #fafafa;
 }
 
 <div

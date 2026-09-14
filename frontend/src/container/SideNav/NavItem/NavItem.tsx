@@ -27,6 +27,9 @@ export default function NavItem({
 	dataTestId?: string;
 }): JSX.Element {
 	const { label, icon, isBeta, isNew, isEarlyAccess, tooltip } = item;
+	const shortcutLabel = isPinned
+		? `Remove ${typeof label === 'string' ? label : 'item'} from shortcuts`
+		: `Add ${typeof label === 'string' ? label : 'item'} to shortcuts`;
 
 	const handleTogglePinClick = (
 		event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -57,7 +60,7 @@ export default function NavItem({
 					}
 					onClick(event);
 				}}
-				data-testid={dataTestId}
+				data-testid={dataTestId ?? `nav-item-${item.key}`}
 			>
 				{showIcon && <span className="nav-item-active-marker" />}
 				<span className={cx('nav-item-data', isBeta ? 'beta-tag' : '')}>
@@ -100,7 +103,7 @@ export default function NavItem({
 					<button
 						type="button"
 						className="nav-pin-button"
-						aria-label={isPinned ? 'Remove from shortcuts' : 'Add to shortcuts'}
+						aria-label={shortcutLabel}
 						aria-pressed={isPinned}
 						disabled={isDisabled}
 						data-testid={`nav-pin-${item.key}`}

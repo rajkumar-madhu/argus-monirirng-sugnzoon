@@ -43,7 +43,7 @@ describe('NavItem keyboard navigation', () => {
 		expect(onClick).not.toHaveBeenCalled();
 	});
 
-	it('pins without navigating when the shortcut control is activated', () => {
+	it('pins without navigating when the shortcut control is activated', async () => {
 		const onClick = jest.fn();
 		const onTogglePin = jest.fn();
 		const item = { key: 'home', label: 'Home' };
@@ -59,9 +59,40 @@ describe('NavItem keyboard navigation', () => {
 		);
 		const pin = screen.getByTestId('nav-pin-home');
 		expect(pin.tagName).toBe('BUTTON');
-		fireEvent.keyDown(pin, { key: 'Enter' });
-		fireEvent.click(pin);
+		expect(pin).toHaveAccessibleName('Add Home to shortcuts');
+		pin.focus();
+		await userEvent.keyboard('{Enter}');
 		expect(onTogglePin).toHaveBeenCalledWith(item);
+		expect(onTogglePin).toHaveBeenCalledTimes(1);
 		expect(onClick).not.toHaveBeenCalled();
+	});
+
+	it('provides a stable selector without an explicit test ID', () => {
+		render(
+			<NavItem
+				item={{ key: '/home', label: 'Home' }}
+				isActive={false}
+				isDisabled={false}
+				onClick={jest.fn()}
+			/>,
+		);
+		expect(screen.getByTestId('nav-item-/home')).toHaveAccessibleName('Home');
+	});
+
+	it('does not pin a disabled item', async () => {
+		const onTogglePin = jest.fn();
+		render(
+			<NavItem
+				item={{ key: 'home', label: 'Home' }}
+				isActive={false}
+				isDisabled
+				onClick={jest.fn()}
+				onTogglePin={onTogglePin}
+			/>,
+		);
+		const pin = screen.getByTestId('nav-pin-home');
+		expect(pin).toBeDisabled();
+		await userEvent.click(pin);
+		expect(onTogglePin).not.toHaveBeenCalled();
 	});
 });
