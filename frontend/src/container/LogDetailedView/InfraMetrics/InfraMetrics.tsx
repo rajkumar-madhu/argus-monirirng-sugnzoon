@@ -1,12 +1,15 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Empty } from 'antd';
 import ArgusRadioGroup from 'components/ArgusRadioGroup/ArgusRadioGroup';
-import { History, Table } from '@signozhq/icons';
+import ROUTES from 'constants/routes';
+import { Activity, History, Table } from '@signozhq/icons';
 import { DataSource } from 'types/common/queryBuilder';
 
 import { VIEW_TYPES } from './constants';
 import NodeMetrics from './NodeMetrics';
 import PodMetrics from './PodMetrics';
+import ServiceMetrics from './ServiceMetrics';
 
 import './InfraMetrics.styles.scss';
 
@@ -15,6 +18,7 @@ interface MetricsDataProps {
 	nodeName: string;
 	hostName: string;
 	clusterName: string;
+	serviceName?: string;
 	timestamp: string;
 	dataSource: DataSource.LOGS | DataSource.TRACES;
 }
@@ -24,25 +28,41 @@ function InfraMetrics({
 	nodeName,
 	hostName,
 	clusterName,
+	serviceName = '',
 	timestamp,
 	dataSource = DataSource.LOGS,
 }: MetricsDataProps): JSX.Element {
-	const [selectedView, setSelectedView] = useState<string>(() =>
-		podName ? VIEW_TYPES.POD : VIEW_TYPES.NODE,
-	);
+	const [selectedView, setSelectedView] = useState<string>(() => {
+		if (serviceName) {
+			return VIEW_TYPES.SERVICE;
+		}
+		return podName ? VIEW_TYPES.POD : VIEW_TYPES.NODE;
+	});
 
 	const viewOptions = useMemo(() => {
-		const options = [
-			{
+		const options = [];
+
+		if (serviceName) {
+			options.push({
 				label: (
 					<div className="view-title">
-						<Table size={14} />
-						Node
+						<Activity size={14} />
+						Service
 					</div>
 				),
-				value: VIEW_TYPES.NODE,
-			},
-		];
+				value: VIEW_TYPES.SERVICE,
+			});
+		}
+
+		options.push({
+			label: (
+				<div className="view-title">
+					<Table size={14} />
+					Node
+				</div>
+			),
+			value: VIEW_TYPES.NODE,
+		});
 
 		if (podName) {
 			options.push({
@@ -57,17 +77,17 @@ function InfraMetrics({
 		}
 
 		return options;
-	}, [podName]);
+	}, [podName, serviceName]);
 
 	const handleModeChange = (value: string): void => {
 		setSelectedView(value);
 	};
 
-	if (!podName && !nodeName && !hostName) {
+	if (!podName && !nodeName && !hostName && !serviceName) {
 		const emptyStateDescription =
 			dataSource === DataSource.TRACES
-				? 'No data available. Please select a span containing a pod, node, or host attributes to view metrics.'
-				: 'No data available. Please select a valid log line containing a pod, node, or host attributes to view metrics.';
+				? 'No data available. Please select a span containing a service, pod, node, or host attribute to view metrics.'
+				: 'No data available. Please select a valid log line containing a service, pod, node, or host attribute to view metrics.';
 
 		return (
 			<div className="empty-container">
@@ -81,13 +101,37 @@ function InfraMetrics({
 
 	return (
 		<div className="infra-metrics-container">
+			{(hostName || podName) && (
+				<div className="infra-metrics-deep-links">
+					{hostName ? (
+						<Link
+							to={`${ROUTES.INFRASTRUCTURE_MONITORING_HOSTS}?search=${encodeURIComponent(hostName)}`}
+							target="_blank"
+							rel="noreferrer"
+						>
+							Open host in Infrastructure Monitoring
+						</Link>
+					) : null}
+					{podName ? (
+						<Link
+							to={`${ROUTES.INFRASTRUCTURE_MONITORING_KUBERNETES}?entity=pod&search=${encodeURIComponent(podName)}`}
+							target="_blank"
+							rel="noreferrer"
+						>
+							Open pod in Infrastructure Monitoring
+						</Link>
+					) : null}
+				</div>
+			)}
 			<ArgusRadioGroup
 				value={selectedView}
 				onChange={handleModeChange}
 				className="views-tabs"
 				options={viewOptions}
 			/>
-			{/* TODO(Rahul): Make a common config driven component for this and other infra metrics components */}
+			{selectedView === VIEW_TYPES.SERVICE && serviceName && (
+				<ServiceMetrics serviceName={serviceName} timestamp={timestamp} />
+			)}
 			{selectedView === VIEW_TYPES.NODE && (
 				<NodeMetrics
 					nodeName={nodeName}

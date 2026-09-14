@@ -2754,6 +2754,7 @@ export const podWidgetInfo = [
 export const VIEW_TYPES = {
 	NODE: 'node',
 	POD: 'pod',
+	SERVICE: 'service',
 };
 
 export const nodeWidgetInfo = [

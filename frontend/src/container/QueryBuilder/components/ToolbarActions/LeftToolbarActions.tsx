@@ -43,7 +43,7 @@ export default function LeftToolbarActions({
 			)}
 			<div className="left-toolbar-query-actions">
 				{list?.show && (
-					<Tooltip title="List View">
+					<Tooltip title="List view — simple filters and where-clause search">
 						<Button
 							disabled={list.disabled}
 							className={cx(
@@ -77,7 +77,7 @@ export default function LeftToolbarActions({
 				)}
 
 				{timeseries?.show && (
-					<Tooltip title="Time Series">
+					<Tooltip title="Advanced search — full query builder with aggregations and group-by">
 						<Button
 							disabled={timeseries.disabled}
 							className={cx(
@@ -86,9 +86,10 @@ export default function LeftToolbarActions({
 								selectedView === timeseries.key ? activeTab : '',
 							)}
 							onClick={(): void => onChangeSelectedView(timeseries.key)}
+							data-testid="advanced-search-view"
 						>
 							<Atom size={14} data-testid="query-builder-view" />
-							Time Series
+							Advanced search
 						</Button>
 					</Tooltip>
 				)}
@@ -111,7 +112,7 @@ export default function LeftToolbarActions({
 				)}
 
 				{table?.show && (
-					<Tooltip title="Table">
+					<Tooltip title="Table — ranked aggregations for starter dashboards">
 						<Button
 							disabled={table.disabled}
 							className={cx(

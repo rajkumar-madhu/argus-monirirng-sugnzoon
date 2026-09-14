@@ -1,4 +1,5 @@
 import { type ChangeEvent, type KeyboardEvent, useState } from 'react';
+import { generatePath } from 'react-router-dom';
 import {
 	Check,
 	LayoutDashboard,
@@ -10,20 +11,31 @@ import { Input } from '@signozhq/ui/input';
 import { toast } from '@signozhq/ui/sonner';
 import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
+import { createDashboardV2 } from 'api/generated/services/dashboard';
+import ROUTES from 'constants/routes';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
+import { useSafeNavigate } from 'hooks/useSafeNavigate';
+import { useErrorModal } from 'providers/ErrorModalProvider';
+import { DashboardListEvents } from 'pages/DashboardsListPage/constants/events';
+import APIError from 'types/api/error';
+
+import {
+	LOG_STARTER_TEMPLATES,
+	LogStarterTemplate,
+} from './logStarterTemplates';
 
 import styles from './NewDashboardModal.module.scss';
 
 const TEMPLATES_DOCS_URL =
-	'https://signoz.io/docs/dashboards/dashboard-templates/overview/';
+	'https://github.com/rajkumar-madhu/argus-monirirng-sugnzoon/blob/feat/argus-community-fork/docs/ARGUS.md';
 
-// Templates aren't served by the BE yet, so this tab is a browse-and-request
-// placeholder: link out to the published template library, and let cloud users
-// request one we haven't built.
 function TemplatesPanel(): JSX.Element {
 	const { isCloudUser } = useGetTenantLicense();
+	const { safeNavigate } = useSafeNavigate();
+	const { showErrorModal } = useErrorModal();
 	const [name, setName] = useState('');
 	const [submitting, setSubmitting] = useState(false);
+	const [creatingId, setCreatingId] = useState<string | null>(null);
 
 	const requestName = name.trim();
 
@@ -50,6 +62,32 @@ function TemplatesPanel(): JSX.Element {
 		}
 	};
 
+	const handleCreateStarter = async (
+		template: LogStarterTemplate,
+	): Promise<void> => {
+		if (creatingId) {
+			return;
+		}
+		try {
+			setCreatingId(template.id);
+			const created = await createDashboardV2(template.payload);
+			void logEvent(DashboardListEvents.DashboardCreated, {
+				method: 'log-starter',
+				templateId: template.id,
+			});
+			safeNavigate(
+				generatePath(ROUTES.DASHBOARD, { dashboardId: created.data.id }),
+			);
+		} catch (error) {
+			showErrorModal(error as APIError);
+			toast.error(
+				error instanceof Error ? error.message : 'Failed to create starter pack',
+			);
+		} finally {
+			setCreatingId(null);
+		}
+	};
+
 	return (
 		<div className={styles.templatesPanel}>
 			<span className={styles.templatesIcon}>
@@ -64,9 +102,42 @@ function TemplatesPanel(): JSX.Element {
 				color="muted"
 				className={styles.templatesDesc}
 			>
-				Browse our library of ready-made dashboards, or request a new one and
-				we&apos;ll build it for you.
+				Start from Argus log starter packs (Log Observer–style), or browse docs for
+				more patterns. Starter packs create a named dashboard; add panels from Logs
+				Explorer with Add to dashboard.
 			</Typography>
+
+			<div className={styles.starterList}>
+				{LOG_STARTER_TEMPLATES.map((template) => (
+					<div key={template.id} className={styles.starterCard}>
+						<div>
+							<Typography variant="text" size="sm" weight="semibold">
+								{template.title}
+							</Typography>
+							<Typography variant="text" size="xs" color="muted">
+								{template.description}
+							</Typography>
+						</div>
+						<Button
+							variant="solid"
+							color="primary"
+							size="sm"
+							disabled={creatingId !== null}
+							testId={`log-starter-${template.id}`}
+							prefix={
+								creatingId === template.id ? (
+									<LoaderCircle size={14} className={styles.spinner} />
+								) : undefined
+							}
+							onClick={(): void => {
+								void handleCreateStarter(template);
+							}}
+						>
+							Use template
+						</Button>
+					</div>
+				))}
+			</div>
 
 			<a
 				className={styles.browseLink}
@@ -74,7 +145,7 @@ function TemplatesPanel(): JSX.Element {
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				Browse dashboard templates
+				Argus logs &amp; dashboard notes
 				<SquareArrowOutUpRight size={14} />
 			</a>
 

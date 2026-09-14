@@ -1,6 +1,6 @@
 {
 	"total_retention_period": "Total Retention Period",
-	"move_to_s3": "Move to S3\n(should be lower than total retention period)",
+	"move_to_s3": "Move to S3 (cold archive)\n(should be lower than total retention)\nOlder logs leave hot disk after this period — keep queries on recent data cheap.",
 	"status_message": {
 		"success": "Your last call to change retention period to {{total_retention}} {{s3_part}} was successful.",
 		"failed": "Your last call to change retention period to {{total_retention}} {{s3_part}} failed. Please try again.",

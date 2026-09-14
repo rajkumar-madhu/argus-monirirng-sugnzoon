@@ -100,6 +100,21 @@ Production-ish compose lives in [`infra/hostinger-vm/`](../infra/hostinger-vm/).
 
 **Live check (2026-09-11):** UI `http://213.210.36.154:8089/` returned HTTP 200; WeCrew `kind-wecrew` + Traefik left running. ClickHouse image must be **25.12.5+**. Collector health and OTLP stay off the public NIC (`127.0.0.1` / container-local) — do not probe `:13133` or `:4317`/`:4318` on the host IP.
 
+## Logs Explorer (vs Splunk Log Observer Connect)
+
+Argus keeps logs, metrics, and traces in one stack. You do **not** need a Splunk-style “Connect” bridge unless logs already live only in Splunk.
+
+| Capability | Where in Argus |
+|------------|----------------|
+| Related metrics for a log | Log detail → **Metrics** tab (Service / Node / Pod) |
+| Trace from a log | Log highlight **TRACE ID** |
+| Infra context | Log highlights **HOST** / **POD** → Infrastructure Monitoring |
+| Simple vs advanced search | Logs Explorer **List View** vs **Advanced search** (full query builder) |
+| Starter log dashboards | Dashboards → New → **From a template** → Logs starter packs |
+| Cross-team source of truth | One org + RBAC; use tags `team:…` / `signal:logs` on dashboards; Eng/IT/SecOps share the same ClickHouse logs store |
+| Cold / archive storage | Settings → **General** → Logs retention + **Move to S3** (when S3 disks exist). Keep hot retention short; move older logs to S3 to cut disk cost. There is no separate “archive browser” — query still goes through Argus with TTL |
+| Splunk Connect clone | **Out of scope** for this community fork. Ingest with OTLP/collectors into Argus, or keep Splunk as a separate store |
+
 ## Fork verification notes
 
 - OpenAPI product metadata is Argus (`docs/api/openapi.yml` title/contact). Orval regen skipped (v8.9.1 crash on regenerated spec) — keep existing `frontend/src/api/generated/`.

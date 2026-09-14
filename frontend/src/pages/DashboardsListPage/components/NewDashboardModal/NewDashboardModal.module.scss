@@ -82,16 +82,17 @@
 	}
 }
 
-// "From a template" tab: a centered browse-and-request placeholder until the
-// templates BE lands. Fixed height matches .panel so switching tabs won't resize.
+// "From a template" tab: Argus log starter packs + optional cloud request form.
 .templatesPanel {
-	height: 460px;
+	min-height: 460px;
+	max-height: 560px;
+	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	gap: 12px;
-	padding: 6px 24px;
+	padding: 16px 24px;
 	text-align: center;
 }
 
@@ -109,7 +110,27 @@
 }
 
 .templatesDesc {
-	max-width: 360px;
+	max-width: 420px;
+}
+
+.starterList {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+	max-width: 480px;
+	text-align: left;
+}
+
+.starterCard {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 12px;
+	border: 1px solid var(--bg-slate-400, #3a3a3a);
+	border-radius: 8px;
+	background: transparent;
 }
 
 .browseLink {

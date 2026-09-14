@@ -4,7 +4,9 @@ import { LogType } from 'components/Logs/LogStateIndicator/LogStateIndicator';
 import { getLogIndicatorType } from 'components/Logs/LogStateIndicator/utils';
 import { ILog } from 'types/api/logs/log';
 
+import InfraResourceField from './InfraResourceField';
 import styles from './LogHighlights.module.scss';
+import ServiceNameField from './ServiceNameField';
 import TraceIdField from './TraceIdField';
 
 // Severity badge color mirrors the LogStateIndicator bar
@@ -48,11 +50,7 @@ export const LOG_HIGHLIGHTS: LogHighlightConfig[] = [
 		label: 'SERVICE',
 		render: (log): ReactNode | null => {
 			const value = getAttr(log, 'service.name');
-			return value
-				? valueBadge(value, {
-						prefix: <span className={styles.serviceDot} />,
-					})
-				: null;
+			return value ? <ServiceNameField serviceName={value} /> : null;
 		},
 	},
 	{
@@ -81,6 +79,26 @@ export const LOG_HIGHLIGHTS: LogHighlightConfig[] = [
 		render: (log): ReactNode | null => {
 			const value = getAttr(log, 'deployment.environment');
 			return value ? valueBadge(value) : null;
+		},
+	},
+	{
+		key: 'host',
+		label: 'HOST',
+		render: (log): ReactNode | null => {
+			const value = getAttr(log, 'host.name');
+			return value ? (
+				<InfraResourceField label="HOST" value={value} kind="host" />
+			) : null;
+		},
+	},
+	{
+		key: 'pod',
+		label: 'POD',
+		render: (log): ReactNode | null => {
+			const value = getAttr(log, 'k8s.pod.name');
+			return value ? (
+				<InfraResourceField label="POD" value={value} kind="pod" />
+			) : null;
 		},
 	},
 	{

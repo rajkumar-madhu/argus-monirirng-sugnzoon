@@ -33,6 +33,25 @@ describe('ToolbarActions', () => {
 		},
 	};
 
+	it('LeftToolbarActions - renders Advanced search for timeseries view', async () => {
+		const handleChangeSelectedView = jest.fn();
+		render(
+			<LeftToolbarActions
+				items={defaultItems}
+				selectedView={ExplorerViews.LIST}
+				onChangeSelectedView={handleChangeSelectedView}
+				showFilter
+				handleFilterVisibilityChange={mockHandleFilterVisibilityChange}
+			/>,
+		);
+		expect(screen.getByText('Advanced search')).toBeInTheDocument();
+		expect(screen.getByTestId('advanced-search-view')).toBeInTheDocument();
+		await userEvent.click(screen.getByTestId('query-builder-view'));
+		expect(handleChangeSelectedView).toHaveBeenCalledWith(
+			ExplorerViews.TIMESERIES,
+		);
+	});
+
 	it('LeftToolbarActions - renders correctly with default props', async () => {
 		const handleChangeSelectedView = jest.fn();
 		const { queryByTestId } = render(

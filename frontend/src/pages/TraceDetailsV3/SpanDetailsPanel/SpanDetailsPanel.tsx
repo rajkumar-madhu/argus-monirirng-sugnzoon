@@ -197,6 +197,7 @@ function SpanDetailsContent({
 			podName: getSpanAttribute(selectedSpan, 'k8s.pod.name') || '',
 			nodeName: getSpanAttribute(selectedSpan, 'k8s.node.name') || '',
 			hostName: getSpanAttribute(selectedSpan, 'host.name') || '',
+			serviceName: getSpanAttribute(selectedSpan, 'service.name') || '',
 			spanTimestamp: dayjs(selectedSpan.timestamp).format(),
 		};
 	}, [selectedSpan]);
@@ -363,6 +364,7 @@ function SpanDetailsContent({
 										podName={infraMetadata.podName}
 										nodeName={infraMetadata.nodeName}
 										hostName={infraMetadata.hostName}
+										serviceName={infraMetadata.serviceName}
 										timestamp={infraMetadata.spanTimestamp}
 										dataSource={DataSource.TRACES}
 									/>

@@ -541,6 +541,11 @@ function LogDetailInner({
 						podName={log.resources_string?.[RESOURCE_KEYS.POD_NAME] || ''}
 						nodeName={log.resources_string?.[RESOURCE_KEYS.NODE_NAME] || ''}
 						hostName={log.resources_string?.[RESOURCE_KEYS.HOST_NAME] || ''}
+						serviceName={
+							log.resources_string?.[RESOURCE_KEYS.SERVICE_NAME] ||
+							log.attributes_string?.[RESOURCE_KEYS.SERVICE_NAME] ||
+							''
+						}
 						timestamp={log.timestamp.toString()}
 						dataSource={DataSource.LOGS}
 					/>
