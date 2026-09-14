@@ -109,8 +109,8 @@ services:
       ARGUS_TELEMETRYSTORE_CLICKHOUSE_DSN: tcp://clickhouse:9000
       ARGUS_APISERVER_ADDRESS: 0.0.0.0:8080
       ARGUS_GLOBAL_EXTERNAL_URL: ${ARGUS_EXTERNAL_URL:-http://213.210.36.154:8089}
-      # Set in /opt/argus-monitoring/.env — required beyond lab use
-      ARGUS_TOKENIZER_JWT_SECRET: ${ARGUS_TOKENIZER_JWT_SECRET:-}
+      # Set a strong signing key in /opt/argus-monitoring/.env before starting Argus.
+      ARGUS_TOKENIZER_JWT_SECRET: ${ARGUS_TOKENIZER_JWT_SECRET:?Set ARGUS_TOKENIZER_JWT_SECRET in the server .env file}
     volumes:
       - argus-data:/var/lib/argus
       - ./argus.yaml:/etc/argus/config.yaml:ro

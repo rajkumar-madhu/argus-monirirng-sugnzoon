@@ -38,3 +38,7 @@ instrumentation:
 
 pprof:
   enabled: false
+
+prometheus:
+  active_query_tracker:
+    path: /var/lib/argus/query-tracker
