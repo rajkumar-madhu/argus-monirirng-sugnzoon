@@ -121,16 +121,18 @@ ssh -N -L 4317:127.0.0.1:4317 -L 4318:127.0.0.1:4318 root@213.210.36.154
 
 ## Customer HTTP dashboard (Grafana-style Nginx)
 
-Argus ships a **Nginx customer overview** dashboard (same KPI + traffic + acquisition layout as the [Grafana Loki Nginx dashboard](https://grafana.com/grafana/dashboards/12559-nginx/)):
+Argus ships a 20-panel **Nginx customer overview** (same KPI + traffic + acquisition layout as the [Grafana Loki Nginx dashboard](https://grafana.com/grafana/dashboards/12559-nginx/)). Build it as a **custom dashboard** (not only via the integration):
 
 1. Sign in at http://213.210.36.154:8089/
-2. **Integrations → Nginx → Enable**
-3. Point a collector at access/error logs (`NGINX_ACCESS_LOG_FILE`) and export OTLP to `127.0.0.1:4317` (same host or via the SSH tunnel above)
-4. Open the integration’s **Nginx customer overview** dashboard
+2. **Dashboards → New dashboard → Import JSON**
+3. Upload [`infra/hostinger-vm/dashboards/customer-http.json`](dashboards/customer-http.json) (`name`: `nginx-customer-overview`)
+4. Point a collector at access/error logs (`NGINX_ACCESS_LOG_FILE`) and export OTLP to loopback `127.0.0.1:4317` (SSH tunnel above). Combined logs need `attributes.source=nginx`.
 
-Definition (also importable): [`pkg/query-service/app/integrations/builtin_integrations/nginx/assets/dashboards/overview.json`](../../pkg/query-service/app/integrations/builtin_integrations/nginx/assets/dashboards/overview.json)
+Or **Integrations → Nginx → Enable** to provision the same definition from [`pkg/query-service/app/integrations/builtin_integrations/nginx/assets/dashboards/overview.json`](../../pkg/query-service/app/integrations/builtin_integrations/nginx/assets/dashboards/overview.json).
 
-Geo map and p95 latency need extra Nginx `log_format` fields (`$request_time`, GeoIP). Combined logs cover everything else.
+Panels: total/2xx/4xx/5xx requests, bytes, unique visitors, Googlebot, status + bytes time series, method/status mix, top pages/referrers/agents/IPs, live request list. Geo map and p95 latency need extra Nginx `log_format` fields (`$request_time`, GeoIP).
+
+ClickHouse + collector must be running or every panel is empty. Do not start them on this Hostinger box if available RAM is under ~5–6 GiB (kind-wecrew already uses most of the 31 GiB).
 
 ## Safety rules
 
